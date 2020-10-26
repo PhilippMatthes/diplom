@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - master
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - v*
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    container:
+      image: aergus/latex
+      volumes:
+        - /workspace:/github/workspace
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Build the thesis
+        run: make
+
+      - name: Make necessary environment variables available
+        id: environment
+        run: |
+          echo "::set-output name=date::$(date +'%Y-%m-%dT%H-%M-%SZ')"
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+      - name: Upload thesis.pdf to build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: thesis-${{ steps.environment.outputs.date }}.pdf
+          path: thesis.pdf
+
+      - name: Upload thesis.log to build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: thesis-${{ steps.environment.outputs.date }}.log
+          path: thesis.log
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: release-${{ steps.environment.outputs.date }}
+          release_name: Release from ${{ steps.environment.outputs.date }}
+          body: This release was created on ${{ steps.environment.outputs.date }}.
+          draft: false
+          prerelease: false
+
+      - name: Upload thesis.pdf to release assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: thesis.pdf
+          asset_name: thesis-${{ steps.environment.outputs.date }}.pdf
+          asset_content_type: application/pdf
+
+      - name: Upload thesis.log to release assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: thesis.log
+          asset_name: thesis-${{ steps.environment.outputs.date }}.log
+          asset_content_type: text/plain
