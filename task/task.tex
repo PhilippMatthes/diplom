@@ -1,0 +1,24 @@
+\documentclass[ngerman]{tudscrreprt}
+\ifpdftex{
+\usepackage[T1]{fontenc}
+\RequirePackage[ngerman=ngerman-x-latest]{hyphsubst}
+\usepackage{babel}
+\usepackage{isodate}
+\usepackage{tudscrsupervisor}
+\usepackage{enumitem}\setlist{noitemsep}
+\begin{document}
+\faculty{Fakultät Informatik}
+\institute{Institut für Systemarchitektur}\chair{Professur für Rechnernetze}
+\title{%
+Erstellung und Evaluation eines KI-Konzeptes zur Kontextmodellierung und Echtzeit-Gefahrenerkennung im Straßenverkehr auf Smartphones
+}
+\thesis{diploma}\graduation[Dipl.-Inf.]{Diplom-Informatiker}
+\author{%
+Philipp Matthes\matriculationnumber{4605459}%
+\dateofbirth{12.3.1997}\placeofbirth{Chemnitz}%
+}\matriculationyear{2016}\issuedate{1.1.1970}\duedate{1.1.1970}
+\supervisor{Dr. Thomas Springer}\professor{Prof. Dr. rer. nat. habil. Dr. h. c. Alexander Schill}
+\taskform[pagestyle=empty]{%
+Moderne Fahrerassistenzsysteme sind dazu in der Lage, über eine integrierte Sensorik des Fahrzeugs dessen Kontext so zu modellieren, dass sie Gefahrensituationen erkennen und proaktiv reagieren können, beispielsweise durch einen Eingriff in die Aktorik oder durch das Ausgeben von Warnsignalen über das Infotainment-System zur Erhöhung der Aufmerksamkeit des Fahrers. Hierzu werden die sensorischen Daten in Echtzeit aufbereitet und in Form von Feature-Tensoren bereitgestellt, welche bezüglich des Gefahrenpotenzials bewertet werden können, um Gefahrensituationen zu antizipieren und entsprechende proaktive Schutzmaßnahmen dagegen einzuleiten. Hierbei werden Algorithmen der künstlichen Intelligenz genutzt, welche jeweils ihre eigene spezialisierte Erkennung (semantische Bildsegmentation, monokulare Tiefeninterpretation und viele weitere) durchführen. Die KI-Infrastruktur wird hierbei in Echtzeit auf spezialisierten, hochparallelisierten Computerchips im Fahrzeug ausgeführt. Seit wenigen Jahren ist es möglich, auch auf Smartphone-Chips künstliche neuronale Netzwerke einzusetzen und zu trainieren, jedoch mit technischen Limitation, welche direkt deren Leistungsfähigkeit begrenzt. Diese Forschungsarbeit soll vor diesem Hintergrund evaluieren, inwiefern bereits heute künstliche neuronale Netzwerke auch auf Smartphones eingesetzt werden können, um Gefahrensituationen auf Grundlage von Kontextdaten (Kamera, Bewegungssensorik) zu erkennen und Fahrern ein visuelles oder akustisches Warnsignal zur Erhöhung der Aufmerksamkeit in Antizipation der möglichen Gefahrensituation auszugeben. Hierzu sollen Methoden der künstlichen Intelligenz recherchiert und analysiert werden, mit denen sich eine solche Gefahrenerkennung umsetzen lässt. Hierzu muss evaluiert werden, inwiefern sich diese Methoden mit Hinblick auf zu konkretisierende technische Limitation für den Einsatz in Smartphones eignen. Anschließend sollen die gefundenen Methoden in einem Konzept kombiniert und prototypisch implementiert werden. Desweiteren sollen geeignete Testfälle erstellt werden, auf deren Grundlage die prototypische Implementation angelernt und schließlich evaluiert werden soll. Im Zuge der Evaluation soll eingeschätzt werden, inwiefern sich eine Gefahrenerkennung zur Erhöhung der Sicherheit im Straßenverkehr, ähnlich wie sie in moderenen Fahrerassistenzsystemen zum Einsatz kommt, auch auf mobilen Geräten umsetzen lässt.
+}{}
+\end{document}
