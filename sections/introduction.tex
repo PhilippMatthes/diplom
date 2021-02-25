@@ -1,85 +1,30 @@
-\chapter{Examples}\label{ch:examples}\pagenumbering{arabic}
+\chapter{Einleitung}\label{ch:einleitung}\pagenumbering{arabic}
 
-\todo{Remove this example todo.}
+\section{Gegenstand und Motivation}\label{sec:gegenstand-und-motivation}
 
-\section{Inline Code, Footnotes and URLs}
+% Darstellung des Kontextes der Arbeit
 
-This an example text, which shows you, how to use the \texttt{tudscr}\footnote{TUD-Script. \url{https://github.com/tud-cd/tudscr} (Visited on Sept. 15 2020)} template and its components. Feel free to remove this example text or use the provided segments for your thesis.
+STADTRADELN\footnote{\url{https://www.stadtradeln.de/darum-geht-es} (Abgerufen am 25.2.2021)} ist ein Projekt, bei dem Radfahrende teilnehmen können, um kollektiv mit dem Rad gefahrene Kilometer für den Klimaschutz zu sammeln. Begleitet wird das Projekt durch eine mobile App, mithilfe derer Nutzende ihre gefahrenen Kilometer tracken und sich mit anderen Teilnehmenden vergleichen können. Im Rahmen des Forschungsprojektes Movebis\footnote{\url{https://www.movebis.org/das-projekt/} (Abgerufen am 25.2.2021)} werden die hierbei erhobenen Daten ausgewertet und mithilfe von konkreten Kenngrößen visuell aufbereitet. Die aufbereiteten Daten werden der kommunalen Verkehrsplanung anschließend zur Verfügung gestellt, mit dem Ziel, die Planung der Radverkehrsinfrastruktur zu verbessern.
 
-\section{Research Questions, Inline TODOs, Citations and Referencing}
+% Fokussierung auf ein konkretes Teilgebiet des Kontextes + Motivation
 
-We'd like to answer the following research goals.\todo[inline]{You may of course write some more text than given in this example.}
+Die von der STADTRADELN-App erhobenen Daten\footnote{\url{https://www.stadtradeln.de/datenschutz} (Abgerufen am 25.2.2021)} werden zu einem Server hochgeladen und von diesem für die spätere Auswertung protokolliert. Hierbei können Nutzende selbst entscheiden, zu welchen Zeitpunkten die Datenerfassung gestartet und beendet wird. Hierbei existiert nach aktuellem Stand kein Kontrollmechanismus, mithilfe dessem verifiziert werden kann, dass sich ein Nutzender noch mit dem Fahrrad bewegt. Daher ist nicht ausgeschlossen, dass Datenpakete außerhalb des gewünschten Zielkontextes zum Server übermittelt werden. Im Movebis-Projekt wurden daher verschiedene Machine-Learning-Modelle entwickelt, durch deren Einsatz für den Zielkontext plausible von unplausiblen Datensätzen unter Berücksichtigung einer bestimmten Fehlerrate getrennt werden können. Die entwickelten Machine-Learning-Modelle ermöglichen ein Filtering der Datensätze zum Zeitpunkt der Auswertung, reduzieren jedoch \textit{nicht} den initialen Transfer der unplausiblen Datensätze vom mobilen Endgerät zum Server.
 
-\begin{researchquestion}\label{rq:matrix}
-Do we live in the Matrix?
-\end{researchquestion}
+% Erläuterung des konkreten Gegenstands der Arbeit + Motivation + Relevanz
 
-\noindent Feel free to explain the motivation behind your research questions.
+Mithilfe eines App-seitigen Erkennungsmechanismus für die Zugehörigkeit der Datenpakete zum gewünschten Zielkontext könnten nicht zugehörige Datenpakete vom Netzwerktransfer ausgeschlossen werden, um genutzte Bandbreite und Energie auf dem mobilen Endgerät zu sparen. Durch die App-seitige Erkennung des Kontextes wäre es außerdem möglich, Nutzende bei der Beendigung des Radfahrens an die noch laufende In-App-Aktivität, beispielsweise über Notifikationen, zu erinnern. Eine solche Kontexterkennung wird beispielsweise bereits im Betriebssystem der Apple Watch seit 2018 (mit Release von WatchOS 5) durchgeführt, um sportliche Aktivitäten zu erkennen und in Form von \enquote{Workout Reminders} in das Interaktionsschema zu integrieren\footnote{\url{https://support.apple.com/en-us/HT204523} (Abgerufen am 25.2.2021)}. Die Anwendungsgebiete einer solchen App-seitigen Kontexterkennung beschränken sich somit nicht nur auf das App-seitige Filtering von Datenpaketen, sondern ermöglichen auch die Integration von weiteren Interaktionsschemata.
 
-\begin{researchquestion}\label{rq:possible}
-Based on \cite{gos_2020}, is it actually possible to answer \Cref{rq:matrix} in the first place?
-\end{researchquestion}
+\section{Problem- und Zielstellung}\label{sec:problem-und-zielstellung}
 
-\noindent This research question is relevant, because it just came to my mind. Pull Request if you have a better example, thanks.
+% Ziele der arbeit und erkenntnisinteresse:
 
-\section{Including Graphics and Paragraphs}
+% - Wie sind die erhobenen Datenpakete strukturiert und mithilfe welcher attribute kann eine Kontextabbildung erfolgen?
+% - Welche potentiellen Abweichungen und Fehler sind innerhalb der Sensordaten zu erwarten?
+% - Welche klassifikationsmethoden gibt es und welche Kennzahlen charakterisieren sie?
+% - Welche eignen sich für die implementation auf einem mobilen endgerät (identifikation von limitierenden Faktoren)?
+% - Welche Auswirkungen hat die Einführung eines solchen Klassifikationsmechanismus auf die Reduktion des datenpaketbasierten Netzwerktransfers (quantitativ)?
+% - Inwiefern kann der Kontext-Klassifikationsmechanismus auf andere Kontexte erweitert werden?
 
-Although this has really nothing to do with the previous sections, take the following as an example of how to include graphics.
+% Mögliche Ergebnisse skizzieren
 
-\begin{figure}[H]
-\includegraphics[width=\linewidth, bb=0 0 1626 1038]{example.pdf}
-\caption{A really informative diagram following the magical-number-7-principle of Miller \cite{magical_2020}.}\label{fig:example-single}
-\end{figure}
-
-\noindent As shown in \Cref{fig:example-single}, including graphics is really easy with PDF files, but you need to give it a \textit{bounding box}, which is simply \texttt{0 0 <width> <height>}. Here is how to include PNG files.
-
-\begin{figure}[H]
-\includegraphics[width=0.75\linewidth]{example.png}
-\caption{The same diagram but in PNG and smaller.}\label{fig:example-small}
-\end{figure}
-
-\noindent With PNG, no bounding box must be given, but the size of your thesis PDF will probably increase by some order of magnitudes. So try to use PDF whenever possible. Also, avoid JPEG because of the lossy compression. We want our thesis to look nice, or wont we? Try to fiddle around with the option \texttt{H} after the figure, if it doesn't fit the page. This will not be explained here, read the documentation.
-
-\paragraph{One last example:} use the following snippet to include multiple graphics in a table-like structure.
-
-\begin{figure}[H]
-\begin{tabular}{ll}
-\includegraphics[width=0.4\linewidth, bb=0 0 1626 1038]{example.pdf}
-&
-\includegraphics[width=0.4\linewidth, bb=0 0 1626 1038]{example.pdf}
-\\
-\includegraphics[width=0.4\linewidth, bb=0 0 1626 1038]{example.pdf}
-&
-\includegraphics[width=0.4\linewidth, bb=0 0 1626 1038]{example.pdf}
-\end{tabular}
-\caption{Deja vu? It seems, like I've already seen this diagram.}\label{fig:example-multiple}
-\end{figure}
-
-\section{Code, Tables and Quotation}
-
-What about some nice XML? Btw, always \enquote{quote} with the according tag.
-
-\begin{lstlisting}[language=XML]
-<note>
-  <from>Philipp</from>
-  <to>Reader</to>
-  <heading>Contact me</heading>
-  <email>mail@philippmatth.es</email>
-</note>
-\end{lstlisting}
-
-\noindent Check out this table! Btw, this may seem a bit confusing, but there is \texttt{tabular}, \texttt{tabularx} or for example also \texttt{longtable}, which is for tables across multiple pages.
-
-\begin{table}[H]
-\caption{The caption of your table.}\label{tab:example}
-\begin{tabularx}{\textwidth}{{
-  >{\hsize=.5\hsize\linewidth=\hsize}X
-  >{\hsize=1.5\hsize\linewidth=\hsize}X
-}}
-\hline
-Column 1 & Wider Column 2 \\ \hline \hline
-Entry 1.1 & Entry 1.2 \\ \hline
-\end{tabularx}
-\end{table}
-
-\noindent This was nice. Is there anything missing? File a pull request!
+\section{Aufbau der Arbeit}\label{sec:aufbau-der-arbeit}

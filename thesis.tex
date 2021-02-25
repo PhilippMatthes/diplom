@@ -2,7 +2,7 @@
 \RequirePackage[ngerman=ngerman-x-latest]{hyphsubst}
 
 \documentclass[
-  english, % change to ngerman for german theses
+  ngerman, % change to ngerman for german theses
   symmetric, % use two-side for booklike layouts
   cdfont=off, % modify this to use the TUD font (Open Sans)
   numbers=noenddot % remove trailing dots in chapter/section/... enumeration
@@ -15,7 +15,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[
-  english % change to ngerman for german theses
+  ngerman % change to ngerman for german theses
 ]{babel}
 \usepackage{isodate}
 \usepackage{pdfpages}
@@ -96,8 +96,8 @@
 \input{lst.tex} % code styles (listings)
 
 % use this custom theorem for research questions
-\newtheorem{researchquestion}{Research Question}
-\crefname{researchquestion}{Research Question}{Research Questions}
+\newtheorem{researchquestion}{Forschungsfrage}
+\crefname{researchquestion}{Forschungsfrage}{Forschungsfragen}
 
 % use this custom environment for equations
 \newenvironment{conditions}
@@ -107,8 +107,8 @@
 \usepackage{float}
 
 % configure the name of your appendix
-\renewcommand\appendixtocname{Appendix}
-\renewcommand\appendixpagename{Appendix}
+\renewcommand\appendixtocname{Anhang}
+\renewcommand\appendixpagename{Anhang}
 
 % use \tocless before a chapter/section/... in the
 % appendix to hide it from the toc
@@ -125,27 +125,27 @@
 
   \faculty{Fakultät Informatik}
   \department{}
-  \institute{Institut für Software- und Multimediatechnik}
-  \chair{Lehrstuhl für Softwaretechnologie}
+  \institute{Institut für Systemarchitektur}
+  \chair{Professur für Rechnernetze}
   \title{%
-      Title of your Thesis.
+    Exposé über die Erstellung einer Diplomarbeit
   }
 
-  \thesis{evidence} % the type of thesis you want to write
+  \thesis{diploma} % the type of thesis you want to write
 
-  \author{Max Mustermann}
-  \matriculationnumber{1234567}
-  \matriculationyear{1970}
-  \dateofbirth{1.1.1970}
-  \placeofbirth{Dresden}
+  \author{Philipp Matthes}
+  \matriculationnumber{4605459}
+  \matriculationyear{2016}
+  \dateofbirth{12.3.1997}
+  \placeofbirth{Chemnitz}
 
   \course{Diplom Informatik (PO 2010)}
 
   \supervisor{%
-    Dipl. Inf. Max Mustermann
+    Dr.-Ing. Thomas Springer
   }
-  \professor{Prof. Dr. rer. nat. habil. Max Mustermann}
-  \date{1.1.1970} % the date of submission
+  \professor{Prof. Dr. rer. nat. habil. Dr. h. c. Alexander Schill}
+  \date{1.3.2021} % the date of submission
   \maketitle
 
   \newpage
@@ -156,15 +156,16 @@
 
   % for the order of the following sections please refer to
   % the recommendations for thesis structuring
-  \confirmation
 
-  \tableofcontents
+  % \confirmation
 
-  \listoffigures
-  \addcontentsline{toc}{chapter}{\listfigurename}
+  % \tableofcontents
 
-  \listoftables
-  \addcontentsline{toc}{chapter}{\listtablename}
+  % \listoffigures
+  % \addcontentsline{toc}{chapter}{\listfigurename}
+
+  % \listoftables
+  % \addcontentsline{toc}{chapter}{\listtablename}
 
   % this is where your thesis lives
 
