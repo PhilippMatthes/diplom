@@ -131,7 +131,7 @@
     Exposé über die Erstellung einer Diplomarbeit
   }
 
-  \thesis{diploma} % the type of thesis you want to write
+  % \thesis{diploma} % the type of thesis you want to write
 
   \author{Philipp Matthes}
   \matriculationnumber{4605459}
@@ -150,16 +150,12 @@
 
   \newpage
 
-  % include the task definition if you want
-  % \includepdf[pages=-]{task/task.pdf}
-  % \newpage
-
   % for the order of the following sections please refer to
   % the recommendations for thesis structuring
 
   % \confirmation
 
-  % \tableofcontents
+  \tableofcontents
 
   % \listoffigures
   % \addcontentsline{toc}{chapter}{\listfigurename}
@@ -169,7 +165,7 @@
 
   % this is where your thesis lives
 
-  \input{sections/introduction.tex}
+  \input{sections/einleitung.tex}
 
   \newpage
 
@@ -179,7 +175,9 @@
   \printbibliography[heading=bibintoc]\label{sec:bibliography}%
 
   \begin{appendices}
-    \input{sections/appendix.tex}
+    \addcontentsline{toc}{section}{Entwurf einer Aufgabenstellung}
+    \includepdf[pages=-]{task.pdf}
+    % \input{sections/appendix.tex}
   \end{appendices}
 
 \end{document}

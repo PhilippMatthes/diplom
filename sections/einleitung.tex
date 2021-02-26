@@ -1,0 +1,57 @@
+\chapter{Einleitung}\label{ch:einleitung}\pagenumbering{arabic}
+
+\section{Gegenstand und Motivation}\label{sec:gegenstand-und-motivation}
+
+% Darstellung des Kontextes der Arbeit
+
+STADTRADELN\footnote{\url{https://www.stadtradeln.de/darum-geht-es} (Abgerufen am 25.2.2021)} ist ein Projekt, bei dem Radfahrende teilnehmen können, um kollektiv mit dem Rad gefahrene Kilometer für den Klimaschutz zu sammeln. Begleitet wird das Projekt durch eine mobile App, mithilfe derer Nutzende ihre gefahrenen Kilometer tracken und sich mit anderen Teilnehmenden vergleichen können. Im Rahmen des Forschungsprojektes Movebis\footnote{\url{https://www.movebis.org/das-projekt/} (Abgerufen am 25.2.2021)} werden die hierbei erhobenen Daten ausgewertet und mithilfe von konkreten Kenngrößen visuell aufbereitet. Die aufbereiteten Daten werden der kommunalen Verkehrsplanung anschließend zur Verfügung gestellt, mit dem Ziel, die Planung der Radverkehrsinfrastruktur zu verbessern.
+
+% Fokussierung auf ein konkretes Teilgebiet des Kontextes + Motivation
+
+Die von der STADTRADELN-App erhobenen Daten\footnote{\url{https://www.stadtradeln.de/datenschutz} (Abgerufen am 25.2.2021)} werden zu einem Server hochgeladen und von diesem für die spätere Auswertung protokolliert. Hierbei können Nutzende selbst entscheiden, zu welchen Zeitpunkten die Datenerfassung gestartet und beendet wird. Hierbei existiert nach aktuellem Stand kein Kontrollmechanismus, mithilfe dessem verifiziert werden kann, dass sich ein Nutzender noch mit dem Fahrrad bewegt. Daher ist nicht ausgeschlossen, dass Datenpakete außerhalb des gewünschten Zielkontextes (Fahrrad fahren) zum Server übermittelt werden. Im Movebis-Projekt wurden daher verschiedene Machine-Learning-Modelle entwickelt, durch deren Einsatz für den Zielkontext plausible von unplausiblen Datensätzen unter Berücksichtigung einer bestimmten Fehlerrate getrennt werden können. Die entwickelten Machine-Learning-Modelle ermöglichen ein Filtering der Datensätze zum Zeitpunkt der Auswertung, reduzieren jedoch \textit{nicht} den initialen Transfer der unplausiblen Datensätze vom mobilen Endgerät zum Server.
+
+% Erläuterung des konkreten Gegenstands der Arbeit + Motivation + Relevanz
+
+Mithilfe eines App-seitigen Erkennungsmechanismus für die Zugehörigkeit der Datenpakete zum gewünschten Zielkontext könnten nicht zugehörige Datenpakete vom Netzwerktransfer ausgeschlossen werden, um die genutzte Bandbreite und Energie auf dem mobilen Endgerät zu sparen. Durch die App-seitige Klassifikation des Kontextes wäre es außerdem möglich, Nutzende bei der Beendigung des Radfahrens an die noch laufende In-App-Aktivität, beispielsweise über Notifikationen, zu erinnern. Eine solche Kontextklassifikation wird beispielsweise bereits im Betriebssystem der Apple Watch seit 2018 (mit Release von WatchOS 5) durchgeführt, um sportliche Aktivitäten zu erkennen und in Form von \enquote{Workout Reminders} in das Interaktionsschema zu integrieren\footnote{\url{https://support.apple.com/en-us/HT204523} (Abgerufen am 25.2.2021)}. Die Anwendungsgebiete einer solchen App-seitigen Kontextklassifikation beschränken sich somit nicht nur auf das App-seitige Filtering von Datenpaketen, sondern ermöglichen auch die Integration von weiteren Interaktionsschemata.
+
+\section{Problem- und Zielstellung}\label{sec:problem-und-zielstellung}
+
+Für die Realisation einer solchen Kontextklassifikation (über die Abbildung der GPS- und Sensordaten auf den Kontext) soll ein Machine-Learning-Konzept erstellt werden, anhand dessen diskutiert und evaluiert werden soll, inwiefern dieses für ein App-seitiges Filtering von Datenpaketen und andere Interaktionsschemata auf dem Smartphone genutzt werden kann. Zur differenzierten Diskussion dieses zentralen Forschungsgegenstands sollen folgende konkrete Forschungsfragen eruiert werden:
+
+\begin{researchquestion}\label{rq1}
+Wie sind die im Rahmen der STADTRADELN-App erhobenen Datenpakete strukturiert und mithilfe welcher Attribute kann eine Kontextklassifikation erfolgen?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq2}
+Welche Abweichungen und Fehler sind innerhalb der erfassten Sensordaten zu erwarten und welche Charakteristika oder Muster können zu einer Kontextklassifikation herangezogen werden?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq3}
+Welche hardware- und softwaretechnisch limitierenden Faktoren beschränken die Selektion von konkreten Machine-Learning-Methoden für den Einsatz auf Smartphones gegenüber dem Einsatz in der Datenauswertung?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq4}
+Welche Machine-Learning-Methoden können unter Betrachtung von \Cref{rq3} für die Kontextklassifikation genutzt werden?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq5}
+Wie können die gewählten Machine-Learning-Methoden im Rahmen eines Gesamtkonzeptes mit Fokus auf die Verkehrsmittelerkennung angewandt und implementiert werden?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq6}
+Welche quantitativen Effekte hat der Einsatz eines Konzeptes analog zu \Cref{rq5} auf die Reduktion der Übertragung von unplausiblen Datenpaketen und inwiefern kann das Konzept auf andere Kontexte erweitert werden?
+\end{researchquestion}
+
+\paragraph{Relevanz der obigen Forschungsfragen:} Anhand von \Cref{rq1} und \Cref{rq2} soll ein detailliertes Verständnis für die Struktur und Eigenschaften der STADTRADELN-Daten als Grundlage für die Kontextklassifikation erarbeitet werden. Durch \Cref{rq3} soll ein systematischer Überblick gegeben werden, welche zusätzlichen Herausforderungen App-seitiges (engl. \enquote{on-device}) Machine-Learning einer Wiederverwendung der bestehenden Auswertungssoftware aus dem Movebis-Projekt entgegenstellt. Anschließend soll im Rahmen von \Cref{rq4} geklärt werden, welche konkreten Machine-Learning-Methoden sich prinzipiell für eine App-seitige Kontextklassifikation eignen, um für die Beantwortung von \Cref{rq5} eine empirische Auswahl aus den eruierten Machine-Learning-Methoden in einer Software-Architektur zu kombinieren und zu implementieren. Mithilfe der implementierten Software-Architektur soll \Cref{rq6} untersucht und evaluiert werden, um perspektivisch einen möglichen Einsatz in der STADTRADELN-App oder Apps mit ähnlichem Anwendungsgebiet zu beurteilen.
+
+\section{Aufbau der Arbeit}\label{sec:aufbau-der-arbeit}
+
+\paragraph{Grundlagen:} Zu Beginn der Arbeit werden zunächst grundlegende domänenspezifische Begriffe und Zusammenhänge erläutert. Hierzu wird ein taxonomischer Überblick über Klassifikationssysteme gegeben, sowie welche grundlegenden Ideen diesen zugrundeliegen. Anschließend werden die Grundkonzepte des Machine-Learnings in diese Domäne eingeordnet und wichtige Anwendungsgebiete, Architekturen, Lernmodelle, Test- und Validierungsstrategien und hierbei auftretende Herausforderungen diskutiert. Auf Grundlage dessen werden verschiedene Frameworks gegenübergestellt, mit deren Hilfe Machine-Learning-Ansätze auf Smartphones portiert oder implementiert werden können. Um das Grundlagen-Kapitel zu konkludieren, werden die STADTRADELN-Datenpakete bezüglich ihrer summativen und individuellen Attribute betrachtet.
+
+\paragraph{Verwandte Arbeiten:} An die Betrachtung der Grundlagen schließt sich eine Diskussion verwandter Arbeiten an, insbesondere sollen hierbei neben der verwandten Fachliteratur auch die Arbeiten betrachtet werden, welche im Rahmen der Konzeption und Implementation der Machine-Learning-Ansätze zur Auswertung der Datenpakete im Movebis-Projekt erstellt wurden. Im dazugehörigen Kapitel sollen hierzu verschiedene Forschungsansätze zunächst im Überblick beschrieben werden, um schließlich selektiv einige Forschungsansätze näher, auch anhand der Eignung für eine Anwendung im Rahmen dieser Arbeit, zu diskutieren.
+
+\paragraph{Analyse:} Basierend auf den Grundlagen und verwandten Arbeiten soll anschließend eine zielorientierte Analyse geeigneter Machine-Learning-Methoden durchgeführt werden, deren zentrale Bestandteile auch die Analyse der Datengrundlage und die Ermittlung der Klassifikationsanforderungen sind. Außerdem sollen die analysierten Machine-Learning-Methoden bezüglich einer Eignung für die Implementation auf Smartphones bewertet werden, indem konkrete hardware- und softwaretechnische Limitationen analysiert werden.
+
+\paragraph{Konzeption:} Mithilfe der analysierten Machine-Learning-Ansätze soll ein konkretes Konzept erarbeitet und vorgestellt werden, welches eine Klassifikation des Smartphone-Kontextes anhand des Beispiels der STADTRADELN-Datenpakete umsetzt. In diesem Rahmen soll zu Visualisierungs-, Evaluations- und Testzwecken eine App konzipiert werden, in welcher Datenpakete analog zur STADTRADELN-App erhoben werden können.
+
+\paragraph{Implementation und Evaluation:} Die konzipierte App soll anschließend implementiert werden, wobei der entwickelte Machine-Learning-Ansatz analog zum zuvor entwickelten Konzept mit in die App integriert werden soll. Hierbei sollen zusätzliche Interaktionsschemata aufgezeigt werden, welche über das Paket-Filtering genutzt werden können, um die Menge der abgeschickten Datenpakete außerhalb des Zielkontextes weiterhin zu reduzieren. Um den implementierten Ansatz nachfolgend systematisch und reproduzierbar zu evaluieren, sollen im Rahmen eines Evaluationskonzeptes konkrete Testumgebungen und -parameter festgelegt werden. Mithilfe dieser Testbedingungen soll eine quantitative Analyse der Klassifikation durchgeführt werden, auf deren Grundlage schließlich beurteilt werden soll, inwiefern sich der entwickelte Machine-Learning-Ansatz für die Anwendung des App-seitigen Paket-Filterings eignet.
