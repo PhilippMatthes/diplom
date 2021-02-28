@@ -5,6 +5,7 @@
   ngerman, % change to ngerman for german theses
   symmetric, % use two-side for booklike layouts
   cdfont=off, % modify this to use the TUD font (Open Sans)
+  headings=optiontohead,
   numbers=noenddot % remove trailing dots in chapter/section/... enumeration
 ]{tudscrreprt}
 % use a custom serif font
@@ -116,6 +117,12 @@
 \newcommand{\tocless}[2]{
   \bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup
 }
+
+\usepackage[autooneside=false,automark,headsepline]{scrlayer-scrpage}
+\clearpairofpagestyles
+\ihead{\leftmark}
+\ohead{\ifstr{\leftmark}{\rightmark}{}{\rightmark}}
+\cfoot*{\pagemark}
 
 \begin{document}
 

@@ -56,3 +56,127 @@ Welche quantitativen Effekte hat der Einsatz eines Konzeptes analog zu \Cref{rq5
 \paragraph{Konzeption:} Mithilfe der analysierten Machine-Learning-Ansätze soll ein konkretes Konzept erarbeitet und vorgestellt werden, welches eine Klassifikation des Smartphone-Kontextes anhand des Beispiels der STADTRADELN-Datenpakete umsetzt. In diesem Rahmen soll zu Visualisierungs-, Evaluations- und Testzwecken eine App konzipiert werden, in welcher Datenpakete analog zur STADTRADELN-App erhoben werden können.
 
 \paragraph{Implementation und Evaluation:} Die konzipierte App soll anschließend implementiert werden, wobei der entwickelte Machine-Learning-Ansatz analog zum zuvor entwickelten Konzept mit in die App integriert werden soll. Hierbei sollen zusätzliche Interaktionsschemata aufgezeigt werden, welche über das Paket-Filtering genutzt werden können, um die Menge der abgeschickten Datenpakete außerhalb des Zielkontextes weiterhin zu reduzieren. Um den implementierten Ansatz nachfolgend systematisch und reproduzierbar zu evaluieren, sollen im Rahmen eines Evaluationskonzeptes konkrete Testumgebungen und -parameter festgelegt werden. Mithilfe dieser Testbedingungen soll eine quantitative Analyse der Klassifikation durchgeführt werden, auf deren Grundlage schließlich beurteilt werden soll, inwiefern sich der entwickelte Machine-Learning-Ansatz für die Anwendung des App-seitigen Paket-Filterings eignet.
+
+\section{Vorläufige Gliederung}\label{sec:vorlaufige-gliederung}
+
+Die folgende Gliederung soll einen Überblick über die geplante Struktur der Diplomarbeit geben, analog zu \Cref{sec:aufbau-der-arbeit}.
+
+\begin{enumerate}[label=\Roman*]
+  \item Deckblatt
+  \item Aufgabenstellung im Originaltext
+  \item Erklärung zum Urheberrecht
+  \item Vorwort
+  \item Inhaltsverzeichnis
+  \item Tabellenverzeichnis
+  \item Abbildungsverzeichnis
+  \item Glossar
+\end{enumerate}
+\newlist{gliederung}{enumerate}{10}
+\setlist[gliederung]{label*=.\arabic*}
+\setlist[gliederung,1]{label=\arabic*}
+\begin{gliederung}
+\item Einleitung
+  \begin{gliederung}
+  \item Gegenstand und Motivation
+  \item Problem- und Zielstellung
+  \item Aufbau der Arbeit
+  \end{gliederung}
+\item Grundlagen
+  \begin{gliederung}
+  \item Kontextsensitivität im Mobile Computing
+    \begin{gliederung}
+    \item Taxonomische Einordnung und Definition
+    \item GPS- und Sensordaten als Kontextinformation
+    \item Integration von Kontextinformationen
+    \item Kontextsensitive Adaption
+    \end{gliederung}
+  \item Charakteristische Probleme künstlicher Intelligenz
+    \begin{gliederung}
+    \item Regression, Klassifikation und Generation
+    \item Limitierung und Praktikabilität von herkömmlichen Algorithmen
+    \item Human Activity Recognition und Bewegungsdatenerfassung
+    \end{gliederung}
+  \item Machine-Learning
+    \begin{gliederung}
+    \item Taxonomische Einordnung und Definition
+    \item Datenvorverarbeitung und Konsequenzen
+    \item Lernmethoden
+      \begin{gliederung}
+      \item Supervised Learning
+      \item Unsupervised Learning
+      \item Reinforcement Learning
+      \item Transfer Learning
+      \end{gliederung}
+    \item Überblick über konkrete Machine-Learning-Modelle
+      \begin{gliederung}
+      \item Lineare Regression
+      \item Naive Bayes Klassifikation
+      \item K-Nearest-Neighbors und K-Means-Clustering
+      \item Decision Trees und Random Forests
+      \item Support Vector Machines
+      \item Hidden Markov Models
+      \item Künstliche Neuronale Netze
+      \item Feed-Forward-Netze und Hidden Layer
+      \item Restricted Boltzmann Machines
+      \item Recurrent Neural Networks
+      \item Convolutional Neural Networks
+      \item Metaarchitekturen (Adversarial Neural Networks, Autoencoder)
+      \end{gliederung}
+    \item Typische Probleme von Machine-Learning-Modellen
+    \item Modell-Hyperparameter und deren Auswirkung
+    \item Methoden zur Verbesserung des Lerneffektes
+    \item Methoden zur Validierung und Visualisierung des Lernerfolgs
+      \begin{gliederung}
+      \item K-Fold-Cross-Validation
+      \item Confusion-Matrix
+      \end{gliederung}
+    \end{gliederung}
+  \item Zusammenfassung
+  \end{gliederung}
+\item Verwandte Arbeiten
+  \begin{gliederung}
+  \item Überblick und Meta-Analysen
+  \item Tabellarischer Vergleich von Attributen konkreter Ansätzen
+  \item Konkreter verwandter Ansatz 1
+  \item Konkreter verwandter Ansatz 2
+  \item Konkreter verwandter Ansatz 3
+  \item Zusammenfassung
+  \end{gliederung}
+\item Anforderungsanalyse
+  \begin{gliederung}
+  \item Analyse des Datenbestandes und möglicher Fehlerquellen
+  \item Analyse hardware- und softwaretechnischer Limitationen
+  \item Spezifikation von Rahmenbedingungen und Funktionalitäten
+  \item Zusammenfassung
+  \end{gliederung}
+\item Konzept
+  \begin{gliederung}
+  \item Adaption und Kontextsensitivität
+  \item Kontextklassifikation
+    \begin{gliederung}
+    \item Datenaggregation und -vorverarbeitung
+    \item Architekturentwurf der Klassifikationsmodelle
+    \item Training, Validierung und Test der Modelle
+    \item Integrationskonzept
+    \end{gliederung}
+  \item Evaluationskonzept
+  \end{gliederung}
+\item Implementation
+  \begin{gliederung}
+  \item Implementation des Klassifikationsmodells
+  \item Training, Validierung und Test des Modells
+  \item Erstellung einer prototypischen iOS-App
+  \item Integration des Modells
+  \end{gliederung}
+\item Evaluation
+\item Fazit
+  \begin{gliederung}
+  \item Forschungsbeitrag
+  \item Ausblick
+  \end{gliederung}
+\end{gliederung}
+\begin{enumerate}[label=\roman*]
+\item Anhang
+\item Literaturverzeichnis
+\item Danksagung
+\end{enumerate}
