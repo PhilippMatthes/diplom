@@ -1,0 +1,277 @@
+\chapter{Einleitung}\label{ch:einleitung}\pagenumbering{arabic}
+
+\section{Gegenstand und Motivation}\label{sec:gegenstand-und-motivation}
+
+% Darstellung des Kontextes der Arbeit
+
+STADTRADELN\footnote{\url{https://www.stadtradeln.de/darum-geht-es} (Abgerufen am 25.2.2021)} ist ein Projekt, bei dem Radfahrende teilnehmen können, um kollektiv mit dem Rad gefahrene Kilometer für den Klimaschutz zu sammeln. Begleitet wird das Projekt durch eine mobile App, mithilfe derer Nutzende ihre gefahrenen Kilometer tracken und sich mit anderen Teilnehmenden vergleichen können. Im Rahmen des Forschungsprojektes Movebis\footnote{\url{https://www.movebis.org/das-projekt/} (Abgerufen am 25.2.2021)} werden die hierbei erhobenen Daten ausgewertet und mithilfe von konkreten Kenngrößen visuell aufbereitet. Die aufbereiteten Daten werden der kommunalen Verkehrsplanung anschließend zur Verfügung gestellt, mit dem Ziel, die Planung der Radverkehrsinfrastruktur zu verbessern.
+\\
+
+% Fokussierung auf ein konkretes Teilgebiet des Kontextes + Motivation
+
+\noindent Die von der STADTRADELN-App erhobenen Daten\footnote{\url{https://www.stadtradeln.de/datenschutz} (Abgerufen am 25.2.2021)} werden zu einem Server hochgeladen und von diesem für die spätere Auswertung protokolliert. Hierbei können Nutzende selbst entscheiden, zu welchen Zeitpunkten die Datenerfassung gestartet und beendet wird. Es existiert jedoch nach aktuellem Stand kein Kontrollmechanismus für die App, mithilfe dessem verifiziert werden kann, dass sich ein Nutzender noch mit dem Fahrrad bewegt. Daher ist nicht ausgeschlossen, dass Datenpakete außerhalb des gewünschten Zielkontextes (Fahrrad fahren) zum Server übermittelt werden. Im Umfeld des Movebis-Projektes wurden daher bereits verschiedene Machine-Learning-Ansätze entwickelt, durch deren Einsatz für den Zielkontext plausible von unplausiblen Datensätzen unter Berücksichtigung einer bestimmten Fehlerrate getrennt werden können \cite{matusek_anwendung_2019, stojanov_continuous_2020, werner_kontinuierliche_2020}. Die entwickelten Machine-Learning-Ansätze ermöglichen ein Filtering der Datensätze zum Zeitpunkt der Auswertung, reduzieren jedoch \textit{nicht} den initialen Transfer der unplausiblen Datensätze vom mobilen Endgerät zum Server.
+\\
+% Erläuterung des konkreten Gegenstands der Arbeit + Motivation + Relevanz
+
+\noindent Mithilfe eines App-seitigen Erkennungsmechanismus für die Zugehörigkeit der Datenpakete zum gewünschten Zielkontext könnten nicht zugehörige Datenpakete vom Netzwerktransfer ausgeschlossen werden, um die genutzte Bandbreite und Energie auf dem mobilen Endgerät zu sparen. Durch die App-seitige Klassifikation des Kontextes wäre es außerdem möglich, Nutzende bei der Beendigung des Radfahrens an die noch laufende In-App-Aktivität, beispielsweise über Notifikationen, zu erinnern. Eine solche Kontextklassifikation wird beispielsweise bereits im Betriebssystem der Apple Watch seit 2018 (mit Release von WatchOS 5) durchgeführt, um sportliche Aktivitäten zu erkennen und in Form von \enquote{Workout Reminders} in das Interaktionsschema zu integrieren\footnote{\url{https://support.apple.com/en-us/HT204523} (Abgerufen am 25.2.2021)}. Die Anwendungsgebiete einer solchen App-seitigen Kontextklassifikation beschränken sich somit nicht nur auf das App-seitige Filtering von Datenpaketen, sondern ermöglichen auch die Integration von weiteren Interaktionsschemata.
+
+\section{Problem- und Zielstellung}\label{sec:problem-und-zielstellung}
+
+Für die Realisation einer solchen Kontextklassifikation (über die Abbildung der GPS- und Sensordaten auf den Kontext) soll ein Machine-Learning-Konzept erstellt werden, anhand dessen diskutiert und evaluiert werden soll, inwiefern dieses für ein App-seitiges Filtering von Datenpaketen und andere Interaktionsschemata auf dem Smartphone genutzt werden kann. Zur differenzierten Diskussion dieses zentralen Forschungsgegenstands sollen folgende konkrete Forschungsfragen eruiert werden:
+
+\begin{researchquestion}\label{rq1}
+Wie sind die im Rahmen der STADTRADELN-App erhobenen Datenpakete strukturiert und welche Attribute eignen sich am besten für eine Kontextklassifikation?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq2}
+Welche Abweichungen und Fehler sind innerhalb der erfassten Sensordaten zu erwarten und welche Charakteristika oder Muster können zu einer Kontextklassifikation herangezogen werden?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq3}
+Welche hardware- und softwaretechnisch limitierenden Faktoren beschränken die Selektion von konkreten Machine-Learning-Methoden für den Einsatz auf Smartphones gegenüber dem Einsatz in der Datenauswertung?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq4}
+Welche Machine-Learning-Methoden können unter Betrachtung von \Cref{rq3} für die Kontextklassifikation genutzt oder sogar aus der vorangegangenen Arbeit im Movebis-Projekt wiederverwendet werden?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq5}
+Wie können die gewählten Machine-Learning-Methoden im Rahmen eines Gesamtkonzeptes mit Fokus auf die Verkehrsmittelerkennung angewandt, implementiert und ggf. portiert werden?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq6}
+Welche quantitativen Effekte hat der Einsatz eines Konzeptes analog zu \Cref{rq5} auf die Reduktion der Übertragung von unplausiblen Datenpaketen und inwiefern kann das Konzept auf Interaktionsschemata auf dem Smartphone erweitert werden?
+\end{researchquestion}
+
+\paragraph{Erkenntnisgewinn und Relevanz der obigen Forschungsfragen:} Anhand von \Cref{rq1} und \Cref{rq2} soll ein detailliertes Verständnis für die Struktur und Eigenschaften der STADTRADELN-Daten als Grundlage für die Kontextklassifikation erarbeitet werden. Durch \Cref{rq3} soll ein systematischer Überblick gegeben werden, welche zusätzlichen Herausforderungen App-seitiges (engl. \enquote{on-device}) Machine-Learning einer Wiederverwendung der bestehenden Auswertungssoftware aus dem Movebis-Projekt entgegenstellt. Anschließend soll im Rahmen von \Cref{rq4} geklärt werden, welche konkreten Machine-Learning-Methoden sich prinzipiell für eine App-seitige Kontextklassifikation eignen, um für die Beantwortung von \Cref{rq5} eine empirische Auswahl aus den eruierten Machine-Learning-Methoden in einer Software-Architektur zu kombinieren und zu implementieren. Mithilfe der implementierten Software-Architektur soll \Cref{rq6} untersucht und evaluiert werden, um perspektivisch einen möglichen Einsatz in der STADTRADELN-App oder Apps mit ähnlichem Anwendungsgebiet zu beurteilen.
+
+\chapter{Aufbau der Arbeit}\label{ch:aufbau-der-arbeit}
+
+Die folgende Sektion soll einen Überblick über den Aufbau der Arbeit geben. Vor dem Hauptteil der Arbeit folgen Deckblatt und die wichtigsten Verzeichnisse und begleitende Inhalte.
+
+\begin{enumerate}[label=\Roman*]
+  \item Deckblatt
+  \item Aufgabenstellung im Originaltext
+  \item Erklärung zum Urheberrecht
+  \item Vorwort
+  \item Inhaltsverzeichnis
+  \item Tabellenverzeichnis
+  \item Abbildungsverzeichnis
+  \item Glossar
+\end{enumerate}
+
+\newlist{gliederung}{enumerate}{10}
+\setlist[gliederung]{label*=.\arabic*}
+\setlist[gliederung,1]{label=\arabic*}
+
+\begin{gliederung}
+\item Einleitung
+  \begin{gliederung}
+  \item Gegenstand und Motivation
+  \item Problem- und Zielstellung
+  \item Aufbau der Arbeit
+  \end{gliederung}
+\end{gliederung}
+
+\paragraph{Einleitung:} Anschließend folgt eine Einleitung in das Thema, welche den Gegenstand, die Motivation, Problem- und Zielstellung, sowie den Aufbau der Arbeit beinhaltet.
+
+\begin{gliederung}[resume]
+\item Grundlagen
+  \begin{gliederung}
+  \item Kontextsensitivität im Mobile Computing
+    \begin{gliederung}
+    \item Taxonomische Einordnung und Definition
+    \item GPS- und Sensordaten als Kontextinformation
+    \item Integration von Kontextinformationen
+    \item Kontextsensitive Adaption
+    \end{gliederung}
+  \item Charakteristische Probleme künstlicher Intelligenz
+    \begin{gliederung}
+    \item Regression, Klassifikation und Generation
+    \item Limitierung und Praktikabilität von herkömmlichen Algorithmen
+    \item Human Activity Recognition und Bewegungsdatenerfassung
+    \end{gliederung}
+  \item Machine-Learning
+    \begin{gliederung}
+    \item Taxonomische Einordnung und Definition
+    \item Datenvorverarbeitung und Konsequenzen
+    \item Lernmethoden
+      \begin{gliederung}
+      \item Supervised Learning
+      \item Unsupervised Learning
+      \item Reinforcement Learning
+      \item Transfer Learning
+      \end{gliederung}
+    \item Überblick über konkrete Machine-Learning-Modelle
+      \begin{gliederung}
+      \item Lineare Regression
+      \item Naive Bayes Klassifikation
+      \item K-Nearest-Neighbors und K-Means-Clustering
+      \item Decision Trees und Random Forests
+      \item Support Vector Machines
+      \item Hidden Markov Models
+      \item Künstliche Neuronale Netze
+      \item Feed-Forward-Netze und Hidden Layer
+      \item Restricted Boltzmann Machines
+      \item Recurrent Neural Networks
+      \item Convolutional Neural Networks
+      \item Metaarchitekturen (Adversarial Neural Networks, Autoencoder)
+      \end{gliederung}
+    \item Typische Probleme von Machine-Learning-Modellen
+    \item Modell-Hyperparameter und deren Auswirkung
+    \item Methoden zur Verbesserung des Lerneffektes
+    \item Methoden zur Validierung und Visualisierung des Lernerfolgs
+      \begin{gliederung}
+      \item K-Fold-Cross-Validation
+      \item Confusion-Matrix
+      \end{gliederung}
+    \end{gliederung}
+  \item Zusammenfassung
+  \end{gliederung}
+\end{gliederung}
+
+\paragraph{Grundlagen:} Nach der Einleitung werden zunächst grundlegende domänenspezifische Begriffe und Zusammenhänge erläutert. Zunächst werden zentrale Aspekte aus dem Forschungsbereich \textit{Mobile Computing} und \textit{Kontextsensitivität} erläutert, um das Problem dieser Arbeit hierin einzuordnen. Anschließend wird der Fachbegriff der \textit{Human Activity Recognition} hiermit in Verbindung gebracht und gezeigt, weshalb das grundlegende Problem dieser Arbeit geeignet für eine Lösung über Machine-Learning ist. Hierzu wird unter anderem ein taxonomischer Überblick über Probleme der künstlichen Intelligenz gegeben, sowie welche Ideen diesen zugrundeliegen. Anschließend werden die Grundkonzepte des Machine-Learnings als Teilgebiet der künstlichen Intelligenz eingeordnet und wichtige Datenverarbeitungsschritte, Lernmethoden, Architekturen, Test-, Visualisierungs- und Validierungsstrategien und unter anderem auch hierbei auftretende Herausforderungen diskutiert. Ein besonderer Fokus liegt hierbei auf den verschiedenen Modellarchitekturen für Machine-Learning-Modelle, um eine Verständnisgrundlage für die verschiedenen in der Forschung genutzten Modelle zu schaffen.
+
+\begin{gliederung}[resume]
+\item Verwandte Arbeiten
+  \begin{gliederung}
+  \item Überblick und Metastudien
+  \item Tabellarischer Vergleich von Attributen konkreter Ansätzen
+    \begin{gliederung}
+    \item Serverseitige Klassifikationsansätze
+    \item Clientseitige Klassifikationsansätze
+    \end{gliederung}
+  \item Bestehende Ansätze des Movebis-Projektes
+    \begin{gliederung}
+    \item Klassifikation über Support Vector Machines und Random Forests
+    \item Klassifikation über Recurrent Neural Networks
+    \item Klassifikation über Convolutional Neural Networks
+    \end{gliederung}
+  \item Zusammenfassung
+  \end{gliederung}
+\end{gliederung}
+
+\paragraph{Verwandte Arbeiten:} An die Betrachtung der Grundlagen schließt sich eine Diskussion verwandter Arbeiten an. Zum Überblick über das Forschungsgebiet soll eine taxonomische Einordnung anhand von Metastudien beschrieben werden. Anschließend werden konkrete serverseitige und clientseitige Klassifikationsansätze bezüglich ihrer Attribute und Parameter gegenübergestellt. Insbesondere sollen in diesem Kapitel neben der verwandten Forschungsliteratur in Form von Sachbüchern und wissenschaftlichen Papers auch die Arbeiten betrachtet werden, welche im Rahmen der Konzeption und Implementation der Machine-Learning-Ansätze zur Auswertung der Datenpakete im Movebis-Projekt erstellt wurden.
+
+\begin{gliederung}[resume]
+\item Analyse
+  \begin{gliederung}
+  \item Requirements Engineering
+    \begin{gliederung}
+    \item Analyse des Datenbestandes und möglicher Fehlerquellen
+    \item Analyse hardware- und softwaretechnischer Limitationen von Smartphones
+    \item Spezifikation von Rahmenbedingungen und Funktionalitäten
+    \end{gliederung}
+  \item Praktikabilität bestehender Ansätze des Movebis-Projektes
+    \begin{gliederung}
+    \item Analyse der Hardware- und Softwareanforderungen
+    \item Analyse der Portierbarkeit
+    \end{gliederung}
+  \item Zusammenfassung
+  \end{gliederung}
+\end{gliederung}
+
+\paragraph{Analyse:} Basierend auf den Grundlagen und verwandten Arbeiten soll anschließend eine zielorientierte Analyse geeigneter Machine-Learning-Methoden durchgeführt werden, deren zentrale Bestandteile auch die Analyse der Datengrundlage und die Ermittlung der Klassifikationsanforderungen und Rahmenbedingungen sind. Um die im vorigen Kapitel erläuterten Ansätze bezüglich einer Eignung für die Portierung und Implementation auf Smartphones zu analysieren, müssen konkrete hardware- und softwaretechnische Limitationen erarbeitet werden.
+
+\begin{gliederung}[resume]
+\item Konzept
+  \begin{gliederung}
+  \item Kontextklassifikation
+    \begin{gliederung}
+    \item Datenaggregation und -vorverarbeitung
+    \item Architekturentwurf der Klassifikation
+    \item Portierung bestehender Modelle
+    \item Training, Validierung und Test der Modelle
+    \end{gliederung}
+  \item Entwurf einer Test-Applikation
+    \begin{gliederung}
+    \item Dialogkonzept
+    \item Erfassung der Sensordaten
+    \item Adaption und Kontextsensitivität
+    \end{gliederung}
+  \item Zusammenfassung
+  \end{gliederung}
+\end{gliederung}
+
+\paragraph{Konzept:} Mithilfe der analysierten Machine-Learning-Ansätze soll ein konkretes Konzept erarbeitet und vorgestellt werden, welches eine Klassifikation des Smartphone-Kontextes anhand des Beispiels der STADTRADELN-Datenpakete umsetzt. Hierzu wird zunächst ein Konzept für die Kontextklassifikation mit Hinblick auf die im Analyse-Kapitel ermittelten Hardware- und Softwareanforderungen erstellt. Die Erkenntniss und Modelle verwandter Arbeiten sollen hierbei im Zentrum stehen. Im Speziellen muss auch eine mögliche Portierung bestehender Modelle, sowie die Datenaggregration- und vorverarbeitung und das Training der Modelle konzipiert werden. In diesem Rahmen soll eine Test-Applikation entworfen werden, mithilfe derer das Klassifikationskonzept später getestet und evaluiert werden kann. Darüber hinaus soll ein Adaptionskonzept entwickelt werden, welches auf den Wechsel des Kontextes, beispielsweise auf einen Umstieg vom Fahrrad in den Bus, entsprechend reagiert.
+
+\begin{gliederung}[resume]
+\item Implementation
+  \begin{gliederung}
+  \item Genutzte Frameworks und Technologien
+  \item Erstellung einer prototypischen iOS-App
+  \item Selektion und Portierung der Klassifikationsmodelle
+  \item Training, Validierung und Test der Modelle
+  \item Zusammenfassung
+  \end{gliederung}
+\item Evaluation
+  \begin{gliederung}
+  \item Szenarienbasierte Testcases
+    \begin{gliederung}
+    \item Evaluation der Ressourcennutzung über Profiling
+    \item Qualitativer Usability-Test des Adaptionskonzeptes
+    \end{gliederung}
+  \item Statistischer Test der Klassifikationsperformance
+  \item Vergleich der evaluierten Daten mit bestehenden Ansätzen
+  \item Zusammenfassung
+  \end{gliederung}
+\end{gliederung}
+
+\paragraph{Implementation und Evaluation:} Die konzipierte Test-App soll anschließend implementiert werden, wobei der entwickelte Machine-Learning-Ansatz mit in die Test-App integriert werden soll. Um den implementierten Ansatz nachfolgend systematisch zu evaluieren, sollen im Rahmen der Evaluation konkrete Testszenarien und -parameter festgelegt werden. Die Evaluation soll hierbei zweigeteilt stattfinden. Über eine Evaluation der Ressourcennutzung der Test-App anhand konkreter Testszenarien und einem Profiling soll determiniert werden, ob der Machine-Learning-Ansatz innerhalb der hierfür spezifizierten Rahmenbedingungen agiert. Im Rahmen dieser szenarienbasierten Evaluation soll eine qualitative Einschätzung des Adaptionskonzeptes durchgeführt werden. Außerdem soll eine separate statistische Analyse durchgeführt werden, bei der die Klassifikationsperformance des Konzeptes evaluiert werden soll. Somit sollen schließlich nicht nur Aussagen über den Ressourcenverbrauch des Konzeptes, sondern auch über die Effizienz getroffen werden können. Anhand der statistischen Analyse, mit Hinblick auf den Ressourcenverbrauch, soll der entwickelte Ansatz mit den verwandten Ansätzen aus dem Movebis-Projekt verglichen werden.
+
+\begin{gliederung}[resume]
+\item Fazit
+  \begin{gliederung}
+  \item Forschungsbeitrag
+  \item Ausblick
+  \end{gliederung}
+\end{gliederung}
+
+\begin{enumerate}[label=\roman*]
+\item Anhang
+\item Literaturverzeichnis
+\item Danksagung
+\end{enumerate}
+
+\paragraph{Fazit:} Zum Abschluss der Arbeit werden die eingangs gestellten Forschungsfragen anhand des evaluierten Konzeptes beantwortet und ein Ausblick über mögliche zukünftige Forschungsbeträge gegeben. Im Anhang der Arbeit befinden sich zusätzliche Dokumente und Informationen, sowie das Literaturverzeichnis und eine Danksagung.
+
+% ---------------------------------------------
+
+\chapter{Vorläufiger Zeitplan}\label{ch:vorlaufiger-zeitplan}
+
+Dieser Abschnitt soll einen vorläufigen Zeitplan über die Bearbeitung der Diplomarbeit geben. Für Diplomarbeiten sind an der TU Dresden 22 Wochen als Bearbeitungszeit vorgesehen, an welcher sich dieser Zeitplan orientiert. Wird somit von einem Bearbeitungsstart am 1. April 2021 ausgegangen, so ist die Bearbeitungszeit der Diplomarbeit über 22 Wochen bis zum 2. September 2021.
+
+\begin{itemize}
+\item 1. Projektbearbeitungsphase (ca. 4 Wochen): Analyse des Forschungsthemas. Diese Projektbearbeitungsphase beginnt am 1. April 2021 und läuft bis 1. Mai 2021. In dieser Phase werden verwandte Forschungsarbeiten studiert und im Rahmen der ersten Sektionen der Diplomarbeit (Einleitung, Grundlagen, Verwandte Arbeiten) diskutiert. Abschluss der Projektbearbeitungsphase ist 1-stündiges Kolloquium mit einem Vortragsteil von 40 Minuten im Rahmen des Moduls INF-D-960.
+\item 2. Projektbearbeitungsphase (ca. 9 Wochen): Analyse, Konzepterarbeitung und Implementation. Diese Projektbearbeitungsphase beginnt am 1. Mai 2021 und ist angesetzt bis zum 1. Juli 2021. Abschluss der Projektbearbeitungsphase ist eine Zwischenpräsentation.
+\item 3. Projektbearbeitungsphase (ca. 9 Wochen): Evaluation, Optimierung und Konsolidierung der Diplomarbeit. Diese Projektbearbeitungsphase beginnt am 1. Juli 2021 und läuft bis zum 2. September 2021. Abschluss der Projektbearbeitungsphase ist die Abgabe der Diplomarbeit und die sich daran anschließende Diplomprüfung.
+\end{itemize}
+
+\chapter{Verwandte Arbeiten}\label{ch:verwandte-arbeiten}
+
+Dieser Abschnitt gibt einen Ausblick auf zentrale Literatur, welche im Rahmen der Diplomarbeit studiert, diskutiert und ggf. angewandt werden soll.
+\\
+
+\noindent Für einen praxisorientierten Überblick über generelle Strategien und grundlegende Konzepte im Machine-Learning eignet sich das Sachbuch \enquote{Praxiseinstieg Machine Learning mit Scikit-Learn und TensorFlow: Konzepte, Tools und Techniken für intelligente Systeme} \cite{geron_praxiseinstieg_2018}, sowie mit Fokus auf die App-seitige Entwicklung von Machine-Learning-Konzepten speziell für iOS-Apps \enquote{Machine Learning with Swift: Artificial Intelligence for iOS} \cite{sosnovshchenko_machine_2018}. Anhand des Sachbuchs \enquote{Datenanalyse mit Python: Auswertung von Daten mit Pandas, NumPy und IPython} \cite{mckinney_datenanalyse_2018} werden konkrete datenanalytische Methoden erläutert, welche zur Voranalyse der Datensätze angewandt werden können. \cite{zhang_deep_2019} zeigen darüberhinaus verschiedene Anwendungsbereiche von Machine-Learning im Fachgebiet \textit{Mobile and Wireless Networking} und geben einen extensiven Einblick über Grundlagen und die im Machine-Learning angewandten Taxonomien und Termini.
+\\
+
+\noindent Das zu erstellende Machine-Learning-Konzept lässt sich in den Forschungsbereich der \textit{Human Activity Recognition} (Akronym HAR) einordnen, dessen Ziel die Ermittlung und der Einsatz von Algorithmen für die Erkennung von Aktivitäten einer Person ist. \cite{bulling_tutorial_2014} geben einen progressiven und forschungsorientierten Einstieg in dieses Fachgebiet. Zur Realisation von HAR wurden bereits verschiedene Machine-Learning-Ansätze konzipiert und evaluiert, unter der Anwendung von Support Vector Machines \cite{nurhanim_classification_2017}, mehrschichtigen Perzeptronen \cite{kwapisz_activity_2011}, Convolutional Neural Networks \cite{zeng_convolutional_2014, chen_deep_2015}, Recurrent Neural Networks \cite{inoue_deep_2018} und hybriden Machine-Learning-Systemen \cite{abu_alsheikh_deep_2015, ravi_deep_2017}. Zudem wurden verschiedene Studien durchgeführt, in denen konkrete Machine-Learning-Ansätze bezüglich ihrer Performance bei HAR verglichen wurden. \cite{jahangiri_applying_2015} verglichen beispielsweise Support Vector Machines und Random Forests.
+\\
+
+\noindent Da das zu erstellende Machine-Learning-Konzept die Restriktion besitzt, dass dieses auf einem Smartphone lauffähig sein soll, sind die obigen Ansätze wegen der hardware- und softwaretechnischen Limitierungen nur teilweise applizierbar. \cite[S. 13]{ota_deep_2017} separieren daher die Deployment-Modelle des Deep Learning (Teilgebiet des Machine-Learning) auf mobilen Geräten in zwei Teilbereiche:
+
+\begin{itemize}
+\item \textit{Client-Server-Deployment}, wobei die Inferenz auf dem Server-Backend geschieht, analog zum aktuellen Deployment-Konzept der STADTRADELN-App in Kooperation mit Movebis
+\item \textit{Client-Only-Deployment}, wobei die Inferenz vom Client selbst übernommen wird
+\end{itemize}
+
+\noindent Die bestehenden Arbeiten, welche mithilfe von Machine-Learning-Ansätzen das Filtering der STADTRADELN-\allowbreak Daten im Movebis-Projekt ermöglichen, gliedern sich in das Client-Server-Deployment ein, da sie nicht in der mobilen App integriert werden, sondern auf die Translokation der Datenpakete zum Server angewiesen sind. \cite{matusek_anwendung_2019} wendet für die Klassifikation der Datenpakete ein hybrides Klassifikationskonzept aus Support Vector Machine und Random Forest an und diskutiert gleichzeitig wesentliche Schritte, welche bei der Vorverarbeitung der Datensätze zu beachten sind. \cite{stojanov_continuous_2020} sowie \cite{werner_kontinuierliche_2020} bauen auf diesem Grundkonzept auf und implementieren die Klassifikation über ein Convolutional Neural Network \cite{stojanov_continuous_2020} respektive einem Recurrent Neural Network \cite{werner_kontinuierliche_2020}.
+\\
+
+\noindent Im Unterschied zu diesen vorliegenden Konzepten liegt die Problemstellung dieser Arbeit auf dem Deployment-Modell Client-Only-Deployment. Dennoch können beide Ansätze koexistierend eingesetzt werden. \cite{ma_survey_2019} gibt einen Einblick über die möglichen Herausforderungen der Ressourcenlimitierung, hierbei mit Fokus auf IoT-Applikationen. Im Kontext von HAR auf mobilen Geräten (nach dem Prinzip des Client-Only-Deployment) existieren weitere Metaanalysen, darunter \cite{martin_activity_2013}, welche mit Bezug auf Hardwareressourcen leichtgewichtige Machine-Learning-Ansätze vergleichen. \cite{nan_deep_2019} zeigen, wie mithilfe von verschiedenen Kompressionsmethoden die Ressourcenauslastung reduziert werden kann. \cite{chen_deep_2020} diskutieren neben dem State-of-the-Art von HAR über Machine-Learning im Client-Only-Deployment auch zukünftige Herausforderungen.
+\\
+
+\noindent Es existieren bereits mehrere konkrete Machine-Learning-Ansätze für HAR, welche für eine Ausführung auf Smartphones geeignet sind. Neben der Art und Struktur der Daten unterscheiden sich diese Ansätze wesentlich in der Architektur des jeweiligen Machine-Learning-Klassifikators. Hierbei wurden neben klassischen Ansätzen wie K-Nearest-Neighbors \cite{ken_taylor_activity_2011} vor allem aktuelle Machine-Learning-Methoden aus dem Bereich Deep Learning getestet, darunter Deep Bayesian Neural Networks \cite{gudur_activeharnet_2019}, Deep Feed-Forward Neural Networks \cite{li_deep_2020}, Restricted Boltzmann Machines \cite{bhattacharya_smart_2016, radu_towards_2016}, Recurrent Neural Networks mit long short-term memory \cite{mairittha_-device_2019, mairittha_-device_2021}, Convolutional Neural Networks \cite{mairittha_improving_2020} sowie hybride Ansätze \cite{ravi_deep_2017, nutter_design_2018}.
+\\
+
+\noindent Diese Arbeiten zeigen verschiedene Formen der Datenvorverarbeitung, darunter beispielsweise die Vorverarbeitung von Sensordaten über Kurzzeit-Fourier-Transformation und Spektrogrammen für Convolutional Neural Networks \cite{ravi_deep_2016, ravi_deep_2017}, oder auch die Nutzung des Verfahrens \textit{Principal Component Analysis} \cite{nutter_design_2018}. Zur Ausgabenverarbeitung der Machine-Learning-Systeme existieren weitere verschiedene Ansätze, häufig wird eine Confusion Matrix zur Quantifizierung der Performance angewandt. \cite{huo_uncertainty_2020} zeigen eine Möglichkeit, wie unter anderem hierüber eine Vorhersage darüber getroffen werden kann, wie sicher eine Inferenz auf den tatsächlichen Wert zutrifft. Hiermit ließe sich im Rahmen des Gesamtkonzeptes dieser Arbeit der durch das Machine-Learning-Konzept realisierte Filter optional je nach Unsicherheit hinzuschalten oder abschalten.

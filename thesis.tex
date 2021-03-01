@@ -22,7 +22,9 @@
 \usepackage{pdfpages}
 \usepackage{listings}
 \usepackage[toc, page]{appendix}
-\usepackage{hyphenat}
+
+\input{hyphen.tex}
+\emergencystretch 3em
 
 \usepackage[
   style=alphabetic,
@@ -119,6 +121,7 @@
 }
 
 \usepackage[autooneside=false,automark,headsepline]{scrlayer-scrpage}
+\renewcommand*{\headfont}{\normalfont}
 \clearpairofpagestyles
 \ihead{\leftmark}
 \ohead{\ifstr{\leftmark}{\rightmark}{}{\rightmark}}
@@ -172,8 +175,7 @@
 
   % this is where your thesis lives
 
-  \input{sections/einleitung.tex}
-  \input{sections/verwandte-arbeiten.tex}
+  \input{sections/expose.tex}
 
   \newpage
 
@@ -183,7 +185,7 @@
   \printbibliography[heading=bibintoc]\label{sec:bibliography}%
 
   \begin{appendices}
-    \addcontentsline{toc}{section}{Entwurf einer Aufgabenstellung}
+    \addcontentsline{toc}{chapter}{Entwurf einer Aufgabenstellung}
     \includepdf[pages=-]{task.pdf}
     % \input{sections/appendix.tex}
   \end{appendices}
