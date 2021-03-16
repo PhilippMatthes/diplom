@@ -22,17 +22,21 @@ STADTRADELN\footnote{\url{https://www.stadtradeln.de/darum-geht-es} (Abgerufen a
 
 \section{Problem- und Zielstellung}\label{sec:problem-und-zielstellung}
 
-Im Rahmen der Diplomarbeit soll untersucht werden, wie die zuvor entwickelten Machine-Learning-Ansätze aus \cite{matusek_anwendung_2019, stojanov_continuous_2020, werner_kontinuierliche_2020} anhand aktueller Machine-Learning-Frameworks auf Smartphones portiert werden können. Hierfür müssen die bestehenden Modelle analysiert und verglichen werden, um  schließlich ein Portierungskonzept zu erstellen, mithilfe dessen die bestehenden Modellarchitekturen für mobile Anwendungen optimiert und transferiert werden sollen. Hierbei soll insbesondere auch untersucht werden, welche Hardware- und Softwareanforderungen an die bestehenden Modelle gekoppelt sind und welche Optimierungsmöglichkeiten existieren, um den Energie- und Speicherverbrauch auf Smartphones zu reduzieren. Das ermittelte Portierungskonzept soll in einer prototypischen App integriert werden. Auf dieser Grundlage sollen die portierten Modelle bezüglich deren Effizienz evaluiert werden, im Speziellen auch gegenüber den bestehenden abstrakten systemeigenen Schnittstellen. Zur differenzierten Diskussion dieses zentralen Forschungsgegenstands sollen folgende konkrete Forschungsfragen eruiert werden:
+Im Rahmen der Diplomarbeit soll untersucht werden, wie die zuvor entwickelten Machine-Learning-Ansätze aus \cite{matusek_anwendung_2019, stojanov_continuous_2020, werner_kontinuierliche_2020} anhand aktueller Machine-Learning-Frameworks auf Smartphones portiert werden können. Hierfür müssen die bestehenden Modelle analysiert und verglichen werden, um schließlich ein Portierungskonzept zu erstellen, mithilfe dessen die bestehenden Modellarchitekturen für mobile Anwendungen optimiert und transferiert werden sollen. Hierbei soll insbesondere auch untersucht werden, welche Hardware- und Softwareanforderungen an die bestehenden Modelle gekoppelt sind und welche Optimierungsmöglichkeiten existieren, um den Zeit-, Energie- und Speicherverbrauch auf Smartphones zu reduzieren. Das ermittelte Portierungskonzept soll in einer prototypischen App integriert werden. Auf dieser Grundlage sollen die portierten Modelle bezüglich deren Effizienz evaluiert werden, im Speziellen auch gegenüber den bestehenden abstrakten systemeigenen Schnittstellen. Zur differenzierten Diskussion dieses zentralen Forschungsgegenstands sollen folgende konkrete Forschungsfragen eruiert werden:
 
 \begin{researchquestion}\label{rq1}
 Aus welchen architekturellen Elementen bestehenden die existierenden Machine-Learning-Ansätze zur Klassifikation der STADTRADELN-Daten und wie können diese auf Smartphones transferiert werden?
 \end{researchquestion}
 
-\begin{researchquestion}\label{rq3}
-Welche Anforderungen stellen die bestehenden Machine-Learning-Ansätze an den Energie- und Speicherbedarf bei der Ausführung auf Smartphones und wie ist dieser quantitativ zu beurteilen?
+\begin{researchquestion}\label{rq2}
+Welche quantitativen Anforderungen stellen die bestehenden Machine-Learning-Ansätze an den Zeit-, Energie- und Speicherbedarf bei der Ausführung auf Smartphones?
 \end{researchquestion}
 
 \begin{researchquestion}\label{rq3}
+Wie stehen die in \Cref{rq2} gefundenen Anforderungen an Zeit-, Energie- und Speicherbedarf mit der Qualität der Klassifikation des jeweiligen Machine-Learning-Ansatzes in Relation und welcher der bestehenden Ansätze eignet sich am besten für den Einsatz auf Smartphones?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq4}
 Welche Strategien können auf die bestehenden Machine-Learning-Ansätze angewandt werden, um deren Energie- und Speicherbedarf zu optimieren, und welche quantitativen Auswirkungen hat dies gleichzeitig auf die Qualität der Klassifikation?
 \end{researchquestion}
 
@@ -66,7 +70,7 @@ Um die obigen Forschungsfragen systematisch zu diskutieren, wird die Diplomarbei
   \end{gliederung}
 \end{gliederung}
 
-\paragraph{Grundlagen:} Nach der Einleitung werden zunächst grundlegende domänenspezifische Begriffe und Zusammenhänge erläutert.
+\paragraph{Grundlagen:} Nach der Einleitung werden zunächst grundlegende domänenspezifische Begriffe und Zusammenhänge erläutert. Die nachfolgend vorgeschlagene Gliederung ist bereits sehr breit angelegt, um die möglichen zu diskutierenden Aspekte im didaktischen Aufbau zu zeigen. Im ersten Teil der Bearbeitung (Analyse des Forschungsthemas, siehe \Cref{ch:vorlaufiger-zeitplan}) sollen diese Grundlagenaspekte bewusst detailliert aufgearbeitet werden. Nach der detaillierten Aufbereitung werden diese Aspekte erneut bezüglich ihrer Relevanz evaluiert und bis zur finalen Fassung der Diplomarbeit zu einer didaktisch konsistenten Form kondensiert.
 
 \begin{gliederung}[resume]
 \item Grundlagen
