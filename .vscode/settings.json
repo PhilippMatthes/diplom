@@ -1,0 +1,11 @@
+{
+    "editor.wordWrap": "on",
+    "ltex.enabled": true,
+    "ltex.language": "de-DE",
+    "ltex.additionalRules.motherTongue": "de-DE",
+    "ltex.additionalRules.enablePickyRules": true,
+    "ltex.checkFrequency": "edit",
+    "latex-workshop.docker.enabled": true,
+    "latex-workshop.docker.image.latex": "kaestner/latex",
+    "latex-workshop.latex.autoBuild.run": "never"
+}

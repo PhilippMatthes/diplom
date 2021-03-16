@@ -251,5 +251,14 @@ TSWLatexianTemp*
 # standalone packages
 *.sta
 
+<<<<<<< HEAD
+=======
+# bash
+.bash_history
+
+# VSCode LTeX Extension files
+.vscode/ltex.*.txt
+
+>>>>>>> tudscr/master
 # this thesis
 thesis.pdf
