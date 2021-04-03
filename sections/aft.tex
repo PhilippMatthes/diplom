@@ -1,0 +1,140 @@
+\chapter{Einleitung}\label{ch:einleitung}\pagenumbering{arabic}
+
+\section{Gegenstand und Motivation}\label{sec:gegenstand-und-motivation}
+
+% Darstellung des Kontextes der Arbeit
+
+STADTRADELN\footnote{\url{https://www.stadtradeln.de/darum-geht-es} (Abgerufen am 25.2.2021)} ist ein Projekt, bei dem Radfahrende teilnehmen können, um kollektiv mit dem Rad gefahrene Kilometer für den Klimaschutz zu sammeln. Begleitet wird das Projekt durch eine mobile App, mithilfe derer Nutzende ihre gefahrenen Kilometer tracken und sich mit anderen Teilnehmenden vergleichen können. Im Rahmen des Forschungsprojektes Movebis\footnote{\url{https://www.movebis.org/das-projekt/} (Abgerufen am 25.2.2021)} werden die hierbei erhobenen Daten ausgewertet und mithilfe von konkreten Kenngrößen visuell aufbereitet. Die aufbereiteten Daten werden der kommunalen Verkehrsplanung anschließend zur Verfügung gestellt, mit dem Ziel, die Planung der Radverkehrsinfrastruktur zu verbessern.
+\\
+
+% Fokussierung auf ein konkretes Teilgebiet des Kontextes + Motivation
+
+\noindent Die von der STADTRADELN-App erhobenen Daten\footnote{\url{https://www.stadtradeln.de/datenschutz} (Abgerufen am 25.2.2021)} werden zu einem Server hochgeladen und von diesem für die spätere Auswertung protokolliert. Hierbei können Nutzende selbst entscheiden, zu welchen Zeitpunkten die Datenerfassung gestartet und beendet wird. Insbesondere kann es hierbei jedoch vorkommen, dass Nutzende speziell zum Anfang und Ende des Fahrradfahrens oder beim Wechsel auf ein anderes Verkehrsmittel Datenpakete aufzeichnen, bei denen kein Fahrrad gefahren wurde. Als Konsequenz hieraus ist nicht ausgeschlossen, dass für die spätere Auswertung unbrauchbare Datenpakete aufgezeichnet und zum Server übermittelt werden. Im Umfeld des Movebis-Projektes wurden daher bereits verschiedene Ansätze entwickelt, durch deren Einsatz für den Zielkontext (Fahrrad fahren) plausible von unplausiblen Datensätzen unter Berücksichtigung einer bestimmten Fehlerrate getrennt werden können \cite{matusek_anwendung_2019, stojanov_continuous_2020, werner_kontinuierliche_2020}. Bei den Ansätzen handelt es sich um Machine-Learning-Klassifikationssysteme, welche auf die Mustererkennung innerhalb der aufgezeichneten Datensätze trainiert wurden. Die entwickelten Machine-Learning-Ansätze ermöglichen eine Filtration der Datensätze zum Zeitpunkt der Auswertung, reduzieren jedoch \textit{nicht} die Aufzeichnung und den initialen Transfer der unplausiblen Datensätze vom Smartphone (hierbei betrachtet als Client) zum Server.
+\\
+
+% Erläuterung des konkreten Gegenstands der Arbeit + Motivation + Relevanz
+
+\noindent Mithilfe eines clientseitigen Erkennungsmechanismus für die Zugehörigkeit der Datenpakete zum gewünschten Zielkontext könnten nicht zugehörige Datenpakete vom Netzwerktransfer ausgeschlossen werden, um die andernfalls genutzte Netzwerkbandbreite und Energie auf dem mobilen Endgerät zu sparen. Durch eine solche Erkennung wäre es außerdem möglich, Nutzende bei der Beendigung des Radfahrens an die noch laufende Datenaufzeichnung, beispielsweise über Notifikationen, zu erinnern. Eine ähnliche Erkennung wird bereits im Betriebssystem der Apple Watch seit 2018 (mit Release von WatchOS 5) durchgeführt, um verschiedene sportliche Aktivitäten zu erkennen und in Form von \enquote{Workout Reminders} in das Adaptionskonzept\footnote{Adaption: Die Anpassung von mobilen Applikationen als Reaktion auf einen sich ändernden Kontext} des Betriebssystems zu integrieren\footnote{\url{https://support.apple.com/en-us/HT204523} (Abgerufen am 25.2.2021)}. Außerdem stellen die beiden marktführenden mobilen Betriebssysteme Android\footnote{\url{https://developers.google.com/android/reference/com/google/android/gms/location/DetectedActivity} (Abgerufen am 3.3.2021)} und iOS\footnote{\url{https://developer.apple.com/documentation/coremotion/cmmotionactivity/1615451-cycling} (Abgerufen am 3.3.2021)} bereits abstrakte Schnittstellen zur Verfügung, mithilfe derer eine rudimentäre Aktivitätserkennung auf Grundlage von wenigen fest definierten Klassen (darunter auch Fahrrad fahren) durchgeführt werden kann.
+\\
+
+\noindent Mit der steigenden Verfügbarkeit von mobilen Machine-Learning-Frameworks wie TensorFlow Lite\footnote{\url{https://www.tensorflow.org/lite} (Abgerufen am 3.3.2021)} (iOS und Android, veröffentlicht in 2017) und CoreML\footnote{\url{https://developer.apple.com/documentation/coreml} (Abgerufen am 3.3.2021)} (iOS, veröffentlicht in 2017) und der Integration von spezialisierten Hardware-Koprozessoren für Machine-Learning in Smartphones bieten sich zunehmend mehr Möglichkeiten für die App-Entwicklung, Machine-Learning-Modelle auf Smartphones zu betreiben. Unter anderem ist es hierdurch auch möglich, Machine-Learning-Modelle auf Smartphones zu transferieren. Diese Möglichkeit bietet die Grundlage für die Problem- und Zielstellung einer Diplomarbeit, welche im Rahmen der Analyse des Forschungsthemas vorbereitet werden soll.
+
+
+\section{Problem- und Zielstellung}\label{sec:problem-und-zielstellung}
+
+In der Diplomarbeit soll untersucht werden, wie die zuvor entwickelten Machine-Learning-Ansätze aus \cite{matusek_anwendung_2019, stojanov_continuous_2020, werner_kontinuierliche_2020} anhand aktueller Machine-Learning-Frameworks auf Smartphones portiert werden können. Hierfür müssen die bestehenden Modelle analysiert und verglichen werden, um schließlich ein Portierungskonzept zu erstellen, mithilfe dessen die bestehenden Modellarchitekturen für mobile Anwendungen optimiert und transferiert werden sollen. Hierbei soll insbesondere auch untersucht werden, welche Hardware- und Softwareanforderungen an die bestehenden Modelle gekoppelt sind und welche Optimierungsmöglichkeiten existieren, um den Zeit-, Energie- und Speicherverbrauch auf Smartphones zu reduzieren. Das ermittelte Portierungskonzept soll in einer prototypischen App integriert werden. Auf dieser Grundlage sollen die portierten Modelle bezüglich deren Effizienz evaluiert werden, im Speziellen auch gegenüber den bestehenden abstrakten systemeigenen Schnittstellen. Zur differenzierten Diskussion dieses zentralen Forschungsgegenstands sollen folgende konkrete Forschungsfragen eruiert werden:
+
+\begin{researchquestion}\label{rq1}
+Aus welchen architekturellen Elementen bestehenden die existierenden Machine-Learning-Ansätze zur Klassifikation der STADTRADELN-Daten und wie können diese auf Smartphones transferiert werden?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq2}
+Welche quantitativen Anforderungen stellen die bestehenden Machine-Learning-Ansätze an den Zeit-, Energie- und Speicherbedarf bei der Ausführung auf Smartphones?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq3}
+Wie stehen die in \Cref{rq2} gefundenen Anforderungen an Zeit-, Energie- und Speicherbedarf mit der Qualität der Klassifikation des jeweiligen Machine-Learning-Ansatzes in Relation und welcher der bestehenden Ansätze eignet sich am besten für den Einsatz auf Smartphones?
+\end{researchquestion}
+
+\begin{researchquestion}\label{rq4}
+Welche Strategien können auf die bestehenden Machine-Learning-Ansätze angewandt werden, um deren Energie- und Speicherbedarf zu optimieren, und welche quantitativen Auswirkungen hat dies gleichzeitig auf die Qualität der Klassifikation?
+\end{researchquestion}
+
+\chapter{Aufbau der Arbeit}\label{ch:aufbau-der-arbeit}
+
+Die Analyse des Forschungsthemas gliedert sich chronologisch als Vorbereitung der Diplomarbeit ein, welche die oben genannten Forschungsfragen klären soll. Hierzu sollen bereits die relevanten Grundlagen und verwandten Arbeiten in einer möglichst detaillierten Form erarbeitet werden. Die angefertigte Ausarbeitung dient anschließend als Ausgangspunkt für die weiteren Analysen, Konzepte und evaluationsbasierten Schlussfolgerungen der Diplomarbeit.
+
+\todo{Weiter ausformulieren}
+
+\chapter{Grundlagen}\label{ch:grundlagen}
+
+\todo{Einleitung der Grundlagen schreiben}
+
+\section{Datenerfassung in der STADTRADELN-App}
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth, bb=0 0 598 404]{datengrundlage.pdf}
+\caption{Die bei der Nutzung der STADTRADELN-App erhobenen Daten im Überblick.}\label{fig:datengrundlage}
+\end{figure}
+
+\noindent Bei der Nutzung der STADTRADELN-App werden unterschiedliche Datensätze erhoben, verarbeitet und gespeichert. \Cref{fig:datengrundlage} zeigt die in der Datenschutzerklärung der STADTRADELN-App beschriebenen Datensatzstrukturen\footnote{\url{https://www.stadtradeln.de/datenschutz/} (Abgerufen am 3.4.2021)} im Überblick. Neben allgemeinen personenbezogenen Daten werden auch Daten für die Meldeplattform \enquote{RADar!}\footnote{\url{https://www.radar-online.net/home} (Abgerufen am 3.4.2021)} verarbeitet, bei der vor allem die Markierung von Orten für die Ausbesserung der Radverkehrsinfrastruktur im Vordergrund steht. Die im Rahmen dieser Arbeit unabhängig von den anderen Datensätzen betrachteten Aktivitätsdaten sind auf der rechten Seite in \Cref{fig:datengrundlage} gezeigt. Die Datensätze bestehen aus über die Fahrdauer kontinuierlich erfassten Datenpaketen aus mehrdimensionalen Vektoren:
+
+\begin{itemize}
+  \item GPS-Koordinaten des jeweiligen Smartphone-Geolokalisationssystems, bestehend aus geografischer Länge und Breite, Höhe, Datum und Zeit, sowie einer Genauigkeitsangabe und der aktuellen Geschwindigkeit
+  \item Beschleunigungsdaten des Smartphone-Akzelerometers in drei Raumdimensionen
+  \item Neigungswinkeldaten des Gyroskop-Sensors in Winkelauslenkungen dreier Rotationsachsen
+  \item Orientierungsdaten des Magnetometer-Sensors in drei Raumdimensionen
+  \item Weitere Hilfsdaten, wie eine Geräte-Identifikationsnummer und das Smartphone-Modell
+\end{itemize}
+
+% Für jede Art dieser Daten:
+% - Wie werden diese erfasst + welche Wertebereiche sind wichtig? (Technik dahinter)
+% - Wie sind die Daten strukturiert und welche Auskunft geben sie?
+% - Welche Probleme/Herausforderungen kann es bei der Datenerfassung geben?
+% - Wie können diese gelöst werden?
+
+% GPS-Koordinaten (Kommunikative Messparameter)
+% Arbeiten lesen + Engineering Ubiquitous Systems lesen!
+% Erfassung:
+%   - Kommunikation zu externen Systemen notwendig
+%   - Ermittelt über eine Mischung aus Satellit und Funknetz
+% Daten:
+%   - Longitude + Latitude, Höhe (Örtliche Dimensionen)
+%   - Datum und Zeit (Zeitliche Dimensionen, geordnete Datenpakete)
+%   - Geschwindigkeit (Abgeleitete Dimensionen)
+%   - Genauigkeitsangabe (Fehlerdimensionen)
+% Probleme:
+%   - Hoher Energieverbrauch, Ortsabhängigkeit, Strahlenreflektion...
+% Lösungen:
+%   - Dauer der Verbindung reduzieren oder möglichst ganz weglassen
+
+% Lokale kinematische Messparameter
+% Arbeiten lesen + Engineering Ubiquitous Systems lesen!
+% Erfassung:
+%   - Lokal, keine Kommunikation zu externen Systemen
+%   - Geringerer Energieverbrauch (Quelle!)
+% Daten:
+%   - Beschleunigungsdaten 3-achsig: Akzelerometer
+%   - Neigungsdaten 3-achsig: Gyrosensor
+%   - Orientierungsdaten 3-achsig: Magnetometer
+%   - Übersichtsabbilung eignet sich hier gut
+% Probleme:
+%   - Startpunktproblem: Lage des Smartphone zu Beginn der Messung
+%   - Fehleraggregation: Reine Lokalisation ohne GPS nur schwer möglich
+%   - Daten sind fehlerbehaftet (vor allem Magnetometer, Quelle!)
+%   - Abtastrate und Präzision von Gerät zu Gerät unterschiedlich
+%   - Beschleunigungsdaten: Erdschwerkraft inklusive/exklusive
+% Lösungen:
+%   - Werteänderungen statt absoluten Werten analysieren
+%   - Glättung, Tiefpass, Hochpass, Interpolation, Normalisation
+%   -> Extensiver, da dies später definitiv benötigt wird
+%   - Kalibrierung und Elimination der Erdschwerkraft
+%   - Aggregation von Daten über Zeitraum vermeiden
+
+% Weitere Probleme: Datenschutz und -sicherheit
+% (Nicht behandelt in dieser Arbeit)
+
+% Daten stellen eine Art der Kontextsensitivität dar
+% Kontextsensitive Adaption: Messung, Integration, Adaption
+% -> Engineering Ubiquitous Systems lesen!
+% Klassifikation der gemessenen Daten fällt somit in Integration
+
+\section{Machine Learning}
+
+% Überleitung von Datensatz auf Problem der Künstlichen Intelligenz
+% Motivation und Definition von Künstlicher Intelligenz
+% Machine Learning ist ein Teil von Künstlicher Intelligenz
+% -> Hierzu gehört noch mehr als Machine Learning, was?
+% -> Vielleicht eignet sich hier ein Venn-Diagramm.
+
+% Klassische Probleme der Künstlichen Intelligenz:
+% - Clustering (Datenpakete zu Gruppen mit Gemeinsamkeiten zusammenfassen bei Fehlerminimierung)
+% - Regression (Modellparameter bilden Verlauf eines mathematischen Zusammenhangs nach, Vorhersage von neuen Datenpunkten durch Extrapolation)
+% - Generation und Transformation (Erkennung von Mustern, Replikation dieser), bsp. Deep Dream, GPT-2, ...
+% - Klassifikation (Datenpakete bestimmter Klasse zuordnen)
+% -> Klassifikation ist das Problem dieser Arbeit!
+
+% Human Activity Recognition als Klassifikationsproblem
+% ... (braucht noch mehr Ideen)
+
+% ...

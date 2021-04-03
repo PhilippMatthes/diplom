@@ -138,7 +138,10 @@
   \institute{Institut für Systemarchitektur}
   \chair{Professur für Rechnernetze}
   \title{%
-    Exposé zur Erstellung einer Diplomarbeit
+    Erstellung und Evaluation eines Portierungskonzeptes für Machine-Learning-Ansätze zur Aktivitätsklassifikation auf Smartphones
+  }
+  \subtitle{%
+    INF-D-960 Analyse eines Forschungsthemas
   }
 
   % \thesis{diploma} % the type of thesis you want to write
@@ -155,27 +158,31 @@
     Dr.-Ing. Thomas Springer
   }
   \professor{Prof. Dr. rer. nat. habil. Dr. h. c. Alexander Schill}
-  \date{7.3.2021} % the date of submission
+  % \date{7.3.2021} % the date of submission
   \maketitle
 
   \newpage
 
+  \includepdf[pages=-]{task.pdf}
+
   % for the order of the following sections please refer to
   % the recommendations for thesis structuring
 
-  % \confirmation
+  \confirmation
+
+  % TODO: Vorwort (DA)
 
   \tableofcontents
 
-  % \listoffigures
-  % \addcontentsline{toc}{chapter}{\listfigurename}
+  \listoftables
+  \addcontentsline{toc}{chapter}{\listtablename}
 
-  % \listoftables
-  % \addcontentsline{toc}{chapter}{\listtablename}
+  \listoffigures
+  \addcontentsline{toc}{chapter}{\listfigurename}
 
   % this is where your thesis lives
 
-  \input{sections/expose.tex}
+  \input{sections/aft.tex}
 
   \newpage
 
@@ -184,10 +191,8 @@
 
   \printbibliography[heading=bibintoc]\label{sec:bibliography}%
 
-  \begin{appendices}
-    \addcontentsline{toc}{chapter}{Entwurf einer Aufgabenstellung}
-    \includepdf[pages=-]{task.pdf}
-    % \input{sections/appendix.tex}
-  \end{appendices}
+  % \begin{appendices}
+  %   \input{sections/appendix.tex}
+  % \end{appendices}
 
 \end{document}
