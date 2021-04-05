@@ -57,7 +57,7 @@ Die Analyse des Forschungsthemas gliedert sich chronologisch als Vorbereitung de
 \caption{Die bei der Nutzung der STADTRADELN-App erhobenen Daten im Überblick.}\label{fig:datengrundlage}
 \end{figure}
 
-\noindent Bei der Nutzung der STADTRADELN-App werden unterschiedliche Datensätze erhoben, verarbeitet und gespeichert. \Cref{fig:datengrundlage} zeigt die in der Datenschutzerklärung der STADTRADELN-App beschriebenen Datensatzstrukturen\footnote{\url{https://www.stadtradeln.de/datenschutz/} (Abgerufen am 3.4.2021)} im Überblick. Neben allgemeinen personenbezogenen Daten werden auch Daten für die Meldeplattform \enquote{RADar!}\footnote{\url{https://www.radar-online.net/home} (Abgerufen am 3.4.2021)} verarbeitet, bei der vor allem die Markierung von Orten für die Ausbesserung der Radverkehrsinfrastruktur im Vordergrund steht. Die im Rahmen dieser Arbeit unabhängig von den anderen Datensätzen betrachteten Aktivitätsdaten sind auf der rechten Seite in \Cref{fig:datengrundlage} gezeigt. Die Datensätze bestehen aus über die Fahrdauer kontinuierlich erfassten Datenpaketen aus mehrdimensionalen Vektoren:
+\noindent Bei der Nutzung der STADTRADELN-App werden unterschiedliche Datensätze erhoben, verarbeitet und gespeichert. \Cref{fig:datengrundlage} zeigt die in der Datenschutzerklärung der STADTRADELN-App beschriebenen Datensatzstrukturen\footnote{\url{https://www.stadtradeln.de/datenschutz/} (Abgerufen am 3.4.2021)} im Überblick. Neben allgemeinen personenbezogenen Daten werden auch Daten für die Meldeplattform \enquote{RADar!}\footnote{\url{https://www.radar-online.net/home} (Abgerufen am 3.4.2021)} verarbeitet, bei der vor allem die Markierung von Orten für die Ausbesserung der Radverkehrsinfrastruktur im Vordergrund steht. Die im Rahmen dieser Arbeit unabhängig von den anderen Datensätzen betrachteten Aktivitätsdaten sind auf der rechten Seite in \Cref{fig:datengrundlage} gezeigt. Die Datensätze bestehen aus über die Fahrdauer kontinuierlich erfassten Messparametern:
 
 \begin{itemize}
   \item GPS-Koordinaten des jeweiligen Smartphone-Geolokalisationssystems, bestehend aus geografischer Länge und Breite, Höhe, Datum und Zeit, sowie einer Genauigkeitsangabe und der aktuellen Geschwindigkeit
@@ -67,26 +67,46 @@ Die Analyse des Forschungsthemas gliedert sich chronologisch als Vorbereitung de
   \item Weitere Hilfsdaten, wie eine Geräte-Identifikationsnummer und das Smartphone-Modell
 \end{itemize}
 
-% Für jede Art dieser Daten:
-% - Wie werden diese erfasst + welche Wertebereiche sind wichtig? (Technik dahinter)
-% - Wie sind die Daten strukturiert und welche Auskunft geben sie?
-% - Welche Probleme/Herausforderungen kann es bei der Datenerfassung geben?
-% - Wie können diese gelöst werden?
+\noindent Diese Messparameter sollen als Grundlage für die im Einleitungskapitel motivierte Aktivitätserkennung fungieren. Daher sollen diese nun genauer betrachtet werden. Dabei spielen insbesondere folgende Fragen eine zentrale Rolle:
 
-% GPS-Koordinaten (Kommunikative Messparameter)
-% Arbeiten lesen + Engineering Ubiquitous Systems lesen!
-% Erfassung:
-%   - Kommunikation zu externen Systemen notwendig
-%   - Ermittelt über eine Mischung aus Satellit und Funknetz
-% Daten:
-%   - Longitude + Latitude, Höhe (Örtliche Dimensionen)
-%   - Datum und Zeit (Zeitliche Dimensionen, geordnete Datenpakete)
-%   - Geschwindigkeit (Abgeleitete Dimensionen)
-%   - Genauigkeitsangabe (Fehlerdimensionen)
-% Probleme:
-%   - Hoher Energieverbrauch, Ortsabhängigkeit, Strahlenreflektion...
-% Lösungen:
-%   - Dauer der Verbindung reduzieren oder möglichst ganz weglassen
+\begin{enumerate}
+\item Wie werden die jeweiligen Messparameter technisch erfasst und mit welchen Wertebereichen ist hierbei zu rechnen?
+\item In welchen Dimensionen sind die Messparameter strukturiert und welche Auskunft geben sie?
+\item Welche Probleme und Herausforderungen können bei der Erfassung der Messparameter auftreten und wie können diese gelöst werden?
+\end{enumerate}
+
+\subsection{Unidirektional kommunikativer Messparameter GPS}
+
+Das \textit{Navigational Satellite Timing and Ranging - Global Positioning System}, kurz \textit{NAVSTAR GPS} oder auch nur \textit{GPS} ist ein System aus (Stand 9. Januar 2021) 31 Satelliten, welche die Erde in einer Höhe von ca. 20.000 km umkreisen \cite{us_space_force_gpsgov_2021}.
+
+\subsubsection{Terminologische Einordnung}
+
+Der Begriff GPS wird teils als Synonym für globale Satellitennavigationssysteme (engl. \textit{Global Navigation Satellite System GNSS}) verstanden. Neben dem amerikanischen GPS existieren hierbei jedoch noch weitere Systeme, wie das europäische Galileo, das russische Glonass, sowie das chinesische BeiDou \cite{olynik_temporal_2002}. Moderne Smartphone-Geolokalisationssysteme nutzen teils eine Kombination dieser globalen Satellitennavigationssysteme \todo{Beleg ergänzen}. In Abhängigkeit der genutzten Smartphone-Schnittstellen ist es also möglich, dass die in der Datenschutzerklärung der STADTRADELN-App beschriebenen GPS-Daten von verschiedenen Satellitennavigationssysteme stammen.
+
+\subsubsection{Funktionsweise}
+
+Die GPS-Satelliten besitzen sehr präzise Atomuhren und senden über verschiedene militärische und zivile Frequenzen kontinuierlich ihre Position und Zeit zur Erde \cite{us_space_force_global_2020}. Mithilfe von speziellen Antennen können diese Signale empfangen werden, wobei die empfangenen Signale amplifiziert und weiter verarbeitet werden müssen \cite{jan_van_sickle_gps_2021}. Als Ergebnis der internen Prozessierung des GPS-Signals kann die Distanz zum GPS-Satelliten anhand der Signallaufzeit unter Berücksichtigung verschiedener Fehlerquellen polynomiell berechnet werden \cite{olynik_temporal_2002, sameet_mangesh_deshpande_study_2004}. Somit stehen anschließend die Position des Satelliten und die berechnete Distanz zur Verfügung. Bei einem Kontakt zu mindestens 4 Satelliten kann der Ort des Empfängers (Höhe, Breitengrad, Längengrad) ermittelt werden, indem eine Intersektion von 4 Sphären durchgeführt wird, wobei das Zentrum der jeweiligen Sphäre die transmittierte Position des GPS-Satelliten ist, und der Radius der Sphäre sich durch die berechnete Distanz bestimmt \cite{zhang_senstrack_2013}. Die satellitengestützte Bestimmung ist hierbei passiv, da keine aktive Kommunikation zum Satelliten stattfindet \cite{kaplan_understanding_2005}. Smartphones nutzen zusätzlich zur satellitengestützten Positionsbestimmung Eigenschaften des WiFi- und GSM-Funknetzes, um die Präzision der Positionsbestimmung zu verbessern und den Energieverbrauch zu reduzieren \cite{zhang_senstrack_2013}. Als Ergebnis der hybriden Positionsbestimmung stellt das Smartphone-Geolokalisationssystem mehrere Messparameter zur Verfügung, darunter die Ortsinformationen (Höhe, Breitengrad, Längengrad), abgeleitete Informationen wie die Geschwindigkeit und eine Genaugkeitsangabe.
+
+\subsubsection{Herausforderungen}
+
+Die von den jeweiligen Satelliten (über elektromagnetische Wellen) ausgesendeten GPS-Informationen unterliegen dem physikalischen Abstandsgesetz.
+
+\begin{equation}\label{eq:abstandsgesetz}
+I_{Signal} \propto \frac{1}{d^{2}}
+\end{equation}
+wobei:
+\begin{conditions}
+  I_{Signal} & Intensität des GPS-Signals  \\
+  d & Distanz zwischen GPS-Satellit und Empfänger
+\end{conditions}
+
+\noindent Das in \Cref{eq:abstandsgesetz} gezeigte Abstandsgesetz bedingt, dass wegen der begrenzten Signalemissionsstärke des Satelliten und der großen Distanz zum Empfänger die Empfindlichkeit des Empfängersystems verhältnismäßig hoch sein muss, in einer Größenordnung von -130 dBm (Dezibel Milliwatt) \cite{sameet_mangesh_deshpande_study_2004}. Die elektronische Prozessierung des Signals erfordert hierdurch eine entsprechende elektrische Leistung \cite{jan_van_sickle_gps_2021}. Die erforderliche elektrische Leistung stellt für Smartphones durch deren Limitation durch die Kapazität des Akkus ein signifikantes Problem dar \cite{zhang_senstrack_2013, oshin_improving_2012, constandache_enloc_2009, zhuang_improving_2010}. Eine energiesparendere Geolokalisation über GSM- und WiFi-Funknetze ist weniger akkurat als GPS und kann daher in Anwendungsfällen mit einer benötigten Mindestpräzision lediglich begleitend eingesetzt werden \cite{paek_energy-efficient_2010}. Aufgrund der Abhängigkeit zum Satellitensignal (respektive zu GSM- und WiFi-Funknetzen) sind weitere Probleme die Ortsabhängigkeit \cite{zhang_senstrack_2013, kaplan_understanding_2005}, die Wetterabhängigkeit \cite{paek_energy-efficient_2010}, sowie mögliche Interferenzen und andere Signaltransmissionsstörungen \cite{olynik_temporal_2002, sameet_mangesh_deshpande_study_2004}. Im Rahmen der Anwendungsentwicklung sowie der Entwicklung einer Aktivitätserkennung auf Grundlage der Geolokalisationsinformationen sind diese Probleme zu berücksichtigen, insbesondere wegen der ständig variierenden Präzision \cite{zhang_senstrack_2013}.
+
+\subsubsection{Lösungen}
+
+Zur Verbesserung der hybriden Geolokalisation über GPS-, GSM- und WiFi-Signale wurden verschiedene Konzepte entwickelt. Der Energieverbrauch kann signifikant reduziert werden, indem die GPS-Abtastrate gesenkt wird \cite{constandache_enloc_2009, lu_jigsaw_2010}. Hierzu können zusätzliche Informationen des Akzelerometers \cite{oshin_improving_2012} und des Orientierungssensors \cite{zhang_senstrack_2013} genutzt werden, um die GPS-Abtastrate adaptiv zu senken. Außerdem kann die erforderliche Präzision der Geolokalisation zusammen mit der primär genutzten Methode (GPS, GSM, WiFi) adaptiv angepasst werden \cite{lin_energy-accuracy_2010, zhang_senstrack_2013}. Aktuelle Schnittstellen in iOS- und Android-Smartphones greifen auf diese Prinzipien zurück und bieten dem Anwendungsentwickler Möglichkeiten, die benötigte Präzision einzustellen, um den Energieverbrauch zu reduzieren \cite{google_inc_fused_2021, apple_inc_desiredaccuracy_2021}.
+
+\subsection{Lokale kinematische Messparameter}
 
 % Lokale kinematische Messparameter
 % Arbeiten lesen + Engineering Ubiquitous Systems lesen!
