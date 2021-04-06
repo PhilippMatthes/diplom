@@ -75,7 +75,7 @@ Die Analyse des Forschungsthemas gliedert sich chronologisch als Vorbereitung de
 \item Welche Probleme und Herausforderungen können bei der Erfassung der Messparameter auftreten und wie können diese gelöst werden?
 \end{enumerate}
 
-\subsection{Unidirektional kommunikativer Messparameter GPS}
+\subsection{Geolokalisationsinformationen}
 
 Das \textit{Navigational Satellite Timing and Ranging - Global Positioning System}, kurz \textit{NAVSTAR GPS} oder auch nur \textit{GPS} ist ein System aus (Stand 9. Januar 2021) 31 Satelliten, welche die Erde in einer Höhe von ca. 20.000 km umkreisen \cite{us_space_force_gpsgov_2021}.
 
@@ -106,32 +106,31 @@ wobei:
 
 Zur Verbesserung der hybriden Geolokalisation über GPS-, GSM- und WiFi-Signale wurden verschiedene Konzepte entwickelt. Der Energieverbrauch kann signifikant reduziert werden, indem die GPS-Abtastrate gesenkt wird \cite{constandache_enloc_2009, lu_jigsaw_2010}. Hierzu können zusätzliche Informationen des Akzelerometers \cite{oshin_improving_2012} und des Orientierungssensors \cite{zhang_senstrack_2013} genutzt werden, um die GPS-Abtastrate adaptiv zu senken. Außerdem kann die erforderliche Präzision der Geolokalisation zusammen mit der primär genutzten Methode (GPS, GSM, WiFi) adaptiv angepasst werden \cite{lin_energy-accuracy_2010, zhang_senstrack_2013}. Aktuelle Schnittstellen in iOS- und Android-Smartphones greifen auf diese Prinzipien zurück und bieten dem Anwendungsentwickler Möglichkeiten, die benötigte Präzision einzustellen, um den Energieverbrauch zu reduzieren \cite{google_inc_fused_2021, apple_inc_desiredaccuracy_2021}.
 
-\subsection{Lokale kinematische Messparameter}
+\subsection{Kinematische Messparameter}
 
-% Lokale kinematische Messparameter
-% Arbeiten lesen + Engineering Ubiquitous Systems lesen!
-% Erfassung:
-%   - Lokal, keine Kommunikation zu externen Systemen
-%   - Geringerer Energieverbrauch (Quelle!)
-% Daten:
-%   - Beschleunigungsdaten 3-achsig: Akzelerometer
-%   - Neigungsdaten 3-achsig: Gyrosensor
-%   - Orientierungsdaten 3-achsig: Magnetometer
-%   - Übersichtsabbilung eignet sich hier gut
-% Probleme:
-%   - Startpunktproblem: Lage des Smartphone zu Beginn der Messung
-%   - Fehleraggregation: Reine Lokalisation ohne GPS nur schwer möglich
-%   - Daten sind fehlerbehaftet (vor allem Magnetometer, Quelle!)
-%   - Abtastrate und Präzision von Gerät zu Gerät unterschiedlich
-%   - Beschleunigungsdaten: Erdschwerkraft inklusive/exklusive
-% Lösungen:
-%   - Werteänderungen statt absoluten Werten analysieren
-%   - Glättung, Tiefpass, Hochpass, Interpolation, Normalisation
-%   -> Extensiver, da dies später definitiv benötigt wird
-%   - Kalibrierung und Elimination der Erdschwerkraft
-%   - Aggregation von Daten über Zeitraum vermeiden
+Neben den GPS-Geolokalisationsinformationen werden in der STADTRADELN-App außerdem Messparameter mithilfe von Sensoren des Smartphones aufgezeichnet. Diese Messparameter besitzen die Gemeinsamkeit, dass sie auch ohne externe Funksignale (GPS, GSM, WiFi) messbar sind und sich auf die Bewegung und Ausrichtung des Gerätes konzentrieren (Kinematik). Es handelt sich hierbei um jeweils triaxiale Messparameter in Form von Beschleunigungsdaten des Akzelerometers, Neigungsdaten des Gyrosensors, sowie Orientierungsdaten des Magnetometers.
+
+\todo{Infografik über die Messachsen einfügen}
+
+\subsubsection{Funktionsweise}
+
+Das Akzelerometer des Smartphones basiert auf einem mikroelektronischen mechanischem System \textit{(MEMS)}, welches die mechanische Beschleunigung des Smartphones in vom Mikrochip interpretierbare elektrische Signale wandelt \cite{matej_andrejasic_mems_2008, constantinescu_capacitive_2013}. Hierbei wird eine sehr kleine gefederte Masse, welche sich zwischen zwei Elektroden befindet, in Bewegung versetzt. Die Bewegungsänderung bewirkt eine Spannungsänderung am Kondensator, welche vom System als Beschleunigung interpretiert werden kann \cite{dey_accelprint_2014}. Um neben der Beschleunigung auch die Winkelauslenkung (Neigung) des Gerätes zu messen, wird ein Gyrosensor eingesetzt. Gyrosensoren bestehen traditionell aus einer rotierenden Masse, welche durch eine entsprechende Lagerung in Relation zum umgebenden Objekt statisch bleibt. Dies ist physikalisch begründet in der Drehimpulserhaltung. Die Auslenkung des umgebenden Objektes in Relation zur rotierenden Masse kann anschließend elektrisch gemessen werden \cite{singh_piezoelectric_2007}. Wegen der benötigten Größe des traditionellen Apparats wurde das Wirkprinzip mikroelektronisch auf der Grundlage von sogenannten Piezo-Elementen (zum Beispiel einem Quarzkristall) implementiert. Hierbei induziert die Auslenkung des Gerätes eine Spannung über den sogenannten Piezoeffekt \cite{singh_piezoelectric_2007, ichimura_fem_2002, koitabashi_improvement_2002}. Neben dem Gyrosensor und dem Akzelerometer wird zusätzlich auch das Magnetfeld über ein Magnetometer gemessen. Es handelt sich hierbei ebenfalls um ein mikroelektronisches Bauteil, welches über ein komplexes optisches Messsystem anhand von Alkalimetalldämpfen (zum Beispiel Rubidium oder Cäsium) das lokale Magnetfeld messen kann \cite{schwindt_chip-scale_2004, dmitry_budker_alkali_2021}. Anhand der Magnetfelddaten können die triaxialen Orientierungsdaten abgeleitet werden, anhand der Ausrichtung des Erdmagnetfelds.
+
+\subsubsection{Herausforderungen}
+
+Ähnlich zur Geolokalisation über GPS, GSM und WiFi ist die Erfassung der lokalen kinematischen Messparameter (Beschleunigung, Winkelauslenkung, Orientierung) auch mit Problemen behaftet. Bei der Interpretation dieser Messparameter kann die Lage (Ausrichtung) des Smartphones zu Beginn und auch während der Messung in Relation zum Bezugssystem (beispielsweise in Bezug zum Erdboden) von entscheidender Bedeutung sein. So ist insbesondere bei Beschleunigungsdaten des Akzelerometers häufig die Erdschwerkraft im triaxialen Vektorsystem integriert \cite{ken_taylor_activity_2011, tundo_correcting_2013}. Bei einer Neigungsänderung des Smartphones wird somit auch immer eine Änderung des Gravitationsvektors gemessen. Dies erschwert die Interpretation der gemessenen Daten. Ebenfalls erschwerend wirken sich von Gerät zu Gerät unterschiedliche inhärente Messfehler und -parameter der Sensoren aus. Beispielsweise kann die Abtastrate der Sensoren und der genutzten Systemschnittstellen zur Aufzeichnung variieren. Bei der Messung der Akzelerometer-Daten ist mit einem Rauschen der Sensorwerte zu rechnen \cite{dey_accelprint_2014, ravi_deep_2016}. Dies ist übergreifend zurückzuführen auf unterschiedliche Imperfektionen in der Fertigung und die altersbedingte Degradation von mikroelektronischen Chips \cite{matej_andrejasic_mems_2008, constantinescu_capacitive_2013, hillman_manufacturing_2004}. \cite{dey_accelprint_2014} konnten nachweisen, dass allein anhand des gerätespezifischen Rauschens identifiziert werden kann, welches Smartphone zur Aufzeichnung der Messwerte (in diesem Fall Akzelerometer-Daten) genutzt wurde. Die diesem Ergebnis zugrundeliegenden Rauschmuster sind von hoher Relevanz für die spätere Signalprozessierung. Durch die zu antizipierende inhärente Abweichung der Sensordaten vom tatsächlichen Wert eignen sich die Beschleunigungsdaten in ihrer Reinform auch nicht für eine vollständige Bewegungsrekonstruktion und Lokalisation durch Aggregation der Bewegungsänderungen im Raum \cite{takeda_drift_2014}. Neben diesen Herausforderungen besteht mit Hinblick auf die Orientierungsdaten ein weiteres Problem. Da das Erdmagnetfeld (ca. 30 bis 60 Mikrotesla) im Vergleich zu einigen künstlichen Magnetfeldquellen wie Kühlschränken (ca. 5 Millitesla) \cite{schirmer_smartphone_2016, moreno-torres_evaluation_2013} relativ schwach ist, kann der Magnetometer-Sensor leicht gestört oder gar dekalibriert werden \cite{schirmer_smartphone_2016, zhang_preliminary_2012}, was zu signifikanten Fehlern führen kann \cite{kunze_can_2010}.
+
+\subsubsection{Lösungen}
+
+Zur Mitigation der Herausforderungen aus der vorigen Sektion wurden bereits verschiedene Methoden entwickelt. Zur Normalisierung der möglicherweise von Gerät zu Gerät unterschiedlichen Abtastraten und zur Synchronisation von asynchron aufgezeichneten Daten unterschiedlicher Herkunft ist ein Up- oder Downsampling mithilfe einer Interpolation der Datenpunkte möglich \cite{matusek_anwendung_2019}. Eventuell auftretendes Rauschen kann durch einen Tiefpassfilter respektive einem Hochpassfilter eliminiert werden. \cite{nutter_design_2018} nutzen einen Tiefpassfilter bei 0.3 Hz, einen Medianfilter von Länge 3, sowie einen Butterworth-Filter bei 20 Hz für die Vorverarbeitung von Akzelerometer-Daten. \cite{takeda_drift_2014} verwenden einen Butterworth-Filter für die Verarbeitung von Auslenkungsdaten des Gyrosensor. \cite{abdulla_measuring_2013} applizieren einen Tiefpassfilter bei 5 Hz auf Magnetometerdaten. Neben diesen Signalverarbeitungsmethoden ist es auch möglich, speziell bei Beschleunigungsdaten den inkludierten Gravitationsvektor zu eliminieren und mithilfe einer Rotationsmatrix das rotierbare Koordinatensystem des Smartphones in ein nicht rotierbares aufrechtes Koordinatensystem zu überführen \cite{nutter_design_2018, tundo_correcting_2013}. Bei der Wegrekonstruktion durch die Aggregation der Bewegungsänderungen lässt sich außerdem eine Drift-Korrektur anwenden, bei der Klassifikation der Sensordaten analog zur Aufgabenstellung dieser Arbeit spielt dies jedoch noch eine untergeordnete Rolle, da eine zeitliche Aggregation möglicherweise wichtige Informationen für die Klassifikation der Sensordaten eliminieren würde \cite{takeda_drift_2014}. \\
+
+\noindent Allgemein lässt sich anhand der einschlägigen Fachliteratur beobachten, dass insbesondere Beschleunigungsdaten des Akzelerometers in vielen wissenschaftlichen Arbeiten als Grundlage für eine Aktivitätsklassifikation verwendet werden \cite{gudur_activeharnet_2019, nutter_design_2018}. Beschleunigungsdaten enthalten einen ausreichenden Informationsgehalt, um komplexe Bewegungsabläufe zu rekonstruieren \cite{cai_touchlogger_2011, marquardt_spiphone_2011, aviv_practicality_2012}. Sie können für eine Aktivitätserkennung mit Gyrosensor-Daten verknüpft werden \cite{ravi_deep_2016}. Magnetometer-Daten genügen nicht als alleinige Datengrundlage zur Aktivitätserkennung, eignen sich jedoch als Ergänzung zu Beschleunigungsdaten und Auslenkungsdaten \cite{abdulla_measuring_2013, kunze_can_2010}.
+
+\todo{Fremdwörter erklären als Fußnote}
 
 % Weitere Probleme: Datenschutz und -sicherheit
+% -> GPS Daten sind unter Umständen sehr privat
+% -> Accelerometer-Daten können aber auch zur Personenidentifikation genutzt werden [Tundo et al.]
 % (Nicht behandelt in dieser Arbeit)
 
 % Daten stellen eine Art der Kontextsensitivität dar
@@ -158,3 +157,8 @@ Zur Verbesserung der hybriden Geolokalisation über GPS-, GSM- und WiFi-Signale 
 % ... (braucht noch mehr Ideen)
 
 % ...
+
+
+\todo{Konzept: Zeitfenster diskreter Länge behandeln}
+\todo{Konzept: Behandlung fehlender Daten}
+\todo{Konzept: Glättung der Daten}
