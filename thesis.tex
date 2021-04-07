@@ -182,13 +182,15 @@
 
   % this is where your thesis lives
 
-  \input{sections/aft.tex}
+  \input{sections/einleitung.tex}
+  \input{sections/grundlagen/index.tex}
 
   \newpage
 
   % use lowercased roman page numbers for the appendix and the bibliography
   \pagenumbering{roman}
 
+  \nocite{*}
   \printbibliography[heading=bibintoc]\label{sec:bibliography}%
 
   % \begin{appendices}
