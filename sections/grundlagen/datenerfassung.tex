@@ -42,38 +42,89 @@ Das Akzelerometer des Smartphones basiert auf einem mikroelektronischen mechanis
 
 Bei der Interpretation der Messparameter (Beschleunigung, Winkelauslenkung, Orientierung) kann die Ausrichtung des Smartphones zu Beginn und auch während der Messung in Relation zum Bezugssystem (beispielsweise in Bezug zum Erdboden) von entscheidender Bedeutung sein. So ist insbesondere bei Beschleunigungsdaten des Akzelerometers häufig die Erdschwerkraft im triaxialen Vektorsystem integriert \cite{ken_taylor_activity_2011, tundo_correcting_2013}. Bei einer Neigungsänderung des Smartphones wird somit auch immer eine Änderung des Gravitationsvektors gemessen. Dies erschwert die Interpretation der gemessenen Daten, da die gemessenen Werte zunächst in ein von der Neigung des Gerätes unabhängiges Bezugskoordinatensystem (in der Regel bezeichnet als \enquote{Weltkoordinatensystem}) gebracht werden müssen.
 
-\todo{Infografik zum Desync der Daten einfügen}
+\begin{figure}[H]
+\includegraphics[width=\linewidth, bb=0 0 425 162 ]{desync.pdf}
+\caption{Schematische Darstellung der zeitlichen Desynchronisation von Sensordaten, angelehnt an \cite{matusek_anwendung_2019}.}\label{fig:desync}
+\end{figure}
 
-Ebenfalls erschwerend wirken sich von Gerät zu Gerät unterschiedliche inhärente Messfehler und -parameter der Sensoren aus. Beispielsweise kann die Abtastrate der Sensoren und der genutzten Systemschnittstellen zur Aufzeichnung variieren \cite{matusek_anwendung_2019}. Bei der Messung der Akzelerometer-Daten ist mit einem Rauschen der Sensorwerte zu rechnen \cite{dey_accelprint_2014, ravi_deep_2016}. Dies ist übergreifend zurückzuführen auf unterschiedliche Imperfektionen in der Fertigung und die altersbedingte Degradation von mikroelektronischen Chips \cite{matej_andrejasic_mems_2008, constantinescu_capacitive_2013, hillman_manufacturing_2004}. \cite{dey_accelprint_2014} konnten nachweisen, dass allein anhand des gerätespezifischen Rauschens identifiziert werden kann, welches Smartphone zur Aufzeichnung der Messwerte (in diesem Fall Akzelerometer-Daten) genutzt wurde. Die diesem Ergebnis zugrundeliegenden Rauschmuster müssen bei der späteren Datenvorverarbeitung berücksichtigt werden, um zu vermeiden, dass das zu portierende Machine-Learning Klassifikationssystem unerwünschte Muster lernt. Durch die zu antizipierende inhärente Abweichung der Sensordaten vom tatsächlichen Wert eignen sich die kinematischen Daten auch nur begrenzt für eine Bewegungsrekonstruktion und Lokalisation durch Aggregation im Raum. Speziell die Ausrichtungsdaten des Gyrosensors sind prädestiniert für die auch als \textit{Drift} bezeichnete Fehleraggregation \cite{takeda_drift_2014}. Neben diesen Herausforderungen besteht mit Hinblick auf die Orientierungsdaten ein weiteres Problem. Da das Erdmagnetfeld (ca. $30 \mu T$ bis $60 \mu T$) im Vergleich zu einigen künstlichen Magnetfeldquellen wie Kühlschränken (ca. $5 mT$) \cite{schirmer_smartphone_2016, moreno-torres_evaluation_2013} relativ schwach ist, kann der Magnetometer-Sensor leicht gestört oder gar dekalibriert werden \cite{schirmer_smartphone_2016, zhang_preliminary_2012}, was zu signifikanten Fehlern führen kann \cite{kunze_can_2010}.
+\noindent Ebenfalls erschwerend wirken sich von Gerät zu Gerät unterschiedliche inhärente Messfehler und -parameter der Sensoren aus. Wie in \Cref{fig:desync} gezeigt kann beispielsweise die Abtastrate der Sensoren und der genutzten Systemschnittstellen zur Aufzeichnung variieren oder eine verzögerte Aufzeichnung auftreten \cite{matusek_anwendung_2019}. Bei der Messung der Akzelerometer-Daten ist mit einem Rauschen der Sensorwerte zu rechnen \cite{dey_accelprint_2014, ravi_deep_2016}. Dies ist übergreifend zurückzuführen auf unterschiedliche Imperfektionen in der Fertigung und die altersbedingte Degradation von mikroelektronischen Chips \cite{matej_andrejasic_mems_2008, constantinescu_capacitive_2013, hillman_manufacturing_2004}. \cite{dey_accelprint_2014} konnten nachweisen, dass allein anhand des gerätespezifischen Rauschens identifiziert werden kann, welches Smartphone zur Aufzeichnung der Messwerte (in diesem Fall Akzelerometer-Daten) genutzt wurde. Die diesem Ergebnis zugrundeliegenden Rauschmuster müssen bei der späteren Datenvorverarbeitung berücksichtigt werden, um zu vermeiden, dass das zu portierende Machine-Learning Klassifikationssystem unerwünschte Muster lernt. Durch die zu antizipierende inhärente Abweichung der Sensordaten vom tatsächlichen Wert eignen sich die kinematischen Daten auch nur begrenzt für eine Bewegungsrekonstruktion und Lokalisation durch Aggregation im Raum. Speziell die Ausrichtungsdaten des Gyrosensors sind prädestiniert für die auch als \textit{Drift} bezeichnete Fehleraggregation \cite{takeda_drift_2014}. Neben diesen Herausforderungen besteht mit Hinblick auf die Orientierungsdaten ein weiteres Problem. Da das Erdmagnetfeld (ca. $30 \mu T$ bis $60 \mu T$) im Vergleich zu einigen künstlichen Magnetfeldquellen wie Kühlschränken (ca. $5 mT$) \cite{schirmer_smartphone_2016, moreno-torres_evaluation_2013} relativ schwach ist, kann der Magnetometer-Sensor leicht gestört oder gar dekalibriert werden \cite{schirmer_smartphone_2016, zhang_preliminary_2012}, was zu signifikanten Fehlern führen kann \cite{kunze_can_2010}.
 
 \subsubsection{Signalverarbeitungsmethoden}
 
-Zur Mitigation der beschriebenen Probleme wurden bereits verschiedene Methoden entwickelt. Eventuell auftretendes Rauschen kann durch ein Tiefpassfilter respektive Hochpassfilter eliminiert werden. \cite{nutter_design_2018} nutzen mehrere Filter für die Prozessierung von Beschleunigungsdaten, darunter ein Median-Filter\footnote{Bei dem Median-Filter handelt es sich um ein Frequenzfilter, welches zur Glättung genutzt wird. \url{https://de.wikipedia.org/wiki/Rangordnungsfilter} (Abgerufen am 7.4.2021)} von Länge 3 sowie ein Butterworth-Tiefpassfilter\footnote{Bei dem Butterworth-Tiefpassfilter handelt es sich um ein spezielles Tiefpassfilter, welches zur Eliminierung von Frequenzen über einem Schwellenwert $\omega_{0}$ und zur Reduktion der Kurvenpunkte bei Erhaltung des Kurvenverlaufs genutzt werden kann \cite{zuricher_hochschule_fur_angewandte_wissenschaften_kapitel_2009}. \url{https://de.wikipedia.org/wiki/Butterworth-Filter} (Abgerufen am 7.4.2021)} bei $20 Hz$. \cite{takeda_drift_2014} verwenden ebenfalls ein Butterworth-Filter, hierbei für die Verarbeitung von Auslenkungsdaten des Gyrosensor. \cite{abdulla_measuring_2013} applizieren ein Tiefpassfilter bei $5 Hz$ auf Magnetometerdaten.
+Zur Mitigation der beschriebenen Probleme wurden bereits verschiedene Methoden entwickelt.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth, bb=0 0 733 340]{frequenzpassfilter.pdf}
+\caption{Anwendung von Frequenzbandfiltern auf Rohsensordaten des Akzelerometers. Datenquelle: Eigenes Sample eines iPhone XS-Akzelerometers.}\label{fig:frequenzpassfilter}
+\end{figure}
+
+\noindent Eventuell auftretendes Rauschen kann durch ein Tiefpassfilter respektive Hochpassfilter eliminiert werden. Hierbei eliminiert ein Tiefpassfilter hochfrequentes Rauschen und ein Hochpassfilter niederfrequentes Rauschen (siehe \Cref{fig:frequenzpassfilter}). \cite{nutter_design_2018} nutzen mehrere Filter für die Prozessierung von Beschleunigungsdaten, darunter auch ein Butterworth-Tiefpassfilter bei $20 Hz$. Bei dem Butterworth-Tiefpassfilter handelt es sich um ein spezielles Tiefpassfilter, welches zur Eliminierung von Frequenzen über einem Schwellenwert $\omega_{0}$ und zur Reduktion der Kurvenpunkte bei Erhaltung des Kurvenverlaufs genutzt werden kann \cite{zuricher_hochschule_fur_angewandte_wissenschaften_kapitel_2009}. \footnote{\url{https://de.wikipedia.org/wiki/Butterworth-Filter} (Abgerufen am 7.4.2021)}. \cite{takeda_drift_2014} verwenden ebenfalls ein Butterworth-Filter, hierbei für die Verarbeitung von Auslenkungsdaten des Gyrosensor. \cite{abdulla_measuring_2013} applizieren ein Tiefpassfilter bei $5 Hz$ auf Magnetometerdaten.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth, bb=0 0 724 340]{glaettingsfilter.pdf}
+\caption{Anwendung von Glättungsfiltern auf Rohsensordaten des Akzelerometers. Datenquelle: Eigenes Sample eines iPhone XS-Akzelerometers.}\label{fig:glaettingsfilter}
+\end{figure}
+
+\noindent Neben Hoch- und Tiefpassfiltern besteht weiterhin auch die Möglichkeit, die Signale zu glätten, um hochfrequente Signalschwankungen zu eliminieren. Hierbei kommen Glättungsfilter zum Einsatz. \cite{matusek_anwendung_2019} behandelt das in \Cref{fig:glaettingsfilter} gezeigte und unter den Namen \textit{Moving Average} bekannte Filterverfahren, bei dem die umliegenden Datenpunkte (Länge $k$) mit dem zu glättenden Datenpunkt gemittelt werden. Es existieren zahlreiche weitere Glättungsverfahren, darunter auch das von \cite{nutter_design_2018} (hier parametrisiert mit $k = 3$) genutzte Median-Filter. Wie in \Cref{fig:glaettingsfilter} sichtbar wird das Eingangssignal mit einer von der Filterlänge abhängigen Intensität geglättet. Beim Beispielsignal aus \Cref{fig:glaettingsfilter} ist klar zu erkennen, dass hierbei jedoch auch bei einer zu hohen Filterlänge $k$ wichtige Informationen verloren gehen können.
 
 \subsubsection{Sensorfusion}
 
-Bei einer differenzierten Betrachtung der einzelnen Sensorsysteme lässt sich anhand der einschlägigen Fachliteratur beobachten, dass insbesondere die Beschleunigungsdaten des Akzelerometers als geeignete Grundlage für eine Aktivitätsklassifikation \cite{gudur_activeharnet_2019, nutter_design_2018} verwendet werden können. \cite{cai_touchlogger_2011, marquardt_spiphone_2011, aviv_practicality_2012} zeigen, dass Beschleunigungsdaten sogar für eine Rekonstruktion von Eingaben im Smartphone geeignet sind. Da in den Daten der STADTRADELN-App jedoch auch Auslenkungs- und Orientierungsdaten vorliegen, können die Beschleunigungsdaten für eine Aktivitätserkennung in einer geeigneten Form mit diesen verknüpft werden \cite{ravi_deep_2016, abdulla_measuring_2013, kunze_can_2010}. Mithilfe einer Fusion der Sensordaten auf Grundlage von Madgwick-Filtern \cite{madgwick_estimation_2011} ist dies möglich. Speziell bei Beschleunigungsdaten kann hierdurch der inkludierte Gravitationsvektor eliminiert werden \cite{nutter_design_2018, tundo_correcting_2013}. Außerdem kann die Orientierung und Auslenkung des Gerätes in Relation zum Weltkoordinatensystem rekonstruiert werden, um schließlich alle Sensordaten in dasselbe Weltkoordinatensystem zu übermitteln.
+Bei einer differenzierten Betrachtung der einzelnen Sensorsysteme lässt sich anhand der einschlägigen Fachliteratur beobachten, dass insbesondere die Beschleunigungsdaten des Akzelerometers als geeignete Grundlage für eine Aktivitätsklassifikation \cite{gudur_activeharnet_2019, nutter_design_2018} verwendet werden können. \cite{cai_touchlogger_2011, marquardt_spiphone_2011, aviv_practicality_2012} zeigen, dass Beschleunigungsdaten sogar für eine Rekonstruktion von Eingaben im Smartphone geeignet sind. Da in den Daten der STADTRADELN-App jedoch auch Auslenkungs- und Orientierungsdaten vorliegen, können die Beschleunigungsdaten für eine Aktivitätserkennung in einer geeigneten Form mit diesen verknüpft werden \cite{ravi_deep_2016, abdulla_measuring_2013, kunze_can_2010}. Mithilfe einer Fusion der Sensordaten, beispielsweise auf Grundlage von Madgwick-Filtern \cite{madgwick_estimation_2011} ist dies möglich. Speziell bei Beschleunigungsdaten kann hierdurch der inkludierte Gravitationsvektor eliminiert werden \cite{nutter_design_2018, tundo_correcting_2013}. Außerdem kann die Orientierung und Auslenkung des Gerätes in Relation zum Weltkoordinatensystem rekonstruiert werden, um schließlich alle Sensordaten in dasselbe Weltkoordinatensystem zu übermitteln.
 
-\todo{Madgwick-Filter näher erklären}
+\paragraph{Funktionsweise des Madgwick-Filter:} Das von \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} verwendete Madgwick-Filter ist ein iteratives mathematisches Verfahren, mit dem eine Schätzung über die Lage eines Smartphones (oder anderer IMU\footnote{IMU steht für \textit{Inertial Measurement Unit}, einer Kombination aus Akzelerometer und Gyrosensor}-Systeme) in Form berechnet werden kann. Die resultierende Schätzung wird in Form eines Quaternion\footnote{\url{https://en.wikipedia.org/wiki/Quaternion} (Abgerufen am 8.4.2021)} angegeben. Die konkrete mathematische Beschreibung des Verfahrens kann in \cite{nitin_j_sanket_mathematical_2021, madgwick_estimation_2011} nachgelesen werden, zusammenfassend jedoch wird die Schätzung der Lage im Raum auf Grundlage der numerischen Lösung eines mathematischen Optimierungsproblems realisiert. Durch ein Gradientenabstiegsverfahren wird kontinuierlich versucht, den Fehler der Lagevorhersage anhand der tatsächlich gemessenen Daten zu minimieren. Gradientenabstiegsverfahren werden in \Cref{sec:machine-learning} näher erläutert, da sie zu den Machine-Learning-Methoden zählen. \\
 
-Als konkrete Implementation dieser Filter nutzen sowohl \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} als auch \cite{stojanov_continuous_2020} das sogenannte \textit{Attitude and Heading Reference System (AHRS)}.
+\begin{table}[H]
+  \begin{tabular}{cccccccccccccccccll}
+    \rot{AQUA \cite{valenti_keeping_2015}}
+    & \rot{Complementary}
+    & \rot{Davenport \cite{paul_b_davenport_vector_1968}}
+    & \rot{EKF \cite{sabatini_kalman-filter-based_2011}}
+    & \rot{FAMC \cite{liu_simplified_2018}}
+    & \rot{FLAE \cite{wu_super_2018}}
+    & \rot{Fourati \cite{fourati_nonlinear_2011}}
+    & \rot{FQA \cite{yun_simplified_2008}}
+    & \rot{Integration}
+    & \rot{\textbf{Madgwick} \cite{madgwick_estimation_2011}}
+    & \rot{Mahony \cite{mahony_nonlinear_2008}}
+    & \rot{OLEQ \cite{zhou_optimal_2018}}
+    & \rot{QUEST \cite{shuster_three-axis_1981}}
+    & \rot{ROLEQ \cite{zhou_optimal_2018}}
+    & \rot{SAAM \cite{wu_super_2018}}
+    & \rot{Tilt \cite{sebastian_trimpe_balancing_2012}}
+    & \rot{TRIAD \cite{shuster_optimization_2007}}
+    & \\
+    \midrule
+    \omark & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark & \xmark & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark & ACC \\
+    \cmark & \cmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & GYR \\
+    \omark & \omark & \cmark & \cmark & \cmark & \cmark & \cmark & \omark & \xmark & \omark & \omark & \cmark & \cmark & \cmark & \cmark & \omark & \cmark & MAG \\
+    \bottomrule
+  \end{tabular}\label{tab:ahrs}
+  \caption{Lageschätzverfahren in der Übersicht, zusammen mit deren Abhängigkeit von Akzelerometerdaten (ACC), Gyrosensordaten (GYR) und Magnetometerdaten (MAG). Entnommen aus \cite{garcia_mayitzinahrs_2021}. Legende: Benötigt (\cmark), Optional (\omark), Nicht einbezogen (\xmark).}
+\end{table}
 
-\todo{AHRS erklären}
-\todo{Evtl. Quaternionen erklären}
-\todo{Ermittlung der Gravitation erklären (Gleichungen)}
-\todo{Ermittlung der Orientierung erklären (Gleichungen)}
+\noindent Ein System, welches einen oder eine Kombination aus solchen Algorithmen nutzt, um die Lage des Smartphones im Weltkoordinatensystem zu rekonstruieren, wird auch als \textit{Attitude and Heading Reference System (AHRS)} bezeichnet. \\
 
 \subsubsection{Synchronisierung und Alignment}
 
 Zur Synchronisierung der möglicherweise von Gerät zu Gerät unterschiedlichen Abtastraten oder von asynchron aufgezeichneten Daten unterschiedlicher Sensoren ist ein Up- oder Downsampling mithilfe einer Interpolation der Datenpunkte möglich \cite{matusek_anwendung_2019, werner_kontinuierliche_2020, stojanov_continuous_2020}.
 
-\todo{Interpolation genau erklären (kubisch vs. linear)}
-\todo{Synchronisierung + Alignment näher erklären}
-\todo{Überleitung auf GPS-Datenpunkte schreiben}
+\begin{figure}[H]
+\includegraphics[width=\linewidth, bb=0 0 410 171]{desync-solution.pdf}
+\caption{Schematische Darstellung des Alignments von desynchronisierten Datenpunkten, angelehnt an \cite{matusek_anwendung_2019}.}\label{fig:desync-solution}
+\end{figure}
+
+\noindent \cite{matusek_anwendung_2019} beschreibt in seinem Konzept, wie desynchronisierte Datenpunkte wieder synchronisiert werden können. \Cref{fig:desync-solution} zeigt das Verfahren schematisch. Die mit Zeitstempeln versehenen Datenpunkte werden in ein festes Abtastraster gebracht. Dies gelingt über zwei primäre Schritte. Am zeitlichen Rand der Messung werden zunächst Datenpunkte verworfen, zu denen kein Wertepaar aus allen drei Sensoren gebildet werden kann. Ein Wertepaar lässt sich erst dann bilden, wenn alle Sensoren mindestens einen Wert erfasst haben, sowie am Ende der Messung vice versa, wenn alle Sensoren noch weitere Daten gemessen haben. Das so gefundene Fenster wird anschließend im zweiten Schritt anhand der vorliegenden Datenpunkte pro Sensormessung interpoliert, um den diskreten Punktdatensatz in eine kontinuierliche Näherungsfunktion zu überführen. Die Abtastzeitpunkte $t_s ... t_{s+n}$ (in \Cref{fig:desync-solution} als $\oplus$ gekennzeichnet) können anschließend für alle drei Messverläufe beliebig gewählt und errechnet werden.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth, bb=0 0 505 175]{interpolation.pdf}
+\caption{Schematische Darstellung verschiedener Interpolationsverfahren.}\label{fig:interpolation}
+\end{figure}
+
+\noindent Hierbei stehen verschiedene Interpolationsverfahren zur Verfügung, die in \Cref{fig:interpolation} gezeigt sind. Die linke Seite der Abbildung zeigt ein sehr einfaches Interpolationsverfahren, bei dem die Distanz auf der Zeitachse (oder die euklidische Distanz im zweidimensionalen Raum) herangezogen wird, um den nächsten Nachbarn zu bestimmen und dessen Wert für die Interpolation des Sample-Punktes zu nutzen. Komplexere Interpolationsverfahren wie die lineare Interpolation oder die Spline-Interpolation sind rechenaufwändiger, bilden jedoch den Kurvenverlauf präziser nach. Die Spline-Interpolation ist am besten dazu in der Lage, komplexe Kurvenverläufe nachzubilden, tendiert jedoch zum \enquote{Überschwingen} durch die Constraints der Spline-Gleichung, vor allem bei stark verrauschten Daten. Daher bietet es sich an, wie in \cite{matusek_anwendung_2019} eine lineare Interpolation für die Synchronisation und das Alignment der Datenpunkte zu nutzen.
 
 \subsection{Geolokalisationsinformationen}
 
-Das \textit{Navigational Satellite Timing and Ranging - Global Positioning System}, kurz \textit{NAVSTAR GPS} oder auch nur \textit{GPS} ist ein System aus (Stand 9. Januar 2021) 31 Satelliten, welche die Erde in einer Höhe von ca. 20.000 km umkreisen \cite{us_space_force_gpsgov_2021}.
+Neben den lokalen kinematischen Messparametern werden in der STADTRADELN auch analog zur Datenschutzerklärung GPS-Daten erfasst. Das \textit{Navigational Satellite Timing and Ranging - Global Positioning System}, kurz \textit{NAVSTAR GPS} oder auch nur \textit{GPS} ist ein System aus (Stand 9. Januar 2021) 31 Satelliten, welche die Erde in einer Höhe von ca. 20.000 km umkreisen \cite{us_space_force_gpsgov_2021}.
 
 \subsubsection{Terminologische Einordnung}
 

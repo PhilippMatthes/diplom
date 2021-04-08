@@ -96,6 +96,11 @@
 \usepackage{ellipsis}
 \let\ellipsispunctuation\relax
 
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+\newcommand{\omark}{\ding{108}}
+
 \input{lst.tex} % code styles (listings)
 
 % use this custom theorem for research questions
@@ -126,6 +131,10 @@
 \ihead{\leftmark}
 \ohead{\ifstr{\leftmark}{\rightmark}{}{\rightmark}}
 \cfoot*{\pagemark}
+
+\usepackage{booktabs}
+\usepackage{xparse}
+\NewDocumentCommand{\rot}{O{45} O{1em} m}{\makebox[#2][l]{\rotatebox{#1}{#3}}}%
 
 \begin{document}
 
