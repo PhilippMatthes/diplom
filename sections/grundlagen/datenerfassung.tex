@@ -177,17 +177,42 @@ Zur Verbesserung der hybriden Geolokalisation über GPS-, GSM- und WiFi-Signale 
 
 \subsection{Normalisierung und Standardisierung der Daten}
 
-\todo{Normalisierung motivieren -> Wichtig für Lernparameter}
-\todo{Unterschied Normalisierung und Standardisierung erklären}
-\todo{Konkrete Wertebereiche aufstellen}
+Die in den vorigen Sektionen erläuterten Daten besitzen teils stark voneinander unterschiedliche Wertebereiche.
 
+\begin{table}[H]
+  \begin{tabular}{ll}
+    Sensor & Wertebereich \\
+    \midrule
+    Akzelerometer & Vielfache der Erdgravitation, negativ und positiv, Einheit: $g = \frac{m}{9.81 s^2}$ \\
+    Gyrosensor & Winkelauslenkungen, negativ und positiv, in $rad$ \\
+    Magnetometer & Magnetfeldstärke, negativ und positiv, in $\mu T$ \\
+    GNSS & Longitude und Latitude, in absoluten Gradzahlen, sowie Geschwindigkeit in $\frac{km}{h}$ \\
+    \bottomrule
+  \end{tabular}\label{tab:wertebereiche}
+  \caption{Zu erwartende Wertebereiche der verfügbaren Sensorwerte.}
+\end{table}
 
-% Weitere Probleme: Datenschutz und -sicherheit
-% -> GPS Daten sind unter Umständen sehr privat
-% -> Accelerometer-Daten können aber auch zur Personenidentifikation genutzt werden [Tundo et al.]
-% (Nicht behandelt in dieser Arbeit)
+\noindent Die hohe Variabilität der zu erwartenden Maxima und Minima dieser Wertebereiche stellt ein Problem für die meisten Machine-Learning-Systeme (siehe \Cref{sec:machine-learning}) dar, in Abhängigkeit von deren Architektur \cite[S. 66]{geron_praxiseinstieg_2018}. Daher ist es üblich, zur Vorverarbeitung der Daten neben den bereits vorgestellten Methoden auch eine Skalierung durchzuführen. Für die Skalierung haben sich zwei mathematische Methoden etabliert. Die Normalisierung (auch als Min-Max-Skalierung bezeichnet) skaliert die Messwerte zwischen dem Maximum und dem Minimum des Wertebereichs.
 
-% Daten stellen eine Art der Kontextsensitivität dar
-% Kontextsensitive Adaption: Messung, Integration, Adaption
-% -> Engineering Ubiquitous Systems lesen!
-% Klassifikation der gemessenen Daten fällt somit in Integration
+\begin{equation}\label{eq:minmax}
+  norm(d) = \frac{ d - min(D) }{ max(D) - min(D) }
+\end{equation}
+wobei:
+\begin{conditions}
+  d \in D \subseteq \mathbf{Q} & Der gewählte Datenpunkt aus der Datenpunktmenge $D$
+\end{conditions}
+
+\noindent Die Skalierung des Datenpunktes $d$ mithilfe der Normalisierung impliziert $0 \leq norm(d) \leq 1$, jedoch nur, wenn $d \in D$. Sollte $d \notin D$ gelten, dann kann $norm(d)$ auch außerhalb $[0, 1]$ liegen, wenn $d \leq min(D)$ oder $d \geq max(D)$. Die Normalisierung ist außerdem nicht robust gegenüber fehlerhaften Einzelwerten. Zur Illustration kann das Beispiel $D = \{1.25, 1.05, 0.93, 120.5\}$ betrachtet werden, bei dem $120.5 \in D$ einen Messfehler darstellt. Infolge des einzelnen fehlerhaften Datenpunktes werden alle korrekten Datenpunkte $d_k \in \{1.25, 1.05, 0.93\} \subseteq D$ mit $norm(d_k) \approx 0$ skaliert. Ein gegenüber solchen Abweichungen robusteres Vefahren ist die Standardisierung.
+
+\begin{equation}\label{eq:standardisierung}
+  std(d) = \frac{ d - \mu_D }{ \sigma_D } \\
+\end{equation}
+wobei:
+\begin{conditions}
+  d \in D \subseteq \mathbf{Q} & Der gewählte Datenpunkt aus der Datenpunktmenge $D$ \\
+  \mu_D & Das arithmetische Mittel von $D$ \\
+  \sigma_D & Die Standardabweichung von $D$
+\end{conditions}
+
+\noindent Bei der Standardisierung der Datenpunktmenge $D$ wird dem Datenpunkt $d$ zunächst das arithmetische Mittel $\mu_D$ abgezogen. Ist $d < \mu_D$, dann gilt $d - \mu_D < 0$. Umgekehrt gilt $d - \mu_D > 0$ für $d > \mu_D$. Somit werden die Werte innerhalb der Datenpunktmenge gleichmäßig um den Nullpunkt verteilt. Anschließend wird durch die Standardabweichung $\sigma_D$ dividiert. Gilt $\sigma_D < 1$, so werden die standardisierten Werte vergrößert. Ist $\sigma_D > 1$, führt dies zu einer Verkleinerung der standardisierten Werte. Somit werden die Werte verschiedener Wertebereiche in annähernd denselben Zahlenraum überführt. Gleichzeitig wird der relative Abstand der fehlerhaften Datenpunkte zu korrekten Datenpunkten erhalten. Somit lässt sich ein einheitliches Wertebereichsfenster, beispielsweise $W_F = [F_{min} = -1, F_{max} = 1]$ definieren, außerhalb dessen unplausible Werte verworfen werden können. Alternativ können Werte außerhalb dieses Bereichs mit der Funktion $clamp(d) = \max(F_{min}, \min(d, F_{max}))$ in $W_F$ abgebildet werden.
+
