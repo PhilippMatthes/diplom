@@ -2,26 +2,36 @@
 
 In \Cref{sec:datenerfassung-und-vorverarbeitung} wurde detailliert beschrieben, wie sich die Aktivitätsdaten innerhalb der STADTRADELN-App strukturieren und welche Herausforderungen bei der Weiterverarbeitung der Daten zu beachten sind. In diesem Abschnitt sollen nun Methoden vorgestellt werden, mithilfe derer eine Interpretation der vorverarbeiteten Daten möglich ist.
 
-\subsection{Klassische Probleme der künstlichen Intelligenz}
+\subsection{Verkehrsmittelerkennung}
 
-Die Klassifikation der Aktivität anhand der beschriebenen Daten ist kein triviales Problem. Neben mannigfaltigen Fehlerursachen (in \Cref{sec:datenerfassung-und-vorverarbeitung} erläutert) ist auch die Komplexität der zu interpretierenden Daten denkbar hoch. Smartphones können zum Beispiel in verschiedenen Positionen (Hand, Hosentasche, Rucksack, ...) am Körper bzw. am/im Verkehrsmittel getragen werden. Weitere Ursachen für zwischen Messungen gleicher Aktivität abweichenden Daten sind unterschiedlich beschaffene Verkehrsmittel (zum Beispiel Rennrad vs. Mountainbike), unterschiedliche anatomische Gegebenheiten und Bewegungsmuster der jeweiligen Person, sowie die Art des Untergrundes (zum Beispiel Schotterweg vs. asphaltierte Straße) oder die allgemeine Beschaffenheit des Geländes.
+Die Erkennung des Verkehrsmittels anhand der beschriebenen Daten, wie sie \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} umgesetzt haben, lässt sich als ein Problem der \textit{Human Activity Recognition (HAR)} interpretieren. Hierbei liegen Aktivitätsdaten einer jeweiligen Person vor, anhand dessen die ausgeführte Aktivität klassifiziert werden soll. Die formelle Definition ist wie folgt. Sei $D = \{d_0, \dots, d_n\} \subseteq \mathbf{R}^n$ die chronologisch sortierte Menge aller vorverarbeiteten und anhand einer Interpolation auf dieselbe Abtastrate synchronisierten Datenpunkte. Wähle ein zu klassifizierendes Segment $S \subseteq D$ der Länge $n_S$. Dann ist die Abbildung $HAR(S): D^{n_S} \rightarrow L$ zu finden, wobei $L$ die Menge der möglichen \textit{Labels} von Verkehrsmitteln wie \textit{Fahrrad}, \textit{Bahn}, \textit{Bus}, \textit{zu Fuß} und weiteren ist. Durch die Aufteilung von $D$ in Segmente fester Länge können anschließend mithilfe der Abbildung $HAR(S)$ entlang $D$ die genutzten Verkehrsmittel rekonstruiert werden.
 
-% Überleitung von Datensatz auf Problem der Künstlichen Intelligenz
-% Motivation und Definition von Künstlicher Intelligenz
-% Machine Learning ist ein Teil von Künstlicher Intelligenz
-% -> Hierzu gehört noch mehr als Machine Learning, was?
-% -> Vielleicht eignet sich hier ein Venn-Diagramm.
+\subsubsection{Segmentierung}
 
-% Klassische Probleme der Künstlichen Intelligenz:
-% - Clustering (Datenpakete zu Gruppen mit Gemeinsamkeiten zusammenfassen bei Fehlerminimierung)
-% - Regression (Modellparameter bilden Verlauf eines mathematischen Zusammenhangs nach, Vorhersage von neuen Datenpunkten durch Extrapolation)
-% - Generation und Transformation (Erkennung von Mustern, Replikation dieser), bsp. Deep Dream, GPT-2, ...
-% - Klassifikation (Datenpakete bestimmter Klasse zuordnen)
-% -> Klassifikation ist das Problem dieser Arbeit!
+\todo{Abbildung der Segmente + Datenpunktvektoren einfügen}
 
-% Human Activity Recognition als Klassifikationsproblem
-% ... (braucht noch mehr Ideen)
+In der obigen Problemdarstellung wurde bereits vorweggenommen, dass die Datenpunkte gleichmäßig in Segmente unterteilt werden sollen, die sich auch überlappen können. Dieses Verfahren wird als Gleitfenstermethode bezeichnet. Über die zeitliche Kombination von mehreren aufeinanderfolgenden Datenpunkten (auch als Zeitlinie bezeichnet) können wertvolle Informationen erhalten werden, wie sich zeitlich wiederholende Bewegungsabläufe \cite[S. 4]{banos_window_2014}. Gleichzeitig sollen Wechsel zwischen den Verkehrsmitteln innerhalb der Datenpunktmenge erkannt werden, was mit einer ganzheitlichen Klassifikation der Datenpunktmenge nicht möglich wäre. Die Segmentlänge $n_S$ ist hierbei für die Berechnung der Erkennung von entscheidender Bedeutung. \cite{matusek_anwendung_2019} betrachtet Segmente von $10s$ bis $180s$ Länge. Je kleiner $n_S$ gewählt wird, desto höher ist die zeitliche Granularität der Erkennung. Gleichzeitig lässt sich vermuten, dass die Präzision der Klassifikation bei verhältnismäßig kurzen ($0.5s$ bis $2s$)Segmentlängen geringer ist, wie die experimentellen Daten aus \cite{matusek_anwendung_2019} suggerieren. \cite{banos_window_2014} konnten entgegen dieser Vermutung jedoch zeigen, dass sich insbesondere kürzere Segmente von $0.25s$ bis $2s$ Länge für die Aktivitätserkennung eignen.
 
-% ...
+\subsubsection{Feature-Extraktion}
+
+
+
+\todo{Sektion schreiben + motivieren, warum reine Datenpunkte nicht genügen}
+
+\subsubsection{Einordnung in klassische Probleme des Machine Learnings}
+
+Neben mannigfaltigen Fehlerursachen (in \Cref{sec:datenerfassung-und-vorverarbeitung} erläutert) ist auch die Komplexität der zu interpretierenden Daten denkbar hoch. Smartphones können zum Beispiel in verschiedenen Positionen (Hand, Hosentasche, Rucksack, ...) am Körper bzw. am/im Verkehrsmittel getragen werden. Weitere Ursachen für zwischen Messungen gleicher Aktivität abweichenden Daten sind unterschiedlich gebaute Verkehrsmittel (zum Beispiel Rennrad vs. Mountainbike), unterschiedliche anatomische Gegebenheiten und Bewegungsmuster der jeweiligen Person, sowie die Art des Untergrundes (zum Beispiel Schotterweg vs. asphaltierte Straße) oder die allgemeine Beschaffenheit des Geländes. Daher besteht ein weiteres zentrales Problem in der Realisation der Abbildung $HAR(S): D^{n_S} \rightarrow L$. Eine einfache zustandslose Implementation dieser Abbildung wäre denkbar. Hierfür könnten beispielsweise Geschwindigkeitsbereiche auf $L$ abgebildet werden, wie $\varnothing v \geq 40\frac{km}{h} \rightarrow$ \enquote{Auto fahren} oder $\varnothing v \leq 5\frac{km}{h} \rightarrow$ \enquote{zu Fuß}. Bei der Betrachtung dieses Ansatzes lassen sich schnell Fehlerszenarien konstruieren, in welchen diese Abbildung fehlschlägt, beispielsweise eine dichte Verkehrslage mit ständigem Abbremsen und Beschleunigen, oder eine besonders schnelle Fahrradfahrt bergab. Bei der Behandlung dieser Fehlerszenarien werden bereits komplexere Überlegungen notwendig, welche möglicherweise neue Fehlerszenarien erzeugen. Je näher die zu erreichende Präzision des Systems an $100\%$ liegen soll, desto komplexer würde ein solches System vermutlich werden. Für solche Probleme, die auch durch hochkomplexe algorithmische Lösungen nicht hinreichend gelöst werden können, haben sich verschiedene Methoden aus dem Forschungsspektrum der künstlichen Intelligenz etabliert.
+
+\begin{itemize}
+\item Beim \textbf{Clustering} steht die Partitionierung einer Menge von Werten in geeignete Untergruppen im Vordergrund. Verfahren für das Clustering sind beispielsweise k-Means-Clustering \cite{likas_global_2003}, t-SNE \cite{van_der_maaten_laurens_and_hinton_geoffrey_visualizing_2008} oder PCA \cite{ringner_what_2008}.
+\item Die \textbf{Regression} behandelt Probleme, deren Hauptgegenstand die Nachbildung eines Kausalzusammenhangs oder einer Korrelation in einer Menge von Werten ist. Im Zentrum steht hierbei das Ziel, die Abweichung der Regression von den Daten zu minimieren.
+\item Bei der \textbf{Generation} sollen neue Daten anhand eines Vorbildes erzeugt werden. Ziel ist es, bei einer Eingabe von bestimmten Daten möglichst plausible weitere Daten zu erzeugen. Klassische Anwendungsbereiche umfassen KI-Systeme für die Chat-basierte Texterzeugung \cite{brown_language_2020} oder auch das Supersampling von Bildern \cite{burgess_rtx_2020, park_semantic_2019}.
+\item Möglich ist auch die \textbf{Transformation}, wenn statt ähnlichen Daten (wie bei der Generation) andersartige Daten erzeugt werden sollen. Ein charakteristischer Anwendungsbereich ist die Realisation von \textit{Text-to-Speech}- oder \textit{Speech-to-Text}-Systemen \cite{wang_tacotron_2017}.
+\item Im Rahmen der \textbf{Klassifikation} werden Eingabedaten in bestimmte Klassen eingeteilt, bei einer Maximierung der Anzahl korrekter Einordnungen.
+\end{itemize}
+
+\noindent Zusammenfassend handelt es sich hierbei um Verfahren, bei denen mathematische Modelle anhand vorliegender Daten angelernt werden (Induktion, Training), um schließlich zur Lösung des vorliegenden Problems verwendet zu werden (Deduktion, Inferenz). Daher werden diese Verfahren auch als \textit{Machine-Learning}-Methoden bezeichnet. Statt algorithmische Verfahren zu entwickeln, welche ein komplexes Problem (wie oben illustriert) möglicherweise nur begrenzt lösen können, ist also die Grundidee der Machine-Learning-Methoden die Repräsentation einer Abbildung von \textit{Input} zu \textit{Output} über ein angelerntes mathematisches Modell. \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} konnten zeigen, dass solche Machine-Learning-Methoden zur Implementation der eingangs gezeigten Abbildung $HAR(S): D^{n_S} \rightarrow L$ geeignet sind. In den folgenden Sektionen soll daher zunächst diskutiert werden, welche Konzepte diesen Modellen zugrunde liegen.
+
 
 \todo{Gradientenabstiegsverfahren behandeln}
+\todo{Labels und Feature Set erläutern}

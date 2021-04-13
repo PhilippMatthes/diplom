@@ -199,7 +199,7 @@ Die in den vorigen Sektionen erläuterten Daten besitzen teils stark voneinander
 \end{equation}
 wobei:
 \begin{conditions}
-  d \in D \subseteq \mathbf{Q} & Der gewählte Datenpunkt aus der Datenpunktmenge $D$
+  d \in D \subseteq \mathbf{R}^n & Der gewählte Datenpunkt aus der Datenpunktmenge $D$
 \end{conditions}
 
 \noindent Die Skalierung des Datenpunktes $d$ mithilfe der Normalisierung impliziert $0 \leq norm(d) \leq 1$, jedoch nur, wenn $d \in D$. Sollte $d \notin D$ gelten, dann kann $norm(d)$ auch außerhalb $[0, 1]$ liegen, wenn $d \leq min(D)$ oder $d \geq max(D)$. Die Normalisierung ist außerdem nicht robust gegenüber fehlerhaften Einzelwerten. Zur Illustration kann das Beispiel $D = \{1.25, 1.05, 0.93, 120.5\}$ betrachtet werden, bei dem $120.5 \in D$ einen Messfehler darstellt. Infolge des einzelnen fehlerhaften Datenpunktes werden alle korrekten Datenpunkte $d_k \in \{1.25, 1.05, 0.93\} \subseteq D$ mit $norm(d_k) \approx 0$ skaliert. Ein gegenüber solchen Abweichungen robusteres Vefahren ist die Standardisierung.
@@ -209,10 +209,11 @@ wobei:
 \end{equation}
 wobei:
 \begin{conditions}
-  d \in D \subseteq \mathbf{Q} & Der gewählte Datenpunkt aus der Datenpunktmenge $D$ \\
+  d \in D \subseteq \mathbf{R}^n & Der gewählte Datenpunkt aus der Datenpunktmenge $D$ \\
   \mu_D & Das arithmetische Mittel von $D$ \\
   \sigma_D & Die Standardabweichung von $D$
 \end{conditions}
 
 \noindent Bei der Standardisierung der Datenpunktmenge $D$ wird dem Datenpunkt $d$ zunächst das arithmetische Mittel $\mu_D$ abgezogen. Ist $d < \mu_D$, dann gilt $d - \mu_D < 0$. Umgekehrt gilt $d - \mu_D > 0$ für $d > \mu_D$. Somit werden die Werte innerhalb der Datenpunktmenge gleichmäßig um den Nullpunkt verteilt. Anschließend wird durch die Standardabweichung $\sigma_D$ dividiert. Gilt $\sigma_D < 1$, so werden die standardisierten Werte vergrößert. Ist $\sigma_D > 1$, führt dies zu einer Verkleinerung der standardisierten Werte. Somit werden die Werte verschiedener Wertebereiche in annähernd denselben Zahlenraum überführt. Gleichzeitig wird der relative Abstand der fehlerhaften Datenpunkte zu korrekten Datenpunkten erhalten. Somit lässt sich ein einheitliches Wertebereichsfenster, beispielsweise $W_F = [F_{min} = -1, F_{max} = 1]$ definieren, außerhalb dessen unplausible Werte verworfen werden können. Alternativ können Werte außerhalb dieses Bereichs mit der Funktion $clamp(d) = \max(F_{min}, \min(d, F_{max}))$ in $W_F$ abgebildet werden.
 
+\todo{Filterung unplausibler Datensätze erläutern}
