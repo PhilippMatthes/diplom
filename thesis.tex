@@ -6,12 +6,12 @@
   symmetric, % use two-side for booklike layouts
   cdfont=off, % modify this to use the TUD font (Open Sans)
   headings=optiontohead,
-  numbers=noenddot % remove trailing dots in chapter/section/... enumeration
+  numbers=noenddot, % remove trailing dots in chapter/section/... enumeration
+  egregdoesnotlikesansseriftitles
 ]{tudscrreprt}
 % use a custom serif font
 \usepackage[bitstream-charter]{mathdesign}
 % make chapter, section, ... use serif font
-\addtokomafont{disposition}{\rmfamily}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -68,9 +68,9 @@
 \usepackage{csquotes}
 
 \usepackage{caption}
-\captionsetup{font=normalfont,labelfont=normalfont,labelsep=space}
+\captionsetup{font=rm,labelfont=rm,labelsep=space}
 \usepackage{floatrow}
-\floatsetup{font=normalfont}
+\floatsetup{font=rm}
 \floatsetup[table]{style=plaintop}
 \captionsetup{singlelinecheck=off,format=hang,justification=raggedright}
 \DeclareCaptionSubType[alph]{figure}
@@ -127,7 +127,7 @@
 }
 
 \usepackage[autooneside=false,automark,headsepline]{scrlayer-scrpage}
-\renewcommand*{\headfont}{\normalfont}
+\renewcommand*{\headfont}{\rmfamily}
 \clearpairofpagestyles
 \ihead{\leftmark}
 \ohead{\ifstr{\leftmark}{\rightmark}{}{\rightmark}}
@@ -140,6 +140,54 @@
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
 
+\addtokomafont{disposition}{\rmfamily}
+\addtokomafont{title}{\rmfamily}
+\addtokomafont{titlepage}{\rmfamily}
+\addtokomafont{thesis}{\rmfamily}
+\addtokomafont{tudheadings}{\rmfamily}
+\addtokomafont{partsubtitle}{\rmfamily}
+\addtokomafont{chaptersubtitle}{\rmfamily}
+\addtokomafont{author}{\rmfamily}
+\addtokomafont{caption}{\rmfamily}
+\addtokomafont{captionlabel}{\rmfamily}
+\addtokomafont{chapter}{\rmfamily}
+\addtokomafont{chapterentry}{\rmfamily}
+\addtokomafont{chapterentrydots}{\rmfamily}
+\addtokomafont{chapterentrypagenumber}{\rmfamily}
+\addtokomafont{chapterprefix}{\rmfamily}
+\addtokomafont{date}{\rmfamily}
+\addtokomafont{dedication}{\rmfamily}
+\addtokomafont{descriptionlabel}{\rmfamily}
+\addtokomafont{dictum}{\rmfamily}
+\addtokomafont{dictumtext}{\rmfamily}
+\addtokomafont{footnote}{\rmfamily}
+\addtokomafont{footnotelabel}{\rmfamily}
+\addtokomafont{footnotereference}{\rmfamily}
+\addtokomafont{footnoterule}{\rmfamily}
+\addtokomafont{labelinglabel}{\rmfamily}
+\addtokomafont{labelingseparator}{\rmfamily}
+\addtokomafont{minisec}{\rmfamily}
+\addtokomafont{pagefoot}{\rmfamily}
+\addtokomafont{pagehead}{\rmfamily}
+\addtokomafont{pageheadfoot}{\rmfamily}
+\addtokomafont{pagenumber}{\rmfamily}
+\addtokomafont{pagination}{\rmfamily}
+\addtokomafont{paragraph}{\rmfamily}
+\addtokomafont{part}{\rmfamily}
+\addtokomafont{partentry}{\rmfamily}
+\addtokomafont{partentrypagenumber}{\rmfamily}
+\addtokomafont{partnumber}{\rmfamily}
+\addtokomafont{publishers}{\rmfamily}
+\addtokomafont{section}{\rmfamily}
+\addtokomafont{sectioning}{\rmfamily}
+\addtokomafont{subject}{\rmfamily}
+\addtokomafont{subparagraph}{\rmfamily}
+\addtokomafont{subsection}{\rmfamily}
+\addtokomafont{subsubsection}{\rmfamily}
+\addtokomafont{subtitle}{\rmfamily}
+\addtokomafont{title}{\rmfamily}
+\addtokomafont{titlehead}{\rmfamily}
+
 \begin{document}
 
   % use uppercase roman letters for all pages until the introduction
@@ -151,7 +199,7 @@
   \institute{Institut für Systemarchitektur}
   \chair{Professur für Rechnernetze}
   \title{%
-    Erstellung und Evaluation eines Portierungskonzeptes für Machine-Learning-Ansätze zur Aktivitätsklassifikation auf Smartphones
+  Untersuchung der Abhängigkeit zwischen Ressourcenbedarf und Ergebnisqualität für ein auf ein Smartphone portiertes Machine-Learning-Verfahren zur Verkehrsmittelerkennung
   }
   \subtitle{%
     INF-D-960 Analyse eines Forschungsthemas
@@ -172,7 +220,7 @@
   }
   \professor{Prof. Dr. rer. nat. habil. Dr. h. c. Alexander Schill}
   % \date{7.3.2021} % the date of submission
-  \maketitle
+  \maketitle[cdfont=off]
 
   \newpage
 

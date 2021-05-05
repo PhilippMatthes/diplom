@@ -60,6 +60,23 @@ Neben mannigfaltigen Fehlerursachen (in \Cref{sec:datenerfassung-und-vorverarbei
 
 \noindent Zusammenfassend handelt es sich hierbei um Verfahren, bei denen mathematische Modelle anhand vorliegender Daten angelernt werden (Induktion, Training), um schließlich zur Lösung des vorliegenden Problems verwendet zu werden (Deduktion, Inferenz). Daher werden diese Verfahren auch als \textit{Machine-Learning}-Methoden bezeichnet. Statt algorithmische Verfahren zu entwickeln, welche ein komplexes Problem (wie oben illustriert) möglicherweise nur begrenzt lösen können, ist also die Grundidee der Machine-Learning-Methoden die Repräsentation einer Abbildung von \textit{Input} zu \textit{Output} über ein angelerntes mathematisches Modell. \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} konnten zeigen, dass solche Machine-Learning-Methoden zur Implementation der eingangs gezeigten Abbildung $HAR(S): D^{n_S} \rightarrow L$ geeignet sind. In den folgenden Sektionen soll daher zunächst diskutiert werden, welche Konzepte diesen Modellen zugrunde liegen.
 
+% Inferenz versus Training (unabhängig von Architekturen)
+% Grundidee des Trainings: Definition einer Kosten- oder Belohnungsfunktion
+% Ziel: Minimierung der Kosten oder Maximierung der Belohnung = "Lernen" anhand der Daten
+% Lösung: Iterative Verbesserung eines Modells = Rechenaufwändige Anpassung der Modellparameter
+% Inferenz: Bestimmung der Ausgabe anhand des Inputs, ohne Parameteranpassung (Weniger rechenaufwändig, da Parameter nicht angepasst werden müssen)
+% Verschiedene Lerntypen: Supervised (Ausreichend gelabelte Daten), Unsupervised (Keine gelabelten Daten), Reinforcement Learning (Evolutionär)
+% Implementation: Iteratives Gradientenabstiegsverfahren, Backpropagation
+% Probleme: Overfitting, Underfitting, False Pattern Recognition, ...
+% Lösungen: Learning Rate Tuning, Datenvorverarbeitung, ..
+% Erweiterte Verfahren: Transfer Learning (Wenige gelabelte Daten), Semi-Supervised (Wenige gelabelte Daten), Ensemble Learning (Mehrere Modelle zusammen).
 
-\todo{Gradientenabstiegsverfahren behandeln}
-\todo{Labels und Feature Set erläutern}
+% Architekturen
+% Decision Trees und Random Forests (Matusek)
+% SVM (Matusek)
+% Deep Learning
+% -> Feed-Forward Neural Network
+% -> Recurrent Neural Networks
+% -> Convolutional Neural Networks
+
+% Typische Probleme von Machine-Learning-Modellen

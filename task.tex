@@ -1,17 +1,68 @@
-\documentclass[ngerman]{tudscrreprt}
+\documentclass[
+  ngerman,
+  cdfont=off,
+]{tudscrreprt}
 \ifpdftex{
 \usepackage[T1]{fontenc}
 
-\usepackage{draftwatermark}
-\SetWatermarkText{Entwurf}
-\SetWatermarkScale{1}
-\SetWatermarkColor[gray]{0.9}
+% \usepackage{draftwatermark}
+% \SetWatermarkText{Entwurf}
+% \SetWatermarkScale{1}
+% \SetWatermarkColor[gray]{0.9}
 
 \RequirePackage[ngerman=ngerman-x-latest]{hyphsubst}
 \usepackage{babel}
 \usepackage{isodate}
 \usepackage{tudscrsupervisor}
 \usepackage{enumitem}\setlist{noitemsep}
+
+\usepackage[bitstream-charter]{mathdesign}
+\addtokomafont{disposition}{\rmfamily}
+\addtokomafont{titlepage}{\rmfamily}
+\addtokomafont{thesis}{\rmfamily}
+\addtokomafont{tudheadings}{\rmfamily}
+\addtokomafont{partsubtitle}{\rmfamily}
+\addtokomafont{chaptersubtitle}{\rmfamily}
+\addtokomafont{author}{\rmfamily}
+\addtokomafont{caption}{\rmfamily}
+\addtokomafont{captionlabel}{\rmfamily}
+\addtokomafont{chapter}{\rmfamily}
+\addtokomafont{chapterentry}{\rmfamily}
+\addtokomafont{chapterentrydots}{\rmfamily}
+\addtokomafont{chapterentrypagenumber}{\rmfamily}
+\addtokomafont{chapterprefix}{\rmfamily}
+\addtokomafont{date}{\rmfamily}
+\addtokomafont{dedication}{\rmfamily}
+\addtokomafont{descriptionlabel}{\rmfamily}
+\addtokomafont{dictum}{\rmfamily}
+\addtokomafont{dictumtext}{\rmfamily}
+\addtokomafont{footnote}{\rmfamily}
+\addtokomafont{footnotelabel}{\rmfamily}
+\addtokomafont{footnotereference}{\rmfamily}
+\addtokomafont{footnoterule}{\rmfamily}
+\addtokomafont{labelinglabel}{\rmfamily}
+\addtokomafont{labelingseparator}{\rmfamily}
+\addtokomafont{minisec}{\rmfamily}
+\addtokomafont{pagefoot}{\rmfamily}
+\addtokomafont{pagehead}{\rmfamily}
+\addtokomafont{pageheadfoot}{\rmfamily}
+\addtokomafont{pagenumber}{\rmfamily}
+\addtokomafont{pagination}{\rmfamily}
+\addtokomafont{paragraph}{\rmfamily}
+\addtokomafont{part}{\rmfamily}
+\addtokomafont{partentry}{\rmfamily}
+\addtokomafont{partentrypagenumber}{\rmfamily}
+\addtokomafont{partnumber}{\rmfamily}
+\addtokomafont{publishers}{\rmfamily}
+\addtokomafont{section}{\rmfamily}
+\addtokomafont{sectioning}{\rmfamily}
+\addtokomafont{subject}{\rmfamily}
+\addtokomafont{subparagraph}{\rmfamily}
+\addtokomafont{subsection}{\rmfamily}
+\addtokomafont{subsubsection}{\rmfamily}
+\addtokomafont{subtitle}{\rmfamily}
+\addtokomafont{title}{\rmfamily}
+\addtokomafont{titlehead}{\rmfamily}
 
 \usepackage[
   style=alphabetic,
@@ -34,19 +85,23 @@
 
 \begin{document}
 \faculty{Fakultät Informatik}
-\institute{Institut für Systemarchitektur}\chair{Professur für Rechnernetze}
-\title{%
-Erstellung und Evaluation eines Portierungskonzeptes für Machine-Learning-Ansätze zur Aktivitätsklassifikation auf Smartphones
-}
-\thesis{diploma}\graduation[Dipl.-Inf.]{Diplom-Informatiker}
-\author{%
-Philipp Matthes\matriculationnumber{4605459}%
-\dateofbirth{12.3.1997}\placeofbirth{Chemnitz}%
-}\matriculationyear{2016}\issuedate{1.1.1970}\duedate{1.1.1970}
-\supervisor{Dr.-Ing. Thomas Springer}\professor{Prof. Dr. rer. nat. habil. Dr. h. c. Alexander Schill}
+\institute{Institut für Systemarchitektur}
+\chair{Professur für Rechnernetze}
+\title{\textrm{Untersuchung der Abhängigkeit zwischen Ressourcenbedarf und Ergebnisqualität für ein auf ein Smartphone portiertes Machine-Learning-Verfahren zur Verkehrsmittelerkennung}}
+\thesis{diploma}
+\graduation[Dipl.-Inf.]{Diplom-Informatiker}
+\author{Philipp Matthes}
+\issuedate{3.5.2021}
+\duedate{4.10.2021}
+\supervisor{Dr. Thomas Springer}
+\professor{Prof. Dr. rer. nat. habil. Dr. h. c. Alexander Schill}
 \taskform[pagestyle=empty]{%
-In der STADTRADELN\footnote{\url{https://www.stadtradeln.de}}-App werden GPS- und Sensordaten von Radfahrenden gespeichert und für die Weiterverarbeitung an einen Server übermittelt. Die protokollierten Datensätze werden unter anderem durch das Forschungsprojekt Movebis\footnote{\url{https://www.movebis.org}} genutzt, mit dem Ziel, die Planung der Radverkehrsinfrastruktur zu verbessern. Bei Analysen der Datensätze konnte festgestellt werden, dass diese auch Datenpakete mit für Radfahrer untypischen Parameterwerten beinhalten. Daher wurden im Movebis-Projekt Machine-Learning-Ansätze\footnote{\fullcite{matusek_anwendung_2019}}\footnote{\fullcite{stojanov_continuous_2020}}\footnote{\fullcite{werner_kontinuierliche_2020}} entwickelt, um unplausible Datenpakete zu erkennen und von der Visualisierung auszuschließen. Dennoch werden auch die unplausiblen Daten vom Smartphone aufgezeichnet und zunächst an den Server übermittelt, wobei wegen der aktiven Internet- und GPS-Nutzung sowohl Bandbreite, als auch Energie verbraucht werden.
-Ziel dieser Arbeit ist es, anhand der bestehenden Machine-Learning-Ansätze zu untersuchen, inwiefern diese auf Smartphones portiert werden können. Hierzu müssen die bestehenden Ansätze analysiert werden, um darauf aufbauend ein Portierungskonzept zu entwickeln. Teil dessen ist eine Recherche von Problemen und Lösungsstrategien aus verwandten Arbeiten aktueller Forschung. Das Portierungskonzept soll anschließend anhand einer prototypischen Implementation im Rahmen einer Smartphone-App evaluiert und mit den bestehenden Machine-Learning-Ansätzen verglichen werden.
+In der STADTRADELN\footnote{\url{https://www.stadtradeln.de}}-App werden GPS- und Sensordaten von Radfahrenden gespeichert und für die Weiterverarbeitung an einen Server übermittelt. Die aufgezeichneten Datensätze werden unter anderem durch das Forschungsprojekt Movebis\footnote{\url{https://www.movebis.org}} genutzt, mit dem Ziel, die Planung der Radverkehrsinfrastruktur zu verbessern. Bei Analysen der Datensätze konnte festgestellt werden, dass diese auch Datenpakete mit für Radfahrer untypischen Parameterwerten beinhalten. Daher wurden im Movebis-Projekt Machine-Learning-Ansätze entwickelt, um den aufgezeichneten Datensätzen Verkehrsmittel zuzuordnen und nur Radfahrten in die Auswertung und Visualisierung einzubeziehen. Da die Verkehrsmittelerkennung und anschließende Filterung der Daten in der Cloud erfolgt, werden dennoch auch die unplausiblen Daten vom Smartphone aufgezeichnet und zunächst an den Server übermittelt. Damit werden durch die aktive Internet- und GPS-Nutzung sowohl Bandbreite, als auch Energie verbraucht.
+Ziel dieser Arbeit ist es, anhand der bestehenden Machine-Learning-Ansätze zu untersuchen, inwiefern diese auf Smartphones portiert werden können. Hierzu müssen die bestehenden Ansätze hinsichtlich ihrer Portierbarkeit und Anforderungen an Verarbeitungszeit, Energie und Speicher analysiert und verglichen werden. Die am besten geeignete Lösung soll im Rahmen einer Smartphone-App portiert und bezüglich der Ergebnisgüte mit den bestehenden Machine-Learning-Ansätzen verglichen werden. Einen wesentlichen Schwerpunkt der Untersuchungen soll der Trade-off zwischen Ressourcenbedarf und Ergebnisqualität bilden.
 }{%
+\item Recherche existierender Ansätze die Aktivitätserkennung bzw. Verkehrsmittelerkennung mit maschinellen Lernverfahren auf Smartphones
+\item Analyse und Vergleich der existierenden serverseitigen Machine-Learning Lösungen hinsichtlich Portierbarkeit und Ressourcenbedarf einer möglichen Smartphone-Umsetzung
+\item Portierung der am besten geeigneten Lösung zur Verkehrsmittelerkennung auf iOS in Form einer prototypischen Smartphone-App
+\item Experimentelle Evaluation mit Untersuchung des Trade-offs zwischen Ressourcenbedarf und Ergebnisqualität
 }
 \end{document}
