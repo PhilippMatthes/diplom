@@ -70,40 +70,44 @@ In Abhängigkeit von der zu lösenden Aufgabe bieten sich verschiedene Lernverfa
 
 Beim Reinforcement Learning werden auf Grundlage der Entscheidungen eines Machine-Learning-Modells \enquote{Belohnungen} und \enquote{Bestrafungen} definiert. Ziel ist die Maximierung eines Scores, der sich aus den gesammelten Belohnungen und Bestrafungen bildet. Dazu werden mehrere Modelle gebildet, welche sich in ihrer Parametrisierung leicht unterscheiden. Die Modelle werden getestet (meist durch Simulation) und anhand der definierten Belohnungen und Bestrafungen bewertet. Die besten Modelle werden ausgewählt und bieten die Grundlage für die nächste Generation. Hierbei wird angenommen, dass die Modelle analog zur Evolutionstheorie durch Zufall gewünschte Strategien durch Mutation hinzu erlernen. Für Klassifikationssysteme wie eine Verkehrsmittelerkennung ist dieses Lernverfahren jedoch eher unüblich.
 
-\subsubsection{Supervised Learning}
-
-Die zentrale Idee hinter dem Training von Machine-Learning-Modellen durch Supervised Learning ist die Definition einer zu minimierenden Kostenfunktion. Eine typische Kostenfunktion ist der \textit{Root-Mean-Square Error}\footnote{\url{https://en.wikipedia.org/wiki/Root-mean-square_deviation} (Abgerufen am 6.5.2021)} (RMSE). Die Kostenfunktion soll beschreiben, wie stark das aktuelle Modell (anhand dessen Vorhersage) von dem Zielwert abweicht. Die Kostenfunktion wird minimiert, indem die mathematischen Parameter des Machine-Learning-Modells iterativ in Abhängigkeit von ihrem Beitrag zum Fehler angepasst werden.
-
 \subsubsection{Unsupervised Learning}
 
-Das Unsupervised Learning ähnelt dem Supervised Learning, denn auch hier ist das Ziel, die Kosten eines Modells zu minimieren. Während jedoch beim Supervised Learning die Zielwerte bekannt sein müssen, um die Vorhersage mit dem tatsächlichen Wert zu vergleichen, erfolgt das Unsupervised Learning ohne diese Zielwerte. Beim Unsupervised Learning sollen Muster innerhalb des Datensatzes erkannt werden. Das Verfahren wird daher typischerweise für die Segmentierung von Daten angewandt. Das Modell entwickelt hierbei durch Anpassung der Modellparameter Vermutungen über die Muster eines Datensatzes. Die Kosten bestimmen sich daraus, inwiefern sich diese vermuteten Muster in neuen Daten wieder abbilden. Auch hier lassen sich hierüber die Parameter des Machine-Learning-Modells anpassen.
+Beim Unsupervised Learning wird ein Machine-Learning-Modell auf Daten trainiert, mit dem Ziel, innerhalb der Daten Muster zu erkennen bzw. diese zu reproduzieren. Das Training erfolgt ohne bekannte Labels für die Daten. Das Modell wird iterativ so angepasst, dass es eine abstrakte interne Repräsentation der Daten erlernt. Das Verfahren wird daher typischerweise für die Komprimierung von Daten (\textit{Sparse Coding}) oder die Segmentierung von Daten (durch Unterteilung der Daten in Gruppen mit ähnlichen Mustern) angewandt. Das Modell entwickelt hierbei durch Anpassung der Modellparameter Vermutungen über die Muster eines Datensatzes. Die Modellparameter werden anhand der beobachteten Daten iterativ so angepasst, dass das Modell die Daten möglichst präzise nachbildet oder segmentiert.
+
+\subsubsection{Supervised Learning}
+
+Ähnlich zum Unsupervised Learning wird beim Training von Machine-Learning-Modellen durch Supervised Learning eine zu minimierenden Kostenfunktion definiert. Eine typische Kostenfunktion ist der \textit{Root-Mean-Square Error}\footnote{\url{https://en.wikipedia.org/wiki/Root-mean-square_deviation} (Abgerufen am 6.5.2021)} (RMSE). Die Kostenfunktion soll beschreiben, wie stark das aktuelle Modell (anhand dessen Vorhersage) von dem Zielwert abweicht. Die Kostenfunktion wird minimiert, indem die mathematischen Parameter des Machine-Learning-Modells iterativ in Abhängigkeit von ihrem Beitrag zum Fehler angepasst werden.
+
+\subsubsection{Erweiterte Lernverfahren}
+
+Die oben erläuterten Lernverfahren bilden die drei wesentlichen Herangehensweisen beim Training von Machine-Learning-Modellen. Je nach der zu erfüllenden Aufgabe und den vorliegenden Daten ist eine geeignete Auswahl dieser drei Grundverfahren zum Training des Machine-Learning-Modells zu treffen. Für eine Verkehrsmittelerkennung bietet sich in erster Linie das Supervised Learning an, welches auch in \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} zum Einsatz kommt. Hierfür müssen Datensätze im Voraus händisch mit den zu erkennenden Verkehrsmittel-Klassen ausgestattet werden. Für die zahlreichen bestehenden Datensätze aus dem Movebis-Projekt ist dies jedoch unter Umständen nicht möglich. Hierbei gilt grundsätzlich, dass die Menge der Daten beim Supervised Learning je nach Komplexität und Architektur des Machine-Learning-Modells ausreichend umfangreich sein muss. Um die benötigte Menge an gelabelten Daten zu reduzieren, kann ein erweitertes Lernverfahren eingesetzt werden, das \textit{Semi-Supervised Learning}. Bei diesem Lernverfahren wird zunächst Unsupervised Learning auf den nicht gelabelten Daten durchgeführt, um das Machine-Learning-Modell auf möglichen Mustern innerhalb der Daten vorzutrainieren. Das Machine-Learning-Modell soll so bereits ein abstraktes Grundverständnis der Eingaben erhalten, um anschließend auf den händisch erstellten Daten durch Supervised Learning auf die zu erkennenden Klassen \enquote{umtrainiert} zu werden. Das \enquote{Umtrainieren} von Machine-Learning-Modellen wird im breiteren Sinn auch als \textit{Transfer Learning} bezeichnet.
 
 \subsubsection{Gradientenabstiegsverfahren}
 
-Die Minimierung der Kostenfunktion beim Supervised Learning und Unsupervised Learning ist ein mathematisches Optimierungsproblem. Ziel ist es, die Parameter des Machine-Learning-Modells so anzupassen, dass die Kosten minimal werden. Bei einem kleinen Zustandsraum (aufgespannt durch die Modellparameter) ist dies durch lineare Gleichungssysteme realisierbar. Bei vielen Modellparametern eignen sich wegen der Zunehmenden Komplexität der Berechnung sogenannte Gradientenabstiegsverfahren. Diesen zugrundeliegend ist die Idee, dass sich bei der numerischen Variation der einzelnen Modellparameter die Kosten vergrößern oder verkleinern. Dieser lineare Zusammenhang kann als Gradient betrachtet werden. Beim Gradientenabstiegsverfahren werden die Modellparameter iterativ so angepasst, dass sich zur Verringerung der Kosten entlang des steilsten Gefälles am Gradient nach unten bewegt wird.
+Je nach Art des Machine-Learning-Modells und des Lernverfahrens existieren zahlreiche Möglichkeiten der iterativen Anpassung, um das Modell anzulernen. Von zentraler Bedeutung für Architekturen, wie sie in \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} verwendet werden, sind Gradientenabstiegsverfahren zur Minimierung einer Kostenfunktion, vor allem beim Supervised Learning. Die Minimierung einer Kostenfunktion ist ein mathematisches Optimierungsproblem. Ziel ist es, die Parameter des Machine-Learning-Modells so anzupassen, dass die Kosten minimal werden. Bei einem kleinen Zustandsraum (aufgespannt durch die Modellparameter) ist dies durch einfache analytische Verfahren realisierbar. Bei vielen Tausenden oder Millionen von Modellparametern eignen sich wegen der zunehmenden Komplexität der Berechnung sogenannte Gradientenabstiegsverfahren. Diesen zugrundeliegend ist die Idee, dass sich bei der numerischen Variation der einzelnen Modellparameter die Kosten vergrößern oder verkleinern. Dieser lineare Zusammenhang kann als Gradient betrachtet werden. Beim Gradientenabstiegsverfahren werden die Modellparameter iterativ so angepasst, dass sich zur Verringerung der Kosten entlang des steilsten Gefälles am Gradient nach unten bewegt wird.
 
 \todo{Symbolbild einfügen}
 
-\noindent Die Intensität (Schrittweite auf dem Gradienten), mit der die Modellparameter bei jedem neuen Datenpunkt angepasst werden, wird als \textit{Learning Rate} bezeichnet. Die Learning Rate ist ein wichtiger Hyperparameter von Machine-Learning-Systemen. Ein zentrales Problem von Gradientenabstiegsverfahren ist, dass Gradienten neben einem zu erreichenden globalem Minimum auch zahlreiche lokale Minima besitzen können. Ist die Learning Rate zu klein, so lernt das Modell verhältnismäßig langsam und läuft gleichzeitig Gefahr, in ein lokales Minimum des Gradienten zu fallen. Ist die Learning Rate jedoch zu hoch, besteht das Risiko, dass aus Minima \enquote{herausgesprungen} wird. Zentraler Teil des Trainings von Machine-Learning-Modellen ist es daher, das Lernverhalten zu beobachten und ggf. ein \textit{Hyperparameter Tuning} durchzuführen. Diese Betrachtung ist jedoch vereinfacht und dient nur zur Veranschaulichung des Funktionsprinzips. Bei erweiterten Optimierungsverfahren wie dem \textit{ADAM-Optimizer} wird die Learning Rate beispielsweise pro Modellparameter individuell angepasst.
+\noindent Die Intensität (Schrittweite auf dem Gradienten), mit der die Modellparameter bei jedem neuen Datenpunkt angepasst werden, wird als \textit{Learning Rate} bezeichnet. Die Learning Rate ist ein wichtiger Hyperparameter von Machine-Learning-Systemen. Ein zentrales Problem von Gradientenabstiegsverfahren ist, dass Gradienten neben einem zu erreichenden globalem Minimum auch zahlreiche lokale Minima besitzen können. Ist die Learning Rate zu klein, so lernt das Modell verhältnismäßig langsam und läuft gleichzeitig Gefahr, in ein lokales Minimum des Gradienten zu fallen (Underfitting). Ist die Learning Rate jedoch zu hoch, besteht das Risiko, dass aus Minima \enquote{herausgesprungen} wird und das Modell nicht mehr ausreichend auf neuen Daten generalisiert (Overfitting). Zentraler Teil des Trainings von Machine-Learning-Modellen ist es daher, das Lernverhalten zu beobachten und ggf. ein \textit{Hyperparameter Tuning} durchzuführen. Diese Betrachtung ist jedoch vereinfacht und dient nur zur Veranschaulichung des Funktionsprinzips. Bei erweiterten Optimierungsverfahren wie dem \textit{ADAM-Optimizer} wird die Learning Rate beispielsweise pro Modellparameter individuell angepasst.
 
-\subsubsection{Overfitting, Underfitting und Early Stopping}
+\subsection{Modellvalidierung}
 
-% early stopping erklären
+Da Machine-Learning-Modelle durch das Erlernen einer abstrakten internen Repräsentation der Abbildung von Eingaben auf Ausgaben trainiert werden, ist die Erklärung und Validierung von deren Funktion ein nichttriviales Problem, mit dem sich unter anderem der Forschungsbereich \textit{Explainable AI} (XAI) auseinandersetzt. Durch direkte Beobachtung der Modellparameter ist es in Abhängigkeit der Modellkomplexität schwer, zu determinieren, ob ein Machine-Learning-Modell erwünschte oder unerwünschte Muster lernt. Um ein mögliches Overfitting oder Underfitting zu erkennen, muss das Modell während des Trainings kontinuierlich mithilfe von konkreten Metriken validiert werden. Lassen diese Metriken erkennen, dass das Modell ein solches unerwünschtes Verhalten zeigt, können die relevanten Hyperparameter angepasst werden. Zeigt sich beim Training, dass dessen Fortführung zu einem unerwünschten Rückschritt führen würde, kann das Training vorzeitig beendet werden. Dies ist auch bekannt unter dem Fachbegriff \textit{Early Stopping}.
 
-% Lösung: Iterative Verbesserung eines Modells = Rechenaufwändige Anpassung der Modellparameter
-% Inferenz: Bestimmung der Ausgabe anhand des Inputs, ohne Parameteranpassung (Weniger rechenaufwändig, da Parameter nicht angepasst werden müssen)
-% Verschiedene Lerntypen: Supervised (Ausreichend gelabelte Daten), Unsupervised (Keine gelabelten Daten), Reinforcement Learning (Evolutionär)
-% Implementation: Iteratives Gradientenabstiegsverfahren, Backpropagation
-% Probleme: Overfitting, Underfitting, False Pattern Recognition, ...
-% Lösungen: Learning Rate Tuning, Datenvorverarbeitung, ..
-% Erweiterte Verfahren: Transfer Learning (Wenige gelabelte Daten), Semi-Supervised (Wenige gelabelte Daten), Ensemble Learning (Mehrere Modelle zusammen).
+% \subsubsection{Kreuzvalidierung}
 
-% Architekturen
-% Decision Trees und Random Forests (Matusek)
-% SVM (Matusek)
-% Deep Learning
-% -> Feed-Forward Neural Network
-% -> Recurrent Neural Networks
-% -> Convolutional Neural Networks
+% \subsubsection{Metriken}
 
-% Typische Probleme von Machine-Learning-Modellen
+% \todo{FN, FP, Recall, Precision, F1-Score, Activation Matrix, Confusion Matrix}
+
+% \subsection{Modellarchitekturen}
+
+% \subsubsection{Decision Trees und Random Forests}
+
+% \subsubsection{Support Vector Machines}
+
+% \subsubsection{Feed-Forward Neural Networks}
+
+% \subsubsectino{Recurrent Neural Networks}
+
+% \subsubsection{Convolutional Neural Networks}
