@@ -106,7 +106,34 @@ Die Grundlage für eine Evaluation der Modellperformanz ist die Separierung des 
 
 \subsubsection{Metriken}
 
-In diesem Abschnitt sollen konkrete Metriken vorgestellt werden, mithilfe derer eine Evaluation und Validierung der Modellperformanz durchgeführt werden kann. Ausgehend von der Verkehrsmittelklassifikation beim Supervised Learning (mit vorhandenen Labels) kann für jede Vorhersage des Machine-Learning-Modells geprüft werden, ob diese zutrifft, oder nicht.
+In diesem Abschnitt sollen konkrete Metriken vorgestellt werden, mithilfe derer eine Evaluation und Validierung der Modellperformanz durchgeführt werden kann. Ausgehend von der Verkehrsmittelklassifikation beim Supervised Learning (mit vorhandenen Labels) kann für jede Vorhersage des Machine-Learning-Modells geprüft werden, ob diese zutrifft, oder nicht. Klassifiziert das Machine-Learning-Modell in nur zwei disjunkten boolschen Klassen (z.B. \textit{Fahrradfahren} und \textit{nicht Fahrradfahren}) ist es üblich, zur Überprüfung die Anzahl der Falsch-Negativen (Vorhersage \textit{nicht Fahrradfahren} und Label \textit{Fahrradfahren}) und Falsch-Positiven (Vorhersage \textit{Fahrradfahren} und Label \textit{nicht Fahrradfahren}) zu bestimmen. Aus diesen Zahlen lassen sich anschließend die Fehlermetriken \textit{Recall} und \textit{Precision} errechnen.
+
+\begin{equation}\label{eq:recall-precision}
+Recall = \frac{TP}{TP + FP} \\
+Precision = \frac{TP}{TP + FN}
+\end{equation}
+wobei:
+\begin{conditions}
+  TP & Korrekte Vorhersagen (\textit{True Positive}) \\
+  FP & Falsch-Positive (\textit{False Positive}) \\
+  FN & Falsch-Negative (\textit{False Negative})
+\end{conditions}
+
+\noindent Die Metriken Recall und Precision bieten die Grundlage für eine darauf aufbauende Metrik, dem \textit{$F_1$-Score}.
+
+\begin{equation}\label{eq:f1}
+F_1 = 2 * \frac{Precision * Recall}{Precision + Recall}
+\end{equation}
+
+\noindent Der $F_1$-Score ist das harmonische Mittel zwischen Precision und Recall. Mithilfe dieser Metrik kann die Genauigkeit eines binären Klassifikators bestimmt werden, wobei der $F_1$-Score immer zwischen $0$ (geringstmögliche Genauigkeit) und $1$ (größtmögliche Genauigkeit) liegt. Der $F_1$-Score muss um ein weiteres Konzept erweitert werden, um für eine Klassifikation mit mehreren Klassen applizierbar zu sein. Ein solches Konzept ist die sogenannte \textit{Confusion Matrix}.
+
+\todo{Symbolbild einfügen}
+
+\noindent In ... ist eine Confusion Matrix eines Machine-Learning-Klassifikators aus \cite{matusek_anwendung_2019} gezeigt. Die Diagonale der Matrix zeigt die korrekten Klassifikationen des Machine-Learning-Modells. Abseits der Diagonale werden die falschen Klassifikationen sichtbar. Anhand der Confusion Matrix lässt sich also namensgebend ablesen, welche Klassen häufig verwechselt werden. Um einen gesamten $F_1$-Score zu errechnen, ist es nun möglich, jede einzelne Klasse als binären Klassifikator zu interpretieren, indem die Spalten und Reihen der entsprechenden Klasse betrachtet werden \cite{shmueli_multi-class_2020-1}.
+
+\todo{Symbolbild einfügen}
+
+\noindent Zum Schluss können die einzelnen $F_1$-Scores der binären Teilklassifikatoren zu einem Gesamtscore zusammengefasst werden. Hierbei können die partiellen $F_1$-Scores gewichtet nach ihrem Stichprobenanteil eingehen (\textit{Weighted-$F_1$}) oder zu gleichen Anteilen gewichtet werden (\textit{Macro-$F_1$}) \cite{shmueli_multi-class_2020}.
 
 % https://towardsdatascience.com/multi-class-metrics-made-simple-part-ii-the-f1-score-ebe8b2c2ca1
 % \todo{FN, FP, Recall, Precision, F1-Score, Activation Matrix, Confusion Matrix}
@@ -126,3 +153,8 @@ In diesem Abschnitt sollen konkrete Metriken vorgestellt werden, mithilfe derer 
 % \subsubsectino{Recurrent Neural Networks}
 
 % \subsubsection{Convolutional Neural Networks}
+
+% energie- und speicherverbrauch
+% portierung: quantisierung, ...
+% verwandte arbeiten analysieren
+% technologien: coreml(tools), tensorflow lite, ...
