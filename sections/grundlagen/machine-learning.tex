@@ -87,18 +87,23 @@ Die oben erläuterten Lernverfahren bilden die drei wesentlichen Herangehensweis
 Je nach Art des Machine-Learning-Modells und des Lernverfahrens existieren zahlreiche Möglichkeiten der mathematischen Anpassung, um das Modell anzulernen. Von zentraler Bedeutung für Architekturen, wie sie in \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} verwendet werden, sind Gradientenabstiegsverfahren zur Minimierung einer Kostenfunktion, vor allem beim Supervised Learning. Die Minimierung einer Kostenfunktion ist ein mathematisches Optimierungsproblem. Ziel ist es, die Parameter des Machine-Learning-Modells so anzupassen, dass die Kosten minimal werden. Hierfür soll möglichst ein globales Minimum der Kostenfunktion gefunden werden. Bei einem kleinen Zustandsraum (aufgespannt durch die Modellparameter) ist dies durch einfache analytische Verfahren realisierbar. Zurückblickend sind Machine-Learning-Modelle formell lediglich mathematische Funktionen, welche Eingaben auf Ausgaben abbilden. Ist das Modell repräsentierbar durch eine differenzierbare Funktionsgleichung mit einem Funktionsparameter, so lassen sich globale Minima leicht durch Bilden der ersten und zweiten Ableitung finden. Erhält jedoch das Modell mehr als nur einen Input, so ist dies nicht mehr möglich. Ein übliches mathematisches Verfahren zur Minimierung solcher komplexer Kostenfunktionen ist die Bildung eines Gradienten (Analogon zur ersten Ableitung) durch die Ermittlung der partiellen Ableitungen der Kostenfunktion, um anschließend den Gradienten iterativ in absteigender Richtung durch Anpassung der Modellparameter zu traversieren. Ziel dieses Verfahrens ist also die iterative Konvergenz zum globalen Minimum der Kostenfunktion, anstelle der direkten Ermittlung des globalen Minimums durch Analysis.
 
 % s. 158
+\begin{figure}[H]
+\includegraphics[width=\linewidth, bb=0 0 897 337]{generated/grad-desc-example.pdf}
+\caption{Das iterative Gradientenabstiegsverfahren konvergiert bei der linearen Regression zum globalen Minimum der Kostenfunktion. Visualisierung nach \cite{christian_hill_visualizing_2016}.}\label{fig:grad-desc-example}
+\end{figure}
 
-\todo{Symbolbild einfügen}
-
-\noindent Die Intensität (Schrittweite auf dem Gradienten), mit der die Modellparameter bei jedem neuen Datenpunkt angepasst werden, wird als \textit{Learning Rate} bezeichnet. Die Learning Rate ist ein wichtiger Hyperparameter von Machine-Learning-Systemen. Ein zentrales Problem von Gradientenabstiegsverfahren ist, dass Gradienten neben dem idealerweise zu erreichenden globalem Minimum auch zahlreiche lokale Minima besitzen können. Ist die Learning Rate zu klein, so lernt das Modell verhältnismäßig langsam und läuft gleichzeitig Gefahr, in ein lokales Minimum des Gradienten zu fallen. Ist die Learning Rate jedoch zu hoch, besteht das Risiko, dass aus Minima \enquote{herausgesprungen} wird. Zentraler Teil des Trainings von Machine-Learning-Modellen ist es daher, das Lernverhalten zu beobachten und ggf. ein \textit{Hyperparameter Tuning} durchzuführen. Diese Betrachtung ist jedoch vereinfacht und dient nur zur Veranschaulichung des Funktionsprinzips. Bei erweiterten Optimierungsverfahren wie dem \textit{ADAM-Optimizer} wird die Learning Rate beispielsweise pro Modellparameter individuell angepasst.
+\noindent \Cref{fig:grad-desc-example} zeigt das Gradientenabstiegsverfahren schematisch am Beispiel der linearen Regression. Die Intensität (Schrittweite auf dem Gradienten), mit der die Modellparameter bei jedem neuen Datenpunkt angepasst werden, wird als \textit{Learning Rate} bezeichnet. Die Learning Rate ist ein wichtiger Hyperparameter von Machine-Learning-Systemen. Ein zentrales Problem von Gradientenabstiegsverfahren ist, dass Gradienten neben dem idealerweise zu erreichenden globalem Minimum auch zahlreiche lokale Minima besitzen können. Ist die Learning Rate zu klein, so lernt das Modell verhältnismäßig langsam und läuft gleichzeitig Gefahr, in ein lokales Minimum des Gradienten zu fallen. Ist die Learning Rate jedoch zu hoch, besteht das Risiko, dass aus Minima \enquote{herausgesprungen} wird. Zentraler Teil des Trainings von Machine-Learning-Modellen ist es daher, das Lernverhalten zu beobachten und ggf. ein \textit{Hyperparameter Tuning} durchzuführen. Diese Betrachtung ist jedoch vereinfacht und dient nur zur Veranschaulichung des Funktionsprinzips. Bei erweiterten Optimierungsverfahren wie dem \textit{ADAM-Optimizer} wird die Learning Rate beispielsweise pro Modellparameter individuell angepasst.
 
 \subsection{Modellvalidierung}
 
 Da Machine-Learning-Modelle durch das Erlernen einer abstrakten internen Repräsentation der Abbildung von Eingaben auf Ausgaben trainiert werden, ist die Erklärung und Validierung von deren Funktion häufig ein nichttriviales Problem, mit dem sich unter anderem der Forschungsbereich \textit{Explainable AI} (kurz XAI) auseinandersetzt. Durch direkte Beobachtung der Modellparameter ist es in Abhängigkeit der Modellkomplexität in der Regel schwer, zu determinieren, ob ein Machine-Learning-Modell erwünschte oder unerwünschte Muster wie gewünscht erlernt. Konvergiert das Modell (ausgehend von einer fehlerfreien Implementation) wegen einer unzureichenden Anzahl an internen Parametern oder einer zu geringen Learning Rate nicht ausreichend auf den Daten, so liegt ein \textit{Underfitting} vor. Ist die Learning Rate zu hoch bzw. stehen dem Modell zu viele interne Parameter oder nicht ausreichend Daten zur Verfügung, lernt es gegebenenfalls, unerwünschte Muster zu erkennen.
 
-\todo{Symbolbild einfügen}
+\begin{figure}[H]
+\includegraphics[width=\linewidth, bb=0 0 874 324]{generated/over-under-fit-example.pdf}
+\caption{Mit weniger internen Parametern $k_{Kernel}$ sind die \textit{Decision Surfaces} eines SVM-Klassifikators weniger flexibel. Wird $k_{Kernel}$ zu hoch gewählt, so passen sich die Decision Surfaces zu stark den Trainingsdaten (markiert als $\triangle$) an. Die Fähigkeit zur Generalisierung auf neuen Daten (markiert als $\bigcirc$) ist dann eventuell eingeschränkt.}\label{fig:over-under-fit-example}
+\end{figure}
 
-\noindent Bei einer Verkehrsmittelklassifikation wären dies beispielsweise Störungen in den Sensorsignalen in Abhängigkeit vom Gerätetyp. Dieses \textit{Overfitting} soll verhindert werden, denn es beeinflusst die Performanz des Modells auf neuen unbekannten Daten negativ. Um ein mögliches Overfitting oder Underfitting zu erkennen, muss das Modell während des Trainings kontinuierlich mithilfe von konkreten Metriken validiert werden. Lassen diese Metriken erkennen, dass das Modell ein solches unerwünschtes Verhalten zeigt, können entsprechende Schritte eingeleitet werden. Beispielsweise kann die Learning Rate angepasst, oder der Datensatz durch neue Daten ergänzt werden. Zur Erweiterung des Datensatzes können neben der Aufzeichnung neuer Daten und der Verwendung von Semi-Supervised Learning auch generative Modelle genutzt werden, oder bestehende Daten transformiert und zur Reduktion von Störsignalen vorverarbeitet werden. Zur Erkennung von Overfitting und Underfitting stehen mehrere Methoden zur Verfügung, die in den folgenden Abschnitten näher vorgestellt werden sollen, da sie später einen zentralen Teil in der Auswertung der Modellperformanz übernehmen.
+\noindent Bei einer Verkehrsmittelklassifikation wären dies beispielsweise Störungen in den Sensorsignalen in Abhängigkeit vom Gerätetyp. Dieses \textit{Overfitting} soll verhindert werden, denn es beeinflusst die Performanz des Modells auf neuen unbekannten Daten negativ. In Abbildung \Cref{fig:over-under-fit-example} wird dies anhand eines Support-Vector-Machine-Klassifikators auf den Daten des UCI Iris Datensatzes\footnote{\url{https://archive.ics.uci.edu/ml/datasets/iris} (Abgerufen am 14.5.2021)} gezeigt. Um ein mögliches Overfitting oder Underfitting zu erkennen, muss das Modell während des Trainings kontinuierlich mithilfe von konkreten Metriken validiert werden. Lassen diese Metriken erkennen, dass das Modell ein solches unerwünschtes Verhalten zeigt, können entsprechende Schritte eingeleitet werden. Beispielsweise kann die Learning Rate angepasst, oder der Datensatz durch neue Daten ergänzt werden. Zur Erweiterung des Datensatzes können neben der Aufzeichnung neuer Daten und der Verwendung von Semi-Supervised Learning auch generative Modelle genutzt werden, oder bestehende Daten transformiert und zur Reduktion von Störsignalen vorverarbeitet werden. Zur Erkennung von Overfitting und Underfitting stehen mehrere Methoden zur Verfügung, die in den folgenden Abschnitten näher vorgestellt werden sollen, da sie später einen zentralen Teil in der Auswertung der Modellperformanz übernehmen.
 
 \subsubsection{Trainings-, Validierungs- und Testdaten}
 
@@ -109,8 +114,7 @@ Die Grundlage für eine Evaluation der Modellperformanz ist die Separierung des 
 In diesem Abschnitt sollen konkrete Metriken vorgestellt werden, mithilfe derer eine Evaluation und Validierung der Modellperformanz durchgeführt werden kann. Ausgehend von der Verkehrsmittelklassifikation beim Supervised Learning (mit vorhandenen Labels) kann für jede Vorhersage des Machine-Learning-Modells geprüft werden, ob diese zutrifft, oder nicht. Klassifiziert das Machine-Learning-Modell in nur zwei disjunkten boolschen Klassen (z.B. \textit{Fahrradfahren} und \textit{nicht Fahrradfahren}) ist es üblich, zur Überprüfung die Anzahl der Falsch-Negativen (Vorhersage \textit{nicht Fahrradfahren} und Label \textit{Fahrradfahren}) und Falsch-Positiven (Vorhersage \textit{Fahrradfahren} und Label \textit{nicht Fahrradfahren}) zu bestimmen. Aus diesen Zahlen lassen sich anschließend die Fehlermetriken \textit{Recall} und \textit{Precision} errechnen.
 
 \begin{equation}\label{eq:recall-precision}
-Recall = \frac{TP}{TP + FP} \\
-Precision = \frac{TP}{TP + FN}
+Recall = \frac{TP}{TP + FP}; Precision = \frac{TP}{TP + FN}
 \end{equation}
 wobei:
 \begin{conditions}
@@ -125,34 +129,41 @@ wobei:
 F_1 = 2 * \frac{Precision * Recall}{Precision + Recall}
 \end{equation}
 
-\noindent Der $F_1$-Score ist das harmonische Mittel zwischen Precision und Recall. Mithilfe dieser Metrik kann die Genauigkeit eines binären Klassifikators bestimmt werden, wobei der $F_1$-Score immer zwischen $0$ (geringstmögliche Genauigkeit) und $1$ (größtmögliche Genauigkeit) liegt. Der $F_1$-Score muss um ein weiteres Konzept erweitert werden, um für eine Klassifikation mit mehreren Klassen applizierbar zu sein. Ein solches Konzept ist die sogenannte \textit{Confusion Matrix}.
+\noindent Der $F_1$-Score ist das harmonische Mittel zwischen Precision und Recall. Mithilfe dieser Metrik kann die Genauigkeit eines binären Klassifikators bestimmt werden, wobei der $F_1$-Score immer zwischen $0$ (geringstmögliche Genauigkeit) und $1$ (größtmögliche Genauigkeit) liegt. Der $F_1$-Score muss um ein weiteres Konzept erweitert werden, um für eine Klassifikation mit mehreren Klassen applizierbar zu sein. Ein solches Konzept ist die sogenannte \textit{Konfusionsmatrix}.
 
-\todo{Symbolbild einfügen}
+\begin{figure}[H]
+\includegraphics[width=\linewidth, bb=0 0 834 337]{generated/conf-mat-example.pdf}
+\caption{Beispiele für Konfusionsmatrizen eines Machine-Learning-Klassifikators.}\label{fig:example-conf-mat}
+\end{figure}
 
-\noindent In ... ist eine Confusion Matrix eines Machine-Learning-Klassifikators aus \cite{matusek_anwendung_2019} gezeigt. Die Diagonale der Matrix zeigt die korrekten Klassifikationen des Machine-Learning-Modells. Abseits der Diagonale werden die falschen Klassifikationen sichtbar. Anhand der Confusion Matrix lässt sich also namensgebend ablesen, welche Klassen häufig verwechselt werden. Um einen gesamten $F_1$-Score zu errechnen, ist es nun möglich, jede einzelne Klasse als binären Klassifikator zu interpretieren, indem die Spalten und Reihen der entsprechenden Klasse betrachtet werden \cite{shmueli_multi-class_2020-1}.
+\noindent In \Cref{fig:example-conf-mat} sind zwei Konfusionsmatrizen eines Machine-Learning-Klassifikators auf dem UCI ML Datensatz für handgeschriebene Zahlen\footnote{\url{https://archive.ics.uci.edu/ml/datasets/Optical+Recognition+of+Handwritten+Digits} (Abgerufen am 13.5.2021)} gezeigt. Die Diagonale der Matrizen zeigt die korrekten Klassifikationen des Machine-Learning-Modells. Abseits der Diagonale werden die falschen Klassifikationen sichtbar. Anhand der Konfusionsmatrix lässt sich also namensgebend ablesen, welche Klassen häufig verwechselt werden. Sichtbar wird hier auch, dass die Klassifikation des beispielhaften Machine-Learning-Modells auf dem Testdatensatz etwas schlechter ist, als auf dem Trainingsdatensatz. Um einen gesamten $F_1$-Score zu errechnen, ist es nun möglich, jede einzelne Klasse als binären Klassifikator zu interpretieren, indem die Spalten und Reihen der entsprechenden Klasse betrachtet werden \cite{shmueli_multi-class_2020-1}. Zum Schluss können die einzelnen $F_1$-Scores der binären Teilklassifikatoren zu einem Gesamtscore zusammengefasst werden. Hierbei können die partiellen $F_1$-Scores zum Beispiel gewichtet nach ihrem Stichprobenanteil eingehen (\textit{Weighted-$F_1$}) oder zu gleichen Anteilen gewichtet werden (\textit{Macro-$F_1$}) \cite{shmueli_multi-class_2020}.
 
-\todo{Symbolbild einfügen}
+\subsubsection{Early Stopping}
 
-\noindent Zum Schluss können die einzelnen $F_1$-Scores der binären Teilklassifikatoren zu einem Gesamtscore zusammengefasst werden. Hierbei können die partiellen $F_1$-Scores gewichtet nach ihrem Stichprobenanteil eingehen (\textit{Weighted-$F_1$}) oder zu gleichen Anteilen gewichtet werden (\textit{Macro-$F_1$}) \cite{shmueli_multi-class_2020}.
+Neben diesen Hilfsmetriken kann beim Training auch kontinuierlich die Entwicklung der Kostenfunktion beobachtet werden. Zeigt sich beim Training, dass dessen Fortführung anhand der Kostenfunktion wahrscheinlich zu einem unerwünschten Rückschritt (Generalisierungsfehler) führen würde, kann das Training vorzeitig beendet werden. Dies ist auch bekannt unter dem Fachbegriff \textit{Early Stopping}. Mithilfe dieses Verfahrens kann vermieden werden, dass Lernfortschritt wieder rückgängig gemacht wird. Hierfür wird eine Heuristik definiert, nach der das Training bei Erreichen eines gewünschten Ziels beendet wird\footnote{\url{https://de.wikipedia.org/wiki/Early_Stopping} (Abgerufen am 14.5.2021)}.
 
-% https://towardsdatascience.com/multi-class-metrics-made-simple-part-ii-the-f1-score-ebe8b2c2ca1
-% \todo{FN, FP, Recall, Precision, F1-Score, Activation Matrix, Confusion Matrix}
+\subsection{Modellarchitekturen}
 
-% \subsubsection{Early Stopping}
+In den vorigen Sektionen wurde diskutiert, wie Aktivitätsdaten eines Smartphones über Sensoren aufgenommen, vorverarbeitet und schließlich zur Realisation einer Verkehrsmittelklassifikation durch die Implementation, das Training und die Validierung eines abstrakten Machine-Learning-Modells verwendet werden können. Unklar ist bisher jedoch noch, wie genau die Verkehrsmittelklassifikation als Abbildung $VME(S)$ innerhalb des Machine-Learning-Modells durch dessen innere Parameter repräsentiert wird. Hierfür existieren zahlreiche unterschiedliche Modellarchitekturen. Nachfolgend aufgelistet sind prominente Beispiele solcher Architekturen, die für eine Klassifikation von Verkehrsmitteln genutzt werden können.
 
-% Zeigt sich beim Training, dass dessen Fortführung zu einem unerwünschten Rückschritt führen würde, kann das Training vorzeitig beendet werden. Dies ist auch bekannt unter dem Fachbegriff \textit{Early Stopping}.
+\begin{itemize}
+\item \textit{K-Nearest-Neighbor}
+\footnote{\url{https://de.wikipedia.org/wiki/N\%C3\%A4chste-Nachbarn-Klassifikation} (Abgerufen am 14.5.2021)}
+\item \textit{Support Vector Machines}
+\footnote{\url{https://de.wikipedia.org/wiki/Support_Vector_Machine} (Abgerufen am 14.5.2021)}
+\item \textit{Decision Trees} und darauf aufbauende \textit{Random Forests}
+\footnote{\url{https://de.wikipedia.org/wiki/Entscheidungsbaum} (Abgerufen am 14.5.2021)}
+\item Künstliche neuronale Netzwerke, auch bezeichnet als \textit{Deep Learning}
+\footnote{\url{https://de.wikipedia.org/wiki/Deep_Learning} (Abgerufen am 14.5.2021)}
+\end{itemize}
 
-% \subsection{Modellarchitekturen}
+\noindent \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} nutzen künstliche neuronale Netzwerke zur Realisation der jeweiligen Konzepte. Daher sollen sich die folgenden Sektionen auf die Beschreibung dieser konkreten Machine-Learning-Architekturen fokussieren.
 
-% \subsubsection{Decision Trees und Random Forests}
+\subsubsection{Feed-Forward Neural Networks}
 
-% \subsubsection{Support Vector Machines}
+\subsubsection{Recurrent Neural Networks}
 
-% \subsubsection{Feed-Forward Neural Networks}
-
-% \subsubsectino{Recurrent Neural Networks}
-
-% \subsubsection{Convolutional Neural Networks}
+\subsubsection{Convolutional Neural Networks}
 
 % energie- und speicherverbrauch
 % portierung: quantisierung, ...
