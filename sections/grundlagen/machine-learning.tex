@@ -138,9 +138,9 @@ F_1 = 2 * \frac{Precision * Recall}{Precision + Recall}
 
 \noindent In \Cref{fig:example-conf-mat} sind zwei Konfusionsmatrizen eines Machine-Learning-Klassifikators auf dem UCI ML Datensatz für handgeschriebene Zahlen\footnote{\url{https://archive.ics.uci.edu/ml/datasets/Optical+Recognition+of+Handwritten+Digits} (Abgerufen am 13.5.2021)} gezeigt. Die Diagonale der Matrizen zeigt die korrekten Klassifikationen des Machine-Learning-Modells. Abseits der Diagonale werden die falschen Klassifikationen sichtbar. Anhand der Konfusionsmatrix lässt sich also namensgebend ablesen, welche Klassen häufig verwechselt werden. Sichtbar wird hier auch, dass die Klassifikation des beispielhaften Machine-Learning-Modells auf dem Testdatensatz etwas schlechter ist, als auf dem Trainingsdatensatz. Um einen gesamten $F_1$-Score zu errechnen, ist es nun möglich, jede einzelne Klasse als binären Klassifikator zu interpretieren, indem die Spalten und Reihen der entsprechenden Klasse betrachtet werden \cite{shmueli_multi-class_2020-1}. Zum Schluss können die einzelnen $F_1$-Scores der binären Teilklassifikatoren zu einem Gesamtscore zusammengefasst werden. Hierbei können die partiellen $F_1$-Scores zum Beispiel gewichtet nach ihrem Stichprobenanteil eingehen (\textit{Weighted-$F_1$}) oder zu gleichen Anteilen gewichtet werden (\textit{Macro-$F_1$}) \cite{shmueli_multi-class_2020}.
 
-\subsubsection{Early Stopping}
+\subsubsection{Regularisierung}
 
-Neben diesen Hilfsmetriken kann beim Training auch kontinuierlich die Entwicklung der Kostenfunktion beobachtet werden. Zeigt sich beim Training, dass dessen Fortführung anhand der Kostenfunktion wahrscheinlich zu einem unerwünschten Rückschritt (Generalisierungsfehler) führen würde, kann das Training vorzeitig beendet werden. Dies ist auch bekannt unter dem Fachbegriff \textit{Early Stopping}. Mithilfe dieses Verfahrens kann vermieden werden, dass Lernfortschritt wieder rückgängig gemacht wird. Hierfür wird eine Heuristik definiert, nach der das Training bei Erreichen eines gewünschten Ziels beendet wird\footnote{\url{https://de.wikipedia.org/wiki/Early_Stopping} (Abgerufen am 14.5.2021)}.
+Neben diesen Hilfsmetriken kann beim Training auch kontinuierlich die Entwicklung der Kostenfunktion beobachtet werden. Zeigt sich beim Training, dass dessen Fortführung anhand der Kostenfunktion wahrscheinlich zu einem unerwünschten Overfitting (erkennbar am Generalisierungsfehler auf den Testdaten) führen würde, können Regularisierungsmethoden angewandt werden. In verschiedenen Machine-Learning-Modellarchitekturen können auch verschiedene Regularisierungstechniken integriert werden, die differenzierte Auswahl und Konfiguration muss im Rahmen eines Konzepts auf die konkrete Architektur zugeschnitten werden. Eine übergreifend für Machine-Learning-Modelle anwendbare Technik der Regularisierung ist das vorzeitige Beenden des Trainings, bevor ein Overfitting voraussichtlich eintritt. Hierfür wird eine Heuristik definiert, nach der das Training bei Erreichen eines gewünschten Ziels beendet wird\footnote{\url{https://de.wikipedia.org/wiki/Early_Stopping} (Abgerufen am 14.5.2021)}. Diese Methode der Regularisierung ist auch bekannt unter dem Fachbegriff \textit{Early Stopping}.
 
 \subsection{Modellarchitekturen}
 
@@ -159,11 +159,63 @@ In den vorigen Sektionen wurde diskutiert, wie Aktivitätsdaten eines Smartphone
 
 \noindent \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} nutzen künstliche neuronale Netzwerke zur Realisation der jeweiligen Konzepte. Daher sollen sich die folgenden Sektionen auf die Beschreibung dieser konkreten Machine-Learning-Architekturen fokussieren.
 
-\subsubsection{Feed-Forward Neural Networks}
+\subsubsection{Künstliche neuronale Netzwerke}
+
+Künstliche neuronale Netzwerke setzen sich namensgebend aus kleinen funktionellen Untereinheiten, den Neuronen, zusammen. Diese orientieren sich an der physiologischen Beschaffenheit von biologischen Neuronen, welche sich vorrangig im Zerebrum befinden und zur Reizverarbeitung notwendig sind.
+
+\begin{figure}[H]
+\includegraphics[width=0.75\linewidth, bb=0 0 360 196]{neuronen.pdf}
+\caption{Das Neuron als Grundbestandteil eines künstlichen neuronales Netzwerks. Abbildung nach \cite[S. 200]{sosnovshchenko_machine_2018}.}\label{fig:neuronen}
+\end{figure}
+
+\noindent Wie in \Cref{fig:neuronen} illustriert besitzt jedes Neuron eine oder mehrere Eingaben, welche mit einem Gewichtsvektor über das Skalarprodukt verrechnet werden. Der Gewichtsvektor kann einen zusätzlichen \textit{Bias}-Faktor zur Regularisierung inkludieren. Der resultierende skalare Wert wird anschließend mit einer sogenannten Aktivierungsfunktion verrechnet und ausgegeben. Die Aktivierungsfunktion hat den Zweck, das Verhalten eines biologischen Neurons zu simulieren. Biologische Neurone leiten einen Reiz erst weiter, wenn der Eingangsreiz ein bestimmtes Schwellenpotenzial erreicht. Die biologische Reizweiterleitung geschieht dann durch schlagartige Depolarisation und Öffnung verschiedener Ionenkanälen am Axon und eine anschließende Kaskade, hin zu den nachfolgenden Neuronen. Unabhängig von der Intensität des Eingangsreizes hat das so gebildete Aktionspotenzial jedoch immer die gleiche Stärke, die Intensität des Reizes wird durch die Frequenz der Aktionspotenziale moduliert. Die Aktivierungsfunktion eines biologischen Neurons lässt sich durch eine binäre Schrittfunktion beschreiben. Ist die Reizstärke unterschwellig, so wird kein Aktionspotenzial ausgelöst. Ist die Reizstärke über dem Schwellenpotenzial, wird ein einheitliches Aktionspotenzial ausgelöst (mit anschließender Repolarisation der Zelle). Bei künstlichen Neuronen soll dieses Verhalten durch eine nichtlineare Aktivierungsfunktion nachgebildet werden. Wichtig ist hierbei, dass diese Funktion zur späteren Ermittlung des Kostengradienten beim Training differenzierbar sein muss.
+
+\begin{equation}\label{eq:step-activation}
+step(x)={\begin{cases}0&{\text{für }}x< 0\\1&{\text{für }}x \geq 0\\\end{cases}}
+\end{equation}
+
+\noindent Die obige $step(x)$-Funktion bildet das biologische Verhalten gut nach und ist einfach zu berechnen, jedoch ist sie wegen der Diskontinuität bei $x=0$ nicht differenzierbar und daher nicht für künstliche neuronale Netzwerke anwendbar, welche mithilfe des vorgestellten Gradientenabstiegsverfahrens trainiert werden sollen. Da die Aktivierungsfunktion hierbei für jedes Neuron einzeln berechnet werden muss, ist vor allem die Berechnungskomplexität ein zentraler Aspekt.
+
+\begin{table}[H]\centering
+\begin{tabular}{@{}*{3}{p{.33\textwidth}@{}}}
+\toprule
+Name der Aktivierungsfunktion & Formel & Erste Ableitung \\
+\midrule
+Sigmoidal & $f(x)=\frac{1}{1+e^{-x}}$ & $f^{\prime}=f(x)(1 - f(x))$ \\
+Rectified Linear Unit (ReLU) & $f(x)={\begin{cases}0&{\text{für }}x< 0\\x&{\text{für }}x \geq 0\\\end{cases}}$ & $f^{\prime}(x)={\begin{cases}0&{\text{für }}x< 0\\1&{\text{für }}x \geq 0\\\end{cases}}$ \\
+Leaky ReLU & $f(x)={\begin{cases}ax&{\text{für }}x< 0\\x&{\text{für }}x \geq 0\\\end{cases}}$ & $f^{\prime}(x)={\begin{cases}a&{\text{für }}x< 0\\1&{\text{für }}x \geq 0\\\end{cases}}$ \\
+\bottomrule
+\end{tabular}\caption{Verschiedene Aktivierungsfunktionen im Überblick.}
+\end{table}
+
+\noindent Die sigmoidale Aktivierungsfunktion bildet im Kurvenverlauf annähernd $step(x)$ nach, daher wird sie auch als \textit{step-like} eingeordnet. ReLU und Leaky ReLU sind \textit{rectifier-like}\footnote{Recitifier, engl. für Gleichrichter, ein elektrisches Bauteil zur Signalverarbeitung. \url{https://de.wikipedia.org/wiki/Gleichrichter} (Abgerufen am 15.5.2021)} \cite[S. 203]{sosnovshchenko_machine_2018}. Da die ReLU-Aktivierungsfunktion differenzierbar und sehr leicht über $max(0, x)$ zu berechnen ist, ist sie eine häufig verwendete Aktivierungsfunktion für künstliche neuronale Netze und wird auch durch \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} genutzt. Ein Problem der ReLU-Aktivierungsfunktion ist die Elimination negativer Eingabewerte, denn dies kann dazu führen, dass Neuronen innerhalb des Netzes \enquote{absterben} \cite[S. 21]{werner_kontinuierliche_2020}. \cite{werner_kontinuierliche_2020} nutzt daher eine Abwandlung der ReLU-Aktivierungsfunktion, Leaky ReLU, mit einer Parametrisierung von $a \approx 0.01$.
+
+\begin{figure}[H]
+\includegraphics[width=0.75\linewidth, bb=0 0 371 217]{neuronales-netz.pdf}
+\caption{Ein simples neuronales Netzwerk im Überblick.}\label{fig:neuronales-netz}
+\end{figure}
+
+\noindent Neuronale Netzwerke bestehen aus Vernetzungen mehrerer Neurone. \Cref{fig:neuronales-netz} zeigt eine simple Modellarchitektur, bei der die Neuronen in Schichten eingeteilt und untereinander voll vermascht werden. Diese Architektur wird als \textit{Feed-Forward Network} bezeichnet, denn die Eingaben werden auf der linken Seite durch die Eingabeschicht empfangen, durch einen oder mehrere Hidden Layer verarbeitet und anschließend über die Ausgabeschicht ausgegeben.
+
+% Idee: Physiologie des Neurons: Vernetzung über Inputs, Gewichtung, Aktivierung, Outputs
+% Architektur: In Schichten organisierte Neuronen, vernetzt
+% Vernetzung ist rigide (keine flexible Reorganisation der Neuronen)
+% Repräsentation der Abbildung durch Gewichtungen der Neuronen
+% Inferenz: "Von links nach rechts"
+% Trainingsbesonderheit: Error Backpropagation & Gradient Descent, Vanishing Gradients
+% Konfiguration des Netzwerkes: Anzahl der Schichten und Neuronen, Art der Vernetzung, Learning Rate, Aktivierungsfunktion, Zusätzliche Zwischenschichten
+% Aktivierungsfunktionen: ReLU, Leaky ReLU, Sigmoidal, Linear
+% Zusätzliche Zwischenschichten: Dropout, Bias, ...
+
+% Regularisierung
 
 \subsubsection{Recurrent Neural Networks}
 
+% Regularisierung
+
 \subsubsection{Convolutional Neural Networks}
+
+% Regularisierung
 
 % energie- und speicherverbrauch
 % portierung: quantisierung, ...
