@@ -140,21 +140,17 @@ F_1 = 2 * \frac{Precision * Recall}{Precision + Recall}
 
 \subsubsection{Regularisierung}
 
-Neben diesen Hilfsmetriken kann beim Training auch kontinuierlich die Entwicklung der Kostenfunktion beobachtet werden. Zeigt sich beim Training, dass dessen Fortführung anhand der Kostenfunktion wahrscheinlich zu einem unerwünschten Overfitting (erkennbar am Generalisierungsfehler auf den Testdaten) führen würde, können Regularisierungsmethoden angewandt werden. In verschiedenen Machine-Learning-Modellarchitekturen können auch verschiedene Regularisierungstechniken integriert werden, die differenzierte Auswahl und Konfiguration muss im Rahmen eines Konzepts auf die konkrete Architektur zugeschnitten werden. Eine übergreifend für Machine-Learning-Modelle anwendbare Technik der Regularisierung ist das vorzeitige Beenden des Trainings, bevor ein Overfitting voraussichtlich eintritt. Hierfür wird eine Heuristik definiert, nach der das Training bei Erreichen eines gewünschten Ziels beendet wird\footnote{\url{https://de.wikipedia.org/wiki/Early_Stopping} (Abgerufen am 14.5.2021)}. Diese Methode der Regularisierung ist auch bekannt unter dem Fachbegriff \textit{Early Stopping}.
+Neben diesen Hilfsmetriken kann beim Training auch kontinuierlich die Entwicklung der Kostenfunktion beobachtet werden. Zeigt sich beim Training, dass dessen Fortführung anhand der Kostenfunktion wahrscheinlich zu einem unerwünschten Overfitting (erkennbar am Generalisierungsfehler auf den Testdaten) führen würde, können Regularisierungsmethoden angewandt werden. In verschiedenen Machine-Learning-Modellarchitekturen können auch verschiedene Regularisierungstechniken integriert werden, die differenzierte Auswahl und Konfiguration muss im Rahmen eines Konzepts auf die konkrete Architektur zugeschnitten werden. Eine übergreifend für Machine-Learning-Modelle anwendbare Technik der Regularisierung ist das vorzeitige Beenden des Trainings, bevor ein Overfitting voraussichtlich eintritt. Hierfür wird eine Heuristik definiert, nach der das Training bei Erreichen eines gewünschten Ziels beendet wird. Diese Methode der Regularisierung ist auch bekannt unter dem Fachbegriff \textit{Early Stopping}\footnote{\url{https://de.wikipedia.org/wiki/Early_Stopping} (Abgerufen am 14.5.2021)}.
 
 \subsection{Modellarchitekturen}
 
 In den vorigen Sektionen wurde diskutiert, wie Aktivitätsdaten eines Smartphones über Sensoren aufgenommen, vorverarbeitet und schließlich zur Realisation einer Verkehrsmittelklassifikation durch die Implementation, das Training und die Validierung eines abstrakten Machine-Learning-Modells verwendet werden können. Unklar ist bisher jedoch noch, wie genau die Verkehrsmittelklassifikation als Abbildung $VME(S)$ innerhalb des Machine-Learning-Modells durch dessen innere Parameter repräsentiert wird. Hierfür existieren zahlreiche unterschiedliche Modellarchitekturen. Nachfolgend aufgelistet sind prominente Beispiele solcher Architekturen, die für eine Klassifikation von Verkehrsmitteln genutzt werden können.
 
 \begin{itemize}
-\item \textit{K-Nearest-Neighbor}
-\footnote{\url{https://de.wikipedia.org/wiki/N\%C3\%A4chste-Nachbarn-Klassifikation} (Abgerufen am 14.5.2021)}
-\item \textit{Support Vector Machines}
-\footnote{\url{https://de.wikipedia.org/wiki/Support_Vector_Machine} (Abgerufen am 14.5.2021)}
-\item \textit{Decision Trees} und darauf aufbauende \textit{Random Forests}
-\footnote{\url{https://de.wikipedia.org/wiki/Entscheidungsbaum} (Abgerufen am 14.5.2021)}
-\item Künstliche neuronale Netzwerke, auch bezeichnet als \textit{Deep Learning}
-\footnote{\url{https://de.wikipedia.org/wiki/Deep_Learning} (Abgerufen am 14.5.2021)}
+\item \textit{K-Nearest-Neighbor}\footnote{\url{https://de.wikipedia.org/wiki/N\%C3\%A4chste-Nachbarn-Klassifikation} (Abgerufen am 14.5.2021)}
+\item \textit{Support Vector Machines}\footnote{\url{https://de.wikipedia.org/wiki/Support_Vector_Machine} (Abgerufen am 14.5.2021)}
+\item \textit{Decision Trees} und darauf aufbauende \textit{Random Forests}\footnote{\url{https://de.wikipedia.org/wiki/Entscheidungsbaum} (Abgerufen am 14.5.2021)}
+\item Künstliche neuronale Netzwerke, auch bezeichnet als \textit{Deep Learning}\footnote{\url{https://de.wikipedia.org/wiki/Deep_Learning} (Abgerufen am 14.5.2021)}
 \end{itemize}
 
 \noindent \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} nutzen künstliche neuronale Netzwerke zur Realisation der jeweiligen Konzepte. Daher sollen sich die folgenden Sektionen auf die Beschreibung dieser konkreten Machine-Learning-Architekturen fokussieren.
@@ -164,31 +160,31 @@ In den vorigen Sektionen wurde diskutiert, wie Aktivitätsdaten eines Smartphone
 Künstliche neuronale Netzwerke setzen sich namensgebend aus kleinen funktionellen Untereinheiten, den Neuronen, zusammen. Diese orientieren sich an der physiologischen Beschaffenheit von biologischen Neuronen, welche sich vorrangig im Zerebrum befinden und zur Reizverarbeitung notwendig sind.
 
 \begin{figure}[H]
-\includegraphics[width=0.75\linewidth, bb=0 0 360 196]{neuronen.pdf}
-\caption{Das Neuron als Grundbestandteil eines künstlichen neuronales Netzwerks. Abbildung nach \cite[S. 200]{sosnovshchenko_machine_2018}.}\label{fig:neuronen}
+\includegraphics[width=\linewidth, bb=0 0 544 193]{neuronen.pdf}
+\caption{Links: Das Neuron als Grundbestandteil eines künstlichen neuronales Netzwerks. Abbildung nach \cite[S. 200]{sosnovshchenko_machine_2018}. Rechts: Physiologischer Aufbau eines biologischen Neurons. Lizenz: Wikimedia Commons.}\label{fig:neuronen}
 \end{figure}
 
-\noindent Wie in \Cref{fig:neuronen} illustriert besitzt jedes Neuron eine oder mehrere Eingaben, welche mit einem Gewichtsvektor über das Skalarprodukt verrechnet werden. Der Gewichtsvektor kann einen zusätzlichen \textit{Bias}-Faktor zur Regularisierung inkludieren. Der resultierende skalare Wert wird anschließend mit einer sogenannten Aktivierungsfunktion verrechnet und ausgegeben. Die Aktivierungsfunktion hat den Zweck, das Verhalten eines biologischen Neurons zu simulieren. Biologische Neurone leiten einen Reiz erst weiter, wenn der Eingangsreiz ein bestimmtes Schwellenpotenzial erreicht. Die biologische Reizweiterleitung geschieht dann durch schlagartige Depolarisation und Öffnung verschiedener Ionenkanälen am Axon und eine anschließende Kaskade, hin zu den nachfolgenden Neuronen. Unabhängig von der Intensität des Eingangsreizes hat das so gebildete Aktionspotenzial jedoch immer die gleiche Stärke, die Intensität des Reizes wird durch die Frequenz der Aktionspotenziale moduliert. Die Aktivierungsfunktion eines biologischen Neurons lässt sich durch eine binäre Schrittfunktion beschreiben. Ist die Reizstärke unterschwellig, so wird kein Aktionspotenzial ausgelöst. Ist die Reizstärke über dem Schwellenpotenzial, wird ein einheitliches Aktionspotenzial ausgelöst (mit anschließender Repolarisation der Zelle). Bei künstlichen Neuronen soll dieses Verhalten durch eine nichtlineare Aktivierungsfunktion nachgebildet werden. Wichtig ist hierbei, dass diese Funktion zur späteren Ermittlung des Kostengradienten beim Training differenzierbar sein muss.
-
-\begin{equation}\label{eq:step-activation}
-step(x)={\begin{cases}0&{\text{für }}x< 0\\1&{\text{für }}x \geq 0\\\end{cases}}
-\end{equation}
-
-\noindent Die obige $step(x)$-Funktion bildet das biologische Verhalten gut nach und ist einfach zu berechnen, jedoch ist sie wegen der Diskontinuität bei $x=0$ nicht differenzierbar und daher nicht für künstliche neuronale Netzwerke anwendbar, welche mithilfe des vorgestellten Gradientenabstiegsverfahrens trainiert werden sollen. Da die Aktivierungsfunktion hierbei für jedes Neuron einzeln berechnet werden muss, ist vor allem die Berechnungskomplexität ein zentraler Aspekt.
+\noindent Wie in \Cref{fig:neuronen} illustriert, besitzt jedes Neuron eine oder mehrere Eingaben, welche mit einem Gewichtsvektor über das Skalarprodukt verrechnet werden. Der Gewichtsvektor kann einen zusätzlichen \textit{Bias}-Faktor zur Regularisierung inkludieren. Der resultierende skalare Wert wird anschließend mit einer sogenannten Aktivierungsfunktion verrechnet und ausgegeben. Die Aktivierungsfunktion hat den Zweck, das Verhalten eines biologischen Neurons zu simulieren. Biologische Neurone leiten einen Reiz erst weiter, wenn der Eingangsreiz ein bestimmtes Schwellenpotenzial erreicht. Die biologische Reizweiterleitung geschieht dann durch schlagartige Depolarisation und Öffnung verschiedener Ionenkanälen am Axon und eine anschließende Kaskade, hin zu den nachfolgenden Neuronen. Unabhängig von der Intensität des Eingangsreizes hat das so gebildete Aktionspotenzial jedoch immer die gleiche Stärke, die Intensität des Reizes wird durch die Frequenz der Aktionspotenziale moduliert. Die Aktivierungsfunktion eines biologischen Neurons lässt sich durch eine binäre Schrittfunktion beschreiben. Ist die Reizstärke unterschwellig, so wird kein Aktionspotenzial ausgelöst. Ist die Reizstärke über dem Schwellenpotenzial, wird ein einheitliches Aktionspotenzial ausgelöst (mit anschließender Repolarisation der Zelle). Bei künstlichen Neuronen soll dieses Verhalten durch eine nichtlineare Aktivierungsfunktion nachgebildet werden.
 
 \begin{table}[H]\centering
 \begin{tabular}{@{}*{3}{p{.33\textwidth}@{}}}
 \toprule
 Name der Aktivierungsfunktion & Formel & Erste Ableitung \\
 \midrule
+Step & $f(x)={\begin{cases}0&{\text{für }}x< 0\\1&{\text{für }}x \geq 0\\\end{cases}}$ & Nicht differenzierbar \\
+\addlinespace[0.5em]
 Sigmoidal & $f(x)=\frac{1}{1+e^{-x}}$ & $f^{\prime}=f(x)(1 - f(x))$ \\
+\addlinespace[0.5em]
+\midrule
+\addlinespace[0.5em]
 Rectified Linear Unit (ReLU) & $f(x)={\begin{cases}0&{\text{für }}x< 0\\x&{\text{für }}x \geq 0\\\end{cases}}$ & $f^{\prime}(x)={\begin{cases}0&{\text{für }}x< 0\\1&{\text{für }}x \geq 0\\\end{cases}}$ \\
+\addlinespace[0.5em]
 Leaky ReLU & $f(x)={\begin{cases}ax&{\text{für }}x< 0\\x&{\text{für }}x \geq 0\\\end{cases}}$ & $f^{\prime}(x)={\begin{cases}a&{\text{für }}x< 0\\1&{\text{für }}x \geq 0\\\end{cases}}$ \\
 \bottomrule
 \end{tabular}\caption{Verschiedene Aktivierungsfunktionen im Überblick.}
 \end{table}
 
-\noindent Die sigmoidale Aktivierungsfunktion bildet im Kurvenverlauf annähernd $step(x)$ nach, daher wird sie auch als \textit{step-like} eingeordnet. ReLU und Leaky ReLU sind \textit{rectifier-like}\footnote{Recitifier, engl. für Gleichrichter, ein elektrisches Bauteil zur Signalverarbeitung. \url{https://de.wikipedia.org/wiki/Gleichrichter} (Abgerufen am 15.5.2021)} \cite[S. 203]{sosnovshchenko_machine_2018}. Da die ReLU-Aktivierungsfunktion differenzierbar und sehr leicht über $max(0, x)$ zu berechnen ist, ist sie eine häufig verwendete Aktivierungsfunktion für künstliche neuronale Netze und wird auch durch \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} genutzt. Ein Problem der ReLU-Aktivierungsfunktion ist die Elimination negativer Eingabewerte, denn dies kann dazu führen, dass Neuronen innerhalb des Netzes \enquote{absterben} \cite[S. 21]{werner_kontinuierliche_2020}. \cite{werner_kontinuierliche_2020} nutzt daher eine Abwandlung der ReLU-Aktivierungsfunktion, Leaky ReLU, mit einer Parametrisierung von $a \approx 0.01$.
+\noindent Die Step-Funktion bildet das biologische Verhalten gut nach und ist einfach zu berechnen, jedoch ist sie wegen der Diskontinuität bei $x=0$ nicht differenzierbar und daher nicht für künstliche neuronale Netzwerke anwendbar, welche mithilfe des vorgestellten Gradientenabstiegsverfahrens trainiert werden sollen. Da die Aktivierungsfunktion hierbei für jedes Neuron einzeln berechnet werden muss, ist vor allem die Berechnungskomplexität ein zentraler Aspekt. Die sigmoidale Aktivierungsfunktion bildet im Kurvenverlauf annähernd die Step-Funktion nach (\textit{step-like}). Die ReLU-Aktivierungsfunktion hingegen eliminiert alle negativen Eingaben und skaliert im positiven Bereich die Eingaben linear (\textit{rectifier-like})\footnote{Rectifier, engl. für Gleichrichter, ein elektrisches Bauteil zur Signalverarbeitung. \url{https://de.wikipedia.org/wiki/Gleichrichter} (Abgerufen am 15.5.2021)} \cite[S. 203]{sosnovshchenko_machine_2018}. Da die ReLU-Aktivierungsfunktion nach ihrer Definition differenzierbar und sehr leicht über $max(0, x)$ zu berechnen ist, ist sie eine häufig verwendete Aktivierungsfunktion für künstliche neuronale Netze und wird auch durch \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} genutzt. Ein Problem der ReLU-Aktivierungsfunktion ist die Elimination negativer Eingabewerte, denn dies kann dazu führen, dass Neuronen innerhalb des Netzes \enquote{absterben} \cite[S. 21]{werner_kontinuierliche_2020}. \cite{werner_kontinuierliche_2020} nutzt daher eine Abwandlung der ReLU-Aktivierungsfunktion, Leaky ReLU, welche negative Eingabewerte mit einem Faktor $a$ skaliert. Dies soll die sonst \enquote{sterbenden} Neuronen wieder aktivieren, wenn auch nur mit einem sehr kleinen Faktor $a \approx 0.01$.
 
 \begin{figure}[H]
 \includegraphics[width=0.75\linewidth, bb=0 0 371 217]{neuronales-netz.pdf}
