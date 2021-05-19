@@ -5,21 +5,56 @@
 
 \section{Portierung}\label{sec:portierung}
 
-% Einordnung in Edge AI, Forschungsstand, Anwendungsgebiete
-% Illustration: ML für Mobile beginnt Fuß zu fassen, warum?
-%
-% Training: Wo wird trainiert? Welche Konsequenzen hat das?
+In den vorigen Abschnitten wurde diskutiert, wie Daten vorverarbeitet werden können, um anschließend durch Machine-Learning-Modelle klassifiziert zu werden. In \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} nutzen hierfür künstliche neuronale Netzwerke mit verschiedenen Architekturen (Feed-Forward-Netzwerk, RNN, CNN). Dieser Abschnitt soll diskutieren, wie die Konzepte nun für den Einsatz auf Smartphones portiert werden können und welche Faktoren hierbei zu beachten sind.
+
+\subsection{Deployment-Modelle im Edge Computing}
+
+Für einen Einsatz auf Smartphones müssen Machine-Learning-Modelle nicht zwingend auch auf diesem über eine App mitgeliefert oder installiert (engl. \textit{deploy}) werden. \cite[S. 13]{ota_deep_2017} separieren beispielsweise in zwei Deployment-Modelle.
+
+\begin{itemize}
+\item \textit{Client-Server-Deployment}, wobei die Inferenz des Machine-Learning-Modells auf dem Server-Backend geschieht.
+\item \textit{Client-Only-Deployment}, wobei die Inferenz vom Smartphone selbst übernommen wird, das Machine-Learning-Modell also mit in der jeweiligen App integriert ist.
+\end{itemize}
+
+\noindent \cite{matusek_anwendung_2019}, \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020}, welche mithilfe von künstlichen neuronalen Netzwerken das Filtern der STADTRADELN-\allowbreak Daten im Movebis-Projekt ermöglichen, gliedern sich analog zur obigen Taxonomie in das Client-Server-Deployment ein, wobei jedoch nur eine zeitlich entkoppelte unidirektionale Kommunikation stattfindet. Die Smartphone-App erhält kein direktes Feedback zum Ergebnis der serverseitigen Klassifikation und besitzt so auch keine Möglichkeit zur Adaption auf wichtige Ereignisse wie einen Wechsel des Verkehrsmittels. Vor diesem Hintergrund könnte es allgemeiner gefasst also vorteilhaft sein, die Inferenz vom Server so nah wie möglich an den Client (Smartphone) zu verschieben, unter anderem auch um die Netzwerklast zu verringern (durch Abschalten der Aufzeichnung infolge eines Verkehrsmittelwechsels) und die sonst serverseitig für Inferenz und Speicherung der Daten benötigten Ressourcen auf die Nutzer des Systems aufzuteilen. Dies konstituiert die zentralen Motivationen hinter \textit{Edge Computing}, bei dem Edge-Geräte (Smartphones, Router, IoT-Geräte im Allgemeinen) gezielt Aufwände innerhalb eines Netzwerkes übernehmen und untereinander orchestrieren. Als Teilbereich des Edge Computing beschäftigt sich der Forschungsbereich \textit{Edge AI} vor allem damit, wie Edge-Geräte durch den Einsatz von künstlicher Intelligenz effizienter und proaktiv auf dynamische Veränderungen des Kontexts reagieren können. Die Portierung eines Machine-Learning-Systems auf Smartphones, wie es im Movebis-Projekt noch serverseitig zum Einsatz kommt, kann somit als Spezialfall dieses Forschungsbereichs gewertet werden. Als Edge-Geräte sind Smartphones vor allem durch die auf dem Gerät verfügbaren Ressourcen limitiert, als zentrale Aspekte stehen sich hierdurch die Performanz und die Effizienz des Machine-Learning-Modells gegenüber \cite{zou_edge_2019, ma_survey_2019, deng_model_2020}.
+
+\begin{figure}[H]
+\includegraphics[width=0.75\linewidth, bb=0 0 367 304]{six-level-rating-ei.pdf}
+\caption{6-stufiger taxonomischer Überblick über Lern- und Inferenzverfahren im Edge Computing nach \cite{zhou_edge_2019}.}\label{fig:six-level-rating-ei}
+\end{figure}
+
+\noindent \Cref{fig:six-level-rating-ei} zeigt einen 6-stufigen taxonomischen Überblick über die verschiedene Möglichkeiten für das Training von Machine-Learning-Modellen im Edge Computing in Kooperation mit Servern nach \cite{zhou_edge_2019}. Wird das Machine-Learning-Modell in der Cloud ausgeführt und trainiert, stehen dem Modell im Umkehrschluss auch typischerweise deutlich mehr Ressourcen zur Verfügung. In diesem Fall können die Server mit geeigneter Hardware (z.B. hochparallelisierbare Grafikkarten\footnote{\url{https://www.tensorflow.org/install/gpu} (Abgerufen am 19.5.2021).}, fester Stromanschluss, hohe Bandbreite) für das Training und die Inferenz ausgestattet werden. Je näher an die taxonomische Stufe \textit{All-In-Edge} herangetreten wird, desto weniger dieser Ressourcen stehen direkt zur Verfügung. Es werden spezielle kollaborative Lernkonzepte wie beispielsweise das in \cite{wang_-edge_2019} gezeigte \textit{Federated Learning} notwendig, mithilfe derer die Modellparameter über das Netzwerk zwischen Edge-Geräten und Cloud-Servern ausgetauscht werden können, um die Effizienz zu verbessern und die individuelle Last auf dem Edge-Gerät zu verringern.
+
+\subsection{Zentrale Probleme der Portierung}
+
 % Problem: Große Variation der Smartphones und Betr.-Syst.
-% Hardware-Limitationen
+
+\subsubsection{Hardware-Limitationen}
+
 %   Energieverbrauch: Inferenz vs. Training, begrenzt durch Akku
 %   Speicherverbrauch: Einfluss der Modellgröße und -Architektur
 %   Übersicht über Capabilities von Smartphones (alt und neu)
-% Software-Limitationen
+
+\subsubsection{Software-Limitationen}
+
 %   Translokation und Inferenz: selbst impl. oder Frameworks?
 %   Vgl. Accelerate, Metal vs. CoreML, CreateML
 %   Third party: Tensorflow Lite, Keras, ...
 %   Weitere Limitationen: Lernen im Hintergrund nicht möglich, ...
+
+\subsection{Modelloptimierung}
+
+Auch die Optimierung der Modelle besitzt eine hohe Relevanz. Vor diesem Hintergrund wurden bereits verschiedene Analysen und Konzepte über Optimierungsmethoden für Machine-Learning-Modelle im Edge Computing erstellt. \cite{deng_model_2020} und \cite{choudhary_comprehensive_2020} vermitteln einen detaillierten Überblick über den Stand der Forschung in der Modelloptimierung. \cite{nan_deep_2019} und \cite{dai_toward_2021} analysieren verschiedene Optimierungsmethoden für mobile Plattformen unter anderem bezüglich ihrer konkreten Auswirkungen auf die Modellpräzision, die Inferenzzeit, die CPU-Last und die damit verbundenen thermischen Auswirkungen. Außerdem existieren bereits konkrete Ansätze aus dem Bereich Edge Computing, welche verschiedene Modelloptimierungen implementieren und evaluieren \cite{wang_context-aware_2020, wang_icing-edgenet_2021, tu_deep_2019, schneider_q-eegnet_2020}.
+
+\todo{Konkrete Modelloptimierungsverfahren vorstellen: Quantisierung, Pruning, ...}
+
+\subsection{Profiling}
+
+% Einordnung in Edge AI, Forschungsstand, Anwendungsgebiete
+% Illustration: ML für Mobile beginnt Fuß zu fassen, warum?
 %
-% Modelloptimierung: Quantisierung, Pruning, ...
+% Training: Wo wird trainiert? Welche Konsequenzen hat das?
+
+%
 %
 % Profiling
