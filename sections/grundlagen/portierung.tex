@@ -27,27 +27,45 @@ Für einen Einsatz auf Smartphones müssen Machine-Learning-Modelle nicht zwinge
 
 \subsection{Zentrale Probleme der Portierung}
 
-Das Smartphone-Ökosystem stellt einige Herausforderungen an die Portierung von Machine-Learning-Modellen.
-% Problem: Große Variation der Smartphones und Betr.-Syst.
+Das Smartphone-Ökosystem stellt einige Herausforderungen an die Portierung von Machine-Learning-Modellen, unter anderem auch bedingt durch die große Variation an Smartphones und den dazugehörigen Hardwarevoraussetzungen und Betriebssystemen. Die wichtigsten Problemfaktoren sollen in diesem Abschnitt näher erläutert werden, um anschließend konkrete Lösungsmethoden vorzustellen.
 
 \subsubsection{Hardware-Limitationen}
 
-%   Energieverbrauch: Inferenz vs. Training, begrenzt durch Akku
-%   Speicherverbrauch: Einfluss der Modellgröße und -Architektur
-%   Übersicht über Capabilities von Smartphones (alt und neu)
+Als Edge-Geräte sind Smartphones hardwaretechnisch in erster Linie durch die zur Verfügung stehende Netzwerkbandbreite, den Energieverbrauch und den verfügbaren Speicher (Arbeitsspeicher, Persistenter Speicher) limitiert. Die Netzwerkbandbreite ist insbesondere dann für das Machine-Learning-System von Bedeutung, wenn dessen Lernparameter über das Netzwerk zwischen den Edge-Geräten ausgetauscht werden müssen (wie beim Federated Learning) oder das Modell in der Cloud ausgeführt wird. Für die Ausführung eines Machine-Learning-Modells direkt auf dem Smartphone ist die Netzwerkbandbreite nur von sekundärer Relevanz. Primär ist hier der Energieverbrauch und der Speicherverbrauch des Modells von Bedeutung. Künstliche neuronale Netzwerke erreichen je nach Architektur schnell hunderte Millionen von Lernparametern und Speicherdimensionen von hunderten Megabytes \cite[S. 313, 314]{sosnovshchenko_machine_2018}, in für Smartphones unpraktikablen Extremfällen wie \textit{GPT-3} sind es 175 Mrd. Lernparameter und 700 Gigabytes\footnote{\url{https://lambdalabs.com/blog/demystifying-gpt-3/} (Abgerufen am 21.5.2021)}. Wird ein Machine-Learning-Modell wie ein künstliches neuronales Netzwerk mit 100 Megabytes in eine App integriert, so erhöht dies auch wiederum die Größe der App und Nutzer sind möglicherweise nicht mehr bereit oder besitzen ausreichend Speicher, um sich diese zu installieren. Die Nutzererfahrung wird also verschlechtert, dies ist mit dem qualitativen Zugewinn durch Einsatz des Machine-Learning-Modells abzuwägen. Bestenfalls wird jedoch die Größe des Modells weitestgehend bei der Entwicklung reduziert. Ist die App heruntergeladen, kann die Ausführung von künstlichen neuronalen Netzwerken effizient parallelisiert werden, unter der Verwendung von speziellen Vektor-Koprozessoren oder Grafikchips. Dennoch stellt die Inferenz und insbesondere das Training einen hohen Rechenaufwand dar, der den Akku innerhalb kürzester Zeit verbrauchen kann \cite[S. 311]{sosnovshchenko_machine_2018}. Darüber hinaus stehen möglicherweise nicht auf allen Geräten dedizierte Hardwarekomponenten zur Verfügung, unter Umständen wird die CPU genutzt. Hierdurch steigt die Dauer, sowie die Energie- und Speicherintensität des Betriebs durch die geringe Parallelisierung. Die mathematische Optimierung, welche zum Training des Modells notwendig ist, stellt nochmals einen höheren Rechenaufwand dar. Daher ist es auch unüblich, größere Modelle auf Smartphones zu trainieren.
 
 \subsubsection{Software-Limitationen}
 
-%   Translokation und Inferenz: selbst impl. oder Frameworks?
-%   Vgl. Accelerate, Metal vs. CoreML, CreateML
-%   Third party: Tensorflow Lite, Keras, ...
-%   Weitere Limitationen: Lernen im Hintergrund nicht möglich, ...
+In den vorigen Abschnitten wurde gezeigt, dass Machine-Learning-Modelle in der Cloud ausgeführt und trainiert werden können, oder dies auch vollständig auf dem Smartphone durchgeführt werden kann, mit den entsprechenden Hardware-Limitationen. Auch die Software-Limitationen hängen direkt von der Wahl des Deployment-Modells ab. Während vollständig in der Cloud ausgeführte und trainierte Machine-Learning-Modelle bereits eine Vielzahl von etablierten Technologien zur Implementation und zur Ausführung nutzen können (viele Frameworks und Programmiersprachen), ist die Portierung eines trainierten Modells auf Smartphones (inkl. Training und Inferenz), im Moment noch an die sporadische Verfügbarkeit der Portierungsmöglichkeiten gekoppelt. Es besteht also zur Zeit noch eine klar erkennbare, technologisch (durch Programmiersprachen, Limitationen des Betriebssystems) bedingte, künstliche Grenze zwischen serverseitigen und clientseitigen Machine-Learning-Systemen. Grundsätzlich besteht zu Beginn der Portierung als zentraler Teil des Lösungskonzepts daher nach aktuellem Stand immer die Frage, ob das Modell mithilfe von Frameworks über diese Grenze hinweg portiert werden soll, oder selbst mit hardwarenahen Schnittstellen reimplementiert wird. Frameworks bieten in der Regel eine hohe Flexibilität und die Möglichkeit des Vortrainierens auf dem Server, während die resultierenden Modelle auf dem Smartphone unter Umständen nicht mehr trainierbar oder nur als \textit{Black Box}\footnote{Black Box bezeichnet in diesem Fall, dass das Machine-Learning-Modell bei der Framework-gestützten Portierung fest definierte Schnittstellen erhält und die internen Funktionsweisen nach außen versteckt werden.} verfügbar sind. Die manuelle clientseitige Implementation im Smartphone-Ökosystem ist wegen der hohen Komplexität der notwendigen Programmierung vor allem bei größeren Modellen eher unpraktikabel \todo{Diese Stelle ist zu bewertend und sollte noch einmal umformuliert werden.}. Neben dieser Problematik müssen App-Entwickler auch die Gegebenheiten des Betriebssystems und der App-Nutzung mit einbeziehen. Während Cloud-basierte Machine-Learning-Modelle dediziert und kontinuierlich für die vorgesehene Aufgabe ausgeführt werden können, ist die Ausführung von Machine-Learning-Modellen auf Smartphones an häufige Unterbrechungen durch den Nutzer (z.B. Wechsel in andere App) gebunden. Gleichzeitig kann die App permanent in den Hintergrund gelangen, entweder durch Wechsel der App oder durch Aktivierung des Stand-By-Modus. Die Verfügbarkeit der Rechenressourcen kann also zu jedem Zeitpunkt entzogen werden, langfristige Operationen wie das Training sind dann unter Umständen nicht mehr möglich. In diesem Fall besteht grundsätzlich die Möglichkeit, die notwendigen Operationen in den Hintergrund zu verschieben. Um eine Kompetetivität mit anderen Apps zu verhindern, sollte dies bei rechenintensitiven Operationen wie dem Training vermieden oder mit den entsprechenden Systemschnittstellen in Zeitbereiche mit geringer Auslastung verschoben werden\footnote{\url{https://developer.apple.com/documentation/backgroundtasks/choosing_background_strategies_for_your_app} (Abgerufen am 21.5.2021)}. Versucht eine App, sich dennoch selbst durch unsensibles und ressourcenverbrauchendes Hintergrundverhalten zu übervorteilen, so könnte sie bei der App-Prüfung (vor Veröffentlichung im jeweiligen App-Store) zurückgewiesen werden. Je nach Betriebssystem und App-Store gelten hierfür unterschiedliche Entwicklerrichtlinien, wichtig ist bei der Entwicklung also auch die Beachtung der \textit{Compliance}. \\
+
+\noindent Als zentrale Probleme konnten die Rechen- und Energieintensität des Modells bestimmt werden. Das Netzwerk stellt in bestimmten Fällen einen weiteren limitierenden Faktor dar. Zusätzlich ist die Compliance mit den entsprechenden Entwickler-Richtlinien und eine gute Nutzbarkeit wichtig, während der Entwicklungsaufwand und die Portierbarkeit über Frameworks vom Standpunkt des Entwicklers von zentraler Bedeutung sind.
 
 \subsection{Modelloptimierung}
 
-Auch die Optimierung der Modelle besitzt eine hohe Relevanz. Vor diesem Hintergrund wurden bereits verschiedene Analysen und Konzepte über Optimierungsmethoden für Machine-Learning-Modelle im Edge Computing erstellt. \cite{deng_model_2020} und \cite{choudhary_comprehensive_2020} vermitteln einen detaillierten Überblick über den Stand der Forschung in der Modelloptimierung. \cite{nan_deep_2019} und \cite{dai_toward_2021} analysieren verschiedene Optimierungsmethoden für mobile Plattformen unter anderem bezüglich ihrer konkreten Auswirkungen auf die Modellpräzision, die Inferenzzeit, die CPU-Last und die damit verbundenen thermischen Auswirkungen. Außerdem existieren bereits konkrete Ansätze aus dem Bereich Edge Computing, welche verschiedene Modelloptimierungen implementieren und evaluieren \cite{wang_context-aware_2020, wang_icing-edgenet_2021, tu_deep_2019, schneider_q-eegnet_2020}.
+Um die Rechen-, Speicher- und Energieintensität von Machine-Learning-Modellen zu optimieren, können verschiedene Konzept angewandt werden. \cite{deng_model_2020} und \cite{choudhary_comprehensive_2020} vermitteln einen detaillierten Überblick über den Stand der Forschung in der Modelloptimierung. \cite{nan_deep_2019} und \cite{dai_toward_2021} analysieren verschiedene Optimierungsmethoden für mobile Plattformen unter anderem bezüglich ihrer konkreten Auswirkungen auf die Modellpräzision, die Inferenzzeit, die CPU-Last und die damit verbundenen thermischen Auswirkungen. Außerdem existieren bereits konkrete Ansätze aus dem Bereich Edge Computing, welche verschiedene Modelloptimierungen implementieren und evaluieren \cite{wang_context-aware_2020, wang_icing-edgenet_2021, tu_deep_2019, schneider_q-eegnet_2020}. In dieser Sektion soll vor allem auf Optimierungsmethoden nach \cite[S. 315ff]{sosnovshchenko_machine_2018} eingegangen werden, da diese Quelle eine anwendungsorientierte Übersicht bietet.
 
-\todo{Konkrete Modelloptimierungsverfahren vorstellen: Quantisierung, Pruning, ...}
+\subsubsection{Wahl einer geeigneten Architektur}
+
+% Welche Architekturen eignen sich besonders gut/schlecht?
+% Spezielle vorgefertigte Netzwerke: MobileNet etc.
+
+\subsubsection{Limitierung des Anwendungsfalles}
+
+% Entropie der Eingangsdaten reduzieren (Anwendungsfall einschränken) -> Weniger Lernparameter notwendig
+% -> Modell kann kleiner gewählt werden
+
+\subsubsection{Verlustfreie Kompressionsverfahren}
+
+% GZIP und andere Kompressionsverfahren nutzen
+
+\subsubsection{Verlustbehaftete Kompressionsverfahren}
+
+\paragraph{Quantisierung und Reduktion der Präzision:} \dots
+
+\paragraph{Pruning und Decomposition:} \dots
+
+\paragraph{Knowledge Distillation:} \dots
+
+\paragraph{Weitere Methoden:} Optimierung für Inferenz, Low rank approximation, Layer+Tensor Fusion, Dynamic Memory Allocation, Kernel-Auto-Tuning, Dynamic Tensor Memory, Multi-Stream execution
 
 \subsection{Profiling}
 
