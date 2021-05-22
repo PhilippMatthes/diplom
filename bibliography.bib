@@ -2186,3 +2186,61 @@ version: 1},
 	keywords = {Computer Science - Computer Vision and Pattern Recognition},
 	file = {arXiv Fulltext PDF:/Users/philippmatthes/Zotero/storage/QGIVPUSQ/Howard et al. - 2017 - MobileNets Efficient Convolutional Neural Network.pdf:application/pdf;arXiv.org Snapshot:/Users/philippmatthes/Zotero/storage/MJY2ZBSH/1704.html:text/html}
 }
+
+@inproceedings{huang_condensenet_2018,
+	title = {{CondenseNet}: {An} {Efficient} {DenseNet} {Using} {Learned} {Group} {Convolutions}},
+	shorttitle = {{CondenseNet}},
+	url = {https://openaccess.thecvf.com/content_cvpr_2018/html/Huang_CondenseNet_An_Efficient_CVPR_2018_paper.html},
+	urldate = {2021-05-22},
+	author = {Huang, Gao and Liu, Shichen and van der Maaten, Laurens and Weinberger, Kilian Q.},
+	year = {2018},
+	pages = {2752--2761},
+	file = {Full Text PDF:/Users/philippmatthes/Zotero/storage/8DKHB6BR/Huang et al. - 2018 - CondenseNet An Efficient DenseNet Using Learned G.pdf:application/pdf;Snapshot:/Users/philippmatthes/Zotero/storage/4QS2WEJS/Huang_CondenseNet_An_Efficient_CVPR_2018_paper.html:text/html}
+}
+
+@article{kusupati_fastgrnn_2019,
+	title = {{FastGRNN}: {A} {Fast}, {Accurate}, {Stable} and {Tiny} {Kilobyte} {Sized} {Gated} {Recurrent} {Neural} {Network}},
+	shorttitle = {{FastGRNN}},
+	url = {http://arxiv.org/abs/1901.02358},
+	abstract = {This paper develops the FastRNN and FastGRNN algorithms to address the twin RNN limitations of inaccurate training and inefficient prediction. Previous approaches have improved accuracy at the expense of prediction costs making them infeasible for resource-constrained and real-time applications. Unitary RNNs have increased accuracy somewhat by restricting the range of the state transition matrix's singular values but have also increased the model size as they require a larger number of hidden units to make up for the loss in expressive power. Gated RNNs have obtained state-of-the-art accuracies by adding extra parameters thereby resulting in even larger models. FastRNN addresses these limitations by adding a residual connection that does not constrain the range of the singular values explicitly and has only two extra scalar parameters. FastGRNN then extends the residual connection to a gate by reusing the RNN matrices to match state-of-the-art gated RNN accuracies but with a 2-4x smaller model. Enforcing FastGRNN's matrices to be low-rank, sparse and quantized resulted in accurate models that could be up to 35x smaller than leading gated and unitary RNNs. This allowed FastGRNN to accurately recognize the "Hey Cortana" wakeword with a 1 KB model and to be deployed on severely resource-constrained IoT microcontrollers too tiny to store other RNN models. FastGRNN's code is available at https://github.com/Microsoft/EdgeML/.},
+	urldate = {2021-05-22},
+	journal = {arXiv:1901.02358 [cs, stat]},
+	author = {Kusupati, Aditya and Singh, Manish and Bhatia, Kush and Kumar, Ashish and Jain, Prateek and Varma, Manik},
+	month = jan,
+	year = {2019},
+	note = {arXiv: 1901.02358},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Machine Learning, Computer Science - Neural and Evolutionary Computing, Statistics - Machine Learning},
+	file = {arXiv Fulltext PDF:/Users/philippmatthes/Zotero/storage/YLNXXK5Z/Kusupati et al. - 2019 - FastGRNN A Fast, Accurate, Stable and Tiny Kiloby.pdf:application/pdf;arXiv.org Snapshot:/Users/philippmatthes/Zotero/storage/F34NNJ4K/1901.html:text/html}
+}
+
+@article{wang_e-lstm_2019,
+	title = {E-{LSTM}: {An} {Efficient} {Hardware} {Architecture} for {Long} {Short}-{Term} {Memory}},
+	volume = {9},
+	issn = {2156-3365},
+	shorttitle = {E-{LSTM}},
+	doi = {10.1109/JETCAS.2019.2911739},
+	abstract = {Long Short-Term Memory (LSTM) and its variants have been widely adopted in many sequential learning tasks, such as speech recognition and machine translation. Significant accuracy improvements can be achieved using complex LSTM model with a large memory requirement and high computational complexity, which is time-consuming and energy demanding. The low-latency and energy-efficiency requirements of the realworld applications make model compression and hardware acceleration for LSTM an urgent need. In this paper, several hardware-efficient network compression schemes are introduced first, including structured top-k pruning, clipped gating, and multiplication-free quantization, to reduce the model size and the number of matrix operations by 32× and 21.6×, respectively, with negligible accuracy loss. Furthermore, efficient hardware architectures for accelerating the compressed LSTM are proposed, which support the inference of multi-layer and multiple time steps. The computation process is judiciously reorganized and the memory access pattern is well optimized, which alleviate the limited memory bandwidth bottleneck and enable higher throughput. Moreover, the parallel processing strategy is carefully designed to make full use of the sparsity introduced by pruning and clipped gating with high hardware utilization efficiency. Implemented on Intel Arria10 SX660 FPGA running at 200MHz, the proposed design is able to achieve 1.4-2.2× energy efficiency and requires significantly less hardware resources compared with the state-of-the-art LSTM implementations.},
+	number = {2},
+	journal = {IEEE Journal on Emerging and Selected Topics in Circuits and Systems},
+	author = {Wang, Meiqi and Wang, Zhisheng and Lu, Jinming and Lin, Jun and Wang, Zhongfeng},
+	month = jun,
+	year = {2019},
+	note = {Conference Name: IEEE Journal on Emerging and Selected Topics in Circuits and Systems},
+	keywords = {Computational modeling, deep learning, FPGA, Hardware, Hardware acceleration, long short-term memory (LSTM), Memory management, Microprocessors, model compression, Quantization (signal), Random access memory, recurrent neural network (RNN)},
+	pages = {280--291},
+	file = {IEEE Xplore Full Text PDF:/Users/philippmatthes/Zotero/storage/EJCRY2YR/Wang et al. - 2019 - E-LSTM An Efficient Hardware Architecture for Lon.pdf:application/pdf;IEEE Xplore Abstract Record:/Users/philippmatthes/Zotero/storage/B4FDG8XN/8693509.html:text/html}
+}
+
+@article{luo_neural_2019,
+	title = {Neural {Architecture} {Optimization}},
+	url = {http://arxiv.org/abs/1808.07233},
+	abstract = {Automatic neural architecture design has shown its potential in discovering powerful neural network architectures. Existing methods, no matter based on reinforcement learning or evolutionary algorithms (EA), conduct architecture search in a discrete space, which is highly inefficient. In this paper, we propose a simple and efficient method to automatic neural architecture design based on continuous optimization. We call this new approach neural architecture optimization (NAO). There are three key components in our proposed approach: (1) An encoder embeds/maps neural network architectures into a continuous space. (2) A predictor takes the continuous representation of a network as input and predicts its accuracy. (3) A decoder maps a continuous representation of a network back to its architecture. The performance predictor and the encoder enable us to perform gradient based optimization in the continuous space to find the embedding of a new architecture with potentially better accuracy. Such a better embedding is then decoded to a network by the decoder. Experiments show that the architecture discovered by our method is very competitive for image classification task on CIFAR-10 and language modeling task on PTB, outperforming or on par with the best results of previous architecture search methods with a significantly reduction of computational resources. Specifically we obtain 1.93\% test set error rate for CIFAR-10 image classification task and 56.0 test set perplexity of PTB language modeling task. Furthermore, combined with the recent proposed weight sharing mechanism, we discover powerful architecture on CIFAR-10 (with error rate 2.93\%) and on PTB (with test set perplexity 56.6), with very limited computational resources (less than 10 GPU hours) for both tasks.},
+	urldate = {2021-05-22},
+	journal = {arXiv:1808.07233 [cs, stat]},
+	author = {Luo, Renqian and Tian, Fei and Qin, Tao and Chen, Enhong and Liu, Tie-Yan},
+	month = sep,
+	year = {2019},
+	note = {arXiv: 1808.07233},
+	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning},
+	file = {arXiv Fulltext PDF:/Users/philippmatthes/Zotero/storage/JH8BGHHS/Luo et al. - 2019 - Neural Architecture Optimization.pdf:application/pdf;arXiv.org Snapshot:/Users/philippmatthes/Zotero/storage/DPYW9GYJ/1808.html:text/html}
+}
