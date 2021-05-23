@@ -2244,3 +2244,83 @@ version: 1},
 	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning},
 	file = {arXiv Fulltext PDF:/Users/philippmatthes/Zotero/storage/JH8BGHHS/Luo et al. - 2019 - Neural Architecture Optimization.pdf:application/pdf;arXiv.org Snapshot:/Users/philippmatthes/Zotero/storage/DPYW9GYJ/1808.html:text/html}
 }
+
+@article{liang_pruning_2021,
+	title = {Pruning and {Quantization} for {Deep} {Neural} {Network} {Acceleration}: {A} {Survey}},
+	shorttitle = {Pruning and {Quantization} for {Deep} {Neural} {Network} {Acceleration}},
+	url = {http://arxiv.org/abs/2101.09671},
+	abstract = {Deep neural networks have been applied in many applications exhibiting extraordinary abilities in the field of computer vision. However, complex network architectures challenge efficient real-time deployment and require significant computation resources and energy costs. These challenges can be overcome through optimizations such as network compression. Network compression can often be realized with little loss of accuracy. In some cases accuracy may even improve. This paper provides a survey on two types of network compression: pruning and quantization. Pruning can be categorized as static if it is performed offline or dynamic if it is performed at run-time. We compare pruning techniques and describe criteria used to remove redundant computations. We discuss trade-offs in element-wise, channel-wise, shape-wise, filter-wise, layer-wise and even network-wise pruning. Quantization reduces computations by reducing the precision of the datatype. Weights, biases, and activations may be quantized typically to 8-bit integers although lower bit width implementations are also discussed including binary neural networks. Both pruning and quantization can be used independently or combined. We compare current techniques, analyze their strengths and weaknesses, present compressed network accuracy results on a number of frameworks, and provide practical guidance for compressing networks.},
+	urldate = {2021-05-23},
+	journal = {arXiv:2101.09671 [cs]},
+	author = {Liang, Tailin and Glossner, John and Wang, Lei and Shi, Shaobo},
+	month = mar,
+	year = {2021},
+	note = {arXiv: 2101.09671},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Computer Vision and Pattern Recognition},
+	file = {arXiv Fulltext PDF:/Users/philippmatthes/Zotero/storage/THVXRKCH/Liang et al. - 2021 - Pruning and Quantization for Deep Neural Network A.pdf:application/pdf;arXiv.org Snapshot:/Users/philippmatthes/Zotero/storage/LCHRCJCP/2101.html:text/html}
+}
+
+@inproceedings{lecun_optimal_1990,
+	title = {Optimal brain damage},
+	booktitle = {Advances in neural information processing systems},
+	author = {LeCun, Yann and Denker, John S. and Solla, Sara A.},
+	year = {1990},
+	pages = {598--605},
+	file = {Full Text:/Users/philippmatthes/Zotero/storage/2GS3NKLW/LeCun et al. - 1990 - Optimal brain damage.pdf:application/pdf}
+}
+
+@incollection{hassibi_second_1993,
+	address = {San Mateo, CA},
+	title = {Second {Order} {Derivatives} for {Network} {Pruning}: {Optimal} {Brain} {Surgeon}},
+	isbn = {978-1-55860-274-8},
+	shorttitle = {Second {Order} {Derivatives} for {Network} {Pruning}},
+	url = {https://resolver.caltech.edu/CaltechAUTHORS:20150219-075206704},
+	abstract = {We investigate the use of information from all second order derivatives of the error function to perform network pruning (i.e., removing unimportant weights from a trained
+network) in order to improve generalization, simplify networks, reduce hardware or storage requirements, increase the speed of further training, and in some cases enable rule
+extraction. Our method, Optimal Brain Surgeon (OBS), is Significantly better than magnitude-based methods and Optimal Brain Damage [Le Cun, Denker and Sol1a, 1990],
+which often remove the wrong weights. OBS permits the pruning of more weights than
+other methods (for the same error on the training set), and thus yields better generalization on test data. Crucial to OBS is a recursion relation for calculating the
+inverse Hessian matrix H{\textasciicircum}(-1) from training data and structural information of the net. OBS
+permits a 90\%, a 76\%, and a 62\% reduction in weights over backpropagation with weigh decay on three benchmark MONK's problems [Thrun et aI., 1991]. Of OBS, Optimal
+Brain Damage, and magnitude-based methods, only OBS deletes the correct weights from a trained XOR network in every case. Finally, whereas Sejnowski and Rosenberg [1987J
+used 18,000 weights in their NETtalk network, we used OBS to prune a network to just 1560 weights, yielding better generalization.},
+	urldate = {2021-05-23},
+	booktitle = {Advances in {Neural} {Information} {Processing} {Systems} 5 ({NIPS} 1992)},
+	publisher = {Morgan Kaufmann},
+	author = {Hassibi, Babak and Stork, David G.},
+	editor = {Hanson, Stephen José and Cowan, Jack D. and Giles, C. Lee},
+	year = {1993},
+	note = {Conference Name: Neural Information Processing Systems 1992
+Meeting Name: Neural Information Processing Systems 1992},
+	pages = {164--171},
+	file = {Snapshot:/Users/philippmatthes/Zotero/storage/CLGZ8NVJ/54983.html:text/html;Full Text PDF:/Users/philippmatthes/Zotero/storage/LXITCU4J/Hassibi und Stork - 1993 - Second Order Derivatives for Network Pruning Opti.pdf:application/pdf}
+}
+
+@article{chang_prune_2019,
+	title = {Prune {Deep} {Neural} {Networks} {With} the {Modified} $_{\textrm{1/2}}$ {Penalty}},
+	volume = {7},
+	issn = {2169-3536},
+	doi = {10.1109/ACCESS.2018.2886876},
+	abstract = {Demands to deploy deep neural network (DNN) models on mobile devices and embedded systems have drastically grown in recent years. When transplanting DNN models to such platforms, requirements pertaining to computation and memory use are bottlenecks. To overcome them, network pruning has been carefully studied as a method of network compression. The effectiveness of network pruning is significantly affected by incorrect pruning on important connections. In this paper, we propose a network pruning method based on the modified $_{\textrm{1/2}}$ penalty that reduces incorrect pruning by increasing the sparsity of the pretrained models. The modified $_{\textrm{1/2}}$ penalty yields better sparsity than the $_{\textrm{1}}$ penalty at a similar computational cost. Compared with the past work that numerically defines the importance of connections and re-establishes important weights when incorrect pruning occurs, our method achieves faster convergence by using a simpler pruning strategy. The results of experiments show that our method can compress LeNet300-100, LeNet-5, ResNet, AlexNet, and VGG16 by factors of \$66{\textbackslash}times \$ , \$322{\textbackslash}times \$ , \$26{\textbackslash}times \$ , \$21{\textbackslash}times \$ , and \$16{\textbackslash}times \$ , respectively, with negligible loss of accuracy.},
+	journal = {IEEE Access},
+	author = {Chang, Jing and Sha, Jin},
+	year = {2019},
+	note = {Conference Name: IEEE Access},
+	keywords = {Computational modeling, Deep learning, Integrated circuit modeling, loss function, Matrix decomposition, network pruning, neural network, Neural networks, Optimization, Training},
+	pages = {2273--2280},
+	file = {IEEE Xplore Full Text PDF:/Users/philippmatthes/Zotero/storage/KZZNS25G/Chang und Sha - 2019 - Prune Deep Neural Networks With the Modified .pdf:application/pdf;IEEE Xplore Abstract Record:/Users/philippmatthes/Zotero/storage/BRKP7VWB/8579132.html:text/html}
+}
+
+@inproceedings{sb_dynamic_2019,
+	title = {Dynamic {Memory} {Management} for {GPU}-{Based} {Training} of {Deep} {Neural} {Networks}},
+	doi = {10.1109/IPDPS.2019.00030},
+	abstract = {Deep learning has been widely adopted for different applications of artificial intelligence-speech recognition, natural language processing, computer vision etc. The growing size of Deep Neural Networks (DNNs) has compelled the researchers to design memory efficient and performance optimal algorithms. Apart from algorithmic improvements, specialized hardware like Graphics Processing Units (GPUs) are being widely employed to accelerate the training and inference phases of deep networks. However, the limited GPU memory capacity limits the upper bound on the size of networks that can be offloaded to and trained using GPUs. vDNN addresses the GPU memory bottleneck issue and provides a solution which enables training of deep networks that are larger than GPU memory. In our work, we characterize and identify multiple bottlenecks with vDNN like delayed computation start, high pinned memory requirements and GPU memory fragmentation. We present vDNN++ which extends vDNN and resolves the identified issues. Our results show that the performance of vDNN++ is comparable or better (up to 60\% relative improvement) than vDNN. We propose different heuristics and order for memory allocation, and empirically evaluate the extent of memory fragmentation with them. We are also able to reduce the pinned memory requirement by up to 60\%.},
+	booktitle = {2019 {IEEE} {International} {Parallel} and {Distributed} {Processing} {Symposium} ({IPDPS})},
+	author = {S.B., Shriram and Garg, Anshuj and Kulkarni, Purushottam},
+	month = may,
+	year = {2019},
+	note = {ISSN: 1530-2075},
+	keywords = {Backpropagation, Convolution, Deep Learning, Deep Neural Networks, GPU, Graphics processing units, Heuristic algorithms, Memory management, Memory Management, Neural networks, Training},
+	pages = {200--209},
+	file = {IEEE Xplore Full Text PDF:/Users/philippmatthes/Zotero/storage/SEBPD265/S.B. et al. - 2019 - Dynamic Memory Management for GPU-Based Training o.pdf:application/pdf;IEEE Xplore Abstract Record:/Users/philippmatthes/Zotero/storage/D3J82S8R/8820980.html:text/html}
+}

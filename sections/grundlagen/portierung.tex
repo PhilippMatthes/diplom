@@ -57,23 +57,25 @@ Neben einer architekturellen Restrukturierung von Machine-Learning-Modellen wie 
 
 \subsubsection{Verlustbehaftete Kompressionsverfahren}
 
-Während bei der verlustfreien Kompression alle Parameter des Machine-Learning-Modells erhalten bleiben, werden bei der verlustbehafteten Kompression gezielt Parameter verändert oder entfernt. Ziel ist es hierbei, so viele Parameter wie möglich zu reduzieren, bei einer möglichst gleichbleibenden Präzision.
+Während bei der verlustfreien Kompression alle Parameter des Machine-Learning-Modells erhalten bleiben, werden bei der verlustbehafteten Kompression gezielt Parameter verändert oder entfernt. Ziel ist es hierbei, so viele Parameter wie möglich zu reduzieren, bei einer möglichst gleichbleibenden (oder in manchen Fällen sogar verbesserten) Präzision.
 
-\paragraph{Quantisierung und Fließkommaformat:} \dots
+\paragraph{Quantisierung:} Die Parameter eines herkömmlichen Machine-Learning-Modells liegen typischerweise in Fließkommazahlen nach dem IEEE 754\footnote{\url{https://de.wikipedia.org/wiki/IEEE_754} (Abgerufen am 23.5.2021)} $32 bit$-Format vor. Diese können zur Reduktion der Modellgröße in Ganzzahlen nach dem $8 bit$ Integer-Format überführt werden. Rechnerisch lässt sich hierüber die Größe des Modells auf bis zu ein Viertel der Ausgangsgröße reduzieren. Gleichzeitig müssen die Fließkommazahlen über eine skalare Multiplikation geeignet in den Integer-Wertebereich $[-128, 127]$ (signed) bzw. $[0, 255]$ (unsigned) überführt werden\footnote{\url{https://de.wikipedia.org/wiki/Integer_(Datentyp)} (Abgerufen am 23.5.2021)}. Hierzu können eine Min-Max-Skalierung oder verschiedene andere Skalierungsmethoden dienen. Da sich die Skalierung bei Änderung der Modellparameter mit ändert, bietet sich die Quantisierung in der Regel für eine Komprimierung \textit{nach} dem Training an. Es bestehen aber auch Möglichkeiten, bereits beim Training eine laufende Quantisierung durchzuführen. Trotz des signifikanten Verlustes der durch die binäre Repräsentation darstellbaren Werten verringert eine Quantisierung die Präzision eines Modells normalerweise nur geringfügig, daher eignet sie sich sehr gut für die verlustbehaftete Komprimierung \cite[S. 14ff]{liang_pruning_2021}.
 
-\paragraph{Pruning und Decomposition:} \dots
+\paragraph{Pruning:} Nicht alle Parameter eines Machine-Learning-Modells sind für die interne Wissensrepräsentation gleich wichtig. Es besteht die Möglichkeit, dass bestimmte Parameter nur einen geringen Einfluss auf die Ausgabe des Modells haben. Bei künstlichen neuronalen Netzwerken können so beispielsweise gezielt einzelne Neuronen, Gruppen von Neuronen oder ganze Schichten entfernt werden, wenn sie als unwichtig identifiziert werden können. Letzteres ist jedoch ein nichttriviales Problem, welches eine differenzierte Herangehensweise erfordert. Es ist möglich, über die zufällige Elimination von Neuronen und Verbindungen zu testen, ob diese die gesamte Präzision signifikant reduziert (\textit{Brute-Force}-Methode). Durch Heuristiken lässt sich dieses Verfahren jedoch weiter verbessern. Bei einer sehr einfachen Variante des \textit{Magnitude-based Pruning} werden beispielsweise Parameter innerhalb eines Machine-Learning-Modells entfernt, welche sehr kleine Werte nahe $0$ annehmen. Die Annahme hierhinter ist, dass Parameter mit sehr kleinen Werten in der Regel weniger wichtig für die Ausgabe des Modells sind, als Parameter mit größeren Werten. Ähnliche Methoden wie \textit{Optimal Brain Damage} \cite{lecun_optimal_1990} und \textit{Optimal Brain Surgeon} \cite{hassibi_second_1993} nutzen den Gradienten der Kostenfunktion für die Identifikation einzelner zu eliminierender Neuronen. Bei der Elimination von Neuronen ist auch die Regularisierung von Bedeutung, durch Regularisierungsmethoden (\Cref{sec:regularisierung}) wie Dropout oder $l_1$- und $l_2$-Regularisierung kann diese beschleunigt werden \cites[S. 7ff]{liang_pruning_2021}{chang_prune_2019}.
 
-\paragraph{Knowledge Distillation:} \dots
+\paragraph{Knowledge Distillation:} Methoden wie Quantisierung und Pruning können auf einem bestehenden Modell direkt angewandt werden, um dieses durch die Elimination von potenziell unwichtigen Parametern zu komprimieren. Beim Verfahren \textit{Knowledge Distillation} wird ein bestehendes (trainiertes) Modell genutzt, um dessen Verhaltensweise durch ein kleineres Modell nachzustellen. Ziel ist es, eine effizientere Wissensrepräsentation durch das kleinere Modell zu erstellen, welche weniger Parameter bei einer annähernd gleichen Präzision besitzt. \\
 
-\paragraph{Weitere Methoden:} Optimierung für Inferenz, Low rank approximation, Layer+Tensor Fusion, Dynamic Memory Allocation, Kernel-Auto-Tuning, Dynamic Tensor Memory, Multi-Stream execution
+\noindent Die diskutierten Methoden sind in dieser Form für die meisten Machine-Learning-Modelle flexibel anwendbar und dadurch auch weit verbreitet \cite{nan_deep_2019, choudhary_comprehensive_2020}. Die aufgezeigten Grundlagen erfassen jedoch nicht das gesamte Spektrum an potenziellen Ansätzen. Weitere Ansätze sind beispielsweise:
+
+\begin{itemize}
+\item Optimierung des Machine-Learning-Modells für die Inferenz durch die Elimination von Komponenten, die lediglich für das Training benötigt werden.
+\item Approximation der Modellparameter durch \textit{Low Rank Tensor Approximation} und die daraus resultierende Verkleinerung der Matrixoperationen\footnote{\url{https://en.wikipedia.org/wiki/Low-rank_approximation} (Abgerufen am 23.5.2021)}.
+\item Fusion von bestimmten Modell-Operationen (\textit{Layer/Tensor-Fusion})\footnote{\url{https://www.tensorflow.org/lite/convert/operation_fusion} (Abgerufen am 23.5.2021)} zur weiteren Optimierung und Komprimierung der Berechnungen.
+\item Verschiedene hardwareorientierte Ansätze wie die Einführung einer dynamischen Speicherverwaltung, um größere Machine-Learning-Modelle effizient und parallelisiert auf Grafikeinheiten und dedizierten Koprozessoren ausführen zu können \cite{sb_dynamic_2019}.
+\end{itemize}
+
+\noindent Im Rahmen der Portierung bietet es sich in Anbetracht der verschiedensten Methoden an, eine konkrete Kompressionsstrategie zu entwickeln, welche einen oder mehrere dieser Schritte inkludiert. Dabei kann auch eine Selektion spezifischerer Varianten und Derivate der gezeigten Optimierungsmethoden gewählt werden.
 
 \subsection{Profiling}
 
-% Einordnung in Edge AI, Forschungsstand, Anwendungsgebiete
-% Illustration: ML für Mobile beginnt Fuß zu fassen, warum?
-%
-% Training: Wo wird trainiert? Welche Konsequenzen hat das?
 
-%
-%
-% Profiling
