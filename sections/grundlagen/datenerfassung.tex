@@ -1,4 +1,4 @@
-\section{Datenerfassung und -vorverarbeitung}\label{sec:datenerfassung-und-vorverarbeitung}
+\section{Datenerfassung und -verarbeitung}\label{sec:datenerfassung-und-verarbeitung}
 
 \begin{figure}[H]
 \includegraphics[width=\linewidth, bb=0 0 598 404]{datengrundlage.pdf}
@@ -215,5 +215,3 @@ wobei:
 \end{conditions}
 
 \noindent Bei der Standardisierung der Datenpunktmenge $D$ wird dem Datenpunkt $d$ zunächst das arithmetische Mittel $\mu_D$ abgezogen. Ist $d < \mu_D$, dann gilt $d - \mu_D < 0$. Umgekehrt gilt $d - \mu_D > 0$ für $d > \mu_D$. Somit werden die Werte innerhalb der Datenpunktmenge gleichmäßig um den Nullpunkt verteilt. Anschließend wird durch die Standardabweichung $\sigma_D$ dividiert. Gilt $\sigma_D < 1$, so werden die standardisierten Werte vergrößert. Ist $\sigma_D > 1$, führt dies zu einer Verkleinerung der standardisierten Werte. Somit werden die Werte verschiedener Wertebereiche in annähernd denselben Zahlenraum überführt. Gleichzeitig wird der relative Abstand der fehlerhaften Datenpunkte zu korrekten Datenpunkten erhalten. Somit lässt sich ein einheitliches Wertebereichsfenster, beispielsweise $W_F = [F_{min} = -1, F_{max} = 1]$ definieren, außerhalb dessen unplausible Werte verworfen werden können. Alternativ können Werte außerhalb dieses Bereichs mit der Funktion $clamp(d) = \max(F_{min}, \min(d, F_{max}))$ in $W_F$ abgebildet werden.
-
-\todo{Postprocessing kurz beschreiben}
