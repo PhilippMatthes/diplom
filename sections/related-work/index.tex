@@ -1,0 +1,152 @@
+\chapter{Verwandte Arbeiten}\label{ch:verwandte-arbeiten}
+
+In diesem Kapitel wird näher auf die wissenschaftlichen Arbeiten eingegangen, deren Forschungsthema sich mit dem dieser Arbeit stark überschneidet. Dazu wird zunächst ein taxonomischer Überblick über Kategorien gegeben, in welche sich verwandte Arbeiten eingliedern lassen. Anschließend werden die Konzepte und Ergebnisse näher diskutiert und verglichen.
+
+\section{Forschungsüberblick}
+
+In der nachfolgenden \Cref{tab:forschungsueberblick} sind verwandte Arbeiten gegenübergestellt und in verschiedene Kategorien eingeordnet. In der unteren Sektion der Tabelle befinden sich Ansätze, welche eine Verkehrsmittelklassifikation ... (TBC)
+
+\begin{landscape}
+  \begin{table}[]
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{@{}llp{3cm}p{2cm}p{7cm}p{3cm}p{3cm}p{3cm}p{4cm}@{}}
+  \toprule
+    Arbeit &
+    Kat. &
+    Labels &
+    Daten &
+    Preprocessing &
+    Features &
+    Modell(e) &
+    Regularisierung &
+    Training \\ \midrule
+  \cite{bhattacharya_smart_2016} &
+    HAR-W &
+    Mehrere Varianten &
+    ACC &
+    Segmentierung, Abs. Signalstärke, FFT &
+    Shallow &
+    RBM &
+    Keine Angabe &
+    Supervised Learning \\ \midrule
+  \cite{hemminki_accelerometer-based_2013}  &
+    VME-S &
+    Train, Bus, Stationary, Metro, Tram, Car &
+    ACC &
+    Tiefpass, Segmentierung, Elimination der Gravitation, Berechnung der Features &
+    Shallow &
+    HMM und DT &
+    Limitierung der Modellgröße &
+    Ensemble Learning \\
+  \cite{byon_real-time_2014} &
+    VME-S &
+    Walk, Bike, Automobile, Bus, Car &
+    GNSS, ACC, MAG &
+    k.A. &
+    Vorverarbeitete Daten &
+    FFN &
+    Keine Angabe &
+    Supervised Learning \\ \midrule
+  \cite{mairittha_-device_2021} &
+    HAR-S &
+    12 Aktivitäten &
+    GYR, ACC &
+    Abs. Signalstärke, Segmentierung &
+    Vorverarbeitete Daten &
+    RNN-LSTM &
+    Keine Angabe &
+    Transfer Learning, On-Device Fine-Tuning \\
+  \cite{mairittha_improving_2020} &
+    HAR-S &
+    6 Aktivitäten &
+    GYR, ACC &
+    Abs. Signalstärke, Segmentierung &
+    Vorverarbeitete Daten &
+    CNN &
+    Dropout &
+    Supervised Learning, On-Device Fine-Tuning \\
+  \cite{mairittha_-device_2019} &
+    HAR-S &
+    6 Aktivitäten &
+    ACC &
+    Segmentierung, Feature-Berechnung &
+    Shallow &
+    RNN-LSTM &
+    Keine Angabe &
+    Supervised Learning \\
+  \cite{nutter_design_2018} &
+    HAR-S &
+    9 Aktivitäten &
+    GYR, ACC &
+    Glättung, Hochpass, Tiefpass, Elimination der Gravitation &
+    Non-Shallow &
+    CNN &
+    Dropout, Batch-Normalization &
+    Transfer Learning \\
+  \cite{zebin_design_2019} &
+    HAR-S &
+    5 Aktivitäten &
+    GYR, ACC &
+    Segmentierung, Windowing, Normalisierung &
+    Vorverarbeitete Daten &
+    CNN &
+    Dropout, Batch-Normalization &
+    Supervised Learning \\
+  \cite{ravi_deep_2016} &
+    HAR-S &
+    Mehrere Varianten &
+    GYR, ACC &
+    Feature-Berechnung, FFT &
+    Non-Shallow &
+    CNN &
+    Weight Decay, Momentum, Dropout &
+    Supervised Learning \\ \midrule
+  \cite{liang_convolutional_2017} &
+    VME &
+    Bike, Car, Walk, Train, Metro, Bus, Stationary &
+    ACC &
+    Elimination der Gravitation, Gleitfenster, Abs. Signalstärke &
+    Vorverarbeitete Daten &
+    CNN &
+    L2-Regularisierung &
+    Supervised Learning \\
+  \cite{friedrich_transportation_2019} &
+    VME &
+    Stationary, Walk, Run, Bike, Car, Bus, Train, Metro &
+    ACC, GYR, MAG, BAR &
+    Datensatzgewichtung, Abs. Signalstärke, Normalisierung &
+    Vorverarbeitete Daten &
+    RNN-LSTM &
+    Dropout &
+    Supervised Learning \\ \midrule
+  \cite{werner_kontinuierliche_2020} &
+    VME &
+    Walk, Bike, Car, Bus, Tram, Train &
+    GNSS, ACC, ROT, MAG &
+    Skalierung, Interpolation, AHRS, Glättung &
+    Vorverarbeitete Daten &
+    RNN-LSTM und Postprocessing &
+    Dropout, Early Stopping &
+    Supervised Learning, Validierung mith. Semi-Supervised Learning \\
+  \cite{stojanov_continuous_2020} &
+    VME &
+    Walk, Bike, Car, Bus, Tram, Train, Boat &
+    GNSS, ACC, ROT, MAG &
+    AHRS, Normalisierung, Alignment, Abs. Signalstärke, Downsampling, FFT, Gleitfenster, Segmentierung &
+    Shallow &
+    CNN und Postprocessing &
+    Dropout, Early Stopping &
+    Supervised Learning \\
+  \cite{matusek_anwendung_2019} &
+    VME &
+    Walk, Bike, Car, Bus, Tram, Train &
+    GNSS, ACC, ROT, MAG &
+    Interpolation und Alignment, GPS-Korrektur, Rauschfilterung über Moving Average, Zeitfenster &
+    Vorverarbeitete Daten &
+    FFN (Kernkonzept) &
+    Early Stopping &
+    Supervised Learning \\ \bottomrule
+  \end{tabular}\caption{\footnotesize{Forschungsüberblick. Abkürzungen wie folgt. Kategorien: VME (Verkehrsmittelerkennung), VME-W (VME auf Wearables), VME-S (VME auf Smartphones), HAR (Human Activity Recognition), HAR-S (HAR auf Smartphones). Daten: ACC (Akzelerometer), GYR (Gyrosensor), MAG (Magnetometer), BAR (Barometer - Luftdruck). Preprocessing: FFT (Fast Fourier Transformation). Modelle: RBM (Restricted Boltzmann Machine), HMM (Hidden Markov Model), DT (Decision Tree), FFN (Feed-Forward-Network), RNN-LSTM (Recurrent Neural Network mit Long-Short-Term-Memory-Neuronen), CNN (Convolutional Neural Network).}}%
+  }\label{tab:forschungsueberblick}
+  \end{table}
+\end{landscape}
