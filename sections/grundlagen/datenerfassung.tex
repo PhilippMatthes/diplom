@@ -1,6 +1,6 @@
 \section{Datenerfassung und -verarbeitung}\label{sec:datenerfassung-und-verarbeitung}
 
-% \begin{figure}[H]
+% \begin{figure}[h]
 % \includegraphics[width=\linewidth, bb=0 0 598 404]{datengrundlage.pdf}
 % \caption{Die bei der Nutzung der STADTRADELN-App erhobenen Daten im Überblick.}\label{fig:datengrundlage}
 % \end{figure}
@@ -17,7 +17,7 @@ Bei der Nutzung der STADTRADELN-App werden unterschiedliche Datensätze erhoben,
   \item Weitere Hilfsdaten, wie eine Geräte-Identifikationsnummer und das Smartphone-Modell
 \end{itemize}
 
-\noindent Diese Messparameter können als Grundlage für eine im Einleitungskapitel motivierte Aktivitätserkennung fungieren. Daher sollen diese nun genauer betrachtet werden. Dabei spielen insbesondere folgende Fragen eine zentrale Rolle:
+Diese Messparameter können als Grundlage für eine im Einleitungskapitel motivierte Aktivitätserkennung fungieren. Daher sollen diese nun genauer betrachtet werden. Dabei spielen insbesondere folgende Fragen eine zentrale Rolle:
 
 \begin{enumerate}
 \item Wie werden die jeweiligen Messparameter technisch erfasst und mit welchen Wertebereichen ist hierbei zu rechnen?
@@ -25,18 +25,18 @@ Bei der Nutzung der STADTRADELN-App werden unterschiedliche Datensätze erhoben,
 \item Welche Probleme und Herausforderungen können bei der Erfassung der Messparameter auftreten und wie können diese gelöst werden?
 \end{enumerate}
 
-\noindent Diese Fragen sollen in den folgenden Sektionen diskutiert werden.
+Diese Fragen sollen in den folgenden Sektionen diskutiert werden.
 
 \subsection{Lokale kinematische Messparameter}\label{sec:kinematische-messparameter}
 
 Neben GPS-Geolokalisationsinformationen werden in der STADTRADELN-App Aktivitätsdaten mithilfe von Sensoren des Smartphones aufgezeichnet.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \includegraphics[width=\linewidth, bb=0 0 540 181]{kinematische-messparameter.pdf}
 \caption{Übersicht über die kinematischen Messparameter der STADTRADELN-Daten.}\label{fig:kinematische-messparameter}
 \end{figure}
 
-\noindent Wie in \Cref{fig:kinematische-messparameter} gezeigt, handelt es sich hierbei um jeweils triaxiale Messparameter in Form von Beschleunigungsdaten des Akzelerometers, Neigungsdaten des Gyrosensors, sowie Orientierungsdaten des Magnetometers.
+Wie in \Cref{fig:kinematische-messparameter} gezeigt, handelt es sich hierbei um jeweils triaxiale Messparameter in Form von Beschleunigungsdaten des Akzelerometers, Neigungsdaten des Gyrosensors, sowie Orientierungsdaten des Magnetometers.
 
 \subsubsection{Funktionsweise}
 
@@ -46,49 +46,49 @@ Das Akzelerometer des Smartphones basiert auf einem mikroelektronischen mechanis
 
 Bei Beschleunigungsdaten des Akzelerometers ist häufig die Erdschwerkraft im triaxialen Vektorsystem integriert \cite{ken_taylor_activity_2011, tundo_correcting_2013}. Bei einer Neigungsänderung des Smartphones wird somit auch immer eine Änderung des Gravitationsvektors gemessen. Dies erschwert die Interpretation der gemessenen Daten, da die gemessenen Werte zunächst in ein von der Neigung des Gerätes unabhängiges Bezugskoordinatensystem, das sogenannte Weltkoordinatensystem, gebracht werden müssen.
 
-\begin{figure}[H]
-\includegraphics[width=\linewidth, bb=0 0 425 162 ]{desync.pdf}
+\begin{figure}[h]
+\includegraphics[width=0.75\linewidth, bb=0 0 425 162 ]{desync.pdf}
 \caption{Schematische Darstellung der zeitlichen Desynchronisation von Sensordaten, angelehnt an \cite{matusek_anwendung_2019}.}\label{fig:desync}
 \end{figure}
 
-\noindent Ebenfalls erschwerend wirken sich von Gerät zu Gerät unterschiedliche inhärente Messfehler und -parameter der Sensoren aus. Wie in \Cref{fig:desync} gezeigt kann beispielsweise die Abtastrate der Sensoren und der genutzten Systemschnittstellen zur Aufzeichnung variieren oder eine verzögerte Aufzeichnung auftreten \cite{matusek_anwendung_2019}. Bei der Messung der Akzelerometer-Daten ist mit einem signifikanten Rauschen der Sensorwerte zu rechnen \cite{dey_accelprint_2014, ravi_deep_2016}. Dies ist übergreifend zurückzuführen auf unterschiedliche Imperfektionen in der Fertigung und die altersbedingte Degradation von mikroelektronischen Chips \cite{matej_andrejasic_mems_2008, constantinescu_capacitive_2013, hillman_manufacturing_2004}. Eine Aktivitätserkennung sollte möglichst nicht durch diese Rauschmuster beeinflusst werden \cite{dey_accelprint_2014}. Durch die typische inhärente Abweichung der Sensordaten vom tatsächlichen Wert eignen sich die kinematischen Daten auch nur begrenzt für eine Bewegungsrekonstruktion und Lokalisation durch zeitliche Aggregation im Raum. Je länger die Aktivitätsdaten, speziell Ausrichtungsdaten, aggregiert werden, desto größer ist die beobachtete Gesamtabweichung (\textit{Drift}) \cite{takeda_drift_2014}. Neben diesen Herausforderungen besteht mit Hinblick auf die Orientierungsdaten ein weiteres Problem. Da das Erdmagnetfeld (ca. $30 \mu T$ bis $60 \mu T$) im Vergleich zu einigen künstlichen Magnetfeldquellen wie Kühlschränken (ca. $5 mT$) relativ schwach ist, kann das Magnetometer leicht gestört oder sogar dekalibriert werden \cite{moreno-torres_evaluation_2013, schirmer_smartphone_2016, zhang_preliminary_2012}, was zu signifikanten Fehlern führen kann \cite{kunze_can_2010}.
+Ebenfalls erschwerend wirken sich von Gerät zu Gerät unterschiedliche inhärente Messfehler und -parameter der Sensoren aus. Wie in \Cref{fig:desync} gezeigt kann beispielsweise die Abtastrate der Sensoren und der genutzten Systemschnittstellen zur Aufzeichnung variieren oder eine verzögerte Aufzeichnung auftreten \cite{matusek_anwendung_2019}. Bei der Messung der Akzelerometer-Daten ist mit einem signifikanten Rauschen der Sensorwerte zu rechnen \cite{dey_accelprint_2014, ravi_deep_2016}. Dies ist übergreifend zurückzuführen auf unterschiedliche Imperfektionen in der Fertigung und die altersbedingte Degradation von mikroelektronischen Chips \cite{matej_andrejasic_mems_2008, constantinescu_capacitive_2013, hillman_manufacturing_2004}. Eine Aktivitätserkennung sollte möglichst nicht durch diese Rauschmuster beeinflusst werden \cite{dey_accelprint_2014}. Durch die typische inhärente Abweichung der Sensordaten vom tatsächlichen Wert eignen sich die kinematischen Daten auch nur begrenzt für eine Bewegungsrekonstruktion und Lokalisation durch zeitliche Aggregation im Raum. Je länger die Aktivitätsdaten, speziell Ausrichtungsdaten, aggregiert werden, desto größer ist die beobachtete Gesamtabweichung (\textit{Drift}) \cite{takeda_drift_2014}. Neben diesen Herausforderungen besteht mit Hinblick auf die Orientierungsdaten ein weiteres Problem. Da das Erdmagnetfeld (ca. $30 \mu T$ bis $60 \mu T$) im Vergleich zu einigen künstlichen Magnetfeldquellen wie Kühlschränken (ca. $5 mT$) relativ schwach ist, kann das Magnetometer leicht gestört oder sogar dekalibriert werden \cite{moreno-torres_evaluation_2013, schirmer_smartphone_2016, zhang_preliminary_2012}, was zu signifikanten Fehlern führen kann \cite{kunze_can_2010}.
 
 \subsubsection{Signalverarbeitungsmethoden}
 
 Die beschriebenen Sensorfehler können offensichtlich ein Problem für die Interpretation der Signale darstellen. Es folgen Ideen zur Mitigation.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \includegraphics[width=\linewidth, bb=0 0 733 284]{frequenzpassfilter.pdf}
 \caption{Anwendung von Frequenzbandfiltern auf Rohsensordaten des Akzelerometers. Datenquelle: Eigenes Sample eines iPhone XS-Akzelerometers.}\label{fig:frequenzpassfilter}
 \end{figure}
 
-\noindent Eventuell auftretendes Rauschen kann durch Tiefpassfilter und Hochpassfilter selektiv eliminiert werden. Hierbei eliminiert ein Tiefpassfilter hochfrequentes Rauschen und ein Hochpassfilter niederfrequentes Rauschen (siehe \Cref{fig:frequenzpassfilter}). Bei dem Butterworth-Tiefpassfilter\footnote{\url{https://de.wikipedia.org/wiki/Butterworth-Filter} (Abgerufen am 7.4.2021)} handelt es sich um ein spezielles Tiefpassfilter, welches zur Eliminierung von Frequenzen über einem Schwellenwert $\omega_{0}$ und zur Reduktion der Kurvenpunkte bei Erhaltung des Kurvenverlaufs genutzt werden kann \cite{zuricher_hochschule_fur_angewandte_wissenschaften_kapitel_2009}. Die Auswahl des Filters setzt die Evaluation potenzieller Rauschmuster, zum Beispiel durch explorative Analyse des Datensatzes unter Betrachtung des Anwendungsfalls, voraus \cite{nutter_design_2018,takeda_drift_2014,abdulla_measuring_2013}.
+Eventuell auftretendes Rauschen kann durch Tiefpassfilter und Hochpassfilter selektiv eliminiert werden. Hierbei eliminiert ein Tiefpassfilter hochfrequentes Rauschen und ein Hochpassfilter niederfrequentes Rauschen (siehe \Cref{fig:frequenzpassfilter}). Bei dem Butterworth-Tiefpassfilter\footnote{\url{https://de.wikipedia.org/wiki/Butterworth-Filter} (Abgerufen am 7.4.2021)} handelt es sich um ein spezielles Tiefpassfilter, welches zur Eliminierung von Frequenzen über einem Schwellenwert $\omega_{0}$ und zur Reduktion der Kurvenpunkte bei Erhaltung des Kurvenverlaufs genutzt werden kann \cite{zuricher_hochschule_fur_angewandte_wissenschaften_kapitel_2009}. Die Auswahl des Filters setzt die Evaluation potenzieller Rauschmuster, zum Beispiel durch explorative Analyse des Datensatzes unter Betrachtung des Anwendungsfalls, voraus \cite{nutter_design_2018,takeda_drift_2014,abdulla_measuring_2013}.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \includegraphics[width=\linewidth, bb=0 0 724 284]{glaettingsfilter.pdf}
 \caption{Anwendung von Glättungsfiltern auf Rohsensordaten des Akzelerometers. Datenquelle: Eigenes Sample eines iPhone XS-Akzelerometers.}\label{fig:glaettingsfilter}
 \end{figure}
 
-\noindent Neben Hoch- und Tiefpassfiltern besteht weiterhin auch die Möglichkeit, die Signale zu glätten, um hochfrequente Signalschwankungen und -spitzen zu eliminieren. Hierbei können verschiedene Glättungsfilter zum Einsatz kommen. \cite{matusek_anwendung_2019} behandelt beispielsweise das in \Cref{fig:glaettingsfilter} gezeigte und unter den Namen \textit{Moving Average} bekannte Filterverfahren, bei dem die umliegenden Datenpunkte (Länge $k$) mit dem zu glättenden Datenpunkt gemittelt werden. Es existieren zahlreiche weitere Glättungsverfahren, darunter auch das von \cite{nutter_design_2018} (hier parametrisiert mit $k = 3$) genutzte Median-Filter. Wie in \Cref{fig:glaettingsfilter} sichtbar, wird das Eingangssignal mit einer von der Filterlänge abhängigen Intensität geglättet. Beim Beispielsignal aus \Cref{fig:glaettingsfilter} ist klar zu erkennen, dass hierbei jedoch auch bei einer zu hohen Filterlänge $k$ wichtige Informationen verloren gehen können. Die empirische Parametrisierung ist also auch hier von zentraler Bedeutung für die spätere Ergebnisqualität der weiteren Signalverarbeitung.
+Neben Hoch- und Tiefpassfiltern besteht weiterhin auch die Möglichkeit, die Signale zu glätten, um hochfrequente Signalschwankungen und -spitzen zu eliminieren. Hierbei können verschiedene Glättungsfilter zum Einsatz kommen. \cite{matusek_anwendung_2019} behandelt beispielsweise das in \Cref{fig:glaettingsfilter} gezeigte und unter den Namen \textit{Moving Average} bekannte Filterverfahren, bei dem die umliegenden Datenpunkte (Länge $k$) mit dem zu glättenden Datenpunkt gemittelt werden. Es existieren zahlreiche weitere Glättungsverfahren, darunter auch das von \cite{nutter_design_2018} (hier parametrisiert mit $k = 3$) genutzte Median-Filter. Wie in \Cref{fig:glaettingsfilter} sichtbar, wird das Eingangssignal mit einer von der Filterlänge abhängigen Intensität geglättet. Beim Beispielsignal aus \Cref{fig:glaettingsfilter} ist klar zu erkennen, dass hierbei jedoch auch bei einer zu hohen Filterlänge $k$ wichtige Informationen verloren gehen können. Die empirische Parametrisierung ist also auch hier von zentraler Bedeutung für die spätere Ergebnisqualität der weiteren Signalverarbeitung.
 
 \subsubsection{Fourier-Transformation}
 
 Ein weiteres Signalverarbeitungsverfahren ist die \textit{Fourier-Transformation}\footnote{\url{https://de.wikipedia.org/wiki/Fourier-Transformation} (Abgerufen am 8.4.2021)}.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \includegraphics[width=\linewidth, bb=0 0 734 339]{fft.pdf}
 \caption{Anwendung einer Fast-Fourier-Transformation auf Rohsensordaten des Akzelerometers. Datenquelle: Eigenes Sample eines iPhone XS-Akzelerometers.}\label{fig:fft}
 \end{figure}
 
-\noindent Eine weit verbreitete Implementationsvariante ist die in \Cref{fig:fft} exemplarisch gezeigte \textit{Fast-Fourier-Transformation}. Die Fourier-Transformation ist ein mathematisches Verfahren, um zusätzlich zum Zeitlinienverlauf der Signale deren Frequenzspektrum zu ermitteln. Anhand des ermittelten Frequenzspektrums lässt sich sofort ablesen, welche Frequenzen besonders häufig oder sehr selten in einem Frequenzspektrum vorkommen, sowie die gemessene Maximal- und Minimalfrequenz. Dies ist nicht nur relevant für die explorative Datenanalyse, sondern kann auch als zusätzliche Informationsquelle für das Machine-Learning-Modell dienen.
+Eine weit verbreitete Implementationsvariante ist die in \Cref{fig:fft} exemplarisch gezeigte \textit{Fast-Fourier-Transformation}. Die Fourier-Transformation ist ein mathematisches Verfahren, um zusätzlich zum Zeitlinienverlauf der Signale deren Frequenzspektrum zu ermitteln. Anhand des ermittelten Frequenzspektrums lässt sich sofort ablesen, welche Frequenzen besonders häufig oder sehr selten in einem Frequenzspektrum vorkommen, sowie die gemessene Maximal- und Minimalfrequenz. Dies ist nicht nur relevant für die explorative Datenanalyse, sondern kann auch als zusätzliche Informationsquelle für das Machine-Learning-Modell dienen.
 
 \subsubsection{Sensorfusion}
 
 Die Sensordaten (insbesondere Beschleunigungsdaten) können für eine Weiterverarbeitung einzeln betrachtet werden \cite{gudur_activeharnet_2019, nutter_design_2018}, dies genügt bereits für die Rekonstruktion von komplexen Bewegungsabläufen \cite{cai_touchlogger_2011, marquardt_spiphone_2011, aviv_practicality_2012}. Alternativ können die Sensordaten miteinander \textit{fusioniert} werden \cite{ravi_deep_2016, abdulla_measuring_2013, kunze_can_2010}. Mithilfe einer Fusion der Sensordaten über Filter ist dies möglich \cite{madgwick_estimation_2011}. Speziell bei Beschleunigungsdaten kann hierdurch zum Beispiel auch der inkludierte Gravitationsvektor eliminiert werden \cite{nutter_design_2018, tundo_correcting_2013}. Außerdem kann die Orientierung und Auslenkung des Gerätes in Relation zum Weltkoordinatensystem rekonstruiert werden.
 
-\paragraph{Funktionsweise:} Ziel ist die Schätzung der Lage des Geräts im Weltkoordinatensystem. Die resultierende Schätzung kann zum Beispiel in Form eines Quaternion\footnote{\url{https://en.wikipedia.org/wiki/Quaternion} (Abgerufen am 8.4.2021)} angegeben werden. Für die Schätzung existieren verschiedene mathematische Verfahren. \\
+\paragraph{Funktionsweise:} Ziel ist die Schätzung der Lage des Geräts im Weltkoordinatensystem. Die resultierende Schätzung kann zum Beispiel in Form eines Quaternion\footnote{\url{https://en.wikipedia.org/wiki/Quaternion} (Abgerufen am 8.4.2021)} angegeben werden. Für die Schätzung existieren verschiedene mathematische Verfahren.
 
-\begin{table}[H]
+\begin{table}[h]
   \begin{tabular}{cccccccccccccccccll}
     \rot{AQUA \cite{valenti_keeping_2015}}
     & \rot{Complementary}
@@ -117,25 +117,25 @@ Die Sensordaten (insbesondere Beschleunigungsdaten) können für eine Weitervera
   \caption{Lageschätzverfahren in der Übersicht, zusammen mit deren Abhängigkeit von Akzelerometerdaten (ACC), Gyrosensordaten (GYR) und Magnetometerdaten (MAG). Entnommen aus \cite{garcia_mayitzinahrs_2021}. Legende: Benötigt (\cmark), Optional (\omark), Nicht einbezogen (\xmark).}
 \end{table}
 
-\noindent Ein System, welches einen oder eine Kombination aus solchen Algorithmen nutzt, um die Lage des Gerätes im Weltkoordinatensystem zu rekonstruieren, wird auch als \textit{Attitude and Heading Reference System (AHRS)} bezeichnet.\\
+Ein System, welches einen oder eine Kombination aus solchen Algorithmen nutzt, um die Lage des Gerätes im Weltkoordinatensystem zu rekonstruieren, wird auch als \textit{Attitude and Heading Reference System (AHRS)} bezeichnet.
 
 \subsubsection{Synchronisierung und Alignment}
 
 Zur Synchronisierung der möglicherweise von Gerät zu Gerät unterschiedlichen Abtastraten oder von asynchron aufgezeichneten Daten unterschiedlicher Sensoren ist ein Up- oder Downsampling mithilfe einer Interpolation der Datenpunkte möglich \cite{matusek_anwendung_2019, werner_kontinuierliche_2020, stojanov_continuous_2020}.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \includegraphics[width=0.75\linewidth, bb=0 0 410 171]{desync-solution.pdf}
 \caption{Schematische Darstellung des Alignments von desynchronisierten Datenpunkten, angelehnt an \cite{matusek_anwendung_2019}.}\label{fig:desync-solution}
 \end{figure}
 
-\noindent \Cref{fig:desync-solution} zeigt das Verfahren schematisch. Die mit Zeitstempeln versehenen Datenpunkte werden in ein festes Abtastraster gebracht. Dies gelingt über zwei primäre Schritte. Am zeitlichen Rand der Messung werden zunächst Datenpunkte verworfen, zu denen kein Wertepaar aus allen drei Sensoren gebildet werden kann. Ein Wertepaar lässt sich erst dann bilden, wenn alle Sensoren mindestens einen Wert erfasst haben, am Ende der Messung vice versa. Das so gefundene Fenster wird anschließend im zweiten Schritt anhand der vorliegenden Datenpunkte pro Sensormessung interpoliert, um den diskreten Punktdatensatz in eine kontinuierliche Näherungsfunktion zu überführen. Die Abtastzeitpunkte $t_s ... t_{s+n}$ (in \Cref{fig:desync-solution} als $\otimes$ gekennzeichnet) können anschließend für alle drei Messverläufe beliebig gewählt und errechnet werden.
+\Cref{fig:desync-solution} zeigt das Verfahren schematisch. Die mit Zeitstempeln versehenen Datenpunkte werden in ein festes Abtastraster gebracht. Dies gelingt über zwei primäre Schritte. Am zeitlichen Rand der Messung werden zunächst Datenpunkte verworfen, zu denen kein Wertepaar aus allen drei Sensoren gebildet werden kann. Ein Wertepaar lässt sich erst dann bilden, wenn alle Sensoren mindestens einen Wert erfasst haben, am Ende der Messung vice versa. Das so gefundene Fenster wird anschließend im zweiten Schritt anhand der vorliegenden Datenpunkte pro Sensormessung interpoliert, um den diskreten Punktdatensatz in eine kontinuierliche Näherungsfunktion zu überführen. Die Abtastzeitpunkte $t_s ... t_{s+n}$ (in \Cref{fig:desync-solution} als $\otimes$ gekennzeichnet) können anschließend für alle drei Messverläufe beliebig gewählt und errechnet werden.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \includegraphics[width=\linewidth, bb=0 0 505 175]{interpolation.pdf}
 \caption{Schematische Darstellung verschiedener Interpolationsverfahren.}\label{fig:interpolation}
 \end{figure}
 
-\noindent Hierbei stehen verschiedene Interpolationsverfahren zur Verfügung, die in \Cref{fig:interpolation} vergleichend gegenübergestellt sind. Je mehr variable Parameter die Interpolation einbezieht, desto enger kann sie den Kurvenverlauf nachbilden, desto größer ist aber auch das Risiko für ungewolltes Überschwingen und der benötigte Rechenaufwand.
+Hierbei stehen verschiedene Interpolationsverfahren zur Verfügung, die in \Cref{fig:interpolation} vergleichend gegenübergestellt sind. Je mehr variable Parameter die Interpolation einbezieht, desto enger kann sie den Kurvenverlauf nachbilden, desto größer ist aber auch das Risiko für ungewolltes Überschwingen und der benötigte Rechenaufwand.
 
 \subsection{Geolokalisationsinformationen}
 
@@ -147,14 +147,14 @@ Mit GPS ist das \textit{Navigational Satellite Timing and Ranging - Global Posit
 
 \subsubsection{Funktionsweise und Herausforderungen}
 
-\begin{figure}[H]
-\includegraphics[width=\linewidth, bb=0 0 565 226]{gps-funktionsweise.pdf}
+\begin{figure}[h]
+\includegraphics[width=0.75\linewidth, bb=0 0 565 226]{gps-funktionsweise.pdf}
 \caption{Das Funktionsprinzip der GNSS-basierten Geolokalisation und zu erwartende Fehlerquellen.}\label{fig:gps-funktionsweise}
 \end{figure}
 
-GNSS-Satelliten senden kontinuierlich Funksignale zur Erde \cite{us_space_force_global_2020}. Mithilfe von speziellen Antennen können diese Signale empfangen und zur Weiterverarbeitung amplifiziert werden \cite{jan_van_sickle_gps_2021}. Als Ergebnis der internen Prozessierung des GPS-Signals kann die Distanz zum GPS-Satelliten anhand der Signallaufzeit unter Berücksichtigung verschiedener Fehlerquellen\footnote{\url{https://www.e-education.psu.edu/geog862/node/1759} (Abgerufen am 7.4.2021)} polynomiell berechnet werden \cite{olynik_temporal_2002, sameet_mangesh_deshpande_study_2004}. Somit stehen anschließend die Position des Satelliten und die berechnete Distanz zur Verfügung. Anhand dessen kann die Position des Gerätes trianguliert werden \cite{zhang_senstrack_2013}. Die Positionsbestimmung ist also passiv, es findet keine aktive Kommunikation mit dem Satelliten statt \cite{kaplan_understanding_2005}. Trotzdem ist der Energieverbrauch in Relation zu anderen Verbrauchern im Smartphone für die GNSS-Geolokalisation sehr hoch. Smartphones nutzen daher zusätzlich zur satellitengestützten Positionsbestimmung Eigenschaften des WiFi- und GSM-Funknetzes, um den Energieverbrauch zu reduzieren \cite{zhang_senstrack_2013}. \\
+GNSS-Satelliten senden kontinuierlich Funksignale zur Erde \cite{us_space_force_global_2020}. Mithilfe von speziellen Antennen können diese Signale empfangen und zur Weiterverarbeitung amplifiziert werden \cite{jan_van_sickle_gps_2021}. Als Ergebnis der internen Prozessierung des GPS-Signals kann die Distanz zum GPS-Satelliten anhand der Signallaufzeit unter Berücksichtigung verschiedener Fehlerquellen\footnote{\url{https://www.e-education.psu.edu/geog862/node/1759} (Abgerufen am 7.4.2021)} polynomiell berechnet werden \cite{olynik_temporal_2002, sameet_mangesh_deshpande_study_2004}. Somit stehen anschließend die Position des Satelliten und die berechnete Distanz zur Verfügung. Anhand dessen kann die Position des Gerätes trianguliert werden \cite{zhang_senstrack_2013}. Die Positionsbestimmung ist also passiv, es findet keine aktive Kommunikation mit dem Satelliten statt \cite{kaplan_understanding_2005}. Trotzdem ist der Energieverbrauch in Relation zu anderen Verbrauchern im Smartphone für die GNSS-Geolokalisation sehr hoch. Smartphones nutzen daher zusätzlich zur satellitengestützten Positionsbestimmung Eigenschaften des WiFi- und GSM-Funknetzes, um den Energieverbrauch zu reduzieren \cite{zhang_senstrack_2013}.
 
-\noindent Das Abstandsgesetz $I_{Signal} \propto d^{-2}$ bedingt neben weiteren signaldämpfenden Faktoren wie atmosphärischem Scattering, oder Streuung und Brechung an Gebäuden, dass wegen der begrenzten Signalemissionsstärke des Satelliten und der großen Distanz zum Empfänger die Empfindlichkeit des Empfängersystems verhältnismäßig hoch sein muss, in einer Größenordnung von $-130 dBm$ (Dezibel Milliwatt) \cite{sameet_mangesh_deshpande_study_2004}. Die elektronische Prozessierung des Signals erfordert hierdurch eine entsprechende elektrische Leistung \cite{jan_van_sickle_gps_2021}. Die erforderliche elektrische Leistung stellt für Smartphones durch deren Limitation durch die Kapazität des Akkus ein signifikantes Problem dar \cite{zhang_senstrack_2013, oshin_improving_2012, constandache_enloc_2009, zhuang_improving_2010}. Eine energiesparendere Geolokalisation nur über GSM- und WiFi-Funknetze ist weniger akkurat als GNSS und kann daher in Anwendungsfällen mit einer benötigten Mindestpräzision lediglich begleitend eingesetzt werden \cite{paek_energy-efficient_2010}. Aufgrund der Abhängigkeit von Funksignalen sind weitere Probleme die Ortsabhängigkeit \cite{zhang_senstrack_2013, kaplan_understanding_2005}, die Wetterabhängigkeit \cite{paek_energy-efficient_2010}, sowie mögliche Interferenzen und andere Signaltransmissionsstörungen \cite{olynik_temporal_2002, sameet_mangesh_deshpande_study_2004}. Bei der Berechnung der Distanz zum Smartphone müssen unter anderem iono- und troposphärische Ladungseffekte auf die Propagierungsgeschwindigkeit der elektromagnetischen Funksignale berücksichtigt werden, diese schwanken jedoch je nach Tageszeit und Sonnenaktivität\footnote{\url{https://gssc.esa.int/navipedia/index.php/Ionospheric_Delay} (Abgerufen am 7.4.2021)}. Im Rahmen der Anwendungsentwicklung sowie der Entwicklung einer Aktivitätserkennung auf Grundlage der Geolokalisationsinformationen sind diese Probleme in Form einer Korrektur fehlerhafter Datenpunkte zu berücksichtigen, insbesondere wegen der ständig variierenden Präzision \cite{zhang_senstrack_2013, matusek_anwendung_2019}.
+Das Abstandsgesetz $I_{Signal} \propto d^{-2}$ bedingt neben weiteren signaldämpfenden Faktoren wie atmosphärischem Scattering, oder Streuung und Brechung an Gebäuden, dass wegen der begrenzten Signalemissionsstärke des Satelliten und der großen Distanz zum Empfänger die Empfindlichkeit des Empfängersystems verhältnismäßig hoch sein muss, in einer Größenordnung von $-130 dBm$ (Dezibel Milliwatt) \cite{sameet_mangesh_deshpande_study_2004}. Die elektronische Prozessierung des Signals erfordert hierdurch eine entsprechende elektrische Leistung \cite{jan_van_sickle_gps_2021}. Die erforderliche elektrische Leistung stellt für Smartphones durch deren Limitation durch die Kapazität des Akkus ein signifikantes Problem dar \cite{zhang_senstrack_2013, oshin_improving_2012, constandache_enloc_2009, zhuang_improving_2010}. Eine energiesparendere Geolokalisation nur über GSM- und WiFi-Funknetze ist weniger akkurat als GNSS und kann daher in Anwendungsfällen mit einer benötigten Mindestpräzision lediglich begleitend eingesetzt werden \cite{paek_energy-efficient_2010}. Aufgrund der Abhängigkeit von Funksignalen sind weitere Probleme die Ortsabhängigkeit \cite{zhang_senstrack_2013, kaplan_understanding_2005}, die Wetterabhängigkeit \cite{paek_energy-efficient_2010}, sowie mögliche Interferenzen und andere Signaltransmissionsstörungen \cite{olynik_temporal_2002, sameet_mangesh_deshpande_study_2004}. Bei der Berechnung der Distanz zum Smartphone müssen unter anderem iono- und troposphärische Ladungseffekte auf die Propagierungsgeschwindigkeit der elektromagnetischen Funksignale berücksichtigt werden, diese schwanken jedoch je nach Tageszeit und Sonnenaktivität\footnote{\url{https://gssc.esa.int/navipedia/index.php/Ionospheric_Delay} (Abgerufen am 7.4.2021)}. Im Rahmen der Anwendungsentwicklung sowie der Entwicklung einer Aktivitätserkennung auf Grundlage der Geolokalisationsinformationen sind diese Probleme in Form einer Korrektur fehlerhafter Datenpunkte zu berücksichtigen, insbesondere wegen der ständig variierenden Präzision \cite{zhang_senstrack_2013, matusek_anwendung_2019}.
 
 \subsubsection{Fehlerkorrektur der GNSS-Datenpunkte}
 
@@ -166,9 +166,7 @@ Zur Verbesserung der hybriden Geolokalisation über GPS-, GSM- und WiFi-Signale 
 
 \subsection{Normalisierung und Standardisierung der Daten}
 
-Die in den vorigen Sektionen erläuterten Daten besitzen teils stark voneinander unterschiedliche Wertebereiche.
-
-\begin{table}[H]
+\begin{table}[h]
   \begin{tabular}{ll}
     Sensor & Wertebereich \\
     \midrule
@@ -181,21 +179,18 @@ Die in den vorigen Sektionen erläuterten Daten besitzen teils stark voneinander
   \caption{Zu erwartende Wertebereiche der verfügbaren Sensorwerte.}
 \end{table}
 
-\noindent Die hohe Variabilität der zu erwartenden Maxima und Minima dieser Wertebereiche stellt ein Problem für die meisten Machine-Learning-Systeme (siehe \Cref{sec:machine-learning}) dar, in Abhängigkeit von deren Architektur \cite[S. 66]{geron_praxiseinstieg_2018}. Daher ist es üblich, zur Vorverarbeitung der Daten neben den bereits vorgestellten Methoden auch eine Skalierung durchzuführen. Für die Skalierung haben sich zwei mathematische Methoden etabliert. Die Normalisierung (auch als Min-Max-Skalierung bezeichnet) skaliert die Messwerte zwischen dem Maximum und dem Minimum des Wertebereichs.
+Die in den vorigen Sektionen erläuterten Daten besitzen teils stark voneinander unterschiedliche Wertebereiche. Die hohe Variabilität der zu erwartenden Maxima und Minima dieser Wertebereiche stellt ein Problem für die meisten Machine-Learning-Systeme (siehe \Cref{sec:machine-learning}) dar, in Abhängigkeit von deren Architektur \cite[S. 66]{geron_praxiseinstieg_2018}. Daher ist es üblich, zur Vorverarbeitung der Daten neben den bereits vorgestellten Methoden auch eine Skalierung durchzuführen. Für die Skalierung haben sich zwei mathematische Methoden etabliert. Die Normalisierung (auch als Min-Max-Skalierung bezeichnet) skaliert die Messwerte zwischen dem Maximum und dem Minimum des Wertebereichs.
 
-\begin{equation}\label{eq:minmax}
-  norm(d) = \frac{ d - min(D) }{ max(D) - min(D) }
-\end{equation}
-wobei:
-\begin{conditions}
-  d \in D \subseteq \mathbf{R}^n & Der gewählte Datenpunkt aus der Datenpunktmenge $D$
-\end{conditions}
-
-\noindent Die Skalierung des Datenpunktes $d$ mithilfe der Normalisierung impliziert $0 \leq norm(d) \leq 1$, jedoch nur, wenn $d \in D$. Sollte $d \notin D$ gelten, dann kann $norm(d)$ auch außerhalb $[0, 1]$ liegen, wenn $d \leq min(D)$ oder $d \geq max(D)$. Die Normalisierung ist außerdem nicht robust gegenüber fehlerhaften Einzelwerten. Zur Illustration kann das Beispiel $D = \{1.25, 1.05, 0.93, 120.5\}$ betrachtet werden, bei dem $120.5 \in D$ einen Messfehler darstellt. Infolge des einzelnen fehlerhaften Datenpunktes werden alle korrekten Datenpunkte $d_k \in \{1.25, 1.05, 0.93\} \subseteq D$ mit $norm(d_k) \approx 0$ skaliert. Ein gegenüber solchen Abweichungen robusteres Vefahren ist die Standardisierung.
-
-\begin{equation}\label{eq:standardisierung}
-  std(d) = \frac{ d - \mu_D }{ \sigma_D } \\
-\end{equation}
+\noindent
+\begin{tabularx}{\linewidth}{@{}XX@{}}
+  \begin{equation}
+    norm(d) = \frac{ d - min(D) }{ max(D) - min(D) }
+  \end{equation}
+  &
+  \begin{equation}
+    std(d) = \frac{ d - \mu_D }{ \sigma_D }
+  \end{equation}
+\end{tabularx}
 wobei:
 \begin{conditions}
   d \in D \subseteq \mathbf{R}^n & Der gewählte Datenpunkt aus der Datenpunktmenge $D$ \\
@@ -203,4 +198,4 @@ wobei:
   \sigma_D & Die Standardabweichung von $D$
 \end{conditions}
 
-\noindent Bei der Standardisierung der Datenpunktmenge $D$ wird dem Datenpunkt $d$ zunächst das arithmetische Mittel $\mu_D$ abgezogen. Ist $d < \mu_D$, dann gilt $d - \mu_D < 0$. Umgekehrt gilt $d - \mu_D > 0$ für $d > \mu_D$. Somit werden die Werte innerhalb der Datenpunktmenge gleichmäßig um den Nullpunkt verteilt. Anschließend wird durch die Standardabweichung $\sigma_D$ dividiert. Gilt $\sigma_D < 1$, so werden die standardisierten Werte vergrößert. Ist $\sigma_D > 1$, führt dies zu einer Verkleinerung der standardisierten Werte. Somit werden die Werte verschiedener Wertebereiche in annähernd denselben Zahlenraum überführt. Gleichzeitig wird der relative Abstand der fehlerhaften Datenpunkte zu korrekten Datenpunkten erhalten. Somit lässt sich ein einheitliches Wertebereichsfenster, beispielsweise $W_F = [F_{min} = -1, F_{max} = 1]$ definieren, außerhalb dessen unplausible Werte verworfen werden können. Alternativ können Werte außerhalb dieses Bereichs mit der Funktion $clamp(d) = \max(F_{min}, \min(d, F_{max}))$ in $W_F$ abgebildet werden.
+Die Skalierung des Datenpunktes $d$ mithilfe der Normalisierung impliziert $norm(d) \in [0, 1]$ für $d \in D$. Die Normalisierung ist anfällig für stark abweichende Werte, wie sie bei Messfehlern entstehen können. Ein gegenüber solchen Fehlern robusteres Skalierungsverfahren ist die Standardisierung. Bei der Standardisierung der Datenpunktmenge $D$ wird dem Datenpunkt $d$ zunächst das arithmetische Mittel $\mu_D$ abgezogen. Somit werden die Werte innerhalb der Datenpunktmenge gleichmäßig um den Nullpunkt verteilt. Anschließend wird durch die Standardabweichung $\sigma_D$ dividiert. Hierdurch werden die Werte verschiedener Wertebereiche in annähernd denselben Zahlenraum überführt. Gleichzeitig wird der relative Abstand der fehlerhaften Datenpunkte zu korrekten Datenpunkten erhalten. Dies erleichtert die Erkennung von fehlerhaften Messwerten.
