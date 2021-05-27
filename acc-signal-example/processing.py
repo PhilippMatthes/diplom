@@ -19,12 +19,12 @@ TZ = np.array([(e["t"], e["v"]) for e in zvalues[340:600]])
 linewidth = 1
 
 fig, axs = plt.subplots(1, 3, sharex=True, sharey=True)
-fig.set_size_inches(12, 5)
+fig.set_size_inches(12, 4)
 
 
-axs[0].plot([e[0] for e in TX], [e[1] for e in TX], label='x', linewidth=linewidth)
-axs[0].plot([e[0] for e in TY], [e[1] for e in TY], label='y', linewidth=linewidth)
-axs[0].plot([e[0] for e in TZ], [e[1] for e in TZ], label='z', linewidth=linewidth)
+axs[0].plot([e[0] for e in TX], [e[1] for e in TX], label='x', linewidth=linewidth, color="black")
+axs[0].plot([e[0] for e in TY], [e[1] for e in TY], label='y', linewidth=linewidth, color="black")
+axs[0].plot([e[0] for e in TZ], [e[1] for e in TZ], label='z', linewidth=linewidth, color="black")
 axs[0].set_title("Rohe Akzelerometerdaten (Laufen)")
 
 
@@ -49,9 +49,9 @@ def medfilt(x, k):
 axs[1].plot([e[0] for e in TX], [e[1] for e in TX], label='x', linewidth=linewidth, color="lightgray")
 axs[1].plot([e[0] for e in TY], [e[1] for e in TY], label='y', linewidth=linewidth, color="lightgray")
 axs[1].plot([e[0] for e in TZ], [e[1] for e in TZ], label='z', linewidth=linewidth, color="lightgray")
-axs[1].plot([e[0] for e in TX], medfilt(np.array([e[1] for e in TX]), 5), label='x', linewidth=linewidth)
-axs[1].plot([e[0] for e in TY], medfilt(np.array([e[1] for e in TY]), 5), label='y', linewidth=linewidth)
-axs[1].plot([e[0] for e in TZ], medfilt(np.array([e[1] for e in TZ]), 5), label='z', linewidth=linewidth)
+axs[1].plot([e[0] for e in TX], medfilt(np.array([e[1] for e in TX]), 5), label='x', linewidth=linewidth, color="black")
+axs[1].plot([e[0] for e in TY], medfilt(np.array([e[1] for e in TY]), 5), label='y', linewidth=linewidth, color="black")
+axs[1].plot([e[0] for e in TZ], medfilt(np.array([e[1] for e in TZ]), 5), label='z', linewidth=linewidth, color="black")
 axs[1].set_title(r'Medianfilter mit $k = 5$')
 
 
@@ -62,9 +62,9 @@ def running_mean(x, N):
 axs[2].plot([e[0] for e in TX], [e[1] for e in TX], label='x', linewidth=linewidth, color="lightgray")
 axs[2].plot([e[0] for e in TY], [e[1] for e in TY], label='y', linewidth=linewidth, color="lightgray")
 axs[2].plot([e[0] for e in TZ], [e[1] for e in TZ], label='z', linewidth=linewidth, color="lightgray")
-axs[2].plot([e[0] for e in TX], running_mean(np.array([e[1] for e in TX]), 5), label='x', linewidth=linewidth)
-axs[2].plot([e[0] for e in TY], running_mean(np.array([e[1] for e in TY]), 5), label='y', linewidth=linewidth)
-axs[2].plot([e[0] for e in TZ], running_mean(np.array([e[1] for e in TZ]), 5), label='z', linewidth=linewidth)
+axs[2].plot([e[0] for e in TX], running_mean(np.array([e[1] for e in TX]), 5), label='x', linewidth=linewidth, color="black")
+axs[2].plot([e[0] for e in TY], running_mean(np.array([e[1] for e in TY]), 5), label='y', linewidth=linewidth, color="black")
+axs[2].plot([e[0] for e in TZ], running_mean(np.array([e[1] for e in TZ]), 5), label='z', linewidth=linewidth, color="black")
 axs[2].set_title(r'Running Mean mit $k = 5$')
 
 for ax in axs.flat:
@@ -82,11 +82,11 @@ from scipy import signal
 
 
 fig, axs = plt.subplots(1, 3, sharex=True, sharey=True)
-fig.set_size_inches(12, 5)
+fig.set_size_inches(12, 4)
 
-axs[0].plot([e[0] for e in TX], [e[1] for e in TX], label='x', linewidth=linewidth)
-axs[0].plot([e[0] for e in TY], [e[1] for e in TY], label='y', linewidth=linewidth)
-axs[0].plot([e[0] for e in TZ], [e[1] for e in TZ], label='z', linewidth=linewidth)
+axs[0].plot([e[0] for e in TX], [e[1] for e in TX], label='x', linewidth=linewidth, color="black")
+axs[0].plot([e[0] for e in TY], [e[1] for e in TY], label='y', linewidth=linewidth, color="black")
+axs[0].plot([e[0] for e in TZ], [e[1] for e in TZ], label='z', linewidth=linewidth, color="black")
 axs[0].set_title("Rohe Akzelerometerdaten (Laufen)")
 
 
@@ -105,9 +105,9 @@ def butter_highpass_filter(data, cutoff, fs, order=5):
 axs[1].plot([e[0] for e in TX], [e[1] for e in TX], label='x', linewidth=linewidth, color="lightgray")
 axs[1].plot([e[0] for e in TY], [e[1] for e in TY], label='y', linewidth=linewidth, color="lightgray")
 axs[1].plot([e[0] for e in TZ], [e[1] for e in TZ], label='z', linewidth=linewidth, color="lightgray")
-axs[1].plot([e[0] for e in TX], butter_highpass_filter(np.array([e[1] for e in TX]), 10, 100), label='x', linewidth=linewidth)
-axs[1].plot([e[0] for e in TY], butter_highpass_filter(np.array([e[1] for e in TY]), 10, 100), label='y', linewidth=linewidth)
-axs[1].plot([e[0] for e in TZ], butter_highpass_filter(np.array([e[1] for e in TZ]), 10, 100), label='z', linewidth=linewidth)
+axs[1].plot([e[0] for e in TX], butter_highpass_filter(np.array([e[1] for e in TX]), 10, 100), label='x', linewidth=linewidth, color="black")
+axs[1].plot([e[0] for e in TY], butter_highpass_filter(np.array([e[1] for e in TY]), 10, 100), label='y', linewidth=linewidth, color="black")
+axs[1].plot([e[0] for e in TZ], butter_highpass_filter(np.array([e[1] for e in TZ]), 10, 100), label='z', linewidth=linewidth, color="black")
 axs[1].set_title(r'Butterworth-Hochpass mit $\omega_{0} = 10Hz$')
 
 
@@ -125,9 +125,9 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 axs[2].plot([e[0] for e in TX], [e[1] for e in TX], label='x', linewidth=linewidth, color="lightgray")
 axs[2].plot([e[0] for e in TY], [e[1] for e in TY], label='y', linewidth=linewidth, color="lightgray")
 axs[2].plot([e[0] for e in TZ], [e[1] for e in TZ], label='z', linewidth=linewidth, color="lightgray")
-axs[2].plot([e[0] for e in TX], butter_lowpass_filter(np.array([e[1] for e in TX]), 10, 100), label='x', linewidth=linewidth)
-axs[2].plot([e[0] for e in TY], butter_lowpass_filter(np.array([e[1] for e in TY]), 10, 100), label='y', linewidth=linewidth)
-axs[2].plot([e[0] for e in TZ], butter_lowpass_filter(np.array([e[1] for e in TZ]), 10, 100), label='z', linewidth=linewidth)
+axs[2].plot([e[0] for e in TX], butter_lowpass_filter(np.array([e[1] for e in TX]), 10, 100), label='x', linewidth=linewidth, color="black")
+axs[2].plot([e[0] for e in TY], butter_lowpass_filter(np.array([e[1] for e in TY]), 10, 100), label='y', linewidth=linewidth, color="black")
+axs[2].plot([e[0] for e in TZ], butter_lowpass_filter(np.array([e[1] for e in TZ]), 10, 100), label='z', linewidth=linewidth, color="black")
 axs[2].set_title(r'Butterworth-Tiefpass mit $\omega_{0} = 10Hz$')
 
 for ax in axs.flat:
