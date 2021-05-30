@@ -32,7 +32,7 @@ Diese Messparameter können als Grundlage für eine Verkehrsmittelerkennung fung
 \caption{Übersicht über die kinematischen Messparameter der STADTRADELN-Daten.}\label{fig:kinematische-messparameter}
 \end{figure}
 
-Diese Fragen sollen in den folgenden Sektionen diskutiert werden. Wie in \Cref{fig:kinematische-messparameter} gezeigt, handelt es sich hierbei jeweils um Messparameter, die in drei Dimensionen erfasst werden. Es handelt sich hierbei entweder um eine Richtung mit Betrag (Akzelerometer, Magnetometer) oder um eine Winkelauslenkung in drei Dimensionen.
+Diese Fragen sollen in den folgenden Sektionen diskutiert werden. Wie in \Cref{fig:kinematische-messparameter} gezeigt, handelt es sich hierbei jeweils um Messparameter, die in drei Dimensionen erfasst werden. Dies ist jeweils entweder eine Richtung mit Betrag (Akzelerometer, Magnetometer) oder eine Winkelauslenkung in drei Dimensionen.
 
 \subsubsection{Funktionsweise}
 
@@ -65,7 +65,7 @@ Eventuell auftretendes Rauschen kann durch Tiefpassfilter und Hochpassfilter sel
 \caption[Anwendung von Glättungsfiltern auf Rohsensordaten des Akzelerometers.]{Anwendung von Glättungsfiltern auf Rohsensordaten des Akzelerometers. Datenquelle: Eigenes Sample eines iPhone XS-Akzelerometers.}\label{fig:glaettingsfilter}
 \end{figure}
 
-Neben Hoch- und Tiefpassfiltern besteht weiterhin auch die Möglichkeit, die Signale zu glätten, um hochfrequente Signalschwankungen und -spitzen zu eliminieren. Hierbei können verschiedene Glättungsfilter zum Einsatz kommen. \cite{matusek_anwendung_2019} behandelt beispielsweise das in \Cref{fig:glaettingsfilter} gezeigte und unter den Namen \textit{Moving Average} bekannte Filterverfahren, bei dem die umliegenden Datenpunkte (Länge $k$) mit dem zu glättenden Datenpunkt gemittelt werden. Es existieren zahlreiche weitere Glättungsverfahren, darunter auch das von \cite{nutter_design_2018} (hier parametrisiert mit $k = 3$) genutzte Median-Filter. Wie in \Cref{fig:glaettingsfilter} sichtbar, wird das Eingangssignal mit einer von der Filterlänge abhängigen Intensität geglättet. Beim Beispielsignal aus \Cref{fig:glaettingsfilter} ist klar zu erkennen, dass hierbei jedoch auch bei einer zu hohen Filterlänge $k$ wichtige Informationen verloren gehen können. Die empirische Parametrisierung ist also auch hier von zentraler Bedeutung für die spätere Ergebnisqualität der weiteren Signalverarbeitung.
+Neben Hoch- und Tiefpassfiltern besteht weiterhin auch die Möglichkeit, die Signale zu glätten, um hochfrequente Signalschwankungen und -spitzen zu eliminieren. Hierbei können verschiedene Glättungsfilter zum Einsatz kommen. \cite{matusek_anwendung_2019} behandelt beispielsweise das in \Cref{fig:glaettingsfilter} gezeigte und unter den Namen \textit{Moving Average} bekannte Filterverfahren, bei dem die umliegenden Datenpunkte (Länge $k$) mit dem zu glättenden Datenpunkt gemittelt werden. Es existieren zahlreiche weitere Glättungsverfahren, darunter auch das von \cite{nutter_design_2018} genutzte Median-Filter. Wie in \Cref{fig:glaettingsfilter} sichtbar, wird das Eingangssignal mit einer von der Filterlänge abhängigen Intensität geglättet. Beim Beispielsignal aus \Cref{fig:glaettingsfilter} ist klar zu erkennen, dass hierbei jedoch auch bei einer zu hohen Filterlänge $k$ wichtige Informationen verloren gehen können. Die empirische Parametrisierung ist also auch hier von zentraler Bedeutung für die spätere Ergebnisqualität der weiteren Signalverarbeitung.
 
 \subsubsection{Fourier-Transformation}
 

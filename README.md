@@ -1,3 +1,7 @@
+# Diplomarbeit
+
+Aktueller Stand: Bearbeitung der Verwandten Arbeiten, Konsolidierung der Einleitung, initiale Ideenfindung für das Konzept.
+
 # better-tudscr
 A template for the tudscr (TUD-Script) LaTeX package. Contains an initial template for any thesis and a containerized build environment with Docker, so that you don’t have to fiddle around with the installation of LaTeX. Just build the Docker image _once_ in advance and use it to build your thesis.
 

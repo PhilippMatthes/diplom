@@ -1,5 +1,7 @@
 \chapter{Verwandte Arbeiten}\label{ch:verwandte-arbeiten}
 
+\todo[inline]{Dieser Abschnitt befindet sich in der aktiven Bearbeitung.}
+
 In diesem Kapitel wird näher auf die wissenschaftlichen Arbeiten eingegangen, deren Forschungsthema sich mit dem dieser Arbeit stark überschneidet. Dazu wird zunächst ein taxonomischer Überblick über Kategorien gegeben, in welche sich verwandte Arbeiten eingliedern lassen. Anschließend werden die Konzepte und Ergebnisse näher diskutiert und verglichen.
 
 \section{Forschungsüberblick}
@@ -160,6 +162,29 @@ Der Forschungsbereich Machine Learning erhält aktuell eine große Aufmerksamkei
 
 \paragraph{Training:} Abschließend lässt sich zur Forschungsübersicht erwähnen, dass zum Training der Modelle grundsätzlich verschiedene Methoden angewandt werden können, das Reinforcement Learning findet sich allerdings in keiner der betrachteten Arbeiten wieder. Die Trainingsansätze sind nicht durch die Verfügbarkeit von Trainingsdaten limitiert, entweder durch die Nutzung eines der verschiedenen öffentlichen Datensatze oder durch die Aufzeichnung neuer Daten. Letzteres ist mit verhältnismäßig geringem Aufwand realisierbar, dies zeigen \cites{liang_convolutional_2017,hemminki_accelerometer-based_2013,ravi_deep_2017,byon_real-time_2014}. Daher ist es nicht verwunderlich, dass die betrachteten Ansätze alle Varianten des Supervised Learning nutzen. \cite[S. 30]{werner_kontinuierliche_2020} erweitert zur Validierung des Modells den Trainingsdatensatz zusätzlich um ein Verfahren aus dem Semi-Supervised Learning. \cite{nutter_design_2018} wenden auf bestehenden CNNs darüberhinaus das Transfer Learning an, durch Abwandlung der äußeren Netzwerkschichten und Beibehaltung der (auf Bildern) vortrainierten Gewichtungen. Auch \cite{mairittha_-device_2021} nutzen eine Variante des Transfer Learnings, mit der Besonderheit, dass ein Teil des Netzwerkes vortrainiert und dann auf dem mobilen Gerät eingefroren wird. Ein kleiner Teil des Netzwerkes bleibt änderbar und kann auf dem Gerät analog zu den Nutzereingaben angepasst werden (\textit{On-Device Fine-Tuning}). \cite{hemminki_accelerometer-based_2013} verwendenen mehrere miteinander kooperierende Klassifikatoren (\textit{Ensemble Learning}).
 
+\section{Movebis-Ansätze}
+
+Die Ansätze \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} bilden den Ausgangspunkt für diese Arbeit.
+
+% Matusek als Ausgangspunkt für Ansätze
+% - Fokus auf Datenvorverarbeitung -> Führt Glättung, Alignment, Interpolation, Prozessierung durch AHRS, Kalman-GNSS-Korrektur ein
+% - Evaluation ggü. Random Forest -> Auch diese Ansätze sollten nicht in Vergessenheit geraten
+% - Ergebnisse: tiefergehendes Feature-Engineering notwendig, saubere Labelung wichtig
+% - Wichtige Beobachtung: Lücken in GPS-Daten! S. 105
+% Konzepte erzielen zwar gute Ergebnisse, lösen Problem aber nicht hinreichend, weil:
+% - Keine Lösungen für die Portierung und Optimierung
+% - Keine Aussagen zu Speicherverbrauch und Energieverbrauch der Modelle
+% - Fensterlängen von 30s und mehr sind unbrauchbar für Echtzeit-Use-Cases
+
+% Vorverarbeitung
+% Matusek: Smoothing, Alignment, Interpolation, Prozessierung durch AHRS, Kalman-GNSS-Korrektur
+% Stojanov:
+
+\section{HAR auf Smartphones}
+
+\section{VME auf Smartphones}
+
+\section{Modelloptimierung}
 
 % Wahl der Segmentlänge
 % \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020} betrachtet Segmente von $10s$ bis $180s$ Länge. Es lässt sich vermuten, dass die Präzision der Klassifikation bei kürzeren Segmentlängen geringer ist, wie die experimentellen Daten aus \cite{matusek_anwendung_2019} suggerieren. Wie in \Cref{sec:datenerfassung-und-verarbeitung} gezeigt, ist es durch Interpolation der verschiedenen Spuren möglich, diese im Rahmen der Synchronisation zu beliebigen Raten abzutasten. Bei näherer Betrachtung fällt hierbei auf, dass \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020} Datenpunkte mit $1Hz$ (Abtastrate des GNSS-Systems) abtasten, die mit deutlich höheren Frequenzen im dreistelligen Hertz-Bereich aufgenommenen Beschleunigungs-, Auslenkungs- und Orientierungsdaten also stark reduziert werden (Downsampling). Vermutlich bietet dies eine Möglichkeit zur Verbesserung der Konzepte aus \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020}, unter der Berücksichtigung, dass mit $1Hz$ Abtastrate lediglich Bewegungsabläufe mit Frequenzen $f \leq 0.5Hz$ nach dem Nyquist-Shannon-Abtasttheorem\footnote{\url{https://de.wikipedia.org/wiki/Nyquist-Shannon-Abtasttheorem} (Abgerufen am 14.4.2021)} erhalten bleiben, Frequenzen $f > 0.5Hz$ tragen zum Rauschen der abgetasteten Daten bei. Alternativ wäre daher auch ein Upsampling der korrigierten GNSS-Daten auf eine höhere Frequenz von ca. $100 Hz$ möglich. \cite{banos_window_2014} konnten zeigen, dass sich unter dieser Voraussetzung insbesondere kürzere Segmente von $0.25s$ bis $2s$ Länge für die Aktivitätserkennung eignen, gegenüber den von \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020} verwendeten Segmentlängen von $10s$ bis $180s$.
