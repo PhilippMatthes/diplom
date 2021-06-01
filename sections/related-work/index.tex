@@ -164,21 +164,50 @@ Der Forschungsbereich Machine Learning erhält aktuell eine große Aufmerksamkei
 
 \section{Movebis-Ansätze}
 
-Die Ansätze \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} bilden den Ausgangspunkt für diese Arbeit.
+\begin{figure}[h]
+\includegraphics[width=\linewidth, bb=0 0 606 384]{movebis-vergleich.pdf}
+\caption[Vergleich der Movebis-VME-Pipelines.]{Vergleich der Movebis-Pipelines zur Verkehrsmittelererkennung. Abbildung schematisch nach den in \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} beschriebenen Konzeptkomponenten.}\label{fig:movebis-vergleich}
+\end{figure}
 
-% Matusek als Ausgangspunkt für Ansätze
-% - Fokus auf Datenvorverarbeitung -> Führt Glättung, Alignment, Interpolation, Prozessierung durch AHRS, Kalman-GNSS-Korrektur ein
-% - Evaluation ggü. Random Forest -> Auch diese Ansätze sollten nicht in Vergessenheit geraten
-% - Ergebnisse: tiefergehendes Feature-Engineering notwendig, saubere Labelung wichtig
-% - Wichtige Beobachtung: Lücken in GPS-Daten! S. 105
+Die in \Cref{fig:movebis-vergleich} gezeigten Ansätze \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} bilden den Ausgangspunkt für diese Arbeit. Das im Movebis-Projekt initial verwendete heuristische Verfahren zur Verkehrsmittelererkennung konnte durch das in \cite{matusek_anwendung_2019} vorgestellte Machine-Learning-System signifikant in der Ergebnisqualität übertroffen werden. \cite{matusek_anwendung_2019} legt dabei einen starken Fokus auf die Vorverarbeitung der Daten. Als primäres Machine-Learning-Modell wählt \cite{matusek_anwendung_2019} ein FFN. Gegenüber nicht-neuronalen Modellen, hierbei einem Decision Tree und einer SVM, erzeugte das FFN jedoch im Rahmen der Evaluation keine signifikant höhere Ergebnisqualität \cite[S. 96]{matusek_anwendung_2019}. Als weiteres Ergebnis stellte \cite{matusek_anwendung_2019} fest, dass ein tiefergehendes Feature-Engineering zu besseren Ergebnissen hätte führen können. Außerdem bestehe weiteres Potenzial in der sauberen Abtrennung der Verkehrsmittel bei der Aufzeichnung von neuen Aktivitätsdaten, da insbesondere bei den Verkehrsmittelübergängen und bei der Beendigung der Aktivität wiederholt falsche Labels auftraten \cite[S. 98ff]{matusek_anwendung_2019}. Außerdem konnten Lücken in den aufgezeichneten GNSS-Daten festgestellt werden \cite[S. 105]{matusek_anwendung_2019}.
+
+Auf dieser Grundlage entwickelten \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} ihre Konzepte mit größerem Fokus auf die Wahl der Machine-Learning-Modelle. Sie übernehmen Teilschritte der Vorverarbeitung aus \cite{matusek_anwendung_2019}. \cite{werner_kontinuierliche_2020} nutzt ein mehrschichtiges RNN mit LSTM-Neuronen, während \cite{stojanov_continuous_2020} ein CNN zur Verkehrsmittelererkennung einsetzt. Analog zur Architektur der Modelle dienen in \cite{werner_kontinuierliche_2020} die vorverarbeiteten Datenpunkte als Zeitlinien-Eingabe des RNN, gleichzeitig nutzt \cite{stojanov_continuous_2020} eine Auswahl von Shallow-Features als Eingabe für das CNN. Als zusätzlichen Schritt führen \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} eine Nachverarbeitung der Ausgaben durch Glättung anhand der Nachbarwerte ein, welche das Ergebnis der Ansätze weiter verbessern konnte.
+
+\begin{landscape}
+\begin{figure}
+\centering
+\begin{subfigure}{.25\textwidth}
+  \centering
+  \includegraphics[width=\linewidth, bb=0 0 368 491]{matusek-model.pdf}
+  \caption{FFN aus \cite{matusek_anwendung_2019}.}
+  \label{fig:matusek-ffn}
+\end{subfigure}%
+\begin{subfigure}{.25\textwidth}
+  \centering
+  \includegraphics[width=\linewidth, bb=0 0 443 1139]{stojanov-model.pdf}
+  \caption{CNN aus \cite{stojanov_continuous_2020}.}
+  \label{fig:stojanov-cnn}
+\end{subfigure}
+\begin{subfigure}{.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth, bb=0 0 957 1031]{werner-model.pdf}
+  \caption{RNN aus \cite{werner_kontinuierliche_2020}.}
+  \label{fig:werner-rnn}
+\end{subfigure}
+\caption{Machine-Learning-Architekturen der Movebis-Ansätze.}
+\label{fig:ml-movebis}
+\end{figure}
+\end{landscape}
+
+% Modellparameter
+% Matusek S. 80: 335132 Bytes
+% Werner S. 24: 622912 Bytes
+% Stojanov S. 76: 1295912 Bytes
+
 % Konzepte erzielen zwar gute Ergebnisse, lösen Problem aber nicht hinreichend, weil:
 % - Keine Lösungen für die Portierung und Optimierung
 % - Keine Aussagen zu Speicherverbrauch und Energieverbrauch der Modelle
 % - Fensterlängen von 30s und mehr sind unbrauchbar für Echtzeit-Use-Cases
-
-% Vorverarbeitung
-% Matusek: Smoothing, Alignment, Interpolation, Prozessierung durch AHRS, Kalman-GNSS-Korrektur
-% Stojanov:
 
 \section{HAR auf Smartphones}
 
