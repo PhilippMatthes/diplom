@@ -164,40 +164,52 @@ Der Forschungsbereich Machine Learning erhält aktuell eine große Aufmerksamkei
 
 \section{Movebis-Ansätze}
 
-\begin{figure}[h]
+Die in \Cref{fig:movebis-vergleich} gezeigten Ansätze \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} bilden den Ausgangspunkt für diese Arbeit. Das im Movebis-Projekt initial verwendete heuristische Verfahren zur Verkehrsmittelererkennung konnte durch das in \cite{matusek_anwendung_2019} vorgestellte Machine-Learning-System signifikant in der Ergebnisqualität übertroffen werden. \cite{matusek_anwendung_2019} legt dabei einen starken Fokus auf die Vorverarbeitung der Daten. Als primäres Machine-Learning-Modell wählt \cite{matusek_anwendung_2019} ein FFN. Gegenüber nicht-neuronalen Modellen, hierbei einem Decision Tree und einer SVM, erzeugte das FFN jedoch im Rahmen der Evaluation keine signifikant höhere Ergebnisqualität \cite[S. 96]{matusek_anwendung_2019}. Als weiteres Ergebnis stellte \cite{matusek_anwendung_2019} fest, dass ein tiefergehendes Feature-Engineering zu besseren Ergebnissen hätte führen können. Außerdem bestehe weiteres Potenzial in der sauberen Abtrennung der Verkehrsmittel bei der Aufzeichnung von neuen Aktivitätsdaten, da insbesondere bei den Verkehrsmittelübergängen und bei der Beendigung der Aktivität wiederholt falsche Labels auftraten \cite[S. 98ff]{matusek_anwendung_2019}. Außerdem konnten Lücken in den aufgezeichneten GNSS-Daten festgestellt werden \cite[S. 105]{matusek_anwendung_2019}.
+
+\begin{figure}[H]
 \includegraphics[width=\linewidth, bb=0 0 606 384]{movebis-vergleich.pdf}
 \caption[Vergleich der Movebis-VME-Pipelines.]{Vergleich der Movebis-Pipelines zur Verkehrsmittelererkennung. Abbildung schematisch nach den in \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} beschriebenen Konzeptkomponenten.}\label{fig:movebis-vergleich}
 \end{figure}
 
-Die in \Cref{fig:movebis-vergleich} gezeigten Ansätze \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} bilden den Ausgangspunkt für diese Arbeit. Das im Movebis-Projekt initial verwendete heuristische Verfahren zur Verkehrsmittelererkennung konnte durch das in \cite{matusek_anwendung_2019} vorgestellte Machine-Learning-System signifikant in der Ergebnisqualität übertroffen werden. \cite{matusek_anwendung_2019} legt dabei einen starken Fokus auf die Vorverarbeitung der Daten. Als primäres Machine-Learning-Modell wählt \cite{matusek_anwendung_2019} ein FFN. Gegenüber nicht-neuronalen Modellen, hierbei einem Decision Tree und einer SVM, erzeugte das FFN jedoch im Rahmen der Evaluation keine signifikant höhere Ergebnisqualität \cite[S. 96]{matusek_anwendung_2019}. Als weiteres Ergebnis stellte \cite{matusek_anwendung_2019} fest, dass ein tiefergehendes Feature-Engineering zu besseren Ergebnissen hätte führen können. Außerdem bestehe weiteres Potenzial in der sauberen Abtrennung der Verkehrsmittel bei der Aufzeichnung von neuen Aktivitätsdaten, da insbesondere bei den Verkehrsmittelübergängen und bei der Beendigung der Aktivität wiederholt falsche Labels auftraten \cite[S. 98ff]{matusek_anwendung_2019}. Außerdem konnten Lücken in den aufgezeichneten GNSS-Daten festgestellt werden \cite[S. 105]{matusek_anwendung_2019}.
-
 Auf dieser Grundlage entwickelten \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} ihre Konzepte mit größerem Fokus auf die Wahl der Machine-Learning-Modelle. Sie übernehmen Teilschritte der Vorverarbeitung aus \cite{matusek_anwendung_2019}. \cite{werner_kontinuierliche_2020} nutzt ein mehrschichtiges RNN mit LSTM-Neuronen, während \cite{stojanov_continuous_2020} ein CNN zur Verkehrsmittelererkennung einsetzt. Analog zur Architektur der Modelle dienen in \cite{werner_kontinuierliche_2020} die vorverarbeiteten Datenpunkte als Zeitlinien-Eingabe des RNN, gleichzeitig nutzt \cite{stojanov_continuous_2020} eine Auswahl von Shallow-Features als Eingabe für das CNN. Als zusätzlichen Schritt führen \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} eine Nachverarbeitung der Ausgaben durch Glättung anhand der Nachbarwerte ein, welche das Ergebnis der Ansätze weiter verbessern konnte.
 
-\begin{landscape}
-\begin{figure}
-\centering
-\begin{subfigure}{.25\textwidth}
+\begin{figure}[h]
   \centering
-  \includegraphics[width=\linewidth, bb=0 0 368 491]{matusek-model.pdf}
-  \caption{FFN aus \cite{matusek_anwendung_2019}.}
-  \label{fig:matusek-ffn}
-\end{subfigure}%
-\begin{subfigure}{.25\textwidth}
-  \centering
-  \includegraphics[width=\linewidth, bb=0 0 443 1139]{stojanov-model.pdf}
-  \caption{CNN aus \cite{stojanov_continuous_2020}.}
-  \label{fig:stojanov-cnn}
-\end{subfigure}
-\begin{subfigure}{.49\textwidth}
-  \centering
-  \includegraphics[width=\linewidth, bb=0 0 957 1031]{werner-model.pdf}
-  \caption{RNN aus \cite{werner_kontinuierliche_2020}.}
-  \label{fig:werner-rnn}
-\end{subfigure}
-\caption{Machine-Learning-Architekturen der Movebis-Ansätze.}
-\label{fig:ml-movebis}
+  \begin{subfigure}[t]{.25\textwidth}
+    \centering
+    \includegraphics[width=\linewidth, bb=0 0 368 491]{matusek-model.pdf}
+    \caption{FFN aus \cite[S. 80]{matusek_anwendung_2019}.}
+    \label{fig:matusek-ffn}
+  \end{subfigure}%
+  \begin{subfigure}[t]{.25\textwidth}
+    \centering
+    \includegraphics[width=\linewidth, bb=0 0 443 1139]{stojanov-model.pdf}
+    \caption{CNN aus \cite[S. 76]{stojanov_continuous_2020}.}
+    \label{fig:stojanov-cnn}
+  \end{subfigure}
+  \begin{subfigure}[t]{.49\textwidth}
+    \centering
+    \includegraphics[width=\linewidth, bb=0 0 957 1031]{werner-model.pdf}
+    \caption{RNN aus \cite[S. 24]{werner_kontinuierliche_2020}.}
+    \label{fig:werner-rnn}
+  \end{subfigure}
+  \caption[Machine-Learning-Architekturen der Movebis-Ansätze.]{Machine-Learning-Architekturen der Movebis-Ansätze. Das dreigeteilte RNN-Netzwerk aus \cite{werner_kontinuierliche_2020} wird an der oberen Seite entlang der Zeitreihe eingebunden. \cite{stojanov_continuous_2020} stapelt die erstellten Feature-Fenster in drei Dimensionen (Zeitstempel, Anzahl Features, gestapelte Fenster) für den Input in das CNN.}
+  \label{fig:ml-movebis}
 \end{figure}
-\end{landscape}
+
+In \Cref{fig:ml-movebis} sind die Architekturen der Machine-Learning-Modelle aus den Movebis-Ansätzen gezeigt. Bei der quantitativen Evaluation der Ansätze wurde insbesondere die Accuracy-Metrik der Netzwerke auf Testdaten bestimmt. Von zentraler Bedeutung für die Beurteilung der Nutzbarkeit auf mobilen Geräten ist jedoch zunächst noch, wie viel Speicher die Netzwerke benötigen. Da \cite{matusek_anwendung_2019, werner_kontinuierliche_2020, stojanov_continuous_2020} keine Aussagen zur genauen Speichergröße ihrer Modelle treffen, wurden diese analog zu den konzeptuellen Beschreibungen mithilfe von Keras\footnote{\url{https://keras.io/} (Abgerufen am 2.6.2021)} implementiert. \Cref{fig:ml-movebis} wurde aus dieser Implementation erzeugt. Um die Speichergröße der Modelle festzustellen, wurden die Modelle nach der Erzeugung im \texttt{.h5}-Format gespeichert und die Größe der erzeugten Modell-Datei gemessen. Bei der Erstellung der Modelle wurde sich so nah wie möglich an den Beschreibungen in \cite{matusek_anwendung_2019, werner_kontinuierliche_2020, stojanov_continuous_2020} orientiert. Unklarheiten wie die genaue Lokalisation der Dropout-Schichten oder auch die endgültige Konfiguration der Input-Schicht des CNN aus \cite{stojanov_continuous_2020} bestanden dennoch. Die ungefähre Größenordnung der Modelle lässt sich dennoch feststellen. Die Ergebnisse dieser Analyse sind in der nachfolgenden Tabelle dargestellt.
+
+\begin{table}[h]
+  \begin{tabular}{lll}
+  Arbeit & Modellkonfiguration & Modellgröße \\
+  \midrule
+  \cite{matusek_anwendung_2019} & ??? & 335 kB \\
+  \cite{werner_kontinuierliche_2020} & ??? & 623 kB \\
+  \cite{stojanov_continuous_2020} & ??? & 1296 kB \\
+  \bottomrule
+  \end{tabular}\label{tab:movebis-vergleich}
+  \caption{Vergleich von Ergebnisqualität und Modellgröße der Movebis-Ansätze.}
+\end{table}
 
 % Modellparameter
 % Matusek S. 80: 335132 Bytes
