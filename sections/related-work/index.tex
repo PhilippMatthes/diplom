@@ -4,7 +4,7 @@ In diesem Kapitel wird näher auf die wissenschaftlichen Arbeiten eingegangen, d
 
 \section{Forschungsüberblick}
 
-Der Forschungsbereich Machine Learning erhält aktuell eine große Aufmerksamkeit, allein in 2020 wurden geschätzt 25800 Publikationen mit dem Begriff \enquote{Machine Learning} im Titel veröffentlicht\footnote{Quelle: Google Scholar, erweiterte Suchfunktion. Teile dieser Ergebnisse können auch wiss. Artikel, Patente oder ähnliche Veröffentlichungen ohne garantierte wiss. Qualität (z.B. durch Peer-Review) sein.}. Ein Teil dieser Arbeiten fokussiert sich auf den Fachbereich HAR, \cite{demrozi_human_2020} zählten in 2020 insgesamt 149 wissenschaftliche Publikationen, davon 53 mit Fokus auf Deep Learning (unter anderem künstliche neuronale Netzwerke) und 96 mit Fokus auf konventionellen Machine-Learning-Ansätzen wie Random Forests, Support Vector Machines, k-Means-Clustering und weiteren. Dabei sind die auf Deep Learning basierenden Ansätze in der Erkennungsqualität nur marginal überlegen, mit einer durchschnittlichen Trefferquote von $93.0\%$ gegenüber $92.2\%$. Die meisten der in \cite{demrozi_human_2020} analysierten Arbeiten nutzen Akzelerometerdaten, gefolgt von Gyrosensordaten, Magnetometerdaten und weiteren Sensordaten. Unter den Ansätzen befinden sich teils aber auch unkonventionelle Ideen, \cite{wang_sound-based_2019} verwenden beispielsweise das Mikrofon als Sensor. Um die verwandten Arbeiten aus den über 100 Publikationen (neben relevanten Metaanalysen) zu extrahieren, wurde systematisch nach bestimmten Kriterien gesucht und die Referenzen gefundener Arbeiten weiterverfolgt (\textit{Snowballing}). Insbesondere sollten die Arbeiten hierbei neben der Realisation einer Aktivitätserkennung über Machine-Learning-Modelle nach Möglichkeit auch auf Smartphones ausführbar oder für diese optimiert sein. Als weiteres Kriterium sollten die Arbeiten auch den Spezialfall der Verkehrsmittelerkennung aus dem HAR-Forschungsbereich behandeln. Dies ist jedoch optional, da sich die Arbeiten auch in der Regel flexibel auf diesen Spezialfall überführen lassen. In der nachfolgenden Tabelle ist eine Auswahl der so gefundenen Arbeiten gegenübergestellt und in verschiedene Kategorien eingeordnet. In den unteren zwei Sektionen der Tabelle befinden sich Ansätze, welche eine Verkehrsmittelklassifikation über Machine-Learning-Modelle realisieren, ohne konkreten Fokus auf eine Portierung oder die Lauffähigkeit des Ansatzes auf Edge-Geräten. Unter anderem ordnen sich hier auch die bekannten Movebis-Ansätze ein. Darüber befinden sich Ansätze, welche einen allgemeineren Klassifikationsschwerpunkt (HAR) ohne Fokus auf Verkehrsmittel haben, gleichzeitig jedoch für Smartphones ausgelegt wurden. Im obersten Teil der Tabelle sind zwei Ansätze gezeigt, welche eine Verkehrsmittelklassifikation auf Smartphones über Machine-Learning-Modelle realisieren, sowie eine Arbeit, die nochmals limitiertere Edge-Geräte (Smartwatches) betrachtet.
+Der Forschungsbereich Machine Learning erhält aktuell eine große Aufmerksamkeit, allein in 2020 wurden geschätzt 25800 Publikationen mit dem Begriff \enquote{Machine Learning} im Titel veröffentlicht\footnote{Quelle: Google Scholar, erweiterte Suchfunktion. Teile dieser Ergebnisse können auch wiss. Artikel, Patente oder ähnliche Veröffentlichungen ohne garantierte wiss. Qualität (z.B. durch Peer-Review) sein.}. Ein Teil dieser Arbeiten fokussiert sich auf den Fachbereich \acrshort{har}, \cite{demrozi_human_2020} zählten in 2020 insgesamt 149 wissenschaftliche Publikationen, davon 53 mit Fokus auf Deep Learning (unter anderem künstliche neuronale Netzwerke) und 96 mit Fokus auf konventionellen Machine-Learning-Ansätzen wie Random Forests, Support Vector Machines, k-Means-Clustering und weiteren. Dabei sind die auf Deep Learning basierenden Ansätze in der Erkennungsqualität nur marginal überlegen, mit einer durchschnittlichen Trefferquote von $93.0\%$ gegenüber $92.2\%$. Die meisten der in \cite{demrozi_human_2020} analysierten Arbeiten nutzen Akzelerometerdaten, gefolgt von Gyrosensordaten, Magnetometerdaten und weiteren Sensordaten. Unter den Ansätzen befinden sich teils aber auch unkonventionelle Ideen, \cite{wang_sound-based_2019} verwenden beispielsweise das Mikrofon als Sensor. Um die verwandten Arbeiten aus den über 100 Publikationen (neben relevanten Metaanalysen) zu extrahieren, wurde systematisch nach bestimmten Kriterien gesucht und die Referenzen gefundener Arbeiten weiterverfolgt (\textit{Snowballing}). Insbesondere sollten die Arbeiten hierbei neben der Realisation einer Aktivitätserkennung über Machine-Learning-Modelle nach Möglichkeit auch auf Smartphones ausführbar oder für diese optimiert sein. Als weiteres Kriterium sollten die Arbeiten auch den Spezialfall der Verkehrsmittelerkennung aus dem \acrshort{har}-Forschungsbereich behandeln. Dies ist jedoch optional, da sich die Arbeiten auch in der Regel flexibel auf diesen Spezialfall überführen lassen. In der nachfolgenden Tabelle ist eine Auswahl der so gefundenen Arbeiten gegenübergestellt und in verschiedene Kategorien eingeordnet. In den unteren zwei Sektionen der Tabelle befinden sich Ansätze, welche eine Verkehrsmittelklassifikation über Machine-Learning-Modelle realisieren, ohne konkreten Fokus auf eine Portierung oder die Lauffähigkeit des Ansatzes auf Edge-Geräten. Unter anderem ordnen sich hier auch die bekannten Movebis-Ansätze ein. Darüber befinden sich Ansätze, welche einen allgemeineren Klassifikationsschwerpunkt (\acrshort{har}) ohne Fokus auf Verkehrsmittel haben, gleichzeitig jedoch für Smartphones ausgelegt wurden. Im obersten Teil der Tabelle sind zwei Ansätze gezeigt, welche eine Verkehrsmittelklassifikation auf Smartphones über Machine-Learning-Modelle realisieren, sowie eine Arbeit, die nochmals limitiertere Edge-Geräte (Smartwatches) betrachtet.
 
 \begin{landscape}
   \begin{table}[]
@@ -21,138 +21,138 @@ Der Forschungsbereich Machine Learning erhält aktuell eine große Aufmerksamkei
     Regularisierung &
     Training \\ \midrule
   \cite{bhattacharya_smart_2016} &
-    HAR-W &
+    \acrshort{har}-W &
     Mehrere Varianten &
-    ACC &
-    Segmentierung, Abs. Signalstärke, FFT &
+    \acrshort{acc} &
+    Segmentierung, Abs. Signalstärke, \acrshort{fft} &
     Shallow &
-    RBM &
+    \acrshort{rbm} &
     Keine Angabe &
     Supervised Learning \\ \midrule
   \cite{hemminki_accelerometer-based_2013}  &
-    VME-S &
+    \acrshort{vme}-S &
     Train, Bus, Stationary, Metro, Tram, Car &
-    ACC &
+    \acrshort{acc} &
     Tiefpass, Segmentierung, Elimination der Gravitation, Berechnung der Features &
     Shallow &
-    HMM und DT &
+    \acrshort{hmm} und \acrshort{dt} &
     Limitierung der Modellgröße &
     Ensemble Learning \\
   \cite{byon_real-time_2014} &
-    VME-S &
+    \acrshort{vme}-S &
     Walk, Bike, Automobile, Bus, Car &
-    GNSS, ACC, MAG &
+    \acrshort{gnss}, \acrshort{acc}, \acrshort{mag} &
     Keine Angabe &
     Vorverarbeitete Daten &
     FFN &
     Keine Angabe &
     Supervised Learning \\ \midrule
   \cite{mairittha_-device_2021} &
-    HAR-S &
+    \acrshort{har}-S &
     12 Aktivitäten &
-    GYR, ACC &
+    \acrshort{gyr}, \acrshort{acc} &
     Abs. Signalstärke, Segmentierung &
     Vorverarbeitete Daten &
-    RNN-LSTM &
+    \acrshort{rnn}-\acrshort{lstm} &
     Keine Angabe &
     Transfer Learning, On-Device Fine-Tuning \\
   \cite{mairittha_improving_2020} &
-    HAR-S &
+    \acrshort{har}-S &
     6 Aktivitäten &
-    GYR, ACC &
+    \acrshort{gyr}, \acrshort{acc} &
     Abs. Signalstärke, Segmentierung &
     Vorverarbeitete Daten &
-    CNN &
+    \acrshort{cnn} &
     Dropout &
     Supervised Learning, On-Device Fine-Tuning \\
   \cite{mairittha_-device_2019} &
-    HAR-S &
+    \acrshort{har}-S &
     6 Aktivitäten &
-    ACC &
+    \acrshort{acc} &
     Segmentierung, Feature-Berechnung &
     Shallow &
-    RNN-LSTM &
+    \acrshort{rnn}-\acrshort{lstm} &
     Keine Angabe &
     Supervised Learning \\
   \cite{nutter_design_2018} &
-    HAR-S &
+    \acrshort{har}-S &
     9 Aktivitäten &
-    GYR, ACC &
+    \acrshort{gyr}, \acrshort{acc} &
     Glättung, Hochpass, Tiefpass, Elimination der Gravitation &
     Non-Shallow &
-    CNN &
+    \acrshort{cnn} &
     Dropout, Batch-Normalization &
     Transfer Learning \\
   \cite{zebin_design_2019} &
-    HAR-S &
+    \acrshort{har}-S &
     5 Aktivitäten &
-    GYR, ACC &
+    \acrshort{gyr}, \acrshort{acc} &
     Segmentierung, Windowing, Normalisierung &
     Vorverarbeitete Daten &
-    CNN &
+    \acrshort{cnn} &
     Dropout, Batch-Normalization &
     Supervised Learning \\
   \cite{ravi_deep_2016} &
-    HAR-S &
+    \acrshort{har}-S &
     Mehrere Varianten &
-    GYR, ACC &
-    Feature-Berechnung, FFT &
+    \acrshort{gyr}, \acrshort{acc} &
+    Feature-Berechnung, \acrshort{fft} &
     Non-Shallow &
-    CNN &
+    \acrshort{cnn} &
     Weight Decay, Momentum, Dropout &
     Supervised Learning \\ \midrule
   \cite{liang_convolutional_2017} &
-    VME &
+    \acrshort{vme} &
     Bike, Car, Walk, Train, Metro, Bus, Stationary &
-    ACC &
+    \acrshort{acc} &
     Elimination der Gravitation, Gleitfenster, Abs. Signalstärke &
     Vorverarbeitete Daten &
-    CNN &
+    \acrshort{cnn} &
     L2-Regularisierung &
     Supervised Learning \\
   \cite{friedrich_transportation_2019} &
-    VME &
+    \acrshort{vme} &
     Stationary, Walk, Run, Bike, Car, Bus, Train, Metro &
-    ACC, GYR, MAG, BAR &
+    \acrshort{acc}, \acrshort{gyr}, \acrshort{mag}, BAR &
     Datensatzgewichtung, Abs. Signalstärke, Normalisierung &
     Vorverarbeitete Daten &
-    RNN-LSTM &
+    \acrshort{rnn}-\acrshort{lstm} &
     Dropout &
     Supervised Learning \\ \midrule
   \cite{werner_kontinuierliche_2020} &
-    VME &
+    \acrshort{vme} &
     Walk, Bike, Car, Bus, Tram, Train &
-    GNSS, ACC, ROT, MAG &
-    Skalierung, Interpolation, AHRS, Glättung &
+    \acrshort{gnss}, \acrshort{acc}, ROT, \acrshort{mag} &
+    Skalierung, Interpolation, \acrshort{ahrs}, Glättung &
     Vorverarbeitete Daten &
-    RNN-LSTM und Postprocessing &
+    \acrshort{rnn}-\acrshort{lstm} und Postprocessing &
     Dropout, Early Stopping &
     Supervised Learning, Validierung mith. Semi-Supervised Learning \\
   \cite{stojanov_continuous_2020} &
-    VME &
+    \acrshort{vme} &
     Walk, Bike, Car, Bus, Tram, Train, Boat &
-    GNSS, ACC, ROT, MAG &
-    AHRS, Normalisierung, Alignment, Abs. Signalstärke, Downsampling, FFT, Gleitfenster, Segmentierung &
+    \acrshort{gnss}, \acrshort{acc}, ROT, \acrshort{mag} &
+    \acrshort{ahrs}, Normalisierung, Alignment, Abs. Signalstärke, Downsampling, \acrshort{fft}, Gleitfenster, Segmentierung &
     Shallow &
-    CNN und Postprocessing &
+    \acrshort{cnn} und Postprocessing &
     Dropout, Early Stopping &
     Supervised Learning \\
   \cite{matusek_anwendung_2019} &
-    VME &
+    \acrshort{vme} &
     Walk, Bike, Car, Bus, Tram, Train &
-    GNSS, ACC, ROT, MAG &
+    \acrshort{gnss}, \acrshort{acc}, ROT, \acrshort{mag} &
     Interpolation und Alignment, GPS-Korrektur, Rauschfilterung über Moving Average, Zeitfenster &
     Vorverarbeitete Daten &
     FFN (Kernkonzept) &
     Early Stopping &
     Supervised Learning \\ \bottomrule
   \end{tabular}
-  \caption[Vergleichender Überblick über verwandte Arbeiten.]{\footnotesize{Vergleichender Überblick über verwandte Arbeiten. Abkürzungen wie folgt. Kategorien: VME (Verkehrsmittelerkennung), VME-W (VME auf Wearables), VME-S (VME auf Smartphones), HAR (Human Activity Recognition), HAR-S (HAR auf Smartphones). Daten: ACC (Akzelerometer), GYR (Gyrosensor), MAG (Magnetometer), BAR (Barometer - Luftdruck). Preprocessing: FFT (Fast Fourier Transformation). Modelle: RBM (Restricted Boltzmann Machine), HMM (Hidden Markov Model), DT (Decision Tree), FFN (Feed-Forward-Network), RNN-LSTM (Recurrent Neural Network mit Long-Short-Term-Memory-Neuronen), CNN (Convolutional Neural Network).}}
+  \caption[Vergleichender Überblick über verwandte Arbeiten.]{\footnotesize{Vergleichender Überblick über verwandte Arbeiten. Abkürzungen wie folgt. Kategorien: \acrshort{vme} (Verkehrsmittelerkennung), \acrshort{vme}-W (\acrshort{vme} auf Wearables), \acrshort{vme}-S (\acrshort{vme} auf Smartphones), \acrshort{har} (Human Activity Recognition), \acrshort{har}-S (\acrshort{har} auf Smartphones). Daten: \acrshort{acc} (Akzelerometer), \acrshort{gyr} (Gyrosensor), \acrshort{mag} (Magnetometer), BAR (Barometer - Luftdruck). Preprocessing: \acrshort{fft} (Fast Fourier Transformation). Modelle: \acrshort{rbm} (Restricted Boltzmann Machine), \acrshort{hmm} (Hidden Markov Model), \acrshort{dt} (Decision Tree), FFN (Feed-Forward-Network), \acrshort{rnn}-\acrshort{lstm} (Recurrent Neural Network mit Long-Short-Term-Memory-Neuronen), \acrshort{cnn} (Convolutional Neural Network).}}
   }
   \end{table}
 \end{landscape}
 
-\paragraph{Labels und Datengrundlage:} Auf Machine-Learning basierende HAR-Ansätze wie \cites{chen_deep_2015, ravi_deep_2017, kwapisz_activity_2011, jahangiri_applying_2015, nurhanim_classification_2017, zeng_convolutional_2014, abu_alsheikh_deep_2015, inoue_deep_2018}, die keinen expliziten Fokus auf Edge-Deployment oder die Verkehrsmittelerkennung besitzen, wurden in der Tabelle nicht berücksichtigt. In der Übersicht spiegelt sich die Beobachtung aus \cite{demrozi_human_2020} wieder, dass die gewählten konzeptuellen Kernkomponenten mitunter sehr heterogen sind. Die Wahl der Labels wird häufig in Abhängigkeit des Testdatensatzes durchgeführt, welcher zur Evaluation des jeweiligen Konzeptes verwendet wird. Die Ansätze sind meist nicht auf diese Labels beschränkt und können flexibel auf eine andere Auswahl (durch Modifikation einzelner Komponenten) von Labels erweitert oder reduziert werden. \cite{ravi_deep_2016} testen ihren Ansatz beispielsweise auf verschiedenen Datensätzen, mit verschiedenen zu klassifizierenden Labels. In manchen Ansätzen, die wie \cite{hemminki_accelerometer-based_2013} das Ensemble Learning nutzen, ist dies möglich über das Hinzufügen und Entfernen der partiellen Klassifikatoren. Weiterhin ist auch die Wahl der Daten, auf deren Grundlage die Klassifikation stattfindet, häufig wie in \cite{ravi_deep_2016} an die Verfügbarkeit der Sensortypen im Evaluationsdatensatz gebunden. \cites{liang_convolutional_2017,hemminki_accelerometer-based_2013,ravi_deep_2017,byon_real-time_2014} beziehen ihre Datensätze aus eigenen Aufzeichnungen, teils werden jedoch nur wenige Angaben zur Menge der Daten und zur Aufzeichnung selbst gemacht. Dies limitiert die allgemeine Reproduzierbarkeit der Arbeiten \cite[S. 14]{demrozi_human_2020}. \cites{zebin_design_2019,nutter_design_2018,bhattacharya_smart_2016,mairittha_-device_2019,radu_towards_2016,friedrich_transportation_2019} nutzen öffentlich verfügbare Datensätze, teils auch aus anderen Forschungsarbeiten.
+\paragraph{Labels und Datengrundlage:} Auf Machine-Learning basierende \acrshort{har}-Ansätze wie \cites{chen_deep_2015, ravi_deep_2017, kwapisz_activity_2011, jahangiri_applying_2015, nurhanim_classification_2017, zeng_convolutional_2014, abu_alsheikh_deep_2015, inoue_deep_2018}, die keinen expliziten Fokus auf Edge-Deployment oder die Verkehrsmittelerkennung besitzen, wurden in der Tabelle nicht berücksichtigt. In der Übersicht spiegelt sich die Beobachtung aus \cite{demrozi_human_2020} wieder, dass die gewählten konzeptuellen Kernkomponenten mitunter sehr heterogen sind. Die Wahl der Labels wird häufig in Abhängigkeit des Testdatensatzes durchgeführt, welcher zur Evaluation des jeweiligen Konzeptes verwendet wird. Die Ansätze sind meist nicht auf diese Labels beschränkt und können flexibel auf eine andere Auswahl (durch Modifikation einzelner Komponenten) von Labels erweitert oder reduziert werden. \cite{ravi_deep_2016} testen ihren Ansatz beispielsweise auf verschiedenen Datensätzen, mit verschiedenen zu klassifizierenden Labels. In manchen Ansätzen, die wie \cite{hemminki_accelerometer-based_2013} das Ensemble Learning nutzen, ist dies möglich über das Hinzufügen und Entfernen der partiellen Klassifikatoren. Weiterhin ist auch die Wahl der Daten, auf deren Grundlage die Klassifikation stattfindet, häufig wie in \cite{ravi_deep_2016} an die Verfügbarkeit der Sensortypen im Evaluationsdatensatz gebunden. \cites{liang_convolutional_2017,hemminki_accelerometer-based_2013,ravi_deep_2017,byon_real-time_2014} beziehen ihre Datensätze aus eigenen Aufzeichnungen, teils werden jedoch nur wenige Angaben zur Menge der Daten und zur Aufzeichnung selbst gemacht. Dies limitiert die allgemeine Reproduzierbarkeit der Arbeiten \cite[S. 14]{demrozi_human_2020}. \cites{zebin_design_2019,nutter_design_2018,bhattacharya_smart_2016,mairittha_-device_2019,radu_towards_2016,friedrich_transportation_2019} nutzen öffentlich verfügbare Datensätze, teils auch aus anderen Forschungsarbeiten.
 
 \paragraph{Vorverarbeitung:} Eine Gemeinsamkeit der betrachteten Konzepte besteht darin, dass in den meisten verwandten Arbeiten die sequentiellen Daten explizit in Segmente unterteilt werden. Die Gleitfenstermethode wird hierbei häufig mit verwendet. Außerdem wird der Gravitationsvektor der Akzelerometerdaten in den meisten verwandten Arbeiten explizit als konzeptuell störender Faktor identifiziert und infolgedessen eliminiert. Auch die Skalierung der Daten wird in einigen Arbeiten explizit als Bestandteil des Vorverarbeitungskonzepts beschrieben.
 
@@ -160,20 +160,20 @@ Darüberhinausgehend unterscheiden sich die Konzepte im Rahmen des wissenschaftl
 
 Die verwandten Arbeiten differenzieren sich weiter in der Entscheidung, ob die aufgezeichneten Daten nur verlustfrei transformiert werden (z.B. durch Segmentierung und Skalierung), oder im Voraus einer Glättung und weiteren verlustbehafteten Vorverarbeitungsmethoden (z.B. Tiefpass, Hochpass) unterzogen werden. In vielen verwandten Arbeiten wie \cite{nutter_design_2018} und auch in einer Metaanalyse von 2010 \cite{figo_preprocessing_2010} wird auf die grundlegende Problematik hingewiesen, dass die Sensordaten verrauscht sein können, und dass sich deshalb zumindest eine Glättung und die Anwendung von Frequenzbandfiltern anbietet. Es finden sich aber auch Ansätze wie \cite{mairittha_improving_2020}, welche bewusst keine dieser Signalverarbeitungsmethoden anwenden, mit der Argumentation, dass das jeweilige Machine-Learning-Modell trotzdem eine geeignete interne Repräsentation erlernen könne. \cite{demrozi_human_2020} beobachten, dass eine entsprechende Vorverarbeitung vor allem bei traditionellen Modellen außerhalb des Deep-Learning angewandt wird. Deep-Learning-Ansätze seien nach \cite[S. 14]{demrozi_human_2020} nicht zwingend auf eine Datenvorverarbeitung angewiesen.
 
-\paragraph{Machine-Learning-Modelle und Features:} Analog zur Vorverarbeitung ist auch die Wahl der konkreten Eingaben für das Machine-Learning-System sehr unterschiedlich. In einem Teil der Arbeiten werden die vorverarbeiteten Daten direkt als Input verwendet, andere wiederum erzeugen Shallow Features durch Transformationen oder die Aggregation der Segmentdaten. Hinzu kommen Ansätze, welche ein gesondertes Machine-Learning-Modell einsetzen, um eine effizientere Feature-Repräsentation zu erzeugen. \cite{nutter_design_2018} konnten so beispielsweise ohne Verlust der Ergebnisqualität 561 manuell erstellte (Shallow) Features auf 100 Non-Shallow-Features reduzieren. Die letztendlich gewählten Features sind oft eng gekoppelt an die Konfiguration der zentralen Machine-Learning-Modelle. Beispielsweise können die vorverarbeiteten Sensordaten in Spektrogramme überführt werden, für die Klassifikation über CNNs \cite{ravi_deep_2016}. \cite{demrozi_human_2020} zeigt, dass generell verschiedene Modelle gewählt werden können, ohne einen durch seine Ergebnisqualität signifikant herausstechenden Ansatz. Sowohl neuronale Netzwerke, als auch herkömmliche Machine-Learning-Modelle finden sich verteilt über die verwandten Arbeiten, auch im Rahmen der Verkehrsmittelererkennung auf Smartphones \cite{byon_real-time_2014,hemminki_accelerometer-based_2013}. \cite[S. 14]{demrozi_human_2020} beobachten, dass die Entscheidung zwischen traditionellen Modellen und Deep-Learning-Ansätzen vor allem von der verfügbaren Rechenleistung und den verfügbaren Daten abhängt. Traditionelle Modelle seien typischerweise weniger rechenaufwändig und benötigten weniger Trainingsdaten.
+\paragraph{Machine-Learning-Modelle und Features:} Analog zur Vorverarbeitung ist auch die Wahl der konkreten Eingaben für das Machine-Learning-System sehr unterschiedlich. In einem Teil der Arbeiten werden die vorverarbeiteten Daten direkt als Input verwendet, andere wiederum erzeugen Shallow Features durch Transformationen oder die Aggregation der Segmentdaten. Hinzu kommen Ansätze, welche ein gesondertes Machine-Learning-Modell einsetzen, um eine effizientere Feature-Repräsentation zu erzeugen. \cite{nutter_design_2018} konnten so beispielsweise ohne Verlust der Ergebnisqualität 561 manuell erstellte (Shallow) Features auf 100 Non-Shallow-Features reduzieren. Die letztendlich gewählten Features sind oft eng gekoppelt an die Konfiguration der zentralen Machine-Learning-Modelle. Beispielsweise können die vorverarbeiteten Sensordaten in Spektrogramme überführt werden, für die Klassifikation über \acrshort{cnn}s \cite{ravi_deep_2016}. \cite{demrozi_human_2020} zeigt, dass generell verschiedene Modelle gewählt werden können, ohne einen durch seine Ergebnisqualität signifikant herausstechenden Ansatz. Sowohl neuronale Netzwerke, als auch herkömmliche Machine-Learning-Modelle finden sich verteilt über die verwandten Arbeiten, auch im Rahmen der Verkehrsmittelererkennung auf Smartphones \cite{byon_real-time_2014,hemminki_accelerometer-based_2013}. \cite[S. 14]{demrozi_human_2020} beobachten, dass die Entscheidung zwischen traditionellen Modellen und Deep-Learning-Ansätzen vor allem von der verfügbaren Rechenleistung und den verfügbaren Daten abhängt. Traditionelle Modelle seien typischerweise weniger rechenaufwändig und benötigten weniger Trainingsdaten.
 
-\paragraph{Training:} Abschließend lässt sich zur Forschungsübersicht erwähnen, dass zum Training der Modelle grundsätzlich verschiedene Methoden angewandt werden können. Das Reinforcement Learning findet sich allerdings in keiner der betrachteten Arbeiten wieder. Die Trainingsansätze sind nicht durch die Verfügbarkeit von Trainingsdaten limitiert, entweder durch die Nutzung eines der verschiedenen öffentlichen Datensatze oder durch die Aufzeichnung neuer Daten. Der wesentliche limitierende Faktor in den Trainingsdaten liegt nach \cite[S. 14]{demrozi_human_2020} häufig in der fehlenden Heterogenität, bedingt durch die Aufzeichnung von zu wenigen Personen, Geräten und Tragepositionen. Dies erhöhe den Generalisierungsfehler auf neuen Daten. Dabei ist die Aufzeichnung neuer Daten mit verhältnismäßig geringem Aufwand realisierbar, dies zeigen \cites{liang_convolutional_2017,hemminki_accelerometer-based_2013,ravi_deep_2017,byon_real-time_2014}. Durch die gute Verfügbarkeit der Trainingsdaten wird typischerweise das Supervised Learning als primäres Trainingsverfahren angewendet. \cite[S. 30]{werner_kontinuierliche_2020} erweitert den Trainingsdatensatz zur Validierung des Modells zusätzlich um ein Verfahren aus dem Semi-Supervised Learning. \cite{nutter_design_2018} wenden auf bestehenden CNNs darüberhinaus das Transfer Learning an, durch Abwandlung der äußeren Netzwerkschichten und Beibehaltung der (auf Bildern) vortrainierten Gewichtungen. Auch \cite{mairittha_-device_2021} nutzen eine Variante des Transfer Learnings, mit der Besonderheit, dass ein Teil des Netzwerkes vortrainiert und dann auf dem mobilen Gerät eingefroren wird. Ein kleiner Teil des Netzwerkes bleibt veränderlich und kann auf dem Gerät analog zu den Nutzereingaben angepasst werden (\textit{On-Device Fine-Tuning}). \cite{hemminki_accelerometer-based_2013} verwendenen mehrere miteinander kooperierende Klassifikatoren (\textit{Ensemble Learning}). Als expliziter Bestandteil der meisten Trainingskonzepte wird auch eine auf das Modell angepasste Regularisierung durchgeführt, beispielsweise wird die Dropout-Regularisierung häufig in Verbindung mit CNNs verwendet, um die Ergebnisqualität zu verbessern.
+\paragraph{Training:} Abschließend lässt sich zur Forschungsübersicht erwähnen, dass zum Training der Modelle grundsätzlich verschiedene Methoden angewandt werden können. Das Reinforcement Learning findet sich allerdings in keiner der betrachteten Arbeiten wieder. Die Trainingsansätze sind nicht durch die Verfügbarkeit von Trainingsdaten limitiert, entweder durch die Nutzung eines der verschiedenen öffentlichen Datensatze oder durch die Aufzeichnung neuer Daten. Der wesentliche limitierende Faktor in den Trainingsdaten liegt nach \cite[S. 14]{demrozi_human_2020} häufig in der fehlenden Heterogenität, bedingt durch die Aufzeichnung von zu wenigen Personen, Geräten und Tragepositionen. Dies erhöhe den Generalisierungsfehler auf neuen Daten. Dabei ist die Aufzeichnung neuer Daten mit verhältnismäßig geringem Aufwand realisierbar, dies zeigen \cites{liang_convolutional_2017,hemminki_accelerometer-based_2013,ravi_deep_2017,byon_real-time_2014}. Durch die gute Verfügbarkeit der Trainingsdaten wird typischerweise das Supervised Learning als primäres Trainingsverfahren angewendet. \cite[S. 30]{werner_kontinuierliche_2020} erweitert den Trainingsdatensatz zur Validierung des Modells zusätzlich um ein Verfahren aus dem Semi-Supervised Learning. \cite{nutter_design_2018} wenden auf bestehenden \acrshort{cnn}s darüberhinaus das Transfer Learning an, durch Abwandlung der äußeren Netzwerkschichten und Beibehaltung der (auf Bildern) vortrainierten Gewichtungen. Auch \cite{mairittha_-device_2021} nutzen eine Variante des Transfer Learnings, mit der Besonderheit, dass ein Teil des Netzwerkes vortrainiert und dann auf dem mobilen Gerät eingefroren wird. Ein kleiner Teil des Netzwerkes bleibt veränderlich und kann auf dem Gerät analog zu den Nutzereingaben angepasst werden (\textit{On-Device Fine-Tuning}). \cite{hemminki_accelerometer-based_2013} verwendenen mehrere miteinander kooperierende Klassifikatoren (\textit{Ensemble Learning}). Als expliziter Bestandteil der meisten Trainingskonzepte wird auch eine auf das Modell angepasste Regularisierung durchgeführt, beispielsweise wird die Dropout-Regularisierung häufig in Verbindung mit \acrshort{cnn}s verwendet, um die Ergebnisqualität zu verbessern.
 
 \section{Movebis-Ansätze}
 
-Die in \Cref{fig:movebis-vergleich} gezeigten Ansätze \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} bilden den Ausgangspunkt für diese Arbeit. Das im Movebis-Projekt initial verwendete heuristische Verfahren zur Verkehrsmittelererkennung konnte durch das in \cite{matusek_anwendung_2019} vorgestellte Machine-Learning-System signifikant in der Ergebnisqualität übertroffen werden. \cite{matusek_anwendung_2019} legt dabei einen starken Fokus auf die Vorverarbeitung der Daten. Als primäres Machine-Learning-Modell wählt \cite{matusek_anwendung_2019} ein FFN. Gegenüber nicht-neuronalen Modellen, hierbei einem Decision Tree und einer SVM, erzeugte das FFN jedoch im Rahmen der Evaluation keine signifikant höhere Ergebnisqualität \cite[S. 96]{matusek_anwendung_2019}. Als weiteres Ergebnis stellte \cite{matusek_anwendung_2019} fest, dass ein tiefergehendes Feature-Engineering zu besseren Ergebnissen hätte führen können. Außerdem bestehe weiteres Potenzial in der sauberen Abtrennung der Verkehrsmittel bei der Aufzeichnung von neuen Aktivitätsdaten, da insbesondere bei den Verkehrsmittelübergängen und bei der Beendigung der Aktivität wiederholt falsche Labels auftraten \cite[S. 98ff]{matusek_anwendung_2019}. Außerdem konnten Lücken in den aufgezeichneten GNSS-Daten festgestellt werden \cite[S. 105]{matusek_anwendung_2019}.
+Die in \Cref{fig:movebis-vergleich} gezeigten Ansätze \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} bilden den Ausgangspunkt für diese Arbeit. Das im Movebis-Projekt initial verwendete heuristische Verfahren zur Verkehrsmittelererkennung konnte durch das in \cite{matusek_anwendung_2019} vorgestellte Machine-Learning-System signifikant in der Ergebnisqualität übertroffen werden. \cite{matusek_anwendung_2019} legt dabei einen starken Fokus auf die Vorverarbeitung der Daten. Als primäres Machine-Learning-Modell wählt \cite{matusek_anwendung_2019} ein FFN. Gegenüber nicht-neuronalen Modellen, hierbei einem Decision Tree und einer \acrshort{svm}, erzeugte das FFN jedoch im Rahmen der Evaluation keine signifikant höhere Ergebnisqualität \cite[S. 96]{matusek_anwendung_2019}. Als weiteres Ergebnis stellte \cite{matusek_anwendung_2019} fest, dass ein tiefergehendes Feature-Engineering zu besseren Ergebnissen hätte führen können. Außerdem bestehe weiteres Potenzial in der sauberen Abtrennung der Verkehrsmittel bei der Aufzeichnung von neuen Aktivitätsdaten, da insbesondere bei den Verkehrsmittelübergängen und bei der Beendigung der Aktivität wiederholt falsche Labels auftraten \cite[S. 98ff]{matusek_anwendung_2019}. Außerdem konnten Lücken in den aufgezeichneten \acrshort{gnss}-Daten festgestellt werden \cite[S. 105]{matusek_anwendung_2019}.
 
 \begin{figure}[H]
 \includegraphics[width=\linewidth, bb=0 0 606 384]{movebis-vergleich.pdf}
-\caption[Vergleich der Movebis-VME-Pipelines.]{Vergleich der Movebis-Pipelines zur Verkehrsmittelererkennung. Abbildung schematisch nach den in \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} beschriebenen Konzeptkomponenten.}\label{fig:movebis-vergleich}
+\caption[Vergleich der Movebis-\acrshort{vme}-Pipelines.]{Vergleich der Movebis-Pipelines zur Verkehrsmittelererkennung. Abbildung schematisch nach den in \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} beschriebenen Konzeptkomponenten.}\label{fig:movebis-vergleich}
 \end{figure}
 
-Auf dieser Grundlage entwickelten \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} ihre Konzepte mit größerem Fokus auf die Wahl der Machine-Learning-Modelle. Sie übernehmen Teilschritte der Vorverarbeitung aus \cite{matusek_anwendung_2019}. \cite{werner_kontinuierliche_2020} nutzt ein mehrschichtiges RNN mit LSTM-Neuronen, während \cite{stojanov_continuous_2020} ein CNN zur Verkehrsmittelererkennung einsetzt. Analog zur Architektur der Modelle dienen in \cite{werner_kontinuierliche_2020} die vorverarbeiteten Datenpunkte als Zeitlinien-Eingabe des RNN, gleichzeitig nutzt \cite{stojanov_continuous_2020} eine Auswahl von Shallow-Features als Eingabe für das CNN. Als zusätzlichen Schritt führen \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} eine Nachverarbeitung der Ausgaben durch Glättung anhand der Nachbarwerte ein, welche das Ergebnis der Ansätze weiter verbessern konnte. Bei der quantitativen Evaluation der Ansätze wurde insbesondere die Accuracy-Metrik der Netzwerke auf Testdaten bestimmt.
+Auf dieser Grundlage entwickelten \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} ihre Konzepte mit größerem Fokus auf die Wahl der Machine-Learning-Modelle. Sie übernehmen Teilschritte der Vorverarbeitung aus \cite{matusek_anwendung_2019}. \cite{werner_kontinuierliche_2020} nutzt ein mehrschichtiges \acrshort{rnn} mit \acrshort{lstm}-Neuronen, während \cite{stojanov_continuous_2020} ein \acrshort{cnn} zur Verkehrsmittelererkennung einsetzt. Analog zur Architektur der Modelle dienen in \cite{werner_kontinuierliche_2020} die vorverarbeiteten Datenpunkte als Zeitlinien-Eingabe des \acrshort{rnn}, gleichzeitig nutzt \cite{stojanov_continuous_2020} eine Auswahl von Shallow-Features als Eingabe für das \acrshort{cnn}. Als zusätzlichen Schritt führen \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} eine Nachverarbeitung der Ausgaben durch Glättung anhand der Nachbarwerte ein, welche das Ergebnis der Ansätze weiter verbessern konnte. Bei der quantitativen Evaluation der Ansätze wurde insbesondere die Accuracy-Metrik der Netzwerke auf Testdaten bestimmt.
 
 \begin{table}[H]
   \begin{tabular}{lllll}
@@ -187,17 +187,17 @@ Auf dieser Grundlage entwickelten \cite{werner_kontinuierliche_2020} und \cite{s
   \caption{Vergleich von Ergebnisqualität und Modellgröße der Movebis-Ansätze.}
 \end{table}
 
-Im Vergleich zeigen \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} nach \cite{demrozi_human_2020} typische Accuracy-Werte für die Verkehrsmittelerkennung als Spezialfall der HAR von ca. 92\%, gegenüber deutlich schlechteren 67,84\% aus \cite{matusek_anwendung_2019}. Hierbei wird das ganzheitliche Datenverarbeitungssystem ohne Postprocessing betrachtet. Eine isolierte Betrachtung der Machine-Learning-Modelle, beispielsweise durch Vergleich bei gleichen Vorverarbeitungsschritten, ist wegen der Unterschiedlichkeit der Vorverarbeitungskonzepte nicht möglich. Lediglich das Postprocessing wurde als Teil der Datenverarbeitungskonzepte in \cite{stojanov_continuous_2020} und \cite{werner_kontinuierliche_2020} separat betrachtet. \cite{werner_kontinuierliche_2020} konnte die Accuracy so nach eigener Evaluation auf 98,27\% steigern.
+Im Vergleich zeigen \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} nach \cite{demrozi_human_2020} typische Accuracy-Werte für die Verkehrsmittelerkennung als Spezialfall der \acrshort{har} von ca. 92\%, gegenüber deutlich schlechteren 67,84\% aus \cite{matusek_anwendung_2019}. Hierbei wird das ganzheitliche Datenverarbeitungssystem ohne Postprocessing betrachtet. Eine isolierte Betrachtung der Machine-Learning-Modelle, beispielsweise durch Vergleich bei gleichen Vorverarbeitungsschritten, ist wegen der Unterschiedlichkeit der Vorverarbeitungskonzepte nicht möglich. Lediglich das Postprocessing wurde als Teil der Datenverarbeitungskonzepte in \cite{stojanov_continuous_2020} und \cite{werner_kontinuierliche_2020} separat betrachtet. \cite{werner_kontinuierliche_2020} konnte die Accuracy so nach eigener Evaluation auf 98,27\% steigern.
 
-Da die Movebis-Architekturen serverseitige Ansätze darstellen, lag bei der Erstellung der dazugehörigen Konzepte kein verstärkter Fokus auf einer Optimierung oder der Messung von Energie- und Speicherverbrauch. Auch die Inferenzzeit der jeweiligen Pipeline über den Segmenten wurde in der Evaluation der Arbeiten nicht berücksichtigt. Diese Faktoren sind für diese Arbeit jedoch von zentraler Bedeutung, um zu beurteilen, welcher dieser Ansätze für die Nutzbarkeit auf mobilen Geräten am besten geeignet ist. Nach den konzeptuellen Beschreibungen der Machine-Learning-Modelle kann die Modellgröße geschätzt werden. Mit $32 bit$ Fließkommazahlen ermitteln sich hierüber Modellgrößen von $335 kB$ für \cite{matusek_anwendung_2019}, $623 kB$ für \cite{werner_kontinuierliche_2020} und $1296 kB$ für \cite{stojanov_continuous_2020}. Die zur Ermittlung dieser Kennzahlen verwendeten Konfigurationen sind in \Cref{fig:ml-movebis} im Anhang beigefügt. Unklarheiten wie die genaue Lokalisation der Dropout-Schichten oder auch die finale Konfiguration der Input-Schicht des CNN aus \cite{stojanov_continuous_2020} schränken die Reproduzierbarkeit und die Aussagekraft dieser Schätzungen jedoch ein. Durch die verschiedenen Architekturen lässt sich auch nicht unbedingt von der geschätzten Modellgröße auf den Energieverbrauch oder die Inferenzzeit schließen, denn Parameter können wie in Convolution-Operationen von CNNs in mehreren parallelen Berechnungsoperationen involviert sein.
+Da die Movebis-Architekturen serverseitige Ansätze darstellen, lag bei der Erstellung der dazugehörigen Konzepte kein verstärkter Fokus auf einer Optimierung oder der Messung von Energie- und Speicherverbrauch. Auch die Inferenzzeit der jeweiligen Pipeline über den Segmenten wurde in der Evaluation der Arbeiten nicht berücksichtigt. Diese Faktoren sind für diese Arbeit jedoch von zentraler Bedeutung, um zu beurteilen, welcher dieser Ansätze für die Nutzbarkeit auf mobilen Geräten am besten geeignet ist. Nach den konzeptuellen Beschreibungen der Machine-Learning-Modelle kann die Modellgröße geschätzt werden. Mit $32 bit$ Fließkommazahlen ermitteln sich hierüber Modellgrößen von $335 kB$ für \cite{matusek_anwendung_2019}, $623 kB$ für \cite{werner_kontinuierliche_2020} und $1296 kB$ für \cite{stojanov_continuous_2020}. Die zur Ermittlung dieser Kennzahlen verwendeten Konfigurationen sind in \Cref{fig:ml-movebis} im Anhang beigefügt. Unklarheiten wie die genaue Lokalisation der Dropout-Schichten oder auch die finale Konfiguration der Input-Schicht des \acrshort{cnn} aus \cite{stojanov_continuous_2020} schränken die Reproduzierbarkeit und die Aussagekraft dieser Schätzungen jedoch ein. Durch die verschiedenen Architekturen lässt sich auch nicht unbedingt von der geschätzten Modellgröße auf den Energieverbrauch oder die Inferenzzeit schließen, denn Parameter können wie in Convolution-Operationen von \acrshort{cnn}s in mehreren parallelen Berechnungsoperationen involviert sein.
 
-Abschließend lässt sich feststellen, dass insbesondere \cite{werner_kontinuierliche_2020,stojanov_continuous_2020} Ergebnisse auf dem aktuellen Forschungsniveau erzielen, die Konzepte jedoch wegen der von dieser Arbeit abweichenden initialen Problemstellung keine vorgefertigte Lösung für diese Arbeit darstellen. Auch wegen der Interpolation von $1Hz$, welche größere Fensterlängen für eine hinreichende Klassifikationsgüte bedingt, ist die Echtzeitfähigkeit der Konzepte eingeschränkt. Während dies für die nachträgliche Klassifikation von Daten auf Servern kein Problem darstellt, würden Fensterlängen von über $30s$ auch eine entsprechende Wartezeit nach sich ziehen, bevor die Klassifikation auf dem Smartphone nach Start der Aufzeichnung aktiv werden könnte. Dennoch können Teile der Konzepte für diese Arbeit wiederverwendet werden, insbesondere deren Vor- und Nachverarbeitungsschritte. Die Accuracy-Werte, welche in \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} ermittelt wurden, decken sich mit den metaanalytischen Beobachtungen aus \cite{demrozi_human_2020}. Auch hier zeigt weder das CNN, noch das RNN im Vergleich eine signifikant bessere Ergebnisqualität. Es lässt sich somit vermuten, dass die Wahl einer speziellen Architektur gegenüber einem gezielten Co-Design der Datenverarbeitungspipeline mit dem klassifizierenden Modell keine signifikanten Zugewinne in der Ergebnisqualität verspricht.
+Abschließend lässt sich feststellen, dass insbesondere \cite{werner_kontinuierliche_2020,stojanov_continuous_2020} Ergebnisse auf dem aktuellen Forschungsniveau erzielen, die Konzepte jedoch wegen der von dieser Arbeit abweichenden initialen Problemstellung keine vorgefertigte Lösung für diese Arbeit darstellen. Auch wegen der Interpolation von $1Hz$, welche größere Fensterlängen für eine hinreichende Klassifikationsgüte bedingt, ist die Echtzeitfähigkeit der Konzepte eingeschränkt. Während dies für die nachträgliche Klassifikation von Daten auf Servern kein Problem darstellt, würden Fensterlängen von über $30s$ auch eine entsprechende Wartezeit nach sich ziehen, bevor die Klassifikation auf dem Smartphone nach Start der Aufzeichnung aktiv werden könnte. Dennoch können Teile der Konzepte für diese Arbeit wiederverwendet werden, insbesondere deren Vor- und Nachverarbeitungsschritte. Die Accuracy-Werte, welche in \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} ermittelt wurden, decken sich mit den metaanalytischen Beobachtungen aus \cite{demrozi_human_2020}. Auch hier zeigt weder das \acrshort{cnn}, noch das \acrshort{rnn} im Vergleich eine signifikant bessere Ergebnisqualität. Es lässt sich somit vermuten, dass die Wahl einer speziellen Architektur gegenüber einem gezielten Co-Design der Datenverarbeitungspipeline mit dem klassifizierenden Modell keine signifikanten Zugewinne in der Ergebnisqualität verspricht.
 
-\section{HAR auf Smartphones}
+\section{\acrshort{har} auf Smartphones}
 
-\section{VME auf Smartphones}
+\section{\acrshort{vme} auf Smartphones}
 
 \section{Modelloptimierung}
 
 % Wahl der Segmentlänge
-% \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020} betrachtet Segmente von $10s$ bis $180s$ Länge. Es lässt sich vermuten, dass die Präzision der Klassifikation bei kürzeren Segmentlängen geringer ist, wie die experimentellen Daten aus \cite{matusek_anwendung_2019} suggerieren. Wie in \Cref{sec:datenerfassung-und-verarbeitung} gezeigt, ist es durch Interpolation der verschiedenen Spuren möglich, diese im Rahmen der Synchronisation zu beliebigen Raten abzutasten. Bei näherer Betrachtung fällt hierbei auf, dass \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020} Datenpunkte mit $1Hz$ (Abtastrate des GNSS-Systems) abtasten, die mit deutlich höheren Frequenzen im dreistelligen Hertz-Bereich aufgenommenen Beschleunigungs-, Auslenkungs- und Orientierungsdaten also stark reduziert werden (Downsampling). Vermutlich bietet dies eine Möglichkeit zur Verbesserung der Konzepte aus \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020}, unter der Berücksichtigung, dass mit $1Hz$ Abtastrate lediglich Bewegungsabläufe mit Frequenzen $f \leq 0.5Hz$ nach dem Nyquist-Shannon-Abtasttheorem\footnote{\url{https://de.wikipedia.org/wiki/Nyquist-Shannon-Abtasttheorem} (Abgerufen am 14.4.2021)} erhalten bleiben, Frequenzen $f > 0.5Hz$ tragen zum Rauschen der abgetasteten Daten bei. Alternativ wäre daher auch ein Upsampling der korrigierten GNSS-Daten auf eine höhere Frequenz von ca. $100 Hz$ möglich. \cite{banos_window_2014} konnten zeigen, dass sich unter dieser Voraussetzung insbesondere kürzere Segmente von $0.25s$ bis $2s$ Länge für die Aktivitätserkennung eignen, gegenüber den von \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020} verwendeten Segmentlängen von $10s$ bis $180s$.
+% \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020} betrachtet Segmente von $10s$ bis $180s$ Länge. Es lässt sich vermuten, dass die Präzision der Klassifikation bei kürzeren Segmentlängen geringer ist, wie die experimentellen Daten aus \cite{matusek_anwendung_2019} suggerieren. Wie in \Cref{sec:datenerfassung-und-verarbeitung} gezeigt, ist es durch Interpolation der verschiedenen Spuren möglich, diese im Rahmen der Synchronisation zu beliebigen Raten abzutasten. Bei näherer Betrachtung fällt hierbei auf, dass \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020} Datenpunkte mit $1Hz$ (Abtastrate des \acrshort{gnss}-Systems) abtasten, die mit deutlich höheren Frequenzen im dreistelligen Hertz-Bereich aufgenommenen Beschleunigungs-, Auslenkungs- und Orientierungsdaten also stark reduziert werden (Downsampling). Vermutlich bietet dies eine Möglichkeit zur Verbesserung der Konzepte aus \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020}, unter der Berücksichtigung, dass mit $1Hz$ Abtastrate lediglich Bewegungsabläufe mit Frequenzen $f \leq 0.5Hz$ nach dem Nyquist-Shannon-Abtasttheorem\footnote{\url{https://de.wikipedia.org/wiki/Nyquist-Shannon-Abtasttheorem} (Abgerufen am 14.4.2021)} erhalten bleiben, Frequenzen $f > 0.5Hz$ tragen zum Rauschen der abgetasteten Daten bei. Alternativ wäre daher auch ein Upsampling der korrigierten \acrshort{gnss}-Daten auf eine höhere Frequenz von ca. $100 Hz$ möglich. \cite{banos_window_2014} konnten zeigen, dass sich unter dieser Voraussetzung insbesondere kürzere Segmente von $0.25s$ bis $2s$ Länge für die Aktivitätserkennung eignen, gegenüber den von \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020} verwendeten Segmentlängen von $10s$ bis $180s$.

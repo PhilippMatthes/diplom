@@ -144,7 +144,6 @@
 
 \usepackage{subcaption}
 
-
 % \setcounter{tocdepth}{3}
 % \setcounter{secnumdepth}{3}
 
@@ -197,6 +196,10 @@
 \addtokomafont{titlehead}{\rmfamily}
 
 \usepackage[all]{nowidow}
+
+\usepackage[nomain,acronym]{glossaries}
+\makeglossaries
+\loadglsentries[main]{glossary}
 
 \begin{document}
 
@@ -261,6 +264,9 @@
 
   % use lowercased roman page numbers for the appendix and the bibliography
   \pagenumbering{roman}
+
+  \printglossaries
+  \addcontentsline{toc}{chapter}{Glossar}
 
   \printbibliography[heading=bibintoc]\label{sec:bibliography}%
 
