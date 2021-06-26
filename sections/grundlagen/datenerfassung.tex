@@ -1,71 +1,64 @@
 \section{Datenerfassung und -verarbeitung}\label{sec:datenerfassung-und-verarbeitung}
 
-% \begin{figure}[h]
-% \includegraphics[width=\linewidth, bb=0 0 598 404]{datengrundlage.pdf}
-% \caption{Die bei der Nutzung der STADTRADELN-App erhobenen Daten im Überblick.}\label{fig:datengrundlage}
-% \end{figure}
-%
-% \Cref{fig:datengrundlage} zeigt die in der Datenschutzerklärung der STADTRADELN-App beschriebenen Datensatzstrukturen\footnote{\url{https://www.stadtradeln.de/datenschutz/} (Abgerufen am 3.4.2021)} im Überblick.
-
-Bei der Nutzung der STADTRADELN-App werden unterschiedliche Datensätze erhoben, verarbeitet und gespeichert\footnote{\url{https://www.stadtradeln.de/datenschutz/} (Abgerufen am 3.4.2021)}. Neben allgemeinen personenbezogenen Daten werden auch Daten für die Meldeplattform \enquote{RADar!}\footnote{\url{https://www.radar-online.net/home} (Abgerufen am 3.4.2021)} verarbeitet, bei der vor allem die Markierung von Orten für die Ausbesserung der Radverkehrsinfrastruktur im Vordergrund steht. Die im Rahmen dieser Arbeit unabhängig von anderen Datensätzen betrachteten \textit{Aktivitätsdaten} sind die folgenden:
+Der erste Schritt einer Verkehrsmittelerkennung ist die Erfassung von kontextbezogenen Daten. In der STADTRADELN-App werden unter anderem die folgenden Daten erfasst:
 
 \begin{itemize}
-  \item GPS-Koordinaten des jeweiligen Smartphone-Geolokalisationssystems, bestehend aus geografischer Länge und Breite, Höhe, Datum und Zeit, sowie einer Genauigkeitsangabe und der aktuellen Geschwindigkeit
-  \item Beschleunigungsdaten des Smartphone-Akzelerometers in drei Raumdimensionen
-  \item Neigungswinkeldaten des Gyroskop-Sensors in Winkelauslenkungen dreier Rotationsachsen
-  \item Orientierungsdaten des Magnetometer-Sensors in drei Raumdimensionen
+  \item Geolokalisationsdaten, bestehend aus geografischer Länge und Breite, Höhe, Datum und Zeit, sowie einer Genauigkeitsangabe und der aktuellen Geschwindigkeit
+  \item Beschleunigungsdaten des Smartphone-Akzelerometers
+  \item Neigungswinkeldaten des Gyroskop-Sensors
+  \item Orientierungsdaten des Magnetometer-Sensors
   \item Weitere Hilfsdaten, wie eine Geräte-Identifikationsnummer und das Smartphone-Modell
 \end{itemize}
 
-Diese Messparameter können als Grundlage für eine Verkehrsmittelerkennung fungieren. Daher sollen diese nun genauer betrachtet werden. Dabei spielen insbesondere folgende Fragen eine zentrale Rolle:
+Um die genannten Daten näher kennenzulernen und später geeignet vorverarbeiten zu können, sollen folgende Fragen explorativ diskutiert werden:
 
 \begin{enumerate}
-\item Wie werden die jeweiligen Messparameter technisch erfasst und mit welchen Wertebereichen ist hierbei zu rechnen?
-\item In welchen Dimensionen sind die Messparameter strukturiert und welche Auskunft geben sie?
-\item Welche Probleme und Herausforderungen können bei der Erfassung der Messparameter auftreten und wie können diese gelöst werden?
+\item Wie werden die jeweiligen Daten technisch erfasst und mit welchen Wertebereichen ist hierbei zu rechnen?
+\item In welchen Dimensionen sind die Messparameter strukturiert und welche direkte oder indirekte Auskunft geben sie?
+\item Welche Probleme und Herausforderungen können bei der Erfassung der Messparameter auftreten und wie können diese, insbesondere durch Vorverarbeitung, gelöst werden?
 \end{enumerate}
 
 \subsection{Lokale kinematische Messparameter}\label{sec:kinematische-messparameter}
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth, bb=0 0 540 181]{kinematische-messparameter.pdf}
-\caption{Übersicht über die kinematischen Messparameter der STADTRADELN-Daten.}\label{fig:kinematische-messparameter}
+\caption{Übersicht über die lokalen kinematischen Messparameter der STADTRADELN-Daten.}\label{fig:kinematische-messparameter}
 \end{figure}
 
-Diese Fragen sollen in den folgenden Sektionen diskutiert werden. Wie in \Cref{fig:kinematische-messparameter} gezeigt, handelt es sich hierbei jeweils um Messparameter, die in drei Dimensionen erfasst werden. Dies ist jeweils entweder eine Richtung mit Betrag (Akzelerometer, Magnetometer) oder eine Winkelauslenkung in drei Dimensionen.
+Beschleunigungsdaten, Auslenkungsdaten und Orientierungsdaten sind analog zu \Cref{fig:kinematische-messparameter} vorrangig an der Bewegung des Geräts orientiert (Kinematik) und werden lokal durch eine integrierte Sensorik gemessen. Die Messparameter werden hierbei abgebildet als Richtung mit Betrag (Akzelerometer, Magnetometer) oder als Winkelauslenkung in drei Dimensionen.
 
 \subsubsection{Funktionsweise}
 
-Das Akzelerometer des Smartphones basiert auf einem mikroelektronischen mechanischem System \textit{(MEMS)}, welches die mechanische Beschleunigung des Smartphones in vom Mikrochip interpretierbare elektrische Signale wandelt, durch die Auslenkung sehr kleiner gefederter Massen \cite{matej_andrejasic_mems_2008, constantinescu_capacitive_2013, dey_accelprint_2014}. Um neben der Beschleunigung auch die Winkelauslenkung (Neigung) des Gerätes zu messen, wird ein piezoelektrischer Gyrosensor eingesetzt \cite{singh_piezoelectric_2007}. Hierbei induziert die Auslenkung des Gerätes eine Spannung über den sogenannten Piezoeffekt \cite{singh_piezoelectric_2007, ichimura_fem_2002, koitabashi_improvement_2002}. Neben dem Gyrosensor und dem Akzelerometer wird zusätzlich auch das Magnetfeld über ein Magnetometer gemessen, dabei handelt es sich um ein mikroelektronisches optisches Messsystem auf Grundlage von Alkalimetalldämpfen \cite{schwindt_chip-scale_2004, dmitry_budker_alkali_2021}. Anhand der Magnetfelddaten können die triaxialen Orientierungsdaten abgeleitet werden, um die Ausrichtung am Erdmagnetfeld zu bestimmen.
+Um die Herausforderungen bei der Messung lokaler kinematischer Messparameter nachvollziehen zu können, bietet sich ein kurzer Exkurs in die technische Funktionsweise der Messung an. Das Akzelerometer des Smartphones basiert auf einem mikroelektronischen mechanischem System \textit{(MEMS)}, welches die mechanische Beschleunigung des Smartphones in vom Mikrochip interpretierbare elektrische Signale wandelt, durch die Auslenkung sehr kleiner gefederter Massen \cite{matej_andrejasic_mems_2008, constantinescu_capacitive_2013, dey_accelprint_2014}. Um neben der Beschleunigung auch die Winkelauslenkung (Neigung) des Gerätes zu messen, wird ein piezoelektrischer Gyrosensor eingesetzt \cite{singh_piezoelectric_2007}. Hierbei induziert die Auslenkung des Gerätes eine Spannung über den sogenannten Piezoeffekt \cite{singh_piezoelectric_2007, ichimura_fem_2002, koitabashi_improvement_2002}. Neben dem Gyrosensor und dem Akzelerometer wird zusätzlich auch das Magnetfeld über ein Magnetometer gemessen, dabei handelt es sich um ein mikroelektronisches optisches Messsystem auf Grundlage von Alkalimetalldämpfen \cite{schwindt_chip-scale_2004, dmitry_budker_alkali_2021}. Anhand der Magnetfelddaten können die triaxialen Orientierungsdaten abgeleitet werden, um die Ausrichtung am Erdmagnetfeld zu bestimmen.
 
 \subsubsection{Herausforderungen}
 
-Bei Beschleunigungsdaten des Akzelerometers ist häufig die Erdschwerkraft im Vektorsystem integriert \cite{ken_taylor_activity_2011, tundo_correcting_2013}. Bei einer Neigungsänderung des Smartphones wird somit auch immer eine Änderung des Gravitationsvektors gemessen. Dies erschwert die Interpretation der gemessenen Daten, da die gemessenen Werte zunächst in ein von der Neigung des Gerätes unabhängiges Bezugskoordinatensystem, das sogenannte Weltkoordinatensystem, gebracht werden müssen.
+Bei Beschleunigungsdaten des Akzelerometers ist die Erdschwerkraft in den vektorisierten Messdaten integriert \cite{ken_taylor_activity_2011, tundo_correcting_2013}. Befindet sich das Gerät also in Ruhe, so lässt sich der Gravitationsvektor ermitteln. Gleichzeitig wird bei einer Neigungsänderung des Smartphones auch immer eine Änderung des Gravitationsvektors gemessen. Dies erschwert die Interpretation der gemessenen Daten, da die gemessenen Werte zunächst in ein von der Neigung des Gerätes unabhängiges Bezugskoordinatensystem, das sogenannte Weltkoordinatensystem, gebracht werden müssen.
 
 \begin{figure}[h]
 \includegraphics[width=0.75\linewidth, bb=0 0 425 162 ]{desync.pdf}
 \caption[Schematische Darstellung der zeitlichen Desynchronisation von Sensordaten.]{Schematische Darstellung der zeitlichen Desynchronisation von Sensordaten, angelehnt an \cite{matusek_anwendung_2019}.}\label{fig:desync}
 \end{figure}
 
-Ebenfalls erschwerend wirken sich von Gerät zu Gerät unterschiedliche inhärente Messfehler und -parameter der Sensoren aus. Wie in \Cref{fig:desync} gezeigt, kann beispielsweise die Abtastrate der Sensoren und der genutzten Systemschnittstellen zur Aufzeichnung variieren oder eine verzögerte Aufzeichnung auftreten \cite{matusek_anwendung_2019}. Bei der Messung der Akzelerometer-Daten ist mit einem signifikanten Rauschen der Sensorwerte zu rechnen \cite{dey_accelprint_2014, ravi_deep_2016}. Dies ist übergreifend zurückzuführen auf unterschiedliche Imperfektionen in der Fertigung und die altersbedingte Degradation von mikroelektronischen Chips \cite{matej_andrejasic_mems_2008, constantinescu_capacitive_2013, hillman_manufacturing_2004}. Eine Aktivitätserkennung sollte möglichst nicht durch diese Rauschmuster beeinflusst werden \cite{dey_accelprint_2014}. Durch die typische inhärente Abweichung der Sensordaten vom tatsächlichen Wert eignen sich die kinematischen Daten auch nur begrenzt für eine Bewegungsrekonstruktion und Lokalisation durch zeitliche Aggregation im Raum. Je länger die Aktivitätsdaten, speziell Ausrichtungsdaten, aggregiert werden, desto größer ist die beobachtete Gesamtabweichung (\textit{Drift}) \cite{takeda_drift_2014}. Neben diesen Herausforderungen besteht mit Hinblick auf die Orientierungsdaten ein weiteres Problem. Da das Erdmagnetfeld (ca. $30 \mu T$ bis $60 \mu T$) im Vergleich zu einigen künstlichen Magnetfeldquellen wie Kühlschränken (ca. $5 mT$) relativ schwach ist, kann das Magnetometer leicht gestört oder sogar dekalibriert werden \cite{moreno-torres_evaluation_2013, schirmer_smartphone_2016, zhang_preliminary_2012}, was zu signifikanten Fehlern führen kann \cite{kunze_can_2010}.
+Ebenfalls erschwerend wirken sich von Gerät zu Gerät unterschiedliche inhärente Messfehler und -parameter der Sensoren aus. Wie in \Cref{fig:desync} gezeigt, kann beispielsweise die Abtastrate der Sensoren und der genutzten Systemschnittstellen zur Aufzeichnung variieren oder eine verzögerte Aufzeichnung durch asynchrone Aufrufe auf den Systemschnittstellen auftreten \cite{matusek_anwendung_2019}. Bei der Messung der Akzelerometer-Daten ist mit einem signifikanten Rauschen der Sensorwerte zu rechnen \cite{dey_accelprint_2014, ravi_deep_2016}. Dies ist übergreifend zurückzuführen auf unterschiedliche Imperfektionen in der Fertigung und die altersbedingte Degradation der mikroelektronischen Sensorik \cite{matej_andrejasic_mems_2008, constantinescu_capacitive_2013, hillman_manufacturing_2004}. Eine Verkehrsmittelerkennung sollte möglichst nicht durch diese Rauschmuster beeinflusst werden \cite{dey_accelprint_2014}. Durch die typische inhärente Abweichung der Sensordaten vom tatsächlichen Wert eignen sich die kinematischen Daten auch nur begrenzt für eine Bewegungsrekonstruktion und Lokalisation durch zeitliche Aggregation im Raum. Je länger die Aktivitätsdaten, speziell Ausrichtungsdaten, aggregiert werden, desto größer ist die beobachtete Gesamtabweichung. Dieses Phänomen wird als \textit{Drift} bezeichnet \cite{takeda_drift_2014}. Neben diesen Herausforderungen besteht mit Hinblick auf die Orientierungsdaten ein weiteres Problem. Da das Erdmagnetfeld (ca. $30 \mu T$ bis $60 \mu T$) im Vergleich zu einigen künstlichen Magnetfeldquellen wie Kühlschränken (ca. $5 mT$) relativ schwach ist, kann das Magnetometer leicht gestört oder sogar dekalibriert werden \cite{moreno-torres_evaluation_2013, schirmer_smartphone_2016, zhang_preliminary_2012}, was zu signifikanten Fehlern führen kann \cite{kunze_can_2010}.
 
 \subsubsection{Signalverarbeitungsmethoden}
 
-Die beschriebenen Sensorfehler können offensichtlich ein Problem für die Interpretation der Signale darstellen. Es folgen Ideen zur Mitigation.
+Die beschriebenen mannigfaltigen Sensorfehler können möglicherweise ein Problem für die Interpretation der Signale darstellen. Es folgen Ideen zur Mitigation.
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth, bb=0 0 733 284]{frequenzpassfilter.pdf}
 \caption[Anwendung von Frequenzbandfiltern auf Rohsensordaten des Akzelerometers.]{Anwendung von Frequenzbandfiltern auf Rohsensordaten des Akzelerometers. Datenquelle: Eigenes Sample eines iPhone XS-Akzelerometers.}\label{fig:frequenzpassfilter}
 \end{figure}
 
-Eventuell auftretendes Rauschen kann durch Tiefpassfilter und Hochpassfilter selektiv eliminiert werden. Hierbei eliminiert ein Tiefpassfilter hochfrequentes Rauschen und ein Hochpassfilter niederfrequentes Rauschen (siehe \Cref{fig:frequenzpassfilter}). Bei dem Butterworth-Tiefpassfilter\footnote{\url{https://de.wikipedia.org/wiki/Butterworth-Filter} (Abgerufen am 7.4.2021)} handelt es sich um ein spezielles Tiefpassfilter, welches zur Eliminierung von Frequenzen über einem Schwellenwert $\omega_{0}$ und zur Reduktion der Kurvenpunkte bei Erhaltung des Kurvenverlaufs genutzt werden kann \cite{zuricher_hochschule_fur_angewandte_wissenschaften_kapitel_2009}. Die Auswahl des Filters setzt die Evaluation potenzieller Rauschmuster, zum Beispiel durch explorative Analyse des Datensatzes unter Betrachtung des Anwendungsfalls, voraus \cite{nutter_design_2018,takeda_drift_2014,abdulla_measuring_2013}.
+Eventuell auftretendes Rauschen kann durch Tiefpassfilter und Hochpassfilter selektiv eliminiert werden. Hierbei eliminiert ein Tiefpassfilter hochfrequentes Rauschen und ein Hochpassfilter niederfrequentes Rauschen (siehe \Cref{fig:frequenzpassfilter}). Es existieren verschiedene Varianten der Implementierung solcher Filter. Bei dem Butterworth-Tiefpassfilter\footnote{\url{https://de.wikipedia.org/wiki/Butterworth-Filter} (Abgerufen am 7.4.2021)} handelt es sich zum Beispiel um ein spezielles Tiefpassfilter, welches zur Eliminierung von Frequenzen über einem Schwellenwert $\omega_{0}$ und zur Reduktion der Kurvenpunkte bei Erhaltung des Kurvenverlaufs genutzt werden kann \cite{zuricher_hochschule_fur_angewandte_wissenschaften_kapitel_2009}. Eine geeignete Auswahl und Konfiguration des Filters setzt die Evaluation potenzieller Rauschmuster, zum Beispiel durch explorative Analyse des Datensatzes unter Betrachtung des Anwendungsfalls, voraus \cite{nutter_design_2018,takeda_drift_2014,abdulla_measuring_2013}.
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth, bb=0 0 724 284]{glaettingsfilter.pdf}
 \caption[Anwendung von Glättungsfiltern auf Rohsensordaten des Akzelerometers.]{Anwendung von Glättungsfiltern auf Rohsensordaten des Akzelerometers. Datenquelle: Eigenes Sample eines iPhone XS-Akzelerometers.}\label{fig:glaettingsfilter}
 \end{figure}
 
-Neben Hoch- und Tiefpassfiltern besteht weiterhin auch die Möglichkeit, die Signale zu glätten, um hochfrequente Signalschwankungen und -spitzen zu eliminieren. Hierbei können verschiedene Glättungsfilter zum Einsatz kommen. \cite{matusek_anwendung_2019} behandelt beispielsweise das in \Cref{fig:glaettingsfilter} gezeigte und unter den Namen \textit{Moving Average} bekannte Filterverfahren, bei dem die umliegenden Datenpunkte (Länge $k$) mit dem zu glättenden Datenpunkt gemittelt werden. Es existieren zahlreiche weitere Glättungsverfahren, darunter auch das von \cite{nutter_design_2018} genutzte Median-Filter. Wie in \Cref{fig:glaettingsfilter} sichtbar, wird das Eingangssignal mit einer von der Filterlänge abhängigen Intensität geglättet. Beim Beispielsignal aus \Cref{fig:glaettingsfilter} ist klar zu erkennen, dass hierbei jedoch auch bei einer zu hohen Filterlänge $k$ wichtige Informationen verloren gehen können. Die empirische Parametrisierung ist also auch hier von zentraler Bedeutung für die spätere Ergebnisqualität der weiteren Signalverarbeitung.
+Neben Hoch- und Tiefpassfiltern besteht weiterhin auch die Möglichkeit, die Signale zu glätten, um hochfrequente Signalschwankungen und -spitzen zu eliminieren. Hierbei können verschiedene Glättungsfilter zum Einsatz kommen. \cite{matusek_anwendung_2019} behandelt beispielsweise das in \Cref{fig:glaettingsfilter} gezeigte und unter den Namen \textit{Moving Average} bekannte Filterverfahren, bei dem die umliegenden Datenpunkte (Länge $k$) mit dem zu glättenden Datenpunkt gemittelt werden. Es existieren zahlreiche weitere Glättungsverfahren, darunter auch das von \cite{nutter_design_2018} genutzte Median-Filter. Wie in \Cref{fig:glaettingsfilter} sichtbar, wird das Eingangssignal mit einer von der Filterlänge abhängigen Intensität geglättet. Beim Beispielsignal aus \Cref{fig:glaettingsfilter} ist klar zu erkennen, dass hierbei jedoch auch bei einer zu hohen Filterlänge $k$ wichtige Informationen verloren gehen können. Die auf voriger Analyse basierende empirische Konfiguration ist also auch hier von zentraler Bedeutung für die spätere Ergebnisqualität der weiteren Signalverarbeitung.
 
 \subsubsection{Fourier-Transformation}
 
