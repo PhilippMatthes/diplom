@@ -2,6 +2,26 @@
 
 In diesem Kapitel sollen konkrete Anforderungen an die zu realisierende Verkehrsmittelerkennung auf Smartphones ermittelt werden. Die zu findenden Anforderungen dienen als Grundlage für die spätere Konzeption und zur Abwägung der Einbeziehung verwandter Arbeiten.
 
-\section{Rahmenbedingungen}
+\section{Rahmenbedingungen und Stakeholder}
 
+% In erster Linie Forschungsprojekt zur Analyse, ob ML-basiertes VME für Smartphone plausibel ist
+% -> Prototyp genügt und soll nicht zur Produktreife gebracht werden
+% -> Prototyp muss keine Framework-Eigenschaften mit sich bringen
+% -> Kapselung der Funktionalität in eigene Softwarekomponente zur Wahrung guter Softwarequalität wünschenswert, aber es muss keine API bereitgestellt und dazugehörige Dokumentation verfasst werden
+
+% Daten können entweder von Movebis kommen, selbst aufgezeichnet werden oder von einem öff. Datensatz kommen
+% -> Gleichgewichtung der Labels, verschiedene Positionen und Personen wünschenswert
+% Im Falle von Movebis-Daten:
+% -> Müssen ggf. erst händisch gelabelt werden
+% Im Falle einer eigenen Aufzeichnung:
+% -> Benötigt Testnutzer und App zum Aufzeichnen neuer Daten
+% -> Planung der Datenakquise (Wegeplanung, Zeitplanung)
+% -> Kann aber angepasst werden auf eigene Bedürfnisse (Limitierte Labels)
+% -> Experimentelle Bedingungen sind nachvollziehbar
+
+% Tradeoff muss analysiert werden können - mehrere Möglichkeiten
+% -> Analyse des Tradeoffs zwischen Energieintensität ML-System und Energieintensität Netzwerk-Transfer
+% -> Dieser Tradeoff soll nicht analysiert werden
+% -> Analyse des Tradeoffs zwischen Modellkompression, Energieintensität, Zeitintensität und Ergebnisqualität
+% -> Dieser Tradeoff soll analysiert werden
 
