@@ -33,7 +33,7 @@ Bei der Abbildung wird analog zu den Rahmenbedingungen davon ausgegangen, dass d
 
 \section{Spezifikation}
 
-Nachdem die Verkehrsmittelerkennung von verschiedenen Standpunkten betrachtet wurde, sollen nun deren Anforderungen in den definierten Rahmenbedingungen konkretisiert werden.
+Nachdem die Verkehrsmittelerkennung von verschiedenen Standpunkten betrachtet wurde, sollen nun deren Anforderungen in den definierten Rahmenbedingungen konkretisiert werden. Hierzu werden funktionale Anforderungen und Qualitätsanforderungen nach \cite{isoiec_isoiec_2001} und \cite{isoiec_isoiec_2011} spezifiziert.
 
 \begin{table}[h]
   \begin{tabular}{lp{.9\linewidth}}
@@ -45,13 +45,27 @@ Nachdem die Verkehrsmittelerkennung von verschiedenen Standpunkten betrachtet wu
     D2 & Werden die Daten nicht von einer qualifizierten Quelle bezogen, so muss zusätzlich eine Möglichkeit bereitgestellt werden, neue Daten aufzuzeichnen und zu labeln. \\
     D3 & Die Datenbank stellt zur explorativen Analyse und für weitere Trainings- und Evaluationszwecke die aufgezeichneten Segmente zur Verfügung. Für jedes zu klassifizierende Verkehrsmittel müssen ausreichend Daten zur Verfügung stehen. \\
     \hline
+    V & Das Gesamtsystem muss die Datenvorverarbeitung ermöglichen. \\
+    \hline
+    V1 & Hierfür muss eine Datenvorverarbeitungspipeline erstellt und aufseiten des trainierenden Computers sowie dem Smartphone gespiegelt werden. \\
+    V2 & Die Datenvorverarbeitung soll Schritte inkludieren, welche eine Verkehrsmittelklassifikation mit einer potenziell vom Nutzer bemerkbaren Verzögerung von nicht länger als 2 Sekunden ermöglicht. \\
+    V3 & Die Anzahl und der Ressourcenverbrauch der Vorverarbeitungsschritte muss nach Möglichkeit so gering wie möglich gehalten werden. \\
+    V4 & Die Art der Vorverarbeitungsschritte muss funktional auf die Anforderungen des jeweiligen Machine-Learning-Modells angepasst sein. \\
+    V5 & Zur Modellerstellung überbrückend muss die Datenvorverarbeitung auch eine Feature-Extraktion und damit Inputs als systemübergreifend einheitliche Grundlage für das Training, die Validierung und den Betrieb des Modells bereitstellen. \\
+    \hline
     M & Das Gesamtsystem muss die Modellerstellung ermöglichen. \\
     \hline
-    M1 & Lorem ipsum \\
+    M1 & Die Software soll ein oder mehrere Machine-Learning-Modelle definieren, wobei die genaue Modellkonfiguration(en) jeweils zur Reproduzierbarkeit im Konzept angegeben werden soll(en). \\
+    M2 & Die in der Datenvorverarbeitung erstellten Features sollen durch das Machine-Learning-Modell in eine fest definierte Menge von Labels klassifiziert werden. Die Wahl konkreter Labels kann variiert werden, um verschiedene Modelle zu testen. \\
+    M3 & Das System muss das Modell-Training und dessen Monitoring, inklusive Validierung ermöglichen. Das Training findet auf einem separaten Computer statt. \\
+    M4 & Das trainierte Modell soll über das System optimiert und exportiert werden können. Das Exportformat bestimmt sich durch die Anforderungen des Smartphone-Ökosystems für die Evaluation, sollte jedoch nach Möglichkeit mit geringem Änderungsaufwand auch plattformübergreifend anwendbar sein. \\
+    M5 & Das exportierte Modell soll in einem Smartphone integrierbar sein, mit einer uneingeschränkten Befähigung zur Inferenz vorverarbeiteter Daten. Die Vorverarbeitung wird hierzu, wie weiter oben beschrieben, gespiegelt. \\
     \hline
     E & Das Gesamtsystem muss die Evaluation ermöglichen. \\
     \hline
-    E1 & Lorem ipsum \\
+    E1 & Zur Evaluation müssen Labels zu vorverarbeiteten Daten inferiert werden können, um anschließend Metriken für die Ergebnisqualität zu bestimmen. Dieser Prozess kann unabhängig vom auf Smartphones installierten Modell sein, wenn die Portierung das Verhalten des Modells nachweislich nicht abändert. \\
+    E2 & In fest definierten Rahmenbedingungen muss durch Profiling-Schnittstellen ermöglicht werden, dass weitere Ressourcenparameter aufgezeichnet werden können. Dies umfasst die Inferenzzeit, die Rechenauslastung, den Energieverbrauch sowie den Speicherverbrauch im Arbeitsspeicher des Smartphones. \\
+    E3 & Zusätzlich muss die Größe des Machine-Learning-Modells bestimmt werden können. Die eventuelle Komprimierung des Modells muss in diese Betrachtung inkludiert werden. \\
     \bottomrule
   \end{tabular}\label{tab:funktionale-anforderungen}
   \caption{Funktionale Anforderungen an die Verkehrsmittelerkennung.}
