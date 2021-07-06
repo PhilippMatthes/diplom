@@ -2,7 +2,24 @@
 
 Wie im Grundlagenkapitel gezeigt wurde, ist die Erstellung einer Verkehrsmittelerkennung für Smartphones mit vielen verschiedenen möglichen Komponenten und Strategien verbunden. Um hieraus zu kondensieren, welche der gezeigten Ansätze mit Hinblick auf die Erstellung eines Konzeptes weiter verfeinert werden sollen, bietet sich eine differenzierte Betrachtung der Anforderungen an das spätere Konzept an. Anhand dessen lassen sich auch genau die verwandten Arbeiten identifizieren, welche für diese Arbeit einen Mehrwert bieten können.
 
-\section{Anwendungsfälle}
+\section{Rahmenbedingungen}
+
+Ziel dieser Arbeit ist die Betrachtung verschiedener Machine-Learning-Ansätze zur Verkehrsmittelerkennung, um den bestmöglichen Ansatz für die Anwendung auf Smartphones zu extrahieren.
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth, bb=0 0 583 162]{creation-flow.pdf}
+\caption[Abstrakte Übersicht über ein mögliches Verfahren zur Ermittlung des besten Gesamtansatzes.]{Abstrakte Übersicht über ein mögliches Verfahren zur Ermittlung des besten Gesamtansatzes.}\label{fig:creation-flow}
+\end{figure}
+
+\Cref{fig:creation-flow} zeigt eine mögliche Herangehensweise. Aus verwandten Arbeiten werden zunächst vielversprechende Ansätze extrahiert, anhand der Anforderungen dieser Arbeit. Dies umfasst vor allem Ansätze zur Vorverarbeitung, zur architekturellen Konfiguration eines Machine-Learning-Modells, sowie Strategien zur Optimierung. In einem ersten Cross-Testing-Schritt wird die beste Kombination aus Vorverarbeitung und Machine-Learning-Modell ermittelt, indem die Systeme nach deren Training einer quantitativen Evaluation unterzogen werden. Diese umfasst die Ermittlung von Metriken der Ergebnisqualität und Ressourcenverbrauch, um die beste Kombination zu ermitteln. Für die Ergebnisqualität wurden im Grundlagenkapitel bereits Metriken und das Profiling als Aufzeichnungsmöglichkeit beschrieben. Das Konzept muss darüber hinaus eine Lösung bereitstellen, wie diese Metriken mit dem Ressourcenverbrauch in Relation gesetzt werden können. Bei der Ermittlung der besten Kombination ist außerdem zu beachten, dass unterschiedliche Modelle auch unterschiedlich effektiv optimierbar sind. Die Auswahl des besten Modells sollte also nicht nur anhand des Tradeoffs geschehen, sondern auch mit Hinblick auf dessen Optimierungsmöglichkeiten. Anschließend können diese umgesetzt werden, um ein finales System zur Verkehrsmittelerkennung zu erhalten.
+
+\paragraph{Datenakquise:} Neben der konzeptuellen und prototypischen Realisierung der eigentlichen Verkehrsmittelerkennung müssen zunächst die Aktivitätsdaten ermittelt werden, welche als Grundlage für den Trainingsprozess und für die einzelnen Evaluationsschritte dienen. Hierfür muss das Konzept eine Lösung bereitstellen, beispielsweise in Form einer eigenen Datenakquise oder durch Nutzung eines bestehenden Datensatzes. Die Qualität der akquirierten Daten ist von oberster Priorität, denn sie limitiert die spätere Generalisierungsfähigkeit der trainierten Modelle. Das Konzept muss daher auch konkrete Strategien inkludieren, um die Qualität der Daten während und nach der Akquise möglichst hoch zu halten. Werden die Daten selbst aufgezeichnet, kann dies beispielsweise eine Wege- und Verkehrsmittelplanung und die Implementation einer hierfür genutzten Akquise-App mit Label-System inkludieren.
+
+\paragraph{Integrierbarkeit:} In erster Linie dient die resultierende Software als Forschungskonzept, um die Plausibilität einer Verkehrsmittelerkennung auf Smartphones zu evaluieren. Da eine Integration der Verkehrsmittelerkennung nicht vorgesehen ist, nimmt die Interoperabilität der Verkehrsmittelerkennung mit anderen umliegenden Softwaresystemen und die Führung zur Produktreife nur eine geringe Bedeutung ein.
+
+\paragraph{Notwendigkeit von On-Device-Training:} Eine weitere zentrale Rahmenbedingung resultiert aus der Überlegung, ob ein Training der Machine-Learning-Ansätze auf dem Smartphone selbst benötigt wird. Dies ist insbesondere dann sinnvoll, wenn das jeweilige Machine-Learning-Modell bei Nutzung der dazugehörigen App individualisiert werden soll. Gleichzeitig ist das Training auf dem Smartphone mit größerem Rechen- und Energieaufwand und technologischen Anforderungen verbunden, sowie einer hieraus entstehenden Limitierung der nutzbaren Modellarchitekturen. Im Rahmen dieser Arbeit ist eine nachträgliche Anpassbarkeit oder Trainierbarkeit des Modells auf dem Smartphone wegen der fehlenden Notwendigkeit zur Individualisierung zunächst nicht vorgesehen. Mit einer Integration des Ansatzes in eine bestehende App und einer Erweiterung des dazugehörigen Adaptivitätskonzeptes kann sich diese Rahmenbedingung jedoch nach Abschluss der Arbeit ändern. Darüber hinaus ist diese Rahmenbedingung davon abhängig, ob das Konzept durch ein kollaboratives In-Edge-Lernverfahren erweitert wird. Tauschen die Edge-Geräte Modellparameter aus, so ist die Anpassbarkeit des Modells auf dem Smartphone erforderlich. Die möglichen Vorteile hinter einer Erweiterung durch ein kollaboratives In-Edge-Lernverfahren, also vorrangig die Dezentralisierung und Auslagerung des Lernprozesses, ließen sich jedoch im Rahmen der Forschungsfragen dieser Arbeit nicht abschöpfen. An dieser Stelle überwiegt das Interesse einer niedrigeren Komplexität, um die Reproduzierbarkeit, Interpretierbarkeit und Aussagekraft der Evaluationsergebnisse zu bestärken.
+
+\subsection{Anwendungsfälle}
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth, bb=0 0 431 189]{usecases.pdf}
@@ -12,15 +29,7 @@ Wie im Grundlagenkapitel gezeigt wurde, ist die Erstellung einer Verkehrsmittele
 Die Verkehrsmittelerkennung kann, wie in \Cref{fig:usecases} gezeigt, bei deren Integration in einer App zu verschiedenen Zwecken direkt oder indirekt vom Nutzer verwendet werden. Beispielsweise wäre es möglich, die im Straßenverkehr potenziell gefahrenbringende Interaktion mit der App durch eine automatisierte Erkennung oder Selektion des Verkehrsmittels zu minimieren (A1). Wie es bereits verschiedene Fitness-Apps umsetzen, kann der Nutzer auch erinnernde Benachrichtigungen erhalten, wenn er das Verkehrsmittel wechselt (A2). Die Verkehrsmittelerkennung kann auf diese Weise oder auch versteckt von der direkten Nutzerinteraktion dazu dienen, Aufzeichnungen von Aktivitäten zu beenden, um Energie und Netzwerkbandbreite zu sparen (A3). Es existieren viele weitere Anwendungsfälle, beispielsweise kann eine Aktivität auch voraufgezeichnet werden, wenn der Nutzer die Aufzeichnung bei Beginn der Aktivität vergisst und erst später aktiviert.
 Die Anwendungsfälle des App-Nutzers illustrieren die Möglichkeiten, wie eine Verkehrsmittelerkennung integriert werden \textit{könnte}. Im Rahmen dieser Arbeit wird jedoch keine Integration vorgenommen, Ziel ist die Analyse des Tradeoffs von Machine-Learning-Verfahren (F4). Die dazugehörigen Anwendungsfälle des Forschers (F1, F2, F3) dienen im Zuge dessen zur Evaluation von Machine-Learning-Verfahren über quantitative Metriken.
 
-\section{Rahmenbedingungen}
-
-Neben der konzeptuellen und prototypischen Realisierung der eigentlichen Verkehrsmittelerkennung müssen zunächst die Aktivitätsdaten ermittelt werden, welche als Grundlage für den Trainingsprozess und für die Evaluation dienen. Hierfür muss das Konzept eine Lösung bereitstellen, beispielsweise in Form einer eigenen Datenakquise oder durch Nutzung eines bestehenden Datensatzes. Die Qualität der akquirierten Daten ist von oberster Priorität, denn sie limitiert die spätere Generalisierungsfähigkeit des trainierten Modells. Das Konzept muss daher auch konkrete Strategien inkludieren, um die Qualität der Daten während und nach der Akquise möglichst hoch zu halten. Werden die Daten selbst aufgezeichnet, kann dies beispielsweise eine Wege- und Verkehrsmittelplanung und die Implementation einer hierfür genutzten Akquise-App mit Label-System inkludieren.
-
-Der zentrale Teil des Konzeptes besteht nach der Konzeption der Datenakquise in der Erstellung einer Verkehrsmittelerkennung auf Smartphones. Dies erfolgt durch konzeptuelle Beschreibung und prototypische Implementation einer Software. In erster Linie dient die resultierende Software als Forschungskonzept, um die Plausibilität einer Verkehrsmittelerkennung auf Smartphones zu evaluieren. Da eine Integration der Verkehrsmittelerkennung nicht vorgesehen ist, nimmt die Interoperabilität der Verkehrsmittelerkennung mit anderen umliegenden Softwaresystemen und die Führung zur Produktreife nur eine geringe Bedeutung ein. Von zentraler Bedeutung ist hingegen, neben der Reproduzierbarkeit, die Möglichkeit zur Evaluation der Plausibilität anhand des Tradeoffs zwischen Ressourcenverbrauch und Ergebnisqualität. Für die Ergebnisqualität wurden im Grundlagenkapitel bereits Metriken und das Profiling als Aufzeichnungsmöglichkeit beschrieben. Das Konzept muss eine Lösung bereitstellen, wie diese Metriken mit dem Ressourcenverbrauch in Relation gesetzt werden können.
-
-Eine weitere zentrale Rahmenbedingung resultiert aus der Überlegung, ob ein Training des Machine-Learning-Ansatzes auf dem Smartphone selbst benötigt wird. Dies ist insbesondere dann sinnvoll, wenn ein Machine-Learning-Modell bei Nutzung der dazugehörigen App individualisiert werden soll. Gleichzeitig ist das Training auf dem Smartphone mit größerem Rechen- und Energieaufwand und technologischen Anforderungen verbunden, sowie einer hieraus entstehenden Limitierung der nutzbaren Modellarchitekturen. Im Rahmen dieser Arbeit ist eine nachträgliche Anpassbarkeit oder Trainierbarkeit des Modells auf dem Smartphone wegen der fehlenden Notwendigkeit zur Individualisierung nicht vorgesehen. Mit einer Integration des Ansatzes in eine bestehende App und einer Erweiterung des dazugehörigen Adaptivitätskonzeptes kann sich diese Rahmenbedingung jedoch ändern. Darüber hinaus ist diese Rahmenbedingung davon abhängig, ob das Konzept durch ein kollaboratives In-Edge-Lernverfahren erweitert wird. Tauschen die Edge-Geräte Modellparameter aus, so ist die Anpassbarkeit des Modells auf dem Smartphone erforderlich. Die möglichen Vorteile hinter einer Erweiterung durch ein kollaboratives In-Edge-Lernverfahren, also vorrangig die Dezentralisierung und Auslagerung des Lernprozesses, ließen sich jedoch im Rahmen der Forschungsfragen dieser Arbeit nicht abschöpfen. An dieser Stelle überwiegt das Interesse einer niedrigeren Komplexität, um die Reproduzierbarkeit, Interpretierbarkeit und Aussagekraft der Evaluationsergebnisse zu bestärken.
-
-\section{Top-Level-Architektur}
+\subsection{Top-Level-Architektur}
 
 Eine mögliche Softwarearchitektur zur Realisation einer Verkehrsmittelerkennung für Smartphones ist in \Cref{fig:tla} gezeigt. Die gezeigte Softwarearchitektur ist separiert in die Verkehrsmittelerkennung selbst, sowie die notwendigen Komponenten zur Erstellung des Modells.
 
@@ -29,45 +38,50 @@ Eine mögliche Softwarearchitektur zur Realisation einer Verkehrsmittelerkennung
 \caption[UML-Kompositionsstrukturdiagramm der Verkehrsmittelerkennung.]{UML-Kompositionsstrukturdiagramm der Verkehrsmittelerkennung.}\label{fig:tla}
 \end{figure}
 
-Bei der Abbildung wird analog zu den Rahmenbedingungen davon ausgegangen, dass die Modellerstellung auf einem externen Computer durchgeführt wird, zusammen mit einem Modellexport auf das Smartphone ohne nachträgliche Anpassbarkeit des Modells. Die zwei Hauptkomponenten sind in diesem Fall also strikt voneinander durch die Grenze zwischen Computer und Smartphone getrennt. Auch die Nutzer der Hauptkomponenten sind unterschiedlich ~- während bei der Modellerstellung hauptsächlich Daten erfasst, im Training einbezogen und dessen Fortschritt vom Entwickler durch Monitoring observiert werden soll, ist die hieraus entstehende Verkehrsmittelerkennung als Komponente flexibel nutzbar und kann durch Integration in einer App genutzt werden. Die Vorverarbeitung muss hierbei möglichst auf Smartphone und Computer identisch implementiert (gespiegelt) werden, um bei gleichen Datensegmenten auch die gleichen Inputs für das Machine-Learning-Modell zu erhalten. Die Komponente Export beinhaltet zusätzlich Verantwortlichkeiten zur Modelloptimierung.
+Bei der Abbildung wird analog zu den Rahmenbedingungen davon ausgegangen, dass die Modellerstellung auf einem externen Computer durchgeführt wird, zusammen mit einem Modellexport auf das Smartphone ohne Möglichkeit zum On-Device-Training. Die zwei Hauptkomponenten sind in diesem Fall also strikt voneinander durch die Grenze zwischen Computer und Smartphone getrennt. Auch die Nutzer der Hauptkomponenten sind unterschiedlich ~- während bei der Modellerstellung hauptsächlich Daten erfasst, im Training einbezogen und dessen Fortschritt vom Entwickler durch Monitoring observiert werden soll, ist die hieraus entstehende Verkehrsmittelerkennung als Komponente flexibel nutzbar und kann durch Integration in einer App genutzt werden. Die Vorverarbeitung muss hierbei möglichst auf Smartphone und Computer identisch implementiert (gespiegelt) werden, um bei gleichen Datensegmenten auch die gleichen Inputs für das Machine-Learning-Modell zu erhalten. Die Komponente Export beinhaltet zusätzlich Verantwortlichkeiten zur Modelloptimierung.
+
+\paragraph{Austauschbarkeit:} Wie in den Rahmenbedingungen illustriert, müssen zur Extraktion des bestmöglichen Ansatzes Modelle und gegebenenfalls auch Vorverarbeitungsschritte ausgetauscht werden können. Dies ist auf dem Trainingscomputer erforderlich, um die unterschiedlichen Ansätze trainieren und exportieren zu können, jedoch auch auf dem Smartphone, um die erforderlichen Ressourcenparameter durch Profiling aufzeichnen zu können.
 
 \section{Spezifikation}
 
-Nachdem die Verkehrsmittelerkennung von verschiedenen Standpunkten betrachtet wurde, sollen nun deren Anforderungen in den definierten Rahmenbedingungen konkretisiert werden. Hierzu werden funktionale Anforderungen und Qualitätsanforderungen nach \cite{isoiec_isoiec_2001} und \cite{isoiec_isoiec_2011} spezifiziert.
+Nachdem die Verkehrsmittelerkennung von verschiedenen Standpunkten betrachtet wurde, sollen nun deren Anforderungen in den definierten Rahmenbedingungen nach \cite{isoiec_isoiec_2001} und \cite{isoiec_isoiec_2011} spezifiziert werden. Als wichtigstes Qualitätsattribut kann die Effizienz identifiziert werden, insbesondere mit Bezug auf das integrierbare System zur Verkehrsmittelerkennung, weniger im Bezug auf das Framework zur Modellerstellung. Die Effizienz ist im Rahmen dieser Arbeit wegen des Fokus auf limitierte Smartphones omnipräsent - alle Prozessierungsschritte sollten möglichst sparsam implementiert werden, um die Ressourcenintensität des Gesamtansatzes möglichst gering zu halten. Weiterhin von qualitativer Relevanz sind die Portierbarkeit und die Wartbarkeit, im Sinne der benötigten Modularität zur Ermöglichung des Austauschs und der Evaluation von Vorverarbeitung und Machine-Learning-Modell. Konkrete funktionale Anforderungen leiten sich wiefolgt ab.
 
-\begin{table}[h]
-  \begin{tabular}{lp{.9\linewidth}}
-    ID & Beschreibung \\
-    \midrule
-    D & Das Gesamtsystem muss die Datenakquise ermöglichen. \\
-    \hline
-    D1 & Das Gesamtsystem muss eine Datenbank bereitstellen, in der aufgezeichnete Aktivitätsdaten in gelabelter Form vorliegen. \\
-    D2 & Werden die Daten nicht von einer qualifizierten Quelle bezogen, so muss zusätzlich eine Möglichkeit bereitgestellt werden, neue Daten aufzuzeichnen und zu labeln. \\
-    D3 & Die Datenbank stellt zur explorativen Analyse und für weitere Trainings- und Evaluationszwecke die aufgezeichneten Segmente zur Verfügung. Für jedes zu klassifizierende Verkehrsmittel müssen ausreichend Daten zur Verfügung stehen. \\
-    \hline
-    V & Das Gesamtsystem muss die Datenvorverarbeitung ermöglichen. \\
-    \hline
-    V1 & Hierfür muss eine Datenvorverarbeitungspipeline erstellt und aufseiten des trainierenden Computers sowie dem Smartphone gespiegelt werden. \\
-    V2 & Die Datenvorverarbeitung soll Schritte inkludieren, welche eine Verkehrsmittelklassifikation mit einer potenziell vom Nutzer bemerkbaren Verzögerung von nicht länger als 2 Sekunden ermöglicht. \\
-    V3 & Die Anzahl und der Ressourcenverbrauch der Vorverarbeitungsschritte muss nach Möglichkeit so gering wie möglich gehalten werden. \\
-    V4 & Die Art der Vorverarbeitungsschritte muss funktional auf die Anforderungen des jeweiligen Machine-Learning-Modells angepasst sein. \\
-    V5 & Zur Modellerstellung überbrückend muss die Datenvorverarbeitung auch eine Feature-Extraktion und damit Inputs als systemübergreifend einheitliche Grundlage für das Training, die Validierung und den Betrieb des Modells bereitstellen. \\
-    \hline
-    M & Das Gesamtsystem muss die Modellerstellung ermöglichen. \\
-    \hline
-    M1 & Die Software soll ein oder mehrere Machine-Learning-Modelle definieren, wobei die genaue Modellkonfiguration(en) jeweils zur Reproduzierbarkeit im Konzept angegeben werden soll(en). \\
-    M2 & Die in der Datenvorverarbeitung erstellten Features sollen durch das Machine-Learning-Modell in eine fest definierte Menge von Labels klassifiziert werden. Die Wahl konkreter Labels kann variiert werden, um verschiedene Modelle zu testen. \\
-    M3 & Das System muss das Modell-Training und dessen Monitoring, inklusive Validierung ermöglichen. Das Training findet auf einem separaten Computer statt. \\
-    M4 & Das trainierte Modell soll über das System optimiert und exportiert werden können. Das Exportformat bestimmt sich durch die Anforderungen des Smartphone-Ökosystems für die Evaluation, sollte jedoch nach Möglichkeit mit geringem Änderungsaufwand auch plattformübergreifend anwendbar sein. \\
-    M5 & Das exportierte Modell soll in einem Smartphone integrierbar sein, mit einer uneingeschränkten Befähigung zur Inferenz vorverarbeiteter Daten. Die Vorverarbeitung wird hierzu, wie weiter oben beschrieben, gespiegelt. \\
-    \hline
-    E & Das Gesamtsystem muss die Evaluation ermöglichen. \\
-    \hline
-    E1 & Zur Evaluation müssen Labels zu vorverarbeiteten Daten inferiert werden können, um anschließend Metriken für die Ergebnisqualität zu bestimmen. Dieser Prozess kann unabhängig vom auf Smartphones installierten Modell sein, wenn die Portierung das Verhalten des Modells nachweislich nicht abändert. \\
-    E2 & In fest definierten Rahmenbedingungen muss durch Profiling-Schnittstellen ermöglicht werden, dass weitere Ressourcenparameter aufgezeichnet werden können. Dies umfasst die Inferenzzeit, die Rechenauslastung, den Energieverbrauch sowie den Speicherverbrauch im Arbeitsspeicher des Smartphones. \\
-    E3 & Zusätzlich muss die Größe des Machine-Learning-Modells bestimmt werden können. Die eventuelle Komprimierung des Modells muss in diese Betrachtung inkludiert werden. \\
-    \bottomrule
-  \end{tabular}\label{tab:funktionale-anforderungen}
-  \caption{Funktionale Anforderungen an die Verkehrsmittelerkennung.}
-\end{table}
+\begin{longtable}[H]{lp{.9\linewidth}}
+  ID & Beschreibung \\
+  \midrule
+  D & Das Gesamtsystem muss die Datenakquise ermöglichen. \\
+  \hline
+  D1 & Das Gesamtsystem muss eine Datenbank bereitstellen, in der aufgezeichnete Aktivitätsdaten mit geprüfter Qualität und in gelabelter Form vorliegen. \\
+  D2 & Werden die Daten nicht von einer qualifizierten Quelle bezogen, so muss zusätzlich eine Möglichkeit bereitgestellt werden, neue Daten aufzuzeichnen und zu labeln. \\
+  D3 & Die Datenbank stellt zur explorativen Analyse und für weitere Trainings- und Evaluationszwecke die aufgezeichneten Segmente zur Verfügung. Für jedes zu klassifizierende Verkehrsmittel müssen ausreichend Daten zur Verfügung stehen. \\
+  \hline
+  V & Das Gesamtsystem muss die austauschbare Datenvorverarbeitung ermöglichen. \\
+  \hline
+  V1 & Hierfür sollen eine oder mehrere Datenvorverarbeitungspipelines erstellt und aufseiten des trainierenden Computers sowie dem Smartphone gespiegelt werden. \\
+  V2 & Die Datenvorverarbeitung soll hierbei Schritte inkludieren, welche eine Verkehrsmittelklassifikation mit einer potenziell vom Nutzer bemerkbaren Verzögerung von nicht länger als 2 Sekunden ermöglicht. \\
+  V3 & Die Anzahl und der Ressourcenverbrauch der Vorverarbeitungsschritte muss nach Möglichkeit so gering wie möglich gehalten werden. \\
+  V4 & Die Art der Vorverarbeitungsschritte soll funktional auf die Anforderungen des jeweiligen Machine-Learning-Modells angepasst sein. Hierzu soll es möglich sein, Datenvorverarbeitungsschritte modular auszutauschen, hinzuzufügen oder zu entfernen. \\
+  V5 & Zur Modellerstellung überbrückend muss die Datenvorverarbeitung auch eine oder mehrere auf das jeweilige Modell angepasste Feature-Extraktionen als systemübergreifend einheitliche Grundlage für das Training, die Validierung und die Inferenz bereitstellen. \\
+  \hline
+  M & Das Gesamtsystem muss die Modellerstellung ermöglichen. \\
+  \hline
+  M1 & Die Software soll ein oder mehrere Machine-Learning-Modelle definieren, wobei die genaue Modellkonfiguration(en) jeweils zur Reproduzierbarkeit im Konzept angegeben werden soll(en). \\
+  M2 & Die in der Datenvorverarbeitung erstellten Features sollen durch das Machine-Learning-Modell in eine fest definierte Menge von Labels klassifiziert werden. Die Wahl konkreter Labels kann zur Optimierung bei Bedarf variiert werden, um verschiedene Modelle zu testen. \\
+  M3 & Das System muss das Modell-Training und dessen Monitoring, inklusive Validierung ermöglichen. Das Training findet auf einem separaten Computer, und nicht auf einem Smartphone, statt. \\
+  M4 & Das trainierte Modell soll über das System optimiert und exportiert werden können. Das Exportformat bestimmt sich durch die Anforderungen des Smartphone-Ökosystems für die Evaluation, sollte jedoch nach Möglichkeit mit geringem Änderungsaufwand auch plattformübergreifend anwendbar sein. \\
+  M5 & Das jeweilige exportierte Modell soll in einem Smartphone integrierbar sein, mit einer uneingeschränkten Befähigung zur Inferenz vorverarbeiteter Daten. Die Vorverarbeitung wird hierzu, wie weiter oben beschrieben, jeweils gespiegelt. \\
+  \hline
+  E & Das Gesamtsystem muss die Evaluation ermöglichen. \\
+  \hline
+  E1 & Zur Evaluation müssen Labels zu vorverarbeiteten Daten inferiert werden können, um anschließend Metriken für die Ergebnisqualität zu bestimmen. Dieser Prozess kann unabhängig vom auf Smartphones installierten Modell sein, wenn die Portierung das Verhalten des Modells nachweislich nicht abändert. \\
+  E2 & In fest definierten Rahmenbedingungen muss durch Profiling-Schnittstellen ermöglicht werden, dass weitere Ressourcenparameter aufgezeichnet werden können. Dies umfasst die Inferenzzeit, die Rechenauslastung, den Energieverbrauch sowie den Speicherverbrauch im Arbeitsspeicher des Smartphones. \\
+  E3 & Zusätzlich muss die Größe des jeweiligen, eventuell durch verschiedene Verfahren optimierten, Machine-Learning-Modells bestimmt werden können. \\
+  \bottomrule
+\caption{Funktionale Anforderungen an die Verkehrsmittelerkennung.}
+\label{tab:funktionale-anforderungen}
+\end{longtable}
+
+\section{Zusammenfassung}
+
+Das Konzept muss Lösungen für die Akquise von Daten und für die Extraktion des bestmöglichen Ansatzes zur Verkehrsmittelerkennung auf Smartphones finden. Wurden die Daten mit einem separaten System akquiriert und geprüft, so können verschiedene Modelle strategisch trainiert und durch Ermittlung des Tradeoffs zwischen Ressourcenbedarf und Ergebnisqualität miteinander verglichen werden. Da kein On-Device-Training erforderlich ist, kann das Training auf einem Computer und die Evaluation der relevanten Metriken nach Portierung über Profiling auf dem Smartphone durchgeführt werden. Hierfür muss die jeweilige Datenvorverarbeitungspipeline gespiegelt werden. Durch eine Modularität dieser Pipeline können Elemente der Vorverarbeitung darüber hinaus variiert und in die Tradeoff-Evaluation einbezogen werden. Durch Vergleich der unterschiedlichen Vorverarbeitungen in Kombination mit unterschiedlichen Modellen soll ein bestmöglicher Ansatz gefunden werden. Zur empirischen Auswahl der initial hierfür in Frage kommenden Ansätze wurden konkrete funktionelle und qualitative Anforderungen spezifiziert.
 
