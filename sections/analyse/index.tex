@@ -51,29 +51,29 @@ Nachdem die Verkehrsmittelerkennung von verschiedenen Standpunkten betrachtet wu
   ID & Beschreibung \\
   \midrule
   D & Das Gesamtsystem muss die Datenakquise ermöglichen. \\
-  \hline
+  \midrule
   D1 & Das Gesamtsystem muss eine Datenbank bereitstellen, in der aufgezeichnete Aktivitätsdaten mit geprüfter Qualität und in gelabelter Form vorliegen. \\
   D2 & Werden die Daten nicht von einer qualifizierten Quelle bezogen, so muss zusätzlich eine Möglichkeit bereitgestellt werden, neue Daten aufzuzeichnen und zu labeln. \\
   D3 & Die Datenbank stellt zur explorativen Analyse und für weitere Trainings- und Evaluationszwecke die aufgezeichneten Segmente zur Verfügung. Für jedes zu klassifizierende Verkehrsmittel müssen ausreichend Daten zur Verfügung stehen. \\
-  \hline
+  \midrule
   V & Das Gesamtsystem muss die austauschbare Datenvorverarbeitung ermöglichen. \\
-  \hline
+  \midrule
   V1 & Hierfür sollen eine oder mehrere Datenvorverarbeitungspipelines erstellt und aufseiten des trainierenden Computers sowie dem Smartphone gespiegelt werden. \\
   V2 & Die Datenvorverarbeitung soll hierbei Schritte inkludieren, welche eine Verkehrsmittelklassifikation mit einer potenziell vom Nutzer bemerkbaren Verzögerung von nur wenigen Sekunden ermöglicht. \\
   V3 & Die Anzahl und der Ressourcenverbrauch der Vorverarbeitungsschritte muss nach Möglichkeit so gering wie möglich gehalten werden. \\
   V4 & Die Art der Vorverarbeitungsschritte soll funktional auf die Anforderungen des jeweiligen Machine-Learning-Modells angepasst sein. Hierzu soll es möglich sein, Datenvorverarbeitungsschritte modular auszutauschen, hinzuzufügen oder zu entfernen. \\
   V5 & Zur Modellerstellung überbrückend muss die Datenvorverarbeitung auch eine oder mehrere auf das jeweilige Modell angepasste Feature-Extraktionen als systemübergreifend einheitliche Grundlage für das Training, die Validierung und die Inferenz bereitstellen. \\
-  \hline
+  \midrule
   M & Das Gesamtsystem muss die Modellerstellung ermöglichen. \\
-  \hline
+  \midrule
   M1 & Die Software soll ein oder mehrere Machine-Learning-Modelle definieren, wobei die genaue Modellkonfiguration(en) jeweils zur Reproduzierbarkeit im Konzept angegeben werden soll(en). \\
   M2 & Die in der Datenvorverarbeitung erstellten Features sollen durch das Machine-Learning-Modell in eine fest definierte Menge von Labels klassifiziert werden. Die Wahl konkreter Labels kann zur Optimierung bei Bedarf variiert werden, um verschiedene Modelle zu testen. \\
   M3 & Das System muss das Modell-Training und dessen Monitoring, inklusive Validierung ermöglichen. Das Training findet auf einem separaten Computer, und nicht auf einem Smartphone, statt. \\
   M4 & Das trainierte Modell soll über das System optimiert und exportiert werden können. Das Exportformat bestimmt sich durch die Anforderungen des Smartphone-Ökosystems für die Evaluation, sollte jedoch nach Möglichkeit mit geringem Änderungsaufwand auch plattformübergreifend anwendbar sein. \\
   M5 & Das jeweilige exportierte Modell soll in einem Smartphone integrierbar sein, mit einer uneingeschränkten Befähigung zur Inferenz vorverarbeiteter Daten. Die Vorverarbeitung wird hierzu, wie weiter oben beschrieben, jeweils gespiegelt. \\
-  \hline
+  \midrule
   E & Das Gesamtsystem muss die Evaluation ermöglichen. \\
-  \hline
+  \midrule
   E1 & Zur Evaluation müssen Labels zu vorverarbeiteten Daten inferiert werden können, um anschließend Metriken für die Ergebnisqualität zu bestimmen. Dieser Prozess kann unabhängig vom auf Smartphones installierten Modell sein, wenn die Portierung das Verhalten des Modells nachweislich nicht abändert. \\
   E2 & In fest definierten Rahmenbedingungen muss durch Profiling-Schnittstellen ermöglicht werden, dass weitere Ressourcenparameter aufgezeichnet werden können. Dies umfasst die Inferenzzeit, die Rechenauslastung, den Energieverbrauch sowie den Speicherverbrauch im Arbeitsspeicher des Smartphones. \\
   E3 & Zusätzlich muss die Größe des jeweiligen, eventuell durch verschiedene Verfahren optimierten, Machine-Learning-Modells bestimmt werden können. \\

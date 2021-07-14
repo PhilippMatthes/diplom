@@ -157,10 +157,10 @@ Die verwandten Arbeiten differenzieren sich weiter in der Entscheidung, ob die a
 
 \begin{figure}[h]
   \includegraphics[width=0.5\linewidth, bb=0 0 287 148]{deep-learning-trad-vergleich.pdf}
-  \caption[Die Performanz von Deep-Learning-Ansätzen im Vergleich zu traditionellen Machine-Learning-Modellen.]{Die Performanz von Deep-Learning-Ansätzen im Vergleich zu traditionellen Machine-Learning-Modellen nach \cite[S. 7]{alom_state---art_2019}.}\label{fig:deep-learning-trad-vergleich}
+  \caption[Die Performanz von Deep-Learning-Ansätzen im Vergleich zu traditionellen Machine-Learning-Modellen.]{Die Performanz von Deep-Learning-Ansätzen im Vergleich zu traditionellen Machine-Learning-Modellen nach \cite[S. 7]{alom_state---art_2019}. Skalierung nicht linear oder maßstabsgerecht, nur zur Illustration.}\label{fig:deep-learning-trad-vergleich}
 \end{figure}
 
-Seit deren Erfindung in 2015 \cite{lecun_deep_2015} werden Deep-Learning-Modelle in der KI-Forschung als vielversprechendere Ansätze im Vergleich zu traditionellen Verfahren betrachtet, da sich mit diesen komplexere Probleme lösen lassen, sofern ausreichend Trainingsdaten vorliegen \cite[S. 7]{alom_state---art_2019}. Analog zu \Cref{fig:deep-learning-trad-vergleich} scheint HAR als Anwendungsfall der Machine-Learning-Klassifikation prinzipiell jedoch in einen Komplexitätsbereich zu fallen, der sowohl durch traditionelle, als auch durch Deep-Learning-Ansätze bedienbar ist. Sowohl Deep-Learning-Modelle, als auch traditionelle Machine-Learning-Modelle finden sich verteilt über die Arbeiten der Forschungsdomäne HAR. \cite[S. 14]{demrozi_human_2020} beobachten, dass die Entscheidung zwischen traditionellen Modellen und Deep-Learning-Ansätzen vor allem von der verfügbaren Rechenleistung abhängt, neben den verfügbaren Daten. Traditionelle Modelle seien typischerweise weniger rechenaufwändig und benötigten weniger Trainingsdaten, was diese Modelle wiederum attraktiver für durch Hardware limitierte Anwendungen wirken lässt.
+Seit deren Erfindung in 2015 \cite{lecun_deep_2015} werden Deep-Learning-Modelle in der KI-Forschung als vielversprechendere Ansätze im Vergleich zu traditionellen Verfahren betrachtet, da sich mit diesen komplexere Probleme lösen lassen, sofern ausreichend Trainingsdaten vorliegen \cite[S. 7]{alom_state---art_2019}. Analog zu \Cref{fig:deep-learning-trad-vergleich} scheint HAR als Anwendungsfall der Machine-Learning-Klassifikation prinzipiell jedoch in einen Komplexitätsbereich zu fallen, der sowohl durch traditionelle, als auch durch Deep-Learning-Ansätze bedienbar ist. Sowohl Deep-Learning-Modelle, als auch traditionelle Machine-Learning-Modelle finden sich verteilt über die Arbeiten der Forschungsdomäne HAR. \cite[S. 14]{demrozi_human_2020} beobachten, dass die Entscheidung zwischen traditionellen Modellen und Deep-Learning-Ansätzen vor allem von der verfügbaren Rechenleistung abhängt, neben den verfügbaren Daten. Die Entscheidungsgrundlage ist also der Tradeoff. Traditionelle Modelle seien typischerweise weniger rechenaufwändig und benötigten weniger Trainingsdaten, was diese Modelle wiederum attraktiver für durch Hardware limitierte Anwendungen wirken lässt.
 
 \paragraph{Training:} Abschließend lässt sich zur Forschungsübersicht erwähnen, dass zum Training der Modelle grundsätzlich verschiedene Methoden angewandt werden können. Das Reinforcement Learning findet sich allerdings in keiner der betrachteten Arbeiten wieder. Die Trainingsansätze sind nicht durch die Verfügbarkeit von Trainingsdaten limitiert, entweder durch die Nutzung eines der verschiedenen öffentlichen Datensatze oder durch die Aufzeichnung neuer Daten. Der wesentliche limitierende Faktor in den Trainingsdaten liegt nach \cite[S. 14]{demrozi_human_2020} häufig in der fehlenden Heterogenität, bedingt durch die Aufzeichnung von zu wenigen Personen, Geräten und Tragepositionen. Dies erhöhe den Generalisierungsfehler auf neuen Daten. Dabei ist die Aufzeichnung neuer Daten mit verhältnismäßig geringem Aufwand realisierbar, dies zeigen \cites{liang_convolutional_2017,hemminki_accelerometer-based_2013,ravi_deep_2017}. Durch die gute Verfügbarkeit der Trainingsdaten wird typischerweise das Supervised Learning als primäres Trainingsverfahren angewendet. \cite[S. 30]{werner_kontinuierliche_2020} erweitert den Trainingsdatensatz zur Validierung des Modells zusätzlich um ein Verfahren aus dem Semi-Supervised Learning. \cite{nutter_design_2018} wenden auf bestehenden \acrshort{cnn}s darüberhinaus das Transfer Learning an, durch Abwandlung der äußeren Netzwerkschichten und Beibehaltung der (auf Bildern) vortrainierten Gewichtungen. Auch \cite{mairittha_-device_2021} nutzen eine Variante des Transfer Learnings, mit der Besonderheit, dass ein Teil des Netzwerkes vortrainiert und dann auf dem mobilen Gerät eingefroren wird. Ein kleiner Teil des Netzwerkes bleibt veränderlich und kann auf dem Gerät analog zu den Nutzereingaben angepasst werden (\textit{On-Device Fine-Tuning}). \cite{hemminki_accelerometer-based_2013} verwendenen mehrere miteinander kooperierende Klassifikatoren, zur Unterscheidung jeweils zueinander ähnlicher Klassen (\textit{Ensemble Learning}). Als expliziter Bestandteil der meisten Trainingskonzepte wird auch eine auf das Modell angepasste Regularisierung durchgeführt, beispielsweise wird die Dropout-Regularisierung häufig in Verbindung mit \acrshort{cnn}s verwendet, um die Ergebnisqualität zu verbessern.
 
@@ -223,15 +223,15 @@ Die erreichten Ergebnisqualitäten sind in der nachfolgenden Tabelle dargestellt
     \multirow{3}{*}{\cite{ravi_deep_2016}} & Flaches CNN & $95,1$ & 4,4 Mio. Samples, 7 Aktivitäten \cite{esprit_team_of_the_hamlyn_centre_and_the_institute_of_global_health_innovation_imperial_college_london_activemiles_2012} \\
      & Flaches CNN & $98,2$ & 1,1 Mio. Samples, 6 Aktivitäten \cite{wisdm_lab_department_of_computer__information_science_fordham_university_bronx_ny_wisdm_2013} \\
      & Flaches CNN & $95,9$ & 1,9 Mio. Samples, 2 Aktivitäten \cite{daniel_roggen_uci_2013} \\
-    \hline
+    \midrule
     \multirow{5}{*}{\cite{zebin_design_2019}} & 4-Layer CNN & $92$ & \multirow{5}{*}{1,3 Mio. Samples, 5 Aktivitäten, Eigener Datensatz} \\
      & Regularisiertes 4-Layer CNN & $96,4$ & \\
      & Quantisiertes 4-Layer CNN & $93,6$ & \\
      & Quadratische SVM & $93,4$ & \\
      & Multi-Layer-Perzeptron & $91$ & \\
-    \hline
+    \midrule
     \cite{nutter_design_2018} & MobileNet & $>95$ & 29,1 Mio. Samples, 9 Aktivitäten \cite{garcia-gonzalez_public_2020} \\
-    \hline
+    \midrule
     \cite{mairittha_-device_2019} & LSTM-RNN & $97,5$ & 1,1 Mio. Samples, 6 Aktivitäten \cite{wisdm_lab_department_of_computer__information_science_fordham_university_bronx_ny_wisdm_2013}\\
     \cite{mairittha_improving_2020} & 3-Layer CNN & $92$ & 6 Aktivitäten, Eigener Datensatz \\
     \cite{mairittha_-device_2021} & LSTM-RNN & $97,5$ & 12 Aktivitäten, Eigener Datensatz \\
@@ -262,7 +262,7 @@ In den vorigen Abschnitten wurde gezeigt, wie sich verwandte HAR-Ansätze in ihr
   \cite{liono_inferring_2018} & Random Forest & $91$ & & Crowdsignal-Datensatz \\
   \cite{fang_transportation_2016} & SVM & $86$ & & HTC-Datensatz \\
   \midrule
-  \cite{friedrich_combining_2020} & LSTM und CNN & & \xmark & SHL-Datensatz \multirow{3}{*}{\cite{gjoreski_versatile_2017}} \\
+  \cite{friedrich_combining_2020} & LSTM und CNN & & \xmark & \multirow{3}{*}{SHL-Datensatz \cite{gjoreski_versatile_2017}} \\
   \cite{antar_comparative_2018} & Random Forest & $92$ & & \\
   \cite{jeyakumar_deep_2018} & LSTM & $98,1$ & & \\
   \bottomrule
