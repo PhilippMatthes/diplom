@@ -37,7 +37,8 @@ Der Forschungsbereich Machine Learning erhält aktuell eine große Aufmerksamkei
     Shallow &
     \acrshort{dt} &
     Limitierung der Modellgröße &
-    Ensemble Learning \\ \midrule
+    Supervised Learning, Ensemble Learning \\
+  \midrule
   \cite{mairittha_-device_2021} &
     \acrshort{har}-S &
     12 Aktivitäten &
@@ -46,7 +47,7 @@ Der Forschungsbereich Machine Learning erhält aktuell eine große Aufmerksamkei
     Vorverarbeitete Daten &
     \acrshort{rnn}-\acrshort{lstm} &
     Keine Angabe &
-    Transfer Learning, On-Device Fine-Tuning \\
+    Supervised Learning, Transfer Learning, On-Device Fine-Tuning \\
   \cite{mairittha_improving_2020} &
     \acrshort{har}-S &
     6 Aktivitäten &
@@ -249,72 +250,54 @@ In den vorigen Abschnitten wurde gezeigt, wie sich verwandte HAR-Ansätze in ihr
 
 \begin{table}[H]
   \resizebox{\textwidth}{!}{%
-  \begin{tabular}{lllll}
+  \begin{tabular}{llllp{5cm}}
   \toprule
-  Arbeit & Modell & Acc. ($\%$) & Angaben zu Portierbarkeit & Evaluationsgrundlage \\
-         &        &             & oder Ressourcenbedarf \\
+  Arbeit & Modell & Acc. ($\%$) & Portierbarkeit als & Evaluationsgrundlage \\
+         &        &             & Konzeptbestandteil \\
   \midrule
-  \cite{hemminki_accelerometer-based_2013} & Mehrere Decision Trees & $93,60$ & \cmark & \\
-  \cite{reddy_using_2010} & DT und HMM & $93,6$ & \cmark & \\
+  \cite{hemminki_accelerometer-based_2013} & Mehrere Decision Trees & $93,60$ & \cmark & Eigener Datensatz, 150h Aufzeichnung, 6 Verkehrsmittel\\
+  \cite{reddy_using_2010} & DT und HMM & $93,6$ & \cmark & Eigener Datensatz, 120h Aufzeichnung, 6 Verkehrsmittel \\
+  \cite{fang_transportation_2016} & SVM & $86$ & \cmark & HTC-Datensatz \cite{yu_big_2014}, 8311h Aufzeichnung (1249h öffentlich verfügbar), 10 Verkehrsmittel \\
   \midrule
-  \cite{liang_convolutional_2017} & 6-Layer-CNN & $94,48$ & \xmark & \\
-  \cite{friedrich_transportation_2019} & LSTM-RNN & $84,22$ & \xmark & \\
-  \cite{liono_inferring_2018} & Random Forest & $91$ & & Crowdsignal-Datensatz \\
-  \cite{fang_transportation_2016} & SVM & $86$ & & HTC-Datensatz \\
+  \cite{liang_convolutional_2017} & 6-Layer-CNN & $94,48$ & \xmark & Eigener Datensetz, 14h Aufzeichnung, 7 Verkehrsmittel \\
+  \cite{liono_inferring_2018} & Random Forest & $91$ & \xmark & Crowdsignal-Datensatz \cite{welbourne_crowdsignals_2014}, $>$2000h Aufzeichnung (5h öffentlich verfügbar), 10 Verkehrsmittel \\
   \midrule
-  \cite{friedrich_combining_2020} & LSTM und CNN & & \xmark & \multirow{3}{*}{SHL-Datensatz \cite{gjoreski_versatile_2017}} \\
-  \cite{antar_comparative_2018} & Random Forest & $92$ & & \\
-  \cite{jeyakumar_deep_2018} & LSTM & $98,1$ & & \\
+  \cite{friedrich_transportation_2019} & LSTM-RNN & $84,22$ & \xmark & \multirow{4}{*}{\parbox{5cm}{SHL-Datensatz \cite{gjoreski_versatile_2017}, 700h Aufzeichnung, 8 Verkehrsmittel}} \\
+  \cite{friedrich_combining_2020} & LSTM und CNN & $99,74$ & \xmark & \\
+  \cite{antar_comparative_2018} & Random Forest & $92$ & \xmark & \\
+  \cite{jeyakumar_deep_2018} & LSTM & $98,1$ & \xmark & \\
   \bottomrule
   \end{tabular}\label{tab:vme-vergleich}
   \caption{Vergleich verschiedener Machine-Learning-Ansätze für VME.}
   }
 \end{table}
 
-% - Vergleich der Accuracy-Metriken von Verkehrsmittelerkennungen
-% - Beobachtung: viele der ersten Methoden nutzen GNSS, jetzt eher weniger (?)
-% - Analogon zur HAR: Häufig verwechselte Verkehrsmittel?
-% - Hemminki: Explizit auf Smartphones lauffähiges Konzept
-% - Verwendet traditionelle Machine-Learning-Verfahren, daher auch Vorverarbeitung
-% - Erstellt verschiedene Features für die Eingabesignale
-% - Ensemble Learning: Mehrere Klassifikatoren
-% - Unterschiedlichste Fortbewegungsmittel werden zunächst klassifiziert
-% -> Kinematic motion classifier und Stationary classifier: DT mit geringer Tiefe (1, 2)
-% -> Accuracy von über 99% (kinematic) bzw. 95% (stationary)
-% - Motorized Classifier: DT mit Tiefe 2
+Die Accuracy der betrachteten Ansätze ist mit einem Median von $93.6\%$ vergleichbar mit der durchschnittlichen Accuracy von HAR-Ansätzen nach \cite{demrozi_human_2020}. Besonders gut schneiden hierbei aktuelle serverseitigen Deep-Learning-Ansätze ab, wie \cite{friedrich_combining_2020} mit $99.74\%$. Während frühe Ansätze wie \cite{reddy_using_2010} noch hauptsächlich auf GNSS-Signalen beruht und Akzelerometersignale als Hilfsmittel evaluiert, gehen aktuelle Ansätze wegen der inhärenten Probleme der GNSS-Signalerfassung dazu über, ausschließlich lokale kinematische Messparameter für die Klassifikation zu verwenden \cite{friedrich_combining_2020}. \cite{friedrich_combining_2020} zeigen, dass bei Verwendung eines Deep-Learning-Ansatzes herausragende Ergebnisse bei minimaler Vorverarbeitung der Daten erreicht werden können. \cite{friedrich_combining_2020} wenden lediglich ein Tiefpassfilter bei $25Hz$ an, sowie einen Skalierungsschritt. Anschließend werden die aufgezeichneten Daten direkt in ein neuronales Netzwerk überführt, welches hauptsächlich aus LSTM-Schichten und Convolution-Schichten zusammengesetzt ist.
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth, bb=0 0 577 239]{friedrich.pdf}
+  \caption{Architektur des neuronalen Netzes aus \cite{friedrich_combining_2020}, welches eine herausragende Ergebnisqualität erzielt. Abkürzungen: Beschleunigung (Acc), Gravitationsvektor (Gra), Winkelauslenkung (Gyr), Lineare Beschleunigung (LAcc), Magnetfeld (Mag), Orientierung (Ori), Luftdruck (Pre)}\label{fig:friedrich}
+\end{figure}
+
+\Cref{fig:friedrich} zeigt die Architektur des neuronalen Netzes aus \cite{friedrich_combining_2020}. Die Inputs setzen sich zusammen aus den Hardware-Signalen des Akzelerometer, Gyrosensor, Magnetometer und Barometer, sowie aus durch Software aufbereiteten Signalen lineare Beschleunigung, Gravitation und Orientierung. Auffallend ist bei der Architektur aus \cite{friedrich_combining_2020}, dass sie im Vergleich zu anderen Ansätzen besonders tief ist. \cite[S. 5]{zebin_design_2019} zeigen, dass sich durch eine tiefere Architektur höhere Accuracy-Werte erzielen lassen. Gleichzeitig erhöht sich durch eine solche Architektur auch die Ressourcenintensität. Für das Training der Architektur nutzten \cite{friedrich_combining_2020} Server aus einem spezialisierten High-Performance-Cluster, ausgestattet unter anderem mit einer NVIDIA Tesla P-100 GPU (16GB VRAM) sowie 256 GB RAM und 2 Intel-Xeon-CPU mit je 12 Kernen und 2.2GHz Taktfrequenz. Ausreichend Daten standen hierbei durch Nutzung des SHL-Datensatzes \cite{gjoreski_versatile_2017} mit 700h Material zur Verfügung, jedoch benötigte das Netzwerk insgesamt mehr als 3 Tage zum Training. Auf der spezialisierten Hardware konnte das Netzwerk in 146 Sekunden den Testdatensatz klassifizieren, welcher aus 57573 Samples mit $N_{Sample}=500$ bestand, wobei jeweils 5 Sekunden abgetastet wurden. Dies entspricht rechnerisch einer Inferenzzeit von $2,5ms$, die sich aber in dieser Form nicht direkt auf Smartphones übertragen lässt.
+
+\paragraph{Portabilität:} Auch im Bereich der VME auf Smartphones lassen sich viele Arbeiten identifizieren, welche zwar gute bis sehr gute Ergebnisqualitäten erzielen, jedoch nicht für Smartphones geeignet sind. Beispielsweise ist es bei dem Konzept von \cite{friedrich_combining_2020} fraglich, ob sich das neuronale Netzwerk überhaupt auf Smartphones portieren ließe, in Angesicht der großen Tiefe und der erheblichen Trainingsdauer. Nur wenige der betrachteten VME-Ansätze betrachten die Anwendungsfälle, die sich aus einer Portierung der Ansätze auf Smartphones ergeben, und versuchen den Ressourcenverbrauch möglichst gering zu halten. Meist ist das zentrale Motiv der Forschungsarbeiten die Verbesserung der Ergebnisqualität durch Test neuer Vorverarbeitungsmöglichkeiten oder Abwandlungen in der Architektur der Machine-Learning-Modelle. In den meisten Arbeiten wird das Smartphone lediglich als Datenquelle betrachtet, nicht jedoch als Plattform für die Ausführung der Klassifikation. \cite{hemminki_accelerometer-based_2013} bieten ein auf Smartphones ausführbares Konzept mit einem vergleichsweise flachen Klassifikator-Ansatz. Im Zuge der Evaluation wurde hierbei auch der Energieverbrauch analysiert, im Vergleich mit \cite{wang_accelerometer_2010} und \cite{reddy_using_2010}. Die traditionellen Machine-Learning-Modelle besitzen eine Leistungsaufnahme von $50mW$ bis $240mW$. Es handelt sich jedoch um gerätespezifische Analysen, die zudem dem hardwaretechnischen und softwaretechnischen Fortschritt des vergangenen Jahrzehnts unterliegen. Dennoch können die Ansätze als Baseline-Modell dienen. Als solche sind die Modelle sehr einfach und können als Referenz in der Evaluation dienen oder durch Erweiterung sukzessiv verbessert werden. \cite{hemminki_accelerometer-based_2013} verwendet beispielsweise mehrere Decision Trees, um Verkehrsmittel zu unterscheiden.
+
+\paragraph{Hierarchische versus flache Klassifikation:} Die meisten Machine-Learning-Modelle der verwandten Arbeiten können als monolithisch betrachtet werden und geben als solche einen Vektor aus, anhand dessen alle Verkehrsmittel im OHE-Encoding abgelesen werden können. Wie in der Grundlagensektion jedoch diskutiert, ist durch Reduktion der zu klassifizierenden Labels eine Verbesserung der Ergebnisqualität oder eine Verkleinerung der internen Repräsentation des Modells möglich. Daher verwendet \cite{hemminki_accelerometer-based_2013} einen hierarchischen Ansatz, bei dem ein Segment zunächst über einen Decision Tree mit geringer Tiefe in \enquote{Zu Fuß} oder \enquote{Im Fahrzeug} unterschieden wird. Außerdem wird durch einen weiteren Decision Tree detektiert, ob sich der Nutzer im Moment fortbewegt. Wird die Klasse \enquote{Im Fahrzeug} gefunden, so wird diese über einen eigenen Decision Tree nochmals in die einzelnen Fahrzeuge unterschieden. Die Unterscheidung zwischen \enquote{Zu Fuß} und \enquote{Im Fahrzeug} scheint verhältnismäßig einfach zu sein, mit einer Accuracy von $99\%$. Die Unterscheidung der Fahrzeuge wiederum erreicht nur eine Präzision von $80\%$. Hierbei wird also die Betrachtung genutzt, dass verschiedene Verkehrsmittel einfacher zu unterscheiden sind, als andere. Eine solche hierarchische Erkennung findet sich beispielsweise auch in dem aktuelleren Ansatz \cite{liono_inferring_2018} wieder.
 
 \begin{figure}[h]
   \includegraphics[width=\linewidth, bb=0 0 806 345]{generated/conf-mat-rw.pdf}
   \caption[Vergleich der Konfusionsmatrizen von \cite{friedrich_combining_2020} und \cite{hemminki_accelerometer-based_2013}, einem explizit auf Smartphones lauffähigen Konzept.]{Vergleich der Konfusionsmatrizen von \cite{friedrich_combining_2020} (links) und \cite{hemminki_accelerometer-based_2013} (rechts), einem explizit auf Smartphones lauffähigen Konzept.}\label{fig:vme-s-vergleich}
 \end{figure}
 
-\begin{table}[h]
-\begin{tabular}{llllllll}
-  \toprule
-  {} &   Stehend &   Laufend &       Bus &       Zug &     Metro &      Tram & $\varnothing_{G}$ \\
-  \midrule
-  Acc. ($\%$) &  93,92 &  98,18 &  92,84 &  92,84 &  91,81 &  91,96 &       93,60 \\
-  \bottomrule
-\end{tabular}
-\label{tab:hemminki-acc}
-\caption{Accuracy-Metriken der einzelnen Klassen aus \cite{hemminki_accelerometer-based_2013} und deren gewichteter Durchschnitt $\varnothing_{G}$.}
-\end{table}
-
-\begin{table}[h]
-\begin{tabular}{llllllllll}
-  \toprule
-  {} &    Stehen &     Gehen &    Rennen &   Fahrrad &      Auto &      Bus &       Zug &    U-Bahn &  $\varnothing_{G}$ \\
-  \midrule
-  Acc. ($\%$) &  99,59 &  99,81 &  99,99 &  99,88 &  99,88 &  99,68 &  99,51 &  99,60 &       99,74 \\
-  \bottomrule
-\end{tabular}
-\label{tab:friedrich-acc}
-\caption{Accuracy-Metriken der einzelnen Klassen aus \cite{friedrich_combining_2020} und deren gewichteter Durchschnitt $\varnothing_{G}$.}
-\end{table}
+\paragraph{Verwechslung von Verkehrsmitteln:} In \Cref{fig:vme-s-vergleich} werden die Ansätze \cite{hemminki_accelerometer-based_2013} und \cite{friedrich_combining_2020} verglichen. Dies verdeutlicht noch einmal die herausragende Ergebnisqualität des serverseitigen Deep-Learning-Modells im Vergleich zum Baseline-Modell aus \cite{hemminki_accelerometer-based_2013}, welches als Referenz für On-Device-Ansätze dienen soll. Relativ am häufigsten werden hierbei auch die intuitiv ähnlichsten Verkehrsmittel verwechselt. In \cite{friedrich_combining_2020} sind dies die Paare $(Zug, UBahn) = 130$, $(Zug, Bus) = 65$, aber auch $(Zug, Stehen) = 78$, wobei dies vermutlich mit den längeren Standzeiten an Haltepunkten von Zügen und der damit verbundenen Aufzeichnung von Segmenten zusammenhängt, ähnlich zu \cite{hemminki_accelerometer-based_2013}. In \cite{hemminki_accelerometer-based_2013} werden am häufigsten die Klassen $(Zug, Metro) = 10879$ und $(Bus, Tram) = 10000$ verwechselt, wie in \cite{friedrich_combining_2020}.
 
 \section{Tradeoff}
 
-\todo[inline]{Machine-Learning-Arbeiten zur Analyse des Tradeoffs diskutieren}
+Die Unterschiede zwischen \cite{hemminki_accelerometer-based_2013} und \cite{friedrich_combining_2020} zeigen, dass prinzipiell eine große Spanne von möglichen Ressourcenverbräuchen und Ergebnisqualitäten existiert.
 
-% Wahl der Segmentlänge
-% \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020} betrachtet Segmente von $10s$ bis $180s$ Länge. Es lässt sich vermuten, dass die Präzision der Klassifikation bei kürzeren Segmentlängen geringer ist, wie die experimentellen Daten aus \cite{matusek_anwendung_2019} suggerieren. Wie in \Cref{sec:datenerfassung-und-verarbeitung} gezeigt, ist es durch Interpolation der verschiedenen Spuren möglich, diese im Rahmen der Synchronisation zu beliebigen Raten abzutasten. Bei näherer Betrachtung fällt hierbei auf, dass \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020} Datenpunkte mit $1Hz$ (Abtastrate des \acrshort{gnss}-Systems) abtasten, die mit deutlich höheren Frequenzen im dreistelligen Hertz-Bereich aufgenommenen Beschleunigungs-, Auslenkungs- und Orientierungsdaten also stark reduziert werden (Downsampling). Vermutlich bietet dies eine Möglichkeit zur Verbesserung der Konzepte aus \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020}, unter der Berücksichtigung, dass mit $1Hz$ Abtastrate lediglich Bewegungsabläufe mit Frequenzen $f \leq 0.5Hz$ nach dem Nyquist-Shannon-Abtasttheorem\footnote{\url{https://de.wikipedia.org/wiki/Nyquist-Shannon-Abtasttheorem} (Abgerufen am 14.4.2021)} erhalten bleiben, Frequenzen $f > 0.5Hz$ tragen zum Rauschen der abgetasteten Daten bei. Alternativ wäre daher auch ein Upsampling der korrigierten \acrshort{gnss}-Daten auf eine höhere Frequenz von ca. $100 Hz$ möglich. \cite{banos_window_2014} konnten zeigen, dass sich unter dieser Voraussetzung insbesondere kürzere Segmente von $0.25s$ bis $2s$ Länge für die Aktivitätserkennung eignen, gegenüber den von \cite{matusek_anwendung_2019} und \cite{werner_kontinuierliche_2020} verwendeten Segmentlängen von $10s$ bis $180s$.
+% Tradeoff: Zusammenhang zwischen Ergebnisqualität und Ressourcenverbrauch
+% - Nur wenige empirische Daten über Ressourcenparameter bekannt, sowohl bei
+% traditionellen als auch bei deep-learning-ansätzen
+% - Zielfrage: Wann ist der Zugewinn an Ergebnisqualität nicht mehr akzeptabel?
+% - Arbeit von Brownlee et al. diskutieren
