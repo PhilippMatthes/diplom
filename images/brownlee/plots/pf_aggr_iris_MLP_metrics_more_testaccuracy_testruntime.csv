@@ -1,0 +1,3 @@
+"","config","activation","alpha","hidden_layer_sizes","max_iter","solver","rpt","mean_test_score","std_test_score","train_cpu_duration","train_runtime_duration","train_cpu_meter_result","train_dram_meter_result","test_cpu_duration","test_runtime_duration","test_cpu_meter_result","test_dram_meter_result","test_accuracy_result","DominanceCount","PF"
+"904",392,"logistic",2e-04,"(2,)",400,"lbfgs",14.5,0.911067193675889,0.0780269590973696,0.0974819170014598,0.0975056886672974,5570939.5,0,0.130159029999959,0.130147457122803,7462658,0,1,0,1
+"1341",867,"tanh",5e-04,"(2,)",200,"sgd",14.5,0.526482213438735,0.0629514115804329,0.0784369965113001,0.0784299373626709,4499256,0,0.130004570002711,0.130013108253479,7465618.5,0,0.736842105263158,0,1

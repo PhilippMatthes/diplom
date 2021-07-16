@@ -1,0 +1,3 @@
+"","config","rpt","mean_test_score","std_test_score","activation","alpha","hidden_layer_sizes","max_iter","solver","train_cpu_duration","train_runtime_duration","train_cpu_meter_result","train_dram_meter_result","test_cpu_duration","test_runtime_duration","test_cpu_meter_result","test_dram_meter_result","test_accuracy_result","DominanceCount","PF"
+"63",62,14.5,0.650206912856107,0.000373991641532424,2,1e-04,3,400,2,842.828162882477,52.6725121736526,4525416576.5,0,858.593382355524,53.6587897539139,4663574028.5,0,0.649927831472786,0,1
+"64",63,14.5,0.665535927107849,0.000774900875046869,2,1e-04,3,400,1,2280.64976582909,142.528284668922,12228394965,0,1163.12714589108,72.6906317472458,6142153282.5,0,0.667312224800395,0,1
