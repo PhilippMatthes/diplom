@@ -170,7 +170,7 @@ Seit deren Erfindung in 2015 \cite{lecun_deep_2015} werden Deep-Learning-Modelle
 Die in \Cref{fig:movebis-vergleich} gezeigten Ansätze \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} bilden den Ausgangspunkt für diese Arbeit. Das im Movebis-Projekt initial verwendete heuristische Verfahren zur Verkehrsmittelerkennung konnte durch das in \cite{matusek_anwendung_2019} vorgestellte Machine-Learning-System signifikant in der Ergebnisqualität übertroffen werden. \cite{matusek_anwendung_2019} legt dabei einen starken Fokus auf die Vorverarbeitung der Daten. Als primäres Machine-Learning-Modell wählt \cite{matusek_anwendung_2019} ein FFN. Gegenüber nicht-neuronalen Modellen, hierbei einem Decision Tree und einer \acrshort{svm}, erzeugte das FFN jedoch analog zu \cite{demrozi_human_2020} im Rahmen der Evaluation keine signifikant höhere Ergebnisqualität \cite[S. 96]{matusek_anwendung_2019}. Als weiteres Ergebnis stellte \cite{matusek_anwendung_2019} jedoch fest, dass ein tiefergehendes Feature-Engineering zu besseren Ergebnissen hätte führen können. Außerdem bestehe weiteres Potenzial in der sauberen Abtrennung der Verkehrsmittel bei der Aufzeichnung von neuen Aktivitätsdaten, da insbesondere bei den Verkehrsmittelübergängen und bei der Beendigung der Aktivität wiederholt falsche Labels auftraten \cite[S. 98ff]{matusek_anwendung_2019}. Außerdem konnten Lücken in den aufgezeichneten \acrshort{gnss}-Daten festgestellt werden \cite[S. 105]{matusek_anwendung_2019}.
 
 \begin{figure}[h]
-\includegraphics[width=\linewidth, bb=0 0 606 384]{movebis-vergleich.pdf}
+\includegraphics[width=\linewidth, bb=0 0 606 305]{movebis-vergleich.pdf}
 \caption[Vergleich der Movebis-\acrshort{vme}-Pipelines.]{Vergleich der Movebis-Pipelines zur Verkehrsmittelerkennung. Abbildung schematisch nach den in \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} beschriebenen Konzeptkomponenten.}\label{fig:movebis-vergleich}
 \end{figure}
 
@@ -213,9 +213,7 @@ Soll ein Machine-Learning-Modell auf Smartphones lauffähig sein, so stellt nebe
 
 \subsection{Ergebnisqualität}
 
-Die erreichten Ergebnisqualitäten sind in der nachfolgenden Tabelle dargestellt.
-
-\begin{table}[H]
+\begin{table}[h]
   \resizebox{\textwidth}{!}{%
   \begin{tabular}{llll}
   \toprule
@@ -242,13 +240,13 @@ Die erreichten Ergebnisqualitäten sind in der nachfolgenden Tabelle dargestellt
   }
 \end{table}
 
-In der Tabelle bestätigt sich die eingangs erwähnte Analyse von \cite{demrozi_human_2020}, mit typischen Accuracy-Werten für den betrachteten Anwendungsfall. Je nach Datensatz und den betrachteten Aktivitäten kann die Accuracy variieren, dies zeigt die starke Abhängigkeit der Ergebnisqualität von der Datengrundlage \cite{ravi_deep_2016}. Gleichzeitig kann bei CNNs beobachtet werden, dass das Hinzufügen von Hidden Layers die Ergebnisqualität erhöht. \cite{zebin_design_2019} zeigen dies, indem sie verschiedene Anzahlen von Hidden Layers betrachten, beginnend bei einem einschichtigen CNN mit $12,9\%$ geringerer Accuracy als ein vierschichtiges Modell. Gleichzeitig erhöht sich die Dauer des Trainings. Die beste Accuracy erzielten \cite{zebin_design_2019} mit dem vierschichtigen Modell, konfiguriert durch eine Filtergröße von $1\times2$ und einer Pooling-Größe von $1\times2$. \cite{zebin_design_2019} betrachteten auch traditionelle Modelle, welche analog zu \cite{demrozi_human_2020} nur marginal schlechter abschnitten als die betrachteten CNN-Architekturen. \cite{nutter_design_2018} nutzten einen besonders umfangreichen Datensatz und konnten über das Transfer Learning von verschiedenen mobilen CNN-Architekturen zeigen, dass hierdurch eine Accuracy von mehr als $95\%$ erreicht werden kann. Am besten schnitt hierbei das in \cite{howard_mobilenets_2017} konzeptionierte MobileNet ab, im Vergleich zu anderen auf dem ImageNet-Datensatz\footnote{\url{https://image-net.org/} (Abgerufen am 13.7.2021)} vortrainierten Netzwerken wie InceptionV3 \cite{szegedy_rethinking_2015}.
+Die erreichten Ergebnisqualitäten sind in \Cref{tab:har-vergleich} dargestellt. In der Tabelle bestätigt sich die eingangs erwähnte Analyse von \cite{demrozi_human_2020}, mit typischen Accuracy-Werten für den betrachteten Anwendungsfall. Je nach Datensatz und den betrachteten Aktivitäten kann die Accuracy variieren, dies zeigt die starke Abhängigkeit der Ergebnisqualität von der Datengrundlage \cite{ravi_deep_2016}. Gleichzeitig kann bei CNNs beobachtet werden, dass das Hinzufügen von Hidden Layers die Ergebnisqualität erhöht. \cite{zebin_design_2019} zeigen dies, indem sie verschiedene Anzahlen von Hidden Layers betrachten, beginnend bei einem einschichtigen CNN mit $12,9\%$ geringerer Accuracy als ein vierschichtiges Modell. Gleichzeitig erhöht sich die Dauer des Trainings. Die beste Accuracy erzielten \cite{zebin_design_2019} mit dem vierschichtigen Modell, konfiguriert durch eine Filtergröße von $1\times2$ und einer Pooling-Größe von $1\times2$. \cite{zebin_design_2019} betrachteten auch traditionelle Modelle, welche analog zu \cite{demrozi_human_2020} nur marginal schlechter abschnitten als die betrachteten CNN-Architekturen. \cite{nutter_design_2018} nutzten einen besonders umfangreichen Datensatz und konnten über das Transfer Learning von verschiedenen mobilen CNN-Architekturen zeigen, dass hierdurch eine Accuracy von mehr als $95\%$ erreicht werden kann. Am besten schnitt hierbei das in \cite{howard_mobilenets_2017} konzeptionierte MobileNet ab, im Vergleich zu anderen auf dem ImageNet-Datensatz\footnote{\url{https://image-net.org/} (Abgerufen am 13.7.2021)} vortrainierten Netzwerken wie InceptionV3 \cite{szegedy_rethinking_2015}.
 
 \section{\acrshort{vme} auf Smartphones}
 
 In den vorigen Abschnitten wurde gezeigt, wie sich verwandte HAR-Ansätze in ihren, für den Tradeoff relevanten, Charakteristika unterscheiden. Dafür wurden Ansätze betrachtet, welche explizit für Smartphones konzipiert wurden. Diese Ansätze sind jedoch zur Erkennung von Aktivitäten wie \enquote{Gehen}, \enquote{Treppensteigen} oder \enquote{Stehen} gedacht und eignen sich damit in ihrer ursprünglichen Form nicht für die Verkehrsmittelerkennung. Insbesondere steht hierbei die Frage im Raum, ob eine Verkehrsmittelerkennung bezüglich der erforderlichen Komplexität mehr oder weniger Aufwand als HAR-Ansätze erfordert, durch die Unterschiedlichkeiten in den betrachteten Signalverläufen. Diese Frage soll nachfolgend anhand von Arbeiten diskutiert werden, welche ebendiesen spezielleren Anwendungsfall betrachten. Hierbei soll auch darauf eingegangen werden, welche Modifikationen an den diskutierten Ansätzen zur HAR auf Smartphones gegebenenfalls nötig wären.
 
-\begin{table}[H]
+\begin{table}[h]
   \resizebox{\textwidth}{!}{%
   \begin{tabular}{llllp{5cm}}
   \toprule
