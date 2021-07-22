@@ -195,6 +195,17 @@
 \addtokomafont{title}{\rmfamily}
 \addtokomafont{titlehead}{\rmfamily}
 
+\newcounter{mylabelcounter}
+
+\makeatletter
+\newcommand{\labelword}[2]{%
+#1\refstepcounter{mylabelcounter}%
+\immediate\write\@auxout{%
+  \string\newlabel{#2}{{1}{\thepage}{{\unexpanded{#1}}}{mylabelcounter.\number\value{mylabelcounter}}{}}%
+}%
+}
+\makeatother
+
 \usepackage[all]{nowidow}
 
 \usepackage[nomain,acronym]{glossaries}
