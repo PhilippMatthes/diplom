@@ -206,6 +206,10 @@
 }
 \makeatother
 
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\makeatother
+
 \usepackage[all]{nowidow}
 
 \usepackage[nomain,acronym]{glossaries}

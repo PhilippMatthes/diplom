@@ -330,39 +330,279 @@ Ein weiteres zentrales Ergebnis aus \cite{brownlee_exploring_2021}, welches meth
 
 \section{Abgrenzung}
 
-% Kriterien:
-% - Betrachtung von Verkehrsmittelklassifikation qa:vme
-% - Betrachtung der Ressourcenparameter qa:r
-%   - Betrachtung des Energieverbrauchs qa:e
-%   - Betrachtung der Inferenzzeit qa:inf
-%   - Betrachtung des Speicherverbrauchs qa:s
-% - Betrachtung der Ergebnisqualität qa:q
-% - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
-% - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-% - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+\todo[inline]{Sektion ist in Bearbeitung}
 
-\begin{table}[h]
-  \resizebox{\textwidth}{!}{%
-  \begin{tabular}{p{5cm}cccccccc}
+\begin{longtable}[H]{lcccccccc}
   \toprule
    & & \multicolumn{3}{c}{\nameref{qa:r}} & & & \\
   \cmidrule(lr){3-5}
-  Arbeit & \nameref{qa:vme} & \nameref{qa:e} & \nameref{qa:inf} & \nameref{qa:s} & \nameref{qa:q} & \nameref{qa:b} & \nameref{qa:o} & \nameref{qa:int} \\
+  Arbeit &
+    \nameref{qa:vme} & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    \nameref{qa:e} & % - Betrachtung des Energieverbrauchs qa:e
+    \nameref{qa:inf} & % - Betrachtung der Inferenzzeit qa:inf
+    \nameref{qa:s} & % - Betrachtung des Speicherverbrauchs qa:s
+    \nameref{qa:q} & % - Betrachtung der Ergebnisqualität qa:q
+    \nameref{qa:b} & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    \nameref{qa:o} & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    \nameref{qa:int} % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
   \midrule
-  \multicolumn{9}{l}{Movebis-Ansätze} \\
+  \endhead
+  \multicolumn{9}{l}{Verkehrsmittelerkennung über Machine-Learning-Modelle} \\
   \midrule
-  \multicolumn{9}{l}{VME-Ansätze} \\
+  \cite{matusek_anwendung_2019} &
+     \cmark & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+     & % - Betrachtung des Energieverbrauchs qa:e
+     & % - Betrachtung der Inferenzzeit qa:inf
+     & % - Betrachtung des Speicherverbrauchs qa:s
+     \cmark & % - Betrachtung der Ergebnisqualität qa:q
+     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+     % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{werner_kontinuierliche_2020} &
+    \cmark & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    \cmark\footnote{\label{fn:pp}Nur Optimierung durch Postprocessing} & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{stojanov_continuous_2020} &
+    \cmark & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    \cmark\footnoteref{fn:pp} & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+    \cite{hemminki_accelerometer-based_2013} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{reddy_using_2010} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{fang_transportation_2016} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{liang_convolutional_2017} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{liono_inferring_2018} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{friedrich_transportation_2019} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{friedrich_combining_2020} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{antar_comparative_2018} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{jeyakumar_deep_2018} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
   \midrule
-  \multicolumn{9}{l}{HAR-S-Ansätze} \\
+  \multicolumn{9}{l}{Human Activity Recognition über Machine-Learning-Modelle} \\
   \midrule
-  \multicolumn{9}{l}{VME-S-Ansätze} \\
+  \cite{ravi_deep_2016} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{zebin_design_2019} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{nutter_design_2018} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{mairittha_-device_2019} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{mairittha_improving_2020} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{mairittha_-device_2021} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
   \midrule
-  \multicolumn{9}{l}{Tradeoff-Ansätze} \\
+  \multicolumn{9}{l}{Optimierung von Machine-Learning-Modellen} \\
+  \midrule
+  \cite{han_learning_2015} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{han_deep_2016} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{ian_goodfellow_deep_2016} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{howard_mobilenets_2017} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \midrule
+  \multicolumn{9}{l}{Tradeoff zwischen Ressourcenverbrauch und Ergebnisqualität} \\
+  \midrule
+  \cite{brownlee_exploring_2021} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{dai_chamnet_2019} & % - Arbeit
+    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    & % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
   \bottomrule
-  \end{tabular}\label{tab:abgrenzung}
   \caption[Übersicht über die Betrachtung der Schwerpunkte dieser Arbeit durch verwandte Arbeiten.]{Übersicht über die Betrachtung der Schwerpunkte dieser Arbeit durch verwandte Arbeiten. Legende: Betrachtung einer Verkehrsmittelklassifikation \nameref{qa:vme}, Ressourcenparameter \nameref{qa:r} wie Energieverbrauch \nameref{qa:e}, Inferenzzeit \nameref{qa:inf} und Speicherverbrauch \nameref{qa:s}, Betrachtung der Ergebnisqualität \nameref{qa:q} und Ermittlung eines bestmöglichen Modells bezüglich des Tradeoffs \nameref{qa:b}, Betrachtung von verschiedenen Optimierungsmöglichkeiten \nameref{qa:o} und Integrierbarkeit auf Smartphones \nameref{qa:int}.}
-  }
-\end{table}
+  \label{tab:abgrenzung}
+\end{longtable}
 
 \section{Zusammenfassung}
 
