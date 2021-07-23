@@ -141,7 +141,7 @@ Hierbei werden auch Arbeiten aus dem Bereich \acrshort{har} berücksichtigt, wen
     Early Stopping &
     Supervised Learning \\ \bottomrule
   \end{tabular}
-  \caption[Vergleichender Überblick über eine Auswahl verwandte Arbeiten.]{\footnotesize{Vergleichender Überblick über eine Auswahl verwandte Arbeiten. Abkürzungen wie folgt. Kategorien: \acrshort{vme} (Verkehrsmittelerkennung), \acrshort{vme}-W (\acrshort{vme} auf Wearables), \acrshort{vme}-S (\acrshort{vme} auf Smartphones), \acrshort{har} (Human Activity Recognition), \acrshort{har}-S (\acrshort{har} auf Smartphones). Daten: \acrshort{acc} (Akzelerometer), \acrshort{gyr} (Gyrosensor), \acrshort{mag} (Magnetometer), BAR (Barometer - Luftdruck). Preprocessing: \acrshort{fft} (Fast Fourier Transformation). Modelle: \acrshort{rbm} (Restricted Boltzmann Machine), \acrshort{dt} (Decision Tree), FFN (Feed-Forward-Network), \acrshort{rnn}-\acrshort{lstm} (Recurrent Neural Network mit Long-Short-Term-Memory-Neuronen), \acrshort{cnn} (Convolutional Neural Network).}}
+  \caption[Vergleichender Überblick über eine Auswahl verwandte Arbeiten.]{Vergleichender Überblick über eine Auswahl verwandte Arbeiten. Abkürzungen wie folgt. Kategorien: \acrshort{vme} (Verkehrsmittelerkennung), \acrshort{vme}-W (\acrshort{vme} auf Wearables), \acrshort{vme}-S (\acrshort{vme} auf Smartphones), \acrshort{har} (Human Activity Recognition), \acrshort{har}-S (\acrshort{har} auf Smartphones). Daten: \acrshort{acc} (Akzelerometer), \acrshort{gyr} (Gyrosensor), \acrshort{mag} (Magnetometer), BAR (Barometer - Luftdruck). Preprocessing: \acrshort{fft} (Fast Fourier Transformation). Modelle: \acrshort{rbm} (Restricted Boltzmann Machine), \acrshort{dt} (Decision Tree), FFN (Feed-Forward-Network), \acrshort{rnn}-\acrshort{lstm} (Recurrent Neural Network mit Long-Short-Term-Memory-Neuronen), \acrshort{cnn} (Convolutional Neural Network).}
   }
   \end{table}
 \end{landscape}
@@ -252,15 +252,15 @@ In den vorigen Abschnitten wurde gezeigt, wie sich verwandte \acrshort{har}-Ans�
   \resizebox{\textwidth}{!}{%
   \begin{tabular}{llllp{5cm}}
   \toprule
-  Arbeit & Modell & Acc. ($\%$) & Portierbarkeit als & Evaluationsgrundlage \\
-         &        &             & Konzeptbestandteil \\
+  Arbeit & Modell & Acc. ($\%$) & Lauffähigkeit auf Smartphones & Evaluationsgrundlage \\
+         &        &             & als Konzeptbestandteil \\
   \midrule
   \cite{hemminki_accelerometer-based_2013} & Mehrere Decision Trees & $93,60$ & \cmark & Eigener Datensatz, 150h Aufzeichnung, 6 Verkehrsmittel\\
   \cite{reddy_using_2010} & \acrshort{dt} und \acrshort{hmm} & $93,6$ & \cmark & Eigener Datensatz, 120h Aufzeichnung, 6 Verkehrsmittel \\
-  \cite{fang_transportation_2016} & SVM & $86$ & \cmark & HTC-Datensatz \cite{yu_big_2014}, 8311h Aufzeichnung (1249h öffentlich verfügbar), 10 Verkehrsmittel \\
+  \cite{liono_inferring_2018} & Random Forest & $91$ & \cmark & Crowdsignal-Datensatz \cite{welbourne_crowdsignals_2014}, $>$2000h Aufzeichnung (5h öffentlich verfügbar), 10 Verkehrsmittel \\
   \midrule
+  \cite{fang_transportation_2016} & SVM & $86$ & \xmark & HTC-Datensatz \cite{yu_big_2014}, 8311h Aufzeichnung (1249h öffentlich verfügbar), 10 Verkehrsmittel \\
   \cite{liang_convolutional_2017} & 6-Layer-\acrshort{cnn} & $94,48$ & \xmark & Eigener Datensetz, 14h Aufzeichnung, 7 Verkehrsmittel \\
-  \cite{liono_inferring_2018} & Random Forest & $91$ & \xmark & Crowdsignal-Datensatz \cite{welbourne_crowdsignals_2014}, $>$2000h Aufzeichnung (5h öffentlich verfügbar), 10 Verkehrsmittel \\
   \midrule
   \cite{friedrich_transportation_2019} & \acrshort{lstm}-\acrshort{rnn} & $84,22$ & \xmark & \multirow{4}{*}{\parbox{5cm}{SHL-Datensatz \cite{gjoreski_versatile_2017}, 700h Aufzeichnung, 8 Verkehrsmittel}} \\
   \cite{friedrich_combining_2020} & \acrshort{lstm} und \acrshort{cnn} & $99,74$ & \xmark & \\
@@ -332,7 +332,7 @@ Ein weiteres zentrales Ergebnis aus \cite{brownlee_exploring_2021}, welches meth
 
 \todo[inline]{Sektion ist in Bearbeitung}
 
-\begin{longtable}[H]{lcccccccc}
+\begin{longtable}[H]{@{\extracolsep{\fill}}lcccccccc}
   \toprule
    & & \multicolumn{3}{c}{\nameref{qa:r}} & & & \\
   \cmidrule(lr){3-5}
@@ -348,7 +348,7 @@ Ein weiteres zentrales Ergebnis aus \cite{brownlee_exploring_2021}, welches meth
     \\
   \midrule
   \endhead
-  \multicolumn{9}{l}{Verkehrsmittelerkennung über Machine-Learning-Modelle} \\
+  \multicolumn{9}{l}{Serverseitige Movebis-Ansätze zur Verkehrsmittelerkennung} \\
   \midrule
   \cite{matusek_anwendung_2019} &
      \cmark & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
@@ -367,7 +367,7 @@ Ein weiteres zentrales Ergebnis aus \cite{brownlee_exploring_2021}, welches meth
     & % - Betrachtung des Speicherverbrauchs qa:s
     \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
-    \cmark\footnote{\label{fn:pp}Nur Optimierung durch Postprocessing} & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    \omark\footnote{\label{fn:pp}Nur Optimierung durch Postprocessing.} & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
     % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \cite{stojanov_continuous_2020} &
@@ -377,95 +377,101 @@ Ein weiteres zentrales Ergebnis aus \cite{brownlee_exploring_2021}, welches meth
     & % - Betrachtung des Speicherverbrauchs qa:s
     \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
-    \cmark\footnoteref{fn:pp} & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    \omark\footnoteref{fn:pp} & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
     % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
-    \cite{hemminki_accelerometer-based_2013} & % - Arbeit
-    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
-    & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
+  \midrule
+  \multicolumn{9}{l}{Smartphone-orientierte Ansätze zur Verkehrsmittelerkennung} \\
+  \midrule
+  \cite{hemminki_accelerometer-based_2013} & % - Arbeit
+    \cmark & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    \cmark & % - Betrachtung des Energieverbrauchs qa:e
+    \omark\footnote{\label{fn:ie}Nur indirekte Messung über Energieverbrauch und CPU-Zeit.}& % - Betrachtung der Inferenzzeit qa:inf
     & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \cmark % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \cite{reddy_using_2010} & % - Arbeit
-    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    \cmark & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    \omark\footnote{\label{fn:fe}Fokus auf Energieverbrauch der Datenakquise und Sensorsysteme.}& % - Betrachtung des Energieverbrauchs qa:e
+    & % - Betrachtung der Inferenzzeit qa:inf
+    & % - Betrachtung des Speicherverbrauchs qa:s
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
+    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    \cmark & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    \cmark % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \\
+  \cite{liono_inferring_2018} & % - Arbeit
+    \cmark & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
     & % - Betrachtung des Energieverbrauchs qa:e
     & % - Betrachtung der Inferenzzeit qa:inf
     & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \cmark % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
+  \midrule
+  \multicolumn{9}{l}{Accuracy-maximierende Ansätze zur Verkehrsmittelerkennung} \\
+  \midrule
   \cite{fang_transportation_2016} & % - Arbeit
-    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    \cmark & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
     & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
-    & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
-    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    \cmark & % - Betrachtung der Inferenzzeit qa:inf
+    \cmark & % - Betrachtung des Speicherverbrauchs qa:s
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
+    \omark\footnote{\label{fn:mt}Nur grober Vergleich der Modellgrößen, keine Modellierung des Tradeoffs.} & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
     % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \cite{liang_convolutional_2017} & % - Arbeit
-    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    \cmark & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
     & % - Betrachtung des Energieverbrauchs qa:e
     & % - Betrachtung der Inferenzzeit qa:inf
     & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
-    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
-    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
-    \\
-  \cite{liono_inferring_2018} & % - Arbeit
-    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
-    & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
-    & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
     % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \cite{friedrich_transportation_2019} & % - Arbeit
-    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    \cmark & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
     & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
-    & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Betrachtung der Inferenzzeit qa:inf
+    \omark\footnote{\label{fn:tp}Nur Illustration der trainierbaren Parameter eines einzelnen Modellbestandteils.} & % - Betrachtung des Speicherverbrauchs qa:s
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
     % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \cite{friedrich_combining_2020} & % - Arbeit
-    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    \cmark & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
     & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
+    \cmark & % - Betrachtung der Inferenzzeit qa:inf
     & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
     % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \cite{antar_comparative_2018} & % - Arbeit
-    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    \cmark & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
     & % - Betrachtung des Energieverbrauchs qa:e
     & % - Betrachtung der Inferenzzeit qa:inf
     & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
     % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \cite{jeyakumar_deep_2018} & % - Arbeit
-    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
+    \cmark & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
     & % - Betrachtung des Energieverbrauchs qa:e
     & % - Betrachtung der Inferenzzeit qa:inf
     & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
     % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
