@@ -179,7 +179,7 @@ Die in \Cref{fig:movebis-vergleich} gezeigten Ansätze \cite{matusek_anwendung_2
 Auf dieser Grundlage entwickelten \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} ihre Konzepte mit größerem Fokus auf die Wahl der Machine-Learning-Modelle. Sie übernehmen Teilschritte der Vorverarbeitung aus \cite{matusek_anwendung_2019}. \cite{werner_kontinuierliche_2020} nutzt ein mehrschichtiges \acrshort{rnn} mit \acrshort{lstm}-Neuronen, während \cite{stojanov_continuous_2020} ein \acrshort{cnn} zur Verkehrsmittelerkennung einsetzt. Analog zur Architektur der Modelle dienen in \cite{werner_kontinuierliche_2020} die vorverarbeiteten Datenpunkte als Zeitlinien-Eingabe des \acrshort{rnn}, gleichzeitig nutzt \cite{stojanov_continuous_2020} eine Auswahl von Shallow-Features als Eingabe für das \acrshort{cnn}. Als zusätzlichen Schritt führen \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} eine Nachverarbeitung der Ausgaben durch Glättung anhand der Nachbarwerte ein, welche das Ergebnis der Ansätze weiter verbessern konnte. Bei der quantitativen Evaluation der Ansätze wurde insbesondere die Accuracy-Metrik der Netzwerke auf Testdaten bestimmt.
 
 \begin{table}[h]
-  \begin{tabular}{lllll}
+  \begin{tabular}{@{\extracolsep{\fill}}lllll}
   \toprule
   Arbeit & Healing & Beste Modell-Output-Accuracy & Accuracy n. Healing \\
   \midrule
@@ -250,10 +250,9 @@ In den vorigen Abschnitten wurde gezeigt, wie sich verwandte \acrshort{har}-Ans�
 
 \begin{table}[h]
   \resizebox{\textwidth}{!}{%
-  \begin{tabular}{llllp{5cm}}
+  \begin{tabular}{llllp{8cm}}
   \toprule
-  Arbeit & Modell & Acc. ($\%$) & Lauffähigkeit auf Smartphones & Evaluationsgrundlage \\
-         &        &             & als Konzeptbestandteil \\
+  Arbeit & Modell & Acc. ($\%$) & \nameref{qa:int} & Evaluationsgrundlage \\
   \midrule
   \cite{hemminki_accelerometer-based_2013} & Mehrere Decision Trees & $93,60$ & \cmark & Eigener Datensatz, 150h Aufzeichnung, 6 Verkehrsmittel\\
   \cite{reddy_using_2010} & \acrshort{dt} und \acrshort{hmm} & $93,6$ & \cmark & Eigener Datensatz, 120h Aufzeichnung, 6 Verkehrsmittel \\
@@ -268,7 +267,7 @@ In den vorigen Abschnitten wurde gezeigt, wie sich verwandte \acrshort{har}-Ans�
   \cite{jeyakumar_deep_2018} & \acrshort{lstm} & $98,1$ & \xmark & \\
   \bottomrule
   \end{tabular}\label{tab:vme-vergleich}
-  \caption{Vergleich verschiedener Machine-Learning-Ansätze für \acrshort{vme}.}
+  \caption[Vergleich verschiedener Machine-Learning-Ansätze für \acrshort{vme}.]{Vergleich verschiedener Machine-Learning-Ansätze für \acrshort{vme}. Legende: Betrachtung von Integrierbarkeit auf Smartphones \nameref{qa:int}.}
   }
 \end{table}
 
@@ -330,9 +329,9 @@ Ein weiteres zentrales Ergebnis aus \cite{brownlee_exploring_2021}, welches meth
 
 \section{Abgrenzung}
 
-\todo[inline]{Sektion ist in Bearbeitung}
+Es existiert eine Vielzahl von Machine-Learning-Ansätzen zur Verkehrsmittelerkennung, mit unterschiedlichen Konzeptbestandteilen und Schwerpunkten. In der \Cref{tab:abgrenzung} sind die in den vorigen Sektionen diskutierten Arbeiten schwerpunktweise gegenübergestellt, um zu zeigen, dass keine der betrachteten Arbeiten alle Anforderungen dieser Arbeit vollständig beantwortet.
 
-\begin{longtable}[H]{@{\extracolsep{\fill}}lcccccccc}
+\begin{longtable}[h]{@{\extracolsep{\fill}}lcccccccc}
   \toprule
    & & \multicolumn{3}{c}{\nameref{qa:r}} & & & \\
   \cmidrule(lr){3-5}
@@ -477,154 +476,102 @@ Ein weiteres zentrales Ergebnis aus \cite{brownlee_exploring_2021}, welches meth
     % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \midrule
-  \multicolumn{9}{l}{Human Activity Recognition über Machine-Learning-Modelle} \\
+  \multicolumn{9}{l}{Smartphone-orientierte Human Activity Recognition} \\
   \midrule
   \cite{ravi_deep_2016} & % - Arbeit
     & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
     & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
+    \cmark & % - Betrachtung der Inferenzzeit qa:inf
     & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \cmark % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \cite{zebin_design_2019} & % - Arbeit
     & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
-    & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
-    & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
-    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
-    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \cmark & % - Betrachtung des Energieverbrauchs qa:e
+    \cmark & % - Betrachtung der Inferenzzeit qa:inf
+    \cmark & % - Betrachtung des Speicherverbrauchs qa:s
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
+    \omark\footnote{Nur Betrachtung der Auswirkungen von Optimierungsmethoden auf Speicherverbrauch, keine Modellierung des Tradeoffs.}& % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    \cmark & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    \cmark % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \cite{nutter_design_2018} & % - Arbeit
     & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
     & % - Betrachtung des Energieverbrauchs qa:e
     & % - Betrachtung der Inferenzzeit qa:inf
-    & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Betrachtung des Speicherverbrauchs qa:s
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \cmark % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \cite{mairittha_-device_2019} & % - Arbeit
     & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
-    & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
+    \cmark & % - Betrachtung des Energieverbrauchs qa:e
+    \cmark & % - Betrachtung der Inferenzzeit qa:inf
     & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \cmark % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \cite{mairittha_improving_2020} & % - Arbeit
     & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
     & % - Betrachtung des Energieverbrauchs qa:e
     & % - Betrachtung der Inferenzzeit qa:inf
     & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \cmark % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \cite{mairittha_-device_2021} & % - Arbeit
     & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
-    & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
-    & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Betrachtung des Energieverbrauchs qa:e
+    \cmark & % - Betrachtung der Inferenzzeit qa:inf
+    \cmark & % - Betrachtung des Speicherverbrauchs qa:s
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
     & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
-    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
-    \\
-  \midrule
-  \multicolumn{9}{l}{Optimierung von Machine-Learning-Modellen} \\
-  \midrule
-  \cite{han_learning_2015} & % - Arbeit
-    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
-    & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
-    & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
-    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
-    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
-    \\
-  \cite{han_deep_2016} & % - Arbeit
-    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
-    & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
-    & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
-    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
-    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
-    \\
-  \cite{ian_goodfellow_deep_2016} & % - Arbeit
-    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
-    & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
-    & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
-    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
-    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
-    \\
-  \cite{howard_mobilenets_2017} & % - Arbeit
-    & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
-    & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
-    & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
-    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
-    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \cmark & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    \cmark % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \midrule
   \multicolumn{9}{l}{Tradeoff zwischen Ressourcenverbrauch und Ergebnisqualität} \\
   \midrule
   \cite{brownlee_exploring_2021} & % - Arbeit
     & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
-    & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
+    \cmark & % - Betrachtung des Energieverbrauchs qa:e
+    \cmark & % - Betrachtung der Inferenzzeit qa:inf
     & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
-    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
     & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
     % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \cite{dai_chamnet_2019} & % - Arbeit
     & % - Betrachtung von Verkehrsmittelklassifikation qa:vme
-    & % - Betrachtung des Energieverbrauchs qa:e
-    & % - Betrachtung der Inferenzzeit qa:inf
+    \cmark & % - Betrachtung des Energieverbrauchs qa:e
+    \cmark & % - Betrachtung der Inferenzzeit qa:inf
     & % - Betrachtung des Speicherverbrauchs qa:s
-    & % - Betrachtung der Ergebnisqualität qa:q
-    & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
-    & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
-    % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
+    \cmark & % - Betrachtung der Ergebnisqualität qa:q
+    \cmark & % - Ermittlung des bestmöglichen Modells aus einer Selektion qa:b
+    \cmark & % - Betrachtung von verschiedenen Optimierungsmöglichkeiten qa:o
+    \cmark % - Portierbarkeit auf Smartphones als Konzeptbestandteil qa:int
     \\
   \bottomrule
   \caption[Übersicht über die Betrachtung der Schwerpunkte dieser Arbeit durch verwandte Arbeiten.]{Übersicht über die Betrachtung der Schwerpunkte dieser Arbeit durch verwandte Arbeiten. Legende: Betrachtung einer Verkehrsmittelklassifikation \nameref{qa:vme}, Ressourcenparameter \nameref{qa:r} wie Energieverbrauch \nameref{qa:e}, Inferenzzeit \nameref{qa:inf} und Speicherverbrauch \nameref{qa:s}, Betrachtung der Ergebnisqualität \nameref{qa:q} und Ermittlung eines bestmöglichen Modells bezüglich des Tradeoffs \nameref{qa:b}, Betrachtung von verschiedenen Optimierungsmöglichkeiten \nameref{qa:o} und Integrierbarkeit auf Smartphones \nameref{qa:int}.}
   \label{tab:abgrenzung}
 \end{longtable}
 
+Serverseitige Ansätze wie die Movebis-Ansätze \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} geben den Ausgangspunkt für diese Arbeit, betrachten aber weder konkrete Ressourcenparameter, noch orientieren die Konzepte sich an der Portierbarkeit auf Smartphones. Die betrachteten smartphone-orientierten Ansätze zur Verkehrsmittelerkennung \cite{hemminki_accelerometer-based_2013,reddy_using_2010} zeigen teils, wie Ressourcenparameter als Anforderung für die Portierbarkeit berücksichtigt werden können. \cite{liono_inferring_2018} betrachtet keinen der identifizierten Ressourcenparameter und orientieren sich auf die hierarchische Kontextklassifikation. \cite{hemminki_accelerometer-based_2013,reddy_using_2010,liono_inferring_2018} bieten auf Smartphones portierbare Lösungen zur Verkehrsmittelerkennung, hierbei wird jedoch der Tradeoff zwischen Ergebnisqualität und Ressourcenverbrauch nicht einbezogen. \cite{fang_transportation_2016,liang_convolutional_2017,friedrich_transportation_2019,friedrich_combining_2020,antar_comparative_2018,jeyakumar_deep_2018} maximieren die Ergebnisqualität, legen jedoch keinen Fokus auf Effizienz oder die Portierbarkeit auf Smartphones. Für Modelle wie aus \cite{friedrich_combining_2020} ist es fraglich, ob diese überhaupt durch ihre Größe portiert werden könnten. HAR-Ansätze wie \cite{ravi_deep_2016,zebin_design_2019,nutter_design_2018,mairittha_-device_2019,mairittha_improving_2020,mairittha_-device_2021}, welche die Portierbarkeit berücksichtigen, setzen die Ergebnisgüte zwar mit dem Ressourcenverbrauch in Relation, eine konkrete Modellierung des Tradeoffs oder gar die Suche nach einer Pareto-optimalen Lösung wird jedoch von keiner der Arbeiten gezeigt. Die Modellierung des Tradeoffs betrachten \cite{brownlee_exploring_2021,dai_chamnet_2019} ausführlich, hierbei liegt jedoch kein Fokus auf HAR oder VME. Durch die starke Abhängigkeit der Klassifikation vom Datensatz wäre es denkbar, dass die in \cite{brownlee_exploring_2021,dai_chamnet_2019} gefundenen Erkenntnisse nicht auf VME oder HAR übetragbar sind.
+
 \section{Zusammenfassung}
 
-Es existiert eine Vielzahl von Machine-Learning-Ansätzen zur Verkehrsmittelerkennung, mit unterschiedlichen Konzeptbestandteilen und Schwerpunkten. Traditionelle Ansätze erreichen hierbei ähnliche Ergebnisqualitäten wie Deep-Learning-Ansätze. Während traditionelle Ansätze mit weniger Trainingsdaten auskommen und die dazugehörigen Modelle typischerweise vergleichsweise klein sind, erreichen Deep-Learning-Ansätze die besten Ergebnisqualitäten und können auch ohne transformative Datenvorverarbeitung eingesetzt werden. Die wenigen noch verbleibenden Verwechselungen des besten gefundenen Ansatzes liegen hierbei bei Verkehrsmitteln, welche sich in ihrer fahrdynamischen Charakteristik nur gering unterscheiden. Der beste gefundene Ansatz verwendet jedoch zur Maximierung der Ergebnisqualität ein besonders großes Modell, welches für eine Ausführung auf Smartphones ungeeignet ist.
+Traditionelle Ansätze erreichen ähnliche Ergebnisqualitäten wie Deep-Learning-Ansätze. Während traditionelle Ansätze mit weniger Trainingsdaten auskommen und die dazugehörigen Modelle typischerweise vergleichsweise klein sind, erreichen Deep-Learning-Ansätze die besten Ergebnisqualitäten und können auch ohne transformative Datenvorverarbeitung eingesetzt werden. Die wenigen noch verbleibenden Verwechselungen des besten gefundenen Ansatzes liegen hierbei bei Verkehrsmitteln, welche sich in ihrer fahrdynamischen Charakteristik nur gering unterscheiden. Der beste gefundene Ansatz verwendet jedoch zur Maximierung der Ergebnisqualität ein besonders großes Modell, welches für eine Ausführung auf Smartphones ungeeignet ist.
 
 Die Trainierbarkeit solcher großen Deep-Learning-Modelle begründet sich in der Verfügbarkeit großer öffentlicher Datensätze wie dem SHL-Datensatz. Daher ist die am meisten verwendete Trainingsmethode auch das Supervised Learning und dessen Derivate. Die Ergebnisqualitäten von \acrshort{vme}-Ansätzen sind nach dem Training vergleichbar mit den Resultaten von \acrshort{har}-Ansätzen. Durch Postprocessing über Glättung kann die Ergebnisqualität signifikant erhöht werden. Im Unterschied zu den Movebis-Ansätzen eignen sich zur Klassifikation auch Fensterlängen von unter einer Sekunde. Hierdurch kann die Verzögerung zu Beginn der Aufzeichnung analog zur Anforderungsanalyse minimal gehalten werden. Die Inferenzzeit ist zusätzlich typischerweise nicht länger als wenige Millisekunden und somit akzeptabel für eine Verkehrsmittelerkennung mit Anspruch an eine Echtzeitfähigkeit. Diese Metrik ist jedoch stark gerätespezifisch. Neben der Fensterlänge beeinflusst auch die Anzahl der zu klassifizierenden Labels durch Beschränkung des Anwendungsfalls die erreichbare Ergebnisqualität. Diese Erkenntnis kann in Form von hierarchischen Klassifizierungsverfahren genutzt werden.
 
 Der Tradeoff von Machine-Learning-Modellen wird üblicherweise als Relation von Ressourcenverbrauch und Accuracy betrachtet. Während die Inferenz- und Trainingszeit über die CPU-Zeit eng mit dem Energieverbrauch verbunden ist, eignet sich die reine Messung der CPU-Zeit nicht für eine fehlerfreie Projektion auf den Energieverbrauch. Auch der Speicherverbrauch hat über die Modellgröße einen negativen Einfluss auf den Energieverbrauch und kann durch Optimierungsmethoden reduziert werden. Unter dieser Betrachtung kann das Finden des bestmöglichen Ansatzes als Problem der Pareto-Optimierung betrachtet werden. Mithilfe einer Rastersuche über Hyperparameter können unterschiedliche Konfigurationen eines Modells getestet und die bestmögliche Lösung näherungsweise bestimmt werden. Durch Erstellung eines Machine-Learning-Meta-Modells zur Abbildung der Relation zwischen Modellkonfiguration, Energieverbrauch und Accuracy kann die Granularität der Rastersuche durch Interpolation des so entstehenden Hyperraums mit einem globalen Optimum verbessert werden. Das globale Optimum dieses Modells ist eine Näherungslösung für die bestmögliche Konfiguration des initial analysierten Machine-Learning-Modells.
-
-% speicherverbrauch und inferenzzeit nicht (direkt) mit einbezogen
-% -> hoher stromverbrauch = hohe inferenzzeit? hoher speicherverbrauch = viele parameter?
-% nur ein modell betrachtet -> verschiedene architekturen betrachten?
-% andere Datensätze betrachtet -> vme andere ergebnisse möglich?
-
-% Tradeoff: Zusammenhang zwischen Ergebnisqualität und Ressourcenverbrauch
-% - Nur wenige empirische Daten über Ressourcenparameter bekannt, sowohl bei
-% traditionellen als auch bei deep-learning-ansätzen
-% - Zielfrage: Wann ist der Zugewinn an Ergebnisqualität nicht mehr akzeptabel?
-% - Arbeit von Brownlee et al. diskutieren
