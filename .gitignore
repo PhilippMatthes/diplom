@@ -1,5 +1,7 @@
 # downloaded from https://raw.githubusercontent.com/github/gitignore/master/TeX.gitignore
 
+shl/
+
 ## Core latex/pdflatex auxiliary files:
 *.ps
 *.aux
