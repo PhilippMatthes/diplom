@@ -1,6 +1,6 @@
 # downloaded from https://raw.githubusercontent.com/github/gitignore/master/TeX.gitignore
 
-src/shl-data-analysis/shl/
+shl-dataset/
 
 ## Core latex/pdflatex auxiliary files:
 *.ps
