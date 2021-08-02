@@ -1,5 +1,6 @@
 # downloaded from https://raw.githubusercontent.com/github/gitignore/master/TeX.gitignore
 
+Pods/
 shl-dataset/
 log/
 __pycache__/
