@@ -136,16 +136,18 @@ private class MotionSource: ObservableObject {
     }
 }
 
+struct Classification: Identifiable {
+    let confidence: Parameter
+    let label: String
+
+    var id: String { label }
+}
+
 private class Model: ObservableObject {
     private let interpreter: Interpreter
     private let input: Tensor
 
     private var output: Tensor
-
-    struct Classification {
-        let confidence: Parameter
-        let label: String
-    }
 
     init() throws {
         interpreter = try Interpreter(modelPath: MODELPATH)
@@ -155,7 +157,7 @@ private class Model: ObservableObject {
     }
 
     /// Classify input with shape `(1, 500, 3)`.
-    func classify(inputs: [[[Parameter]]]) -> Classification? {
+    func classify(inputs: [[[Parameter]]]) -> [Classification]? {
         let flattenedInputs = inputs.flatMap { e in e }.flatMap { e in e }
         let inputData = flattenedInputs
             .withUnsafeBufferPointer { ptr in Data(buffer: ptr) }
@@ -181,7 +183,7 @@ private class Model: ObservableObject {
         let topInferences = sortedResults
             .map { result in Classification(confidence: result.1, label: labels[result.0]) }
 
-        return topInferences.first!
+        return topInferences
     }
 }
 
@@ -191,27 +193,45 @@ struct SHLModelEvaluationApp: App {
     @StateObject private var model = try! Model()
     @StateObject private var source = try! MotionSource()
 
-    @State var label: String?
-    @State var confidence: Parameter?
+    @State var classifications = [Classification]()
 
     var content: some View {
         VStack {
-            if let label = label, let confidence = confidence {
-                Text("Label: \(label)")
-                Text("Confidence: \(confidence)")
-            } else {
-                ProgressView()
+            HStack(alignment: .bottom) {
+                ForEach(classifications) { c in
+                    GeometryReader { proxy in
+                        VStack {
+                            Spacer()
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.blue)
+                                .frame(height: proxy.size.height * CGFloat(c.confidence))
+                        }
+                    }
+                }
+            }
+            HStack(alignment: .bottom) {
+                ForEach(classifications) { c in
+                    VStack {
+                        Text(c.label)
+                            .lineLimit(nil)
+                        Text("\(Int(c.confidence * 100))%")
+                    }
+                }
             }
         }
+        .padding()
     }
 
     var body: some Scene {
         WindowGroup {
             content.onAppear(perform: {
                 source.startListening { motion in
-                    let classification = model.classify(inputs: motion)
-                    self.label = classification?.label
-                    self.confidence = classification?.confidence
+                    guard
+                        let classifications = model.classify(inputs: motion)
+                    else { return }
+                    withAnimation {
+                        self.classifications = classifications
+                    }
                 }
             })
             .onDisappear(perform: {
