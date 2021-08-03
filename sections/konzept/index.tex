@@ -2,6 +2,50 @@
 
 \nocite{chollet_keras_2015,omalley_keras_2019,pedregosa_scikit-learn_2011,martin_abadi_tensorflow_2015}
 
+\section{Exploration des SHL-Datensatzes}
+
+\begin{figure}[h]
+\includegraphics[width=0.5\linewidth, bb=0 0 401 386]{shl/label-quantities.pdf}
+\caption{Klassenverteilungen im Hand-Datensatz der SHL-Challenge aus 2020.}\label{fig:shl-label-quantities}
+\end{figure}
+
+\begin{equation}
+  \left| ACC \right| = \sqrt{ACC_x^2 + ACC_y^2 + ACC_z^2}
+\end{equation}
+
+\begin{equation}
+  \left| MAG \right| = \sqrt{MAG_x^2 + MAG_y^2 + MAG_z^2}
+\end{equation}
+
+\begin{equation}
+  \left| GYR \right| = \sqrt{GYR_x^2 + GYR_y^2 + GYR_z^2}
+\end{equation}
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth, bb=0 0 1395 386]{shl/akzelerometer-boxplot.pdf}
+\caption{Statistische Verteilung der Sensorkomponenten im Akzelerometer-Signal anhand der Klassen im SHL-Datensatz.}\label{fig:shl-akzelerometer-boxplot}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth, bb=0 0 1401 386]{shl/magnetometer-boxplot.pdf}
+\caption{Statistische Verteilung der Sensorkomponenten im Magnetometer-Signal anhand der Klassen im SHL-Datensatz.}\label{fig:shl-magnetometer-boxplot}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth, bb=0 0 1398 386]{shl/gyrosensor-boxplot.pdf}
+\caption{Statistische Verteilung der Sensorkomponenten im Gyrosensor-Signal anhand der Klassen im SHL-Datensatz.}\label{fig:shl-gyrosensor-boxplot}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth, bb=0 0 1057 386]{shl/sensor-histograms.pdf}
+\caption{Statistische Verteilung der Signalstärken von $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$ im SHL-Datensatz.}\label{fig:shl-sensor-histograms}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth, bb=0 0 1039 443]{shl/sensor-fft.pdf}
+\caption{Statistische Verteilung der Frequenzen von $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$ anhand der Klassen im SHL-Datensatz.}\label{fig:shl-sensor-fft}
+\end{figure}
+
 % - Datenakquise
 %   - Limitation auf lokale kinematische Messparameter
 %   - Exploration des Sussex-Huawei-Locomotion Datensatzes
