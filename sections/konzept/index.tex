@@ -2,61 +2,69 @@
 
 \nocite{chollet_keras_2015,omalley_keras_2019,pedregosa_scikit-learn_2011,martin_abadi_tensorflow_2015}
 
-\section{Exploration des SHL-Datensatzes}
+\section{Explorative Datensatzanalyse}
+
+\subsection{Akquise eines Datensatzes}
+
+Als Ausgangspunkt für die datenorientierte Verkehrsmittelerkennung durch Machine-Learning-Systeme muss ein Datensatz akquiriert werden. Dieser kann selbstständig erzeugt werden, beispielsweise durch Aufzeichnung über eine prototypische Applikation, oder aus verwandten Arbeiten übernommen werden. Da bereits zahlreiche öffentliche Datensätze zur Verfügung stehen und die Nutzung eines solchen Datensatzes die Vergleichbarkeit der Ergebnisse verbessert, wurde ein öffentlicher Datensatz zum Training und zur Evaluation der Modelle identifiziert. Die Sussex-Huawei-Locomotion-Challenge, kurz SHL-Challenge, ist ein jährlicher Wettbewerb, bei dem Forschungsteams Verkehrsmittelklassifikationen mit Fokus auf eine bestmögliche Accuracy entwickeln. Im Rahmen des Wettbewerbs werden mehrere Datensätze zur Verfügung gestellt, mit unterschiedlichen Strukturen. Die in 2020 veröffentlichten Datensätze eignen sich als Grundlage für die in dieser Arbeit zu trainierenden Machine-Learning-Modelle und werden auch durch einige verwandte Arbeiten genutzt. Hierbei werden insgesamt vier Pakete zum Training bereitgestellt, jeweils aufgezeichnet in einer unterschiedlichen Position am Körper (\textit{Torso}, \textit{Bag}, \textit{Hips} und \textit{Hand}), zusätzlich zu einem Validierungsdatensatz.
 
 \begin{figure}[h]
-\includegraphics[width=0.5\linewidth, bb=0 0 401 386]{shl/label-quantities.pdf}
+\includegraphics[width=0.5\linewidth, bb=0 0 513 277]{shl/label-quantities.pdf}
 \caption{Klassenverteilungen im Hand-Datensatz der SHL-Challenge aus 2020.}\label{fig:shl-label-quantities}
 \end{figure}
 
-\begin{equation}
-  \left| ACC \right| = \sqrt{ACC_x^2 + ACC_y^2 + ACC_z^2}
-\end{equation}
+Die Daten bestehen aus Samples von jeweils 500 Datenpunkten, welche mit einer Frequenz von 100Hz aufgezeichnet wurden. Dies ergibt eine Sample-Länge von 5 Sekunden. Verfügbar sind hierbei Messwerte zu Akzelerometer, Gyrosensor und Magnetometer, sowie zum Teil vorverarbeitete Parameter wie lineare Beschleunigung. Die Verteilungen der einzelnen aufgezeichneten Klassen sind hierbei nicht gleich, dies zeigt \Cref{fig:shl-label-quantities} für den Hand-Datensatz. Außerdem ist eine Klasse \texttt{Null} im Datensatz enthalten, welche als Puffer bei Beginn, Wechsel und Ende der Aufzeichnungen genutzt und im veröffentlichten Datensatz entfernt wurde.
 
-\begin{equation}
-  \left| MAG \right| = \sqrt{MAG_x^2 + MAG_y^2 + MAG_z^2}
-\end{equation}
+\subsection{Feature-Engineering}
 
-\begin{equation}
-  \left| GYR \right| = \sqrt{GYR_x^2 + GYR_y^2 + GYR_z^2}
-\end{equation}
+\subsubsection{Vorverarbeitung des triaxialen Vektorsystems}
+
+Die Forschungsanalyse hat gezeigt, dass zur Verkehrsmittelerkennung sowohl Shallow Features und Non-Shallow Features, als auch direkte Zeitliniendaten genutzt werden können. Die möglichen Ansätze sind vielfältig und können im Rahmen dieser Arbeit nicht ganzheitlich berücksichtigt werden. Eine Limitation des Betrachtungsspektrums wird notwendig. Je nach später gewählter Modellarchitektur genügt es zur Entscheidung einer Kombination aus Machine-Learning-Modell und Feature-Modell, zunächst einige Shallow Features und die direkten Zeitliniendaten bereitstellen zu können. Als Grundlage der Berechnung werden die im Datensatz enthaltenen Akzelerometer-, Magnetometer- und Gyrosensordaten verwendet. Zunächst wird für die Signale der Punktweise Vektorbetrag $\left| ACC \right| = \sqrt{ACC_x^2 + ACC_y^2 + ACC_z^2}$, $\left| MAG \right| = \sqrt{MAG_x^2 + MAG_y^2 + MAG_z^2}$ und $\left| GYR \right| = \sqrt{GYR_x^2 + GYR_y^2 + GYR_z^2}$ gebildet. Das Ergebnis ist jeweils wieder als Zeitlinie zu interpretieren. Die statistischen Auswirkungen dieser Berechnung sind in den nachfolgenden Grafiken dargestellt.
 
 \begin{figure}[h]
-\includegraphics[width=\linewidth, bb=0 0 1395 386]{shl/akzelerometer-boxplot.pdf}
-\caption{Statistische Verteilung der Sensorkomponenten im Akzelerometer-Signal anhand der Klassen im SHL-Datensatz.}\label{fig:shl-akzelerometer-boxplot}
+\includegraphics[width=\linewidth, bb=0 0 1396 386]{shl/akzelerometer-boxplot.pdf}
+\caption{Statistische Verteilung der Sensorkomponenten im Akzelerometer-Signal anhand der Klassen im SHL-Hand-Datensatz.}\label{fig:shl-akzelerometer-boxplot}
 \end{figure}
 
-\begin{figure}[h]
-\includegraphics[width=\linewidth, bb=0 0 1401 386]{shl/magnetometer-boxplot.pdf}
-\caption{Statistische Verteilung der Sensorkomponenten im Magnetometer-Signal anhand der Klassen im SHL-Datensatz.}\label{fig:shl-magnetometer-boxplot}
-\end{figure}
+In \Cref{fig:shl-akzelerometer-boxplot} wird die in den Grundlagen erläuterte Beobachtung deutlich, dass der Gravitationsvektor in den Teilachsen einen vertikalen Verschiebungsfaktor darstellt. Durch Berechnung des Vektorbetrags zentriert sich die Verteilung deutlich vertikal um die Erdbeschleunigung, welche bei ungefähr $9,81 \frac{m}{s^2}$ liegt. Durch Subtraktion dieser Beschleunigung ließe sich der Gravitationsvektor zumindest aus dem Vektorbetrag verlustfrei entfernen, im Unterschied zum schätzungsbedingt fehlerbehafteten AHRS-Verfahren. Darüber hinaus wird deutlich, dass die größten Auslenkungen der Amplitude erwartungsgemäß beim Rennen zu messen sind. Diese Aktivität lässt sich vermutlich leicht von den Verkehrsmittel Bus oder Zug unterscheiden, allein durch Betrachtung der Akzelerometerdaten.
 
 \begin{figure}[h]
-\includegraphics[width=\linewidth, bb=0 0 1398 386]{shl/gyrosensor-boxplot.pdf}
-\caption{Statistische Verteilung der Sensorkomponenten im Gyrosensor-Signal anhand der Klassen im SHL-Datensatz.}\label{fig:shl-gyrosensor-boxplot}
+\includegraphics[width=\linewidth, bb=0 0 1403 386]{shl/magnetometer-boxplot.pdf}
+\caption{Statistische Verteilung der Sensorkomponenten im Magnetometer-Signal anhand der Klassen im SHL-Hand-Datensatz.}\label{fig:shl-magnetometer-boxplot}
 \end{figure}
 
+Ähnliche Beobachtungen lassen sich ergänzend anhand von \Cref{fig:shl-magnetometer-boxplot} feststellen. Der Vektorbetrag des Magnetometer-Signals zentriert sich um die erwartbare Magnetfeldstärke der Erde und schwankt in bestimmten Verkehrsmitteln durch Anwesenheit von artifiziellen Magnetfeldquellen nach oben und unten. Deutlich wird die starke Variabilität des Magnetfeldes in den einzelnen Teilachsen, bedingt durch die Ausrichtung des Geräts. Auch hier kann durch den Vektorbetrag die Ausrichtung des Geräts als transformativer Faktor eliminiert werden.
+
 \begin{figure}[h]
-\includegraphics[width=\linewidth, bb=0 0 1057 386]{shl/sensor-histograms.pdf}
-\caption{Statistische Verteilung der Signalstärken von $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$ im SHL-Datensatz.}\label{fig:shl-sensor-histograms}
+\includegraphics[width=\linewidth, bb=0 0 1399 386]{shl/gyrosensor-boxplot.pdf}
+\caption{Statistische Verteilung der Sensorkomponenten im Gyrosensor-Signal anhand der Klassen im SHL-Hand-Datensatz.}\label{fig:shl-gyrosensor-boxplot}
 \end{figure}
+
+\Cref{fig:shl-gyrosensor-boxplot} zeigt die Anwendung des Vektorbetrags auf die Winkelauslenkung in $\frac{rad}{s}$. Die größten Auslenkungen sind erwartungsgemäß beim Rennen messbar. Auch die Klasse Fahrradfahren zeigt eine erhöhte Winkelauslenkung. Eine vertikale Verschiebung der Messdaten, wie sie beim Akzelerometer und beim Magnetometer beobachtet werden kann, ist hierbei nicht beobachtbar. Stattdessen sind die Daten durch die Messung der zeitlichen Änderung des Signals um den Nullpunkt zentriert, da auf jede ins System eingebrachte Rotation auch zwangsläufig eine entgegengesetzte Rotation folgt. Eine geringfügige Ausrichtigungsabhängigkeit lässt sich dennoch intuitiv in den Unterschieden der X-, Y- und Z-Achse vermuten, welche wie beim Akzelerometer und beim Gyrosensor durch die Bildung des Vektorbetrags eliminiert werden könnte.
+
+Es hat sich anhand der Datenanalyse gezeigt, dass die Bildung des Vektorbetrags die Ausrichtungsabhängigkeit der Signale eliminieren kann, während Unterschiede in den statistischen Verteilungen zwischen den Klassen weitestgehend erhalten bleiben. Daher bietet es sich an, diese Vektorbetrag-Signale als Grundlage zur weiteren Datenverarbeitung zu verwenden.
+
+\subsubsection{Bildung von Shallow-Features}
+
+Würden nur Zeitliniendaten anhand der bisherigen Beschreibungen bereitgestellt, so könnten traditionelle Machine-Learning-Ansätze nicht effektiv in die Erstauswahl einer Basisarchitektur mit einbezogen werden, da sie analog zur Forschungsanalyse auf reinen Zeitliniendaten nicht hinreichend generalisieren können. Es sollen zusätzlich zur Bildung des Vektorbeträge noch statistische und frequenzbezogene Features ermittelt werden. Die Auswahl der Features orientiert sich an den in verwandten Arbeiten häufig Verwendeten. Statistische Features sind das arithmetische Mittel, die Standardverteilung, sowie das Maximum und Minimum des Zeitliniensignals. Werden diese jeweils für die Zeitliniensignale $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$ gebildet, so ermitteln sich $3\times4=12$ statistische Features für jedes Sample. Hinzu kommen frequenzbezogene Features. Das Frequenzspektrum kann über eine Fast-Fourier-Transformation ermittelt werden, mit der gegebenen Abtastrate von 100Hz ist so eine direkte Zuordnung der Signalstärken zur Frequenz möglich.
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth, bb=0 0 1039 443]{shl/sensor-fft.pdf}
-\caption{Statistische Verteilung der Frequenzen von $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$ anhand der Klassen im SHL-Datensatz.}\label{fig:shl-sensor-fft}
+\caption{Statistische Verteilung der Frequenzen von $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$ anhand der Klassen im SHL-Hand-Datensatz.}\label{fig:shl-sensor-fft}
 \end{figure}
 
-% - Datenakquise
-%   - Limitation auf lokale kinematische Messparameter
-%   - Exploration des Sussex-Huawei-Locomotion Datensatzes
-%   - Gewichtung des Datensatzes zur Vermeidung von Bias
-%   - Aufteilung des Datensatzes in Train, Test und Validation
-%   - Yeo-Johnson-Transformation der Eingangsdaten
-%   - Konfiguration von Frequenzbandfiltern
-%   - Konfiguration der Fensterlänge analog zu Anforderungen
-%   - Bereitstellung der Daten durch Schnittstellen
+\Cref{fig:shl-sensor-fft} zeigt einen Ausschnitt der hieraus resultierenden Verteilung der Signalstärken für $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$. Sichtbar wird hierbei, dass die verschiedenen Verkehrsmittelklassen unterschiedlich zu den einzelnen Frequenzbereichen beitragen. Dies lässt vermuten, dass die Transformation der Zeitliniendaten in die Frequenzdomäne weitere Unterscheidungsmerkmale bereitstellen kann. Aus dem Frequenzspektrum lassen sich weitere Features ableiten, hierunter das Maximum und Minimum der Signalstärke, die Entropie, die Durchschnittsfrequenz, sowie weitere Features wie die Autokorrelation. Dies ergibt nochmals $5\times3=15$ und somit insgesamt $27$ Features, welche als Grundlage zum Training von hierauf angewiesenen Modellen genutzt werden können.
 
-% - Modellexploration
-%   - Feature-Engineering: Shallow und Coding für DL-Features
-%   - Constraint-basierte Rastersuche
-%   -
+\subsection{Selektion einer Skalierungsmethode}
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth, bb=0 0 1057 386]{shl/sensor-histograms.pdf}
+\caption{Statistische Verteilung der Signalstärken von $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$ im SHL-Hand-Datensatz.}\label{fig:shl-sensor-histograms}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth, bb=0 0 1057 386]{shl/scaler-histograms.pdf}
+\caption{Anwendung der Standardisierung, Yeo-Johnson-Transformation und Box-Cox-Transformation auf $\left| ACC \right|$, Markierung bei $-1$ und $1$.}\label{fig:shl-scaler-histograms}
+\end{figure}
+
+\section{Empirische Selektion einer Grundarchitektur}
