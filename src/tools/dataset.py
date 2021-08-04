@@ -94,7 +94,7 @@ def load_zipped_shl_dataset(zip_dir: pathlib.Path, tqdm=None):
     with tempfile.TemporaryDirectory() as unzip_dir:
         with zipfile.ZipFile(zip_dir, 'r') as zip_ref:
             if tqdm:
-                for member in tqdm(zip_ref.infolist(), desc='Extracting '):
+                for member in tqdm(zip_ref.infolist(), desc=f'Extracting {zip_dir}'):
                     zip_ref.extract(member, unzip_dir)
             else:
                 zip_ref.extractall(unzip_dir)
