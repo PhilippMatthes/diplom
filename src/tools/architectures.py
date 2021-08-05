@@ -71,10 +71,4 @@ def make_resnet(input_shape: list, output_classes: int, n_feature_maps=64):
 
     model = keras.models.Model(inputs=input_layer, outputs=output_layer)
 
-    model.compile(
-        loss='categorical_crossentropy',
-        optimizer='adam',
-        metrics=['acc']
-    )
-
     return model
