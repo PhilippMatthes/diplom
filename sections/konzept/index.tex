@@ -4,6 +4,8 @@
 
 \section{Explorative Datensatzanalyse}
 
+Nachfolgend wird ein Datensatz für das Training der Modelle in dieser Arbeit akquiriert und anschließend exploriert. Durch die Exploration der Struktur des Datensatzes sollen sich wertvolle Erkenntnisse ergeben, welche direkt in die Strukturierung der Datenvorverarbeitung und damit auch in die erreichbare Ergebnisqualität einfließen.
+
 \subsection{Akquise eines Datensatzes}
 
 Als Ausgangspunkt für die datenorientierte Verkehrsmittelerkennung durch Machine-Learning-Systeme muss ein Datensatz akquiriert werden. Dieser kann selbstständig erzeugt werden, beispielsweise durch Aufzeichnung über eine prototypische Applikation, oder aus verwandten Arbeiten übernommen werden. Da bereits zahlreiche öffentliche Datensätze zur Verfügung stehen und die Nutzung eines solchen Datensatzes die Vergleichbarkeit der Ergebnisse verbessert, wurde ein öffentlicher Datensatz zum Training und zur Evaluation der Modelle identifiziert. Die Sussex-Huawei-Locomotion-Challenge, kurz SHL-Challenge, ist ein jährlicher Wettbewerb, bei dem Forschungsteams Verkehrsmittelklassifikationen mit Fokus auf eine bestmögliche Accuracy entwickeln. Im Rahmen des Wettbewerbs werden mehrere Datensätze zur Verfügung gestellt, mit unterschiedlichen Strukturen. Die in 2020 veröffentlichten Datensätze eignen sich als Grundlage für die in dieser Arbeit zu trainierenden Machine-Learning-Modelle und werden auch durch einige verwandte Arbeiten genutzt. Hierbei werden insgesamt vier Pakete zum Training bereitgestellt, jeweils aufgezeichnet in einer unterschiedlichen Position am Körper (\textit{Torso}, \textit{Bag}, \textit{Hips} und \textit{Hand}), zusätzlich zu einem Validierungsdatensatz.
@@ -44,9 +46,42 @@ In \Cref{fig:shl-akzelerometer-boxplot} wird die in den Grundlagen erläuterte B
 
 Es hat sich anhand der Datenanalyse gezeigt, dass die Bildung des Vektorbetrags die Ausrichtungsabhängigkeit der Signale eliminieren kann, während Unterschiede in den statistischen Verteilungen zwischen den Klassen weitestgehend erhalten bleiben. Daher bietet es sich an, diese Vektorbetrag-Signale als Grundlage zur weiteren Datenverarbeitung zu verwenden.
 
+\subsection{Selektion einer Skalierungsmethode}
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth, bb=0 0 1057 277]{shl/sensor-histograms.pdf}
+\caption{Statistische Verteilung der Signalstärken von $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$ im SHL-Hand-Datensatz.}\label{fig:shl-sensor-histograms}
+\end{figure}
+
+Die Auswahl der Skalierungsmethode für die Eingaben ist für einige Modelle wichtig, um eine bestmögliche Ergebnisqualität zu erzielen. Hierzu wird die statistische Verteilung der Eingaben näher betrachtet. In \Cref{fig:shl-sensor-histograms} sind die Verteilungen von $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$ für den SHL-Hand-Datensatz sichtbar. Deutlich wird hierbei wieder die Zentrierung von $\left| ACC \right|$ um $9,81\frac{m}{s^2}$ sowie $\left| MAG \right|$ und $\left| GYR \right|$ um $0$.
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth, bb=0 0 1057 277]{shl/scaler-histograms.pdf}
+\caption{Anwendung der Standardisierung, Yeo-Johnson-Transformation und Box-Cox-Transformation auf $\left| ACC \right|$, Markierung bei $-1$ und $1$.}\label{fig:shl-scaler-histograms}
+\end{figure}
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth, bb=0 0 1058 277]{shl/yeo-johnson-histograms.pdf}
+  \caption{Anwendung der Yeo-Johnson-Transformation auf $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$, Markierung bei $-1$ und $1$.}\label{fig:shl-yeo-johnson-histograms}
+\end{figure}
+
+\Cref{fig:shl-scaler-histograms} zeigt zunächst die bereits erläuterte Standardisierung. Die Standardisierung verändert die Verteilung der Daten nicht morphologisch, sie werden mit Erhaltung von Ausreißern um den horizontalen Nullpunkt skaliert. In manchen Fällen ist es zur Vorverarbeitung sinnvoll, die Daten zusätzlich morphologisch um den horizontalen Nullpunkt symmetrisch anzugleichen, indem spezielle Power-Transformationen angewandt werden. \cite{werner_kontinuierliche_2020} nutzt die Yeo-Johnson-Transformation, welche in \Cref{fig:shl-scaler-histograms} und \Cref{fig:shl-yeo-johnson-histograms} gezeigt ist. Die Yeo-Johnson-Transformation ist auf einem Datenpunkt $x$ wie folgt definiert.
+
+\begin{equation}
+\begin{aligned}
+  yeojohnson(x;\lambda) &=
+  \boldsymbol 1 _{(\lambda \neq 0, x \geq 0)} \frac{(x+1)^\lambda-1}{\lambda} \\
+  &+ \boldsymbol 1_{(\lambda = 0, x \geq 0)} \log (x+1) \\
+  &+ \boldsymbol 1_{(\lambda \neq 2, x < 0)} \frac{(1-x)^{2-\lambda}-1}{\lambda - 2} \\
+  &+ \boldsymbol 1_{(\lambda = 2, x < 0)} -\log (1-x) \\
+\end{aligned}
+\end{equation}
+
+Der Parameter $\lambda$ wird durch die Maximum-Likelihood-Methode\footnote{\url{https://de.wikipedia.org/wiki/Maximum-Likelihood-Methode} (Abgerufen am 5.8.2021)} geschätzt. Ziel der Anwendung einer solchen Power-Transformation ist, die Abschrägung (\textit{skew}) der Daten zu eliminieren, um den Bias des Modells zu verringern und den Lernerfolg zu steigern. Die Yeo-Johnson-Transformation ist eine Erweiterung der in \Cref{fig:shl-scaler-histograms} gezeigten Box-Cox-Transformation und soll als Skalierungsmethode für die Machine-Learning-Modelle in dieser Arbeit dienen.
+
 \subsubsection{Bildung von Shallow-Features}
 
-Würden nur Zeitliniendaten anhand der bisherigen Beschreibungen bereitgestellt, so könnten traditionelle Machine-Learning-Ansätze nicht effektiv in die Erstauswahl einer Basisarchitektur mit einbezogen werden, da sie analog zur Forschungsanalyse auf reinen Zeitliniendaten nicht hinreichend generalisieren können. Es sollen zusätzlich zur Bildung des Vektorbeträge noch statistische und frequenzbezogene Features ermittelt werden. Die Auswahl der Features orientiert sich an den in verwandten Arbeiten häufig Verwendeten. Statistische Features sind das arithmetische Mittel, die Standardverteilung, sowie das Maximum und Minimum des Zeitliniensignals. Werden diese jeweils für die Zeitliniensignale $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$ gebildet, so ermitteln sich $3\times4=12$ statistische Features für jedes Sample. Hinzu kommen frequenzbezogene Features. Das Frequenzspektrum kann über eine Fast-Fourier-Transformation ermittelt werden, mit der gegebenen Abtastrate von 100Hz ist so eine direkte Zuordnung der Signalstärken zur Frequenz möglich.
+Würden nur die skalierten Zeitliniendaten anhand der bisherigen Beschreibungen bereitgestellt, so könnten traditionelle Machine-Learning-Ansätze nicht effektiv in die Erstauswahl einer Basisarchitektur mit einbezogen werden, da sie analog zur Forschungsanalyse auf reinen Zeitliniendaten nicht hinreichend generalisieren können. Es sollen zusätzlich zur Bildung des Vektorbeträge noch statistische und frequenzbezogene Features ermittelt werden. Die Auswahl der Features orientiert sich an den in verwandten Arbeiten häufig Verwendeten. Statistische Features sind das arithmetische Mittel, die Standardverteilung, sowie das Maximum und Minimum des Zeitliniensignals. Werden diese jeweils für die Zeitliniensignale $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$ gebildet, so ermitteln sich $3\times4=12$ statistische Features für jedes Sample. Hinzu kommen frequenzbezogene Features. Das Frequenzspektrum kann über eine Fast-Fourier-Transformation ermittelt werden, mit der gegebenen Abtastrate von 100Hz ist so eine direkte Zuordnung der Signalstärken zur Frequenz möglich.
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth, bb=0 0 1039 443]{shl/sensor-fft.pdf}
@@ -54,17 +89,5 @@ Würden nur Zeitliniendaten anhand der bisherigen Beschreibungen bereitgestellt,
 \end{figure}
 
 \Cref{fig:shl-sensor-fft} zeigt einen Ausschnitt der hieraus resultierenden Verteilung der Signalstärken für $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$. Sichtbar wird hierbei, dass die verschiedenen Verkehrsmittelklassen unterschiedlich zu den einzelnen Frequenzbereichen beitragen. Dies lässt vermuten, dass die Transformation der Zeitliniendaten in die Frequenzdomäne weitere Unterscheidungsmerkmale bereitstellen kann. Aus dem Frequenzspektrum lassen sich weitere Features ableiten, hierunter das Maximum und Minimum der Signalstärke, die Entropie, die Durchschnittsfrequenz, sowie weitere Features wie die Autokorrelation. Dies ergibt nochmals $5\times3=15$ und somit insgesamt $27$ Features, welche als Grundlage zum Training von hierauf angewiesenen Modellen genutzt werden können.
-
-\subsection{Selektion einer Skalierungsmethode}
-
-\begin{figure}[h]
-\includegraphics[width=\linewidth, bb=0 0 1057 386]{shl/sensor-histograms.pdf}
-\caption{Statistische Verteilung der Signalstärken von $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$ im SHL-Hand-Datensatz.}\label{fig:shl-sensor-histograms}
-\end{figure}
-
-\begin{figure}[h]
-\includegraphics[width=\linewidth, bb=0 0 1057 386]{shl/scaler-histograms.pdf}
-\caption{Anwendung der Standardisierung, Yeo-Johnson-Transformation und Box-Cox-Transformation auf $\left| ACC \right|$, Markierung bei $-1$ und $1$.}\label{fig:shl-scaler-histograms}
-\end{figure}
 
 \section{Empirische Selektion einer Grundarchitektur}
