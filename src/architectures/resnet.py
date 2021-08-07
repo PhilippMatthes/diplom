@@ -2,6 +2,10 @@ from tensorflow import keras
 
 
 def make_resnet(input_shape: list, output_classes: int, n_feature_maps=64):
+    """
+    Resnet model from https://github.com/hfawaz/dl-4-tsc
+    """
+
     input_layer = keras.layers.Input(input_shape)
 
     # BLOCK 1
