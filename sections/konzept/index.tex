@@ -15,7 +15,7 @@ Als Ausgangspunkt für die datenorientierte Verkehrsmittelerkennung durch Machin
 \caption{Klassenverteilungen im Hand-Datensatz der SHL-Challenge aus 2020.}\label{fig:shl-label-quantities}
 \end{figure}
 
-Die Daten bestehen aus Samples von jeweils 500 Datenpunkten, welche mit einer Frequenz von 100Hz aufgezeichnet wurden. Dies ergibt eine Sample-Länge von 5 Sekunden. Verfügbar sind hierbei Messwerte zu Akzelerometer, Gyrosensor und Magnetometer, sowie zum Teil vorverarbeitete Parameter wie lineare Beschleunigung. Die Verteilungen der einzelnen aufgezeichneten Klassen sind hierbei nicht gleich, dies zeigt \Cref{fig:shl-label-quantities} für den Hand-Datensatz. Außerdem ist eine Klasse \texttt{Null} im Datensatz enthalten, welche als Puffer bei Beginn, Wechsel und Ende der Aufzeichnungen genutzt und im veröffentlichten Datensatz entfernt wurde.
+Die Daten bestehen aus Samples von jeweils 500 Datenpunkten, welche mit einer Frequenz von 100Hz aufgezeichnet wurden. Dies ergibt eine Sample-Länge von 5 Sekunden, welche im Unterschied zu den in \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} verwendeten Fensterlängen eine verzögerungsarme Klassifikation ermöglicht (\nameref{qa:inf}). Verfügbar sind hierbei Messwerte zu Akzelerometer, Gyrosensor und Magnetometer, sowie zum Teil vorverarbeitete Parameter wie lineare Beschleunigung. Die Verteilungen der einzelnen aufgezeichneten Klassen sind hierbei nicht gleich, dies zeigt \Cref{fig:shl-label-quantities} für den Hand-Datensatz. Außerdem ist eine Klasse \texttt{Null} im Datensatz enthalten, welche als Puffer bei Beginn, Wechsel und Ende der Aufzeichnungen genutzt und im veröffentlichten Datensatz entfernt wurde. Der SHL-Datensatz stellt außerdem keine GNSS-Daten zur Verfügung. Dies ist jedoch in Einklang mit dem Konzept. Eine GNSS-Dimension wird bewusst nicht verwendet, um den Energieverbrauch der Datenaufzeichnung zu minimieren und mögliche Fehlerquellen mit der dazugehörigen energieintensiven Vorverarbeitung zu eliminieren (\nameref{qa:r}). Die empirische Annahme ist hierbei, dass die lokalen kinematischen Messparameter für eine hinreichende Klassifikationsqualität genügen. Hieraus resultiert gleichzeitig der Vorteil, dass kein massives Downsampling der lokalen kinematischen Messdaten wie in \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} durchgeführt werden muss, verbunden mit einem potenziell höheren Informationsgehalt des Ausgangsdatensatzes.
 
 \subsection{Feature-Engineering}
 
@@ -46,7 +46,7 @@ In \Cref{fig:shl-akzelerometer-boxplot} wird die in den Grundlagen erläuterte B
 
 Es hat sich anhand der Datenanalyse gezeigt, dass die Bildung des Vektorbetrags die Ausrichtungsabhängigkeit der Signale eliminieren kann, während Unterschiede in den statistischen Verteilungen zwischen den Klassen weitestgehend erhalten bleiben. Daher bietet es sich an, diese Vektorbetrag-Signale als Grundlage zur weiteren Datenverarbeitung zu verwenden.
 
-\subsection{Selektion einer Skalierungsmethode}
+\subsection{Selektion einer Skalierungsmethode}\label{sec:skalierungsmethode}
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth, bb=0 0 1057 277]{shl/sensor-histograms.pdf}
@@ -88,6 +88,48 @@ Würden nur die skalierten Zeitliniendaten anhand der bisherigen Beschreibungen 
 \caption{Statistische Verteilung der Frequenzen von $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$ anhand der Klassen im SHL-Hand-Datensatz.}\label{fig:shl-sensor-fft}
 \end{figure}
 
-\Cref{fig:shl-sensor-fft} zeigt einen Ausschnitt der hieraus resultierenden Verteilung der Signalstärken für $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$. Sichtbar wird hierbei, dass die verschiedenen Verkehrsmittelklassen unterschiedlich zu den einzelnen Frequenzbereichen beitragen. Dies lässt vermuten, dass die Transformation der Zeitliniendaten in die Frequenzdomäne weitere Unterscheidungsmerkmale bereitstellen kann. Aus dem Frequenzspektrum lassen sich weitere Features ableiten, hierunter das Maximum und Minimum der Signalstärke, die Entropie, die Durchschnittsfrequenz, sowie weitere Features wie die Autokorrelation. Dies ergibt weitere Features, welche als Grundlage zum Training von hierauf angewiesenen Modellen genutzt werden können.
+\Cref{fig:shl-sensor-fft} zeigt einen Ausschnitt der hieraus resultierenden Verteilung der Signalstärken für $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$. Sichtbar wird hierbei, dass die verschiedenen Verkehrsmittelklassen unterschiedlich zu den einzelnen Frequenzbereichen beitragen. Dies lässt vermuten, dass die Transformation der Zeitliniendaten in die Frequenzdomäne weitere Unterscheidungsmerkmale bereitstellen kann. Aus dem Frequenzspektrum lassen sich weitere Features ableiten, hierunter das Maximum und Minimum der Signalstärke, die Entropie, die Durchschnittsfrequenz, sowie weitere Features.
 
-\section{Empirische Selektion einer Grundarchitektur}
+\subsubsection{Gewichtung des Datensatzes}
+
+In \Cref{sec:skalierungsmethode} wurden spezielle Skalierungsmethoden selektiert, um die Verzerrung der Wertebereichsverteilung möglichst zu reduzieren. Ein weiteres Problem stellen die ungleich verteilten Klassen im Datensatz dar (siehe \Cref{fig:shl-label-quantities}). Trainiert das Modell auf überdurchschnittlich vielen Samples zu einer Klasse, so lernt das Modell, diese Klasse zur Reduktion der Kostenfunktion häufiger vorherzusagen. Dies ist mit einem weiteren Problem verbunden. Angenommen, der Trainings-, Test- und Validierungsdatensatz werden über demselben ungleich gewichteten Datensatz gebildet. So wird ein eventueller Bias nicht durch eine Analyse der Metriken auf dem Testdatensatz sichtbar. Es ist also zu erwarten, dass das Modell in diesem Fall eine künstlich erhöhte Accuracy verzeichnet und auf neuen Datensätzen signifikant schlechter generalisiert. Auch aus Gründen der Vergleichbarkeit der Metriken ist es somit unbedingt notwendig, dass die Klassen zum Training des Modells gleich gewichtet werden.
+
+Bei traditionellen Modellen bietet es sich an, die Gleichgewichtung durch Transformation des Datensatzes selbst zu realisieren. Die unterrepräsentierten Klassen können durch das Verfahren \textit{Synthetic Minority Over-sampling Technique} (SMOTE) auf Grundlage eines randomisierten Auswahlverfahrens repliziert werden \cite{chawla_smote_2002}. Dies ist jedoch mit dem Problem verbunden, dass auf diese Weise synthetische Duplikate im Datensatz angefertigt werden und das Modell somit keine neuen Informationen erhält. Stattdessen trainiert das Modell gegebenenfalls mehrere Male auf demselben Sample, bei zu starkem Oversampling neigt das Modell anschließend zum Overfitting. Um den Anteil der synthetischen Samples zu reduzieren, werden daher Samples der überrepräsentierten Klassen randomisiert eliminiert (\textit{Undersampling}). Das traditionelle Modell trainiert anschließend auf einem balancierten Datensatz.
+
+Für Modelle aus dem Deep Learning lässt sich eine weitere Technik anwenden, um eine relative Gleichgewichtung des Datensatzes beim Lernen zu erzielen. Statt den Datensatz selbst anzugleichen, wird die Verlustfunktion relativ zur betrachteten Klasse gewichtet. Im übertragenen Sinn widmet sich das Modell den überrepräsentierten Klassen anschließend weniger als den unterrepräsentierten Klassen \cite{cui_class-balanced_2019}.
+
+\subsection{Initiale Datenvorverarbeitungspipeline}
+
+Die Vorverarbeitung muss so sparsam wie möglich gehalten werden (\nameref{qa:r}). Die Implementation eines Schätzverfahrens wie AHRS zur Transformation der lokalen kinematischen Messdaten in ein Referenzkoordinatensystem wird durch Bildung des Vektorbetrags und damit einer sparsameren Alternative ersetzt. Eine verbleibende vertikale Verschiebung wie die der Akzelerometerdaten wird durch die Yeo-Johnson-Transformation eliminiert, die Schrägheit der Verteilung in den resultierenden Vektorbetragsdaten in eine annähernd symmetrisch verteilte Repräsentation überführt.
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth, bb=0 0 735 173]{vorverarbeitung.pdf}
+  \caption{Initiale Vorverarbeitungspipeline.}\label{fig:vorverarbeitungspipeline}
+\end{figure}
+
+\Cref{fig:vorverarbeitungspipeline} zeigt diese Schritte. Im Anschluss hieran werden die Daten entweder für das Training von traditionellen Modellen in Shallow Features überführt und durch SMOTE gewichtet, oder für das Training von Deep-Learning-Modellen als direkte Zeitliniendaten bereitgestellt, zusammen mit einer Auflistung der Klassenverteilungen zur Gewichtung der Kostenfunktion beim Training.
+
+\section{Algorithmus zur Tradeoff-Analyse}
+
+Ziel der Tradeoff-Analyse ist die Ermittlung eines Pareto-optimalen Modells bezüglich der Relation zwischen Ressourcenverbrauch und Ergebnisqualität. Die Konfiguration des Modells ist hierbei maßgeblich von drei Dimensionen abhängig. Bereits durch die Selektion einer Basisarchitektur spannt sich eine große Menge von möglichen Modellen auf. Diese wiederum können in ihren Hyperparametern und applizierbaren Optimierungsstrategien variiert werden. Unmöglich können alle Modelle in dieser Arbeit getestet werden, die kombinatorische Explosion ist offensichtlich. Die in dieser Arbeit gewählte Lösung hierfür ist die schrittweise Exploration jeder der genannten Dimensionen, wobei nach jedem Schritt das vielversprechendste Modell selektiert wird.
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth, bb=0 0 645 221]{prozedur.pdf}
+  \caption{Prozedurale Ermittlung eines selektiv Pareto-optimalen Modells in drei Teilschritten durch Tradeoff-Analyse.}\label{fig:prozedur}
+\end{figure}
+
+Das konzipierte Verfahren ist in \Cref{fig:prozedur} gezeigt. Das resultierende Modell soll bezüglich des Tradeoffs Pareto-optimal sein. Die schrittweise Limitation des Betrachtungsspektrums ist notwendig, um die Tradeoff-Analyse in einem realisierbaren Spektrum zu halten. Sie bedingt jedoch auch, dass unter Umständen kein global Pareto-optimales Modell unter Berücksichtigung aller Möglichkeiten gefunden werden kann. Möglich wäre es beispielsweise, dass ein initial bei der Selektion der Basisarchitektur als weniger vielversprechend geltendes und somit eliminiertes Modell durch Variation der Hyperparameter oder Optimierung einen besseren Tradeoff bietet. Dies ist bei der Evaluation zu berücksichtigen. Die einzelnen Teilschritte werden in den nachfolgenden Sektionen näher aufgeschlüsselt.
+
+\subsection{Empirische Selektion einer Basisarchitektur}
+
+Zur Selektion der Basisarchitektur wird auf die zwei Feature-Schnittstellen der Vorverarbeitungspipeline zurückgegriffen. Es werden typische Metaarchitekturen und Modellkonfigurationen aus verwandten Arbeiten extrahiert und auf dem SHL-Datensatz trainiert. Die Selektion erfolgt argumentativ auf Grundlage der so ermittelten Parameter, der Ergebnisse verwandter Arbeiten und unter Berücksichtigung des Potenzials für die nachfolgenden Selektionsschritte.
+
+Die Forschunganalyse hat ergeben, dass traditionelle Modelle bei der Verkehrsmittelerkennung gegenüber Deep-Learning-Ansätzen nicht zu vernachlässigen sind. Gleichzeitig gelten Deep-Learning-Ansätze speziell bei der Verfügbarkeit von großen Datensätzen wie dem SHL-Datensatz als vielversprechender. Die Ergebnisqualität der traditionellen Modelle ist außerdem maßgeblich von der Auswahl und Anzahl der berechneten Shallow-Features abhängig, wobei deren Berechnung zur Energieintensität beiträgt. Mit Betrachtung der von Forschungsteams erzielten Ergebnisse bei der SHL Challenge aus 2020 zeigt sich, dass der beste Deep-Learning-Ansatz auf Zeitliniendaten mit einem F1-Score von $88,5\%$ dem besten traditionellen Ansatz ($77,9\%$) mit Abstand überlegen ist \cite{wang_summary_2020}.
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth, bb=0 0 1063 262]{shl/traditional-models.pdf}
+  \caption{Erreichte Accuracy-Werte und F1-Scores traditioneller Machine-Learning-Modelle auf dem SHL-Datensatz mit 24 Features.}\label{fig:shl-traditional-models}
+\end{figure}
+
+% todo: diagramm
+
