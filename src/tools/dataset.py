@@ -47,6 +47,24 @@ class SHLDataset:
         
         self.labels = labels
 
+    def concat_inplace(self, other):
+        self.acc_x = np.concatenate((self.acc_x, other.acc_x), axis=0)
+        self.acc_y = np.concatenate((self.acc_y, other.acc_y), axis=0)
+        self.acc_z = np.concatenate((self.acc_z, other.acc_z), axis=0)
+        self.acc_mag = np.concatenate((self.acc_mag, other.acc_mag), axis=0)
+
+        self.mag_x = np.concatenate((self.mag_x, other.mag_x), axis=0)
+        self.mag_y = np.concatenate((self.mag_y, other.mag_y), axis=0)
+        self.mag_z = np.concatenate((self.mag_z, other.mag_z), axis=0)
+        self.mag_mag = np.concatenate((self.mag_mag, other.mag_mag), axis=0)
+
+        self.gyr_x = np.concatenate((self.gyr_x, other.gyr_x), axis=0)
+        self.gyr_y = np.concatenate((self.gyr_y, other.gyr_y), axis=0)
+        self.gyr_z = np.concatenate((self.gyr_z, other.gyr_z), axis=0)
+        self.gyr_mag = np.concatenate((self.gyr_mag, other.gyr_mag), axis=0)
+
+        self.labels = np.concatenate((self.labels, other.labels), axis=0)
+
 
 def load_shl_dataset(dataset_dir: pathlib.Path, nrows=None):
     acc_x = np.nan_to_num(pd.read_csv(dataset_dir / 'Acc_x.txt', header=None, sep=' ', nrows=nrows).to_numpy())
@@ -90,7 +108,7 @@ def load_shl_dataset(dataset_dir: pathlib.Path, nrows=None):
     )
 
 
-def load_zipped_shl_dataset(zip_dir: pathlib.Path, tqdm=None, nrows=None):
+def load_zipped_shl_dataset(zip_dir: pathlib.Path, tqdm=None, nrows=None, subdir_in_zip='train'):
     with tempfile.TemporaryDirectory() as unzip_dir:
         with zipfile.ZipFile(zip_dir, 'r') as zip_ref:
             if tqdm:
@@ -99,7 +117,15 @@ def load_zipped_shl_dataset(zip_dir: pathlib.Path, tqdm=None, nrows=None):
             else:
                 zip_ref.extractall(unzip_dir)
 
-        train_dir = pathlib.Path(unzip_dir) / 'train'
+        train_dir = pathlib.Path(unzip_dir) / subdir_in_zip
         sub_dirs = [x for x in train_dir.iterdir() if train_dir.is_dir()]
-        assert len(sub_dirs) == 1
-        return load_shl_dataset(train_dir / sub_dirs[0], nrows=nrows)
+
+        result_dataset = None
+        for sub_dir in sub_dirs:
+            sub_dataset = load_shl_dataset(train_dir / sub_dir, nrows=nrows)
+            if result_dataset is None:
+                result_dataset = sub_dataset
+            else:
+                result_dataset.concat_inplace(sub_dataset)
+            del sub_dataset
+        return result_dataset
