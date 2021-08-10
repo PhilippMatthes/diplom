@@ -21,3 +21,5 @@ def make_fcn(input_shape, output_classes):
     output_layer = keras.layers.Dense(output_classes, activation='softmax')(gap_layer)
 
     model = keras.models.Model(inputs=input_layer, outputs=output_layer)
+
+    return model
