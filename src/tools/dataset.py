@@ -62,7 +62,7 @@ def load_shl_dataset(dataset_dir: pathlib.Path, tqdm=None, nrows=None):
         list(zip(shl_dataset_attributes, shl_dataset_files)),
         desc=f'Loading dataset subfiles'
     ):
-        df = pd.read_csv(dataset_dir / filename, header=None, sep=' ', nrows=nrows, dtype=np.float32)
+        df = pd.read_csv(dataset_dir / filename, header=None, sep=' ', nrows=nrows, dtype=np.float16)
         np_arr = np.nan_to_num(df.to_numpy())
         setattr(dataset, attribute, np_arr)
     return dataset
@@ -87,5 +87,5 @@ def load_zipped_shl_dataset(zip_dir: pathlib.Path, tqdm=None, nrows=None, subdir
                 result_dataset = sub_dataset
             else:
                 result_dataset.concat_inplace(sub_dataset)
-            del sub_dataset
+                del sub_dataset
         return result_dataset
