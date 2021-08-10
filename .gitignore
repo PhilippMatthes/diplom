@@ -9,7 +9,6 @@ __pycache__/
 *.ps
 *.aux
 *.lof
-*.log
 *.lot
 *.fls
 *.out

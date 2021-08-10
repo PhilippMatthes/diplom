@@ -54,7 +54,7 @@ class SHLDataset:
             ), axis=0))
 
 
-def load_shl_dataset(dataset_dir: pathlib.Path, tqdm=None, nrows=None):
+def load_shl_dataset(dataset_dir: pathlib.Path, tqdm=None, nrows=None, dtype=np.float16):
     dataset = SHLDataset()
     if tqdm is None:
         tqdm = lambda x, desc: x # passthrough
@@ -62,13 +62,13 @@ def load_shl_dataset(dataset_dir: pathlib.Path, tqdm=None, nrows=None):
         list(zip(shl_dataset_attributes, shl_dataset_files)),
         desc=f'Loading dataset subfiles'
     ):
-        df = pd.read_csv(dataset_dir / filename, header=None, sep=' ', nrows=nrows, dtype=np.float16)
+        df = pd.read_csv(dataset_dir / filename, header=None, sep=' ', nrows=nrows, dtype=dtype)
         np_arr = np.nan_to_num(df.to_numpy())
         setattr(dataset, attribute, np_arr)
     return dataset
 
 
-def load_zipped_shl_dataset(zip_dir: pathlib.Path, tqdm=None, nrows=None, subdir_in_zip='train'):
+def load_zipped_shl_dataset(zip_dir: pathlib.Path, tqdm=None, nrows=None, subdir_in_zip='train', dtype=np.float16):
     with tempfile.TemporaryDirectory() as unzip_dir:
         with zipfile.ZipFile(zip_dir, 'r') as zip_ref:
             if tqdm:
@@ -82,7 +82,7 @@ def load_zipped_shl_dataset(zip_dir: pathlib.Path, tqdm=None, nrows=None, subdir
 
         result_dataset = None
         for sub_dir in sub_dirs:
-            sub_dataset = load_shl_dataset(train_dir / sub_dir, tqdm=tqdm, nrows=nrows)
+            sub_dataset = load_shl_dataset(train_dir / sub_dir, tqdm=tqdm, nrows=nrows, dtype=dtype)
             if result_dataset is None:
                 result_dataset = sub_dataset
             else:
