@@ -6,6 +6,7 @@ log/
 __pycache__/
 
 ## Core latex/pdflatex auxiliary files:
+*.log
 *.ps
 *.aux
 *.lof
