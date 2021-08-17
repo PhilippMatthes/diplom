@@ -33,7 +33,7 @@ Um die Herausforderungen bei der Messung lokaler kinematischer Messparameter nac
 
 \subsubsection{Herausforderungen}
 
-Bei Beschleunigungsdaten des Akzelerometers ist die Erdschwerkraft in den vektorisierten Messdaten integriert \cite{ken_taylor_activity_2011, tundo_correcting_2013}. Befindet sich das Gerät also in Ruhe, so lässt sich der Gravitationsvektor ermitteln. Gleichzeitig wird bei einer Neigungsänderung des Smartphones auch immer eine Änderung des Gravitationsvektors gemessen. Dies erschwert die Interpretation der gemessenen Daten, da die gemessenen Werte zunächst in ein von der Neigung des Gerätes unabhängiges Bezugskoordinatensystem, das sogenannte Weltkoordinatensystem, gebracht werden müssen.
+Bei Beschleunigungsdaten des Akzelerometers ist die Erdschwerkraft in den vektorisierten Messdaten integriert \cite{ken_taylor_activity_2011, tundo_correcting_2013}. Befindet sich das Gerät also in Ruhe, so lässt sich der Gravitationsvektor ermitteln. Gleichzeitig wird bei einer Neigungsänderung des Smartphones auch immer eine Änderung des Gravitationsvektors gemessen. Dies erschwert die Interpretation der gemessenen Daten. Eine Möglichkeit der Vorverarbeitung ist daher, die gemessenen Werte zunächst in ein von der Neigung des Gerätes unabhängiges Bezugskoordinatensystem, das sogenannte Weltkoordinatensystem, zu bringen.
 
 \begin{figure}[h]
 \includegraphics[width=0.75\linewidth, bb=0 0 425 162 ]{desync.pdf}
@@ -105,7 +105,7 @@ Die Sensordaten (insbesondere Beschleunigungsdaten) können für eine Weitervera
   \caption[Lageschätzverfahren in der Übersicht.]{Lageschätzverfahren in der Übersicht, zusammen mit deren Abhängigkeit von Akzelerometerdaten (\acrshort{acc}), Gyrosensordaten (\acrshort{gyr})und Magnetometerdaten (\acrshort{mag}). Entnommen aus \cite{garcia_mayitzinahrs_2021}. Legende: Benötigt (\cmark), Optional (\omark), Nicht einbezogen (\xmark).}
 \end{table}
 
-Ein System, welches einen oder eine Kombination aus solchen Algorithmen nutzt, um die Lage des Gerätes im Weltkoordinatensystem zu rekonstruieren, wird auch als \textit{Attitude and Heading Reference System (\acrshort{ahrs})} bezeichnet.
+Ein Koordinatensystem, welches einen oder eine Kombination aus solchen Algorithmen nutzt, um die Lage des Gerätes als Weltkoordinatensystem zu rekonstruieren, wird auch als \textit{Attitude and Heading Reference System (\acrshort{ahrs})} bezeichnet. Es existieren zahlreiche Verfahren zur Transformation der Sensordaten in ein solches System.
 
 \subsubsection{Synchronisierung und Alignment}
 
@@ -116,7 +116,7 @@ Zur Synchronisierung der möglicherweise von Gerät zu Gerät unterschiedlichen 
 \caption[Schematische Darstellung des Alignments von desynchronisierten Datenpunkten.]{Schematische Darstellung des Alignments von desynchronisierten Datenpunkten, angelehnt an \cite{matusek_anwendung_2019}.}\label{fig:desync-solution}
 \end{figure}
 
-\Cref{fig:desync-solution} zeigt das Verfahren schematisch. Die mit Zeitstempeln versehenen Datenpunkte werden in ein festes Abtastraster gebracht. Dies gelingt über zwei primäre Schritte. Am zeitlichen Rand der Messung werden zunächst Datenpunkte verworfen, zu denen kein Wertepaar aus allen drei Sensoren gebildet werden kann. Ein Wertepaar lässt sich erst dann bilden, wenn alle Sensoren mindestens einen Wert erfasst haben, am Ende der Messung vice versa. Das so gefundene Fenster wird anschließend im zweiten Schritt anhand der vorliegenden Datenpunkte pro Sensormessung interpoliert, um den diskreten Punktdatensatz in eine kontinuierliche Näherungsfunktion zu überführen. Die Abtastzeitpunkte $t_s ... t_{s+n}$ (in \Cref{fig:desync-solution} als $\otimes$ gekennzeichnet) können anschließend für alle drei Messverläufe beliebig gewählt und errechnet werden.
+\Cref{fig:desync-solution} zeigt das Verfahren schematisch. Die mit Zeitstempeln versehenen Datenpunkte werden in ein festes Abtastraster gebracht. Dies gelingt über zwei primäre Schritte. Am zeitlichen Rand der Messung werden zunächst Datenpunkte verworfen, zu denen kein Wertepaar aus allen drei Sensoren gebildet werden kann. Ein Wertepaar lässt sich erst dann bilden, wenn alle Sensoren mindestens einen Wert erfasst haben, am Ende der Messung genauso umgekehrt. Das so gefundene Fenster wird anschließend im zweiten Schritt anhand der vorliegenden Datenpunkte pro Sensormessung interpoliert, um den diskreten Punktdatensatz in eine kontinuierliche Näherungsfunktion zu überführen. Die Abtastzeitpunkte $t_s ... t_{s+n}$ (in \Cref{fig:desync-solution} als $\otimes$ gekennzeichnet) können anschließend für alle drei Messverläufe beliebig gewählt und errechnet werden.
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth, bb=0 0 505 175]{interpolation.pdf}
