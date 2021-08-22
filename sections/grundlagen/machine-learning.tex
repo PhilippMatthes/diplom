@@ -198,7 +198,7 @@ Sigmoidal & $f(x)=\frac{1}{1+e^{-x}}$ & $f^{\prime}=f(x)(1 - f(x))$ \\
 \addlinespace[0.5em]
 Rectified Linear Unit (\acrshort{relu}) & $f(x)={\begin{cases}0&{\text{für }}x< 0\\x&{\text{für }}x \geq 0\\\end{cases}}$ & $f^{\prime}(x)={\begin{cases}0&{\text{für }}x< 0\\1&{\text{für }}x \geq 0\\\end{cases}}$ \\
 \addlinespace[0.5em]
-Leaky \acrshort{relu} & $f(x)={\begin{cases}ax&{\text{für }}x< 0\\x&{\text{für }}x \geq 0\\\end{cases}}$ & $f^{\prime}(x)={\begin{cases}a&{\text{für }}x< 0\\1&{\text{für }}x \geq 0\\\end{cases}}$ \\
+Leaky \acrshort{relu} & $f(x)={\begin{cases}\alpha x&{\text{für }}x< 0\\x&{\text{für }}x \geq 0\\\end{cases}}$ & $f^{\prime}(x)={\begin{cases}\alpha&{\text{für }}x< 0\\1&{\text{für }}x \geq 0\\\end{cases}}$ \\
 \bottomrule
 \end{tabular}\caption{Verschiedene Aktivierungsfunktionen im Überblick.}
 \end{table}
