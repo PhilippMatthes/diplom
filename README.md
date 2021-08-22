@@ -1,3 +1,5 @@
+Please mind that following description is in German, just like the thesis.
+
 # Diplomarbeit
 
 In der STADTRADELN-App werden GPS- und Sensordaten von Radfahrenden gespeichert und für die Weiterverarbeitung an einen Server übermittelt. Die aufgezeichneten Datensätze werden unter anderem durch das Forschungsprojekt Movebis genutzt, mit dem Ziel, die Planung der Radverkehrsinfrastruktur zu verbessern. Bei Analysen der Datensätze konnte festgestellt werden, dass diese auch Datenpakete mit für Radfahrer untypischen Parameterwerten beinhalten. Daher wurden im Movebis-Projekt Machine-Learning-Ansätze entwickelt, um den aufgezeichneten Datensätzen Verkehrsmittel zuzuordnen und nur Radfahrten in die Auswertung und Visualisierung einzubeziehen. Da die Verkehrsmittelerkennung und anschließende Filterung der Daten in der Cloud erfolgt, werden dennoch auch die unplausiblen Daten vom Smartphone aufgezeichnet und zunächst an den Server übermittelt. Damit werden durch die aktive Internet- und GPS-Nutzung sowohl Bandbreite, als auch Energie verbraucht.
@@ -10,3 +12,20 @@ Schwerpunkte:
 - Analyse und Vergleich der existierenden serverseitigen Machine-Learning Lösungen hinsichtlich Portierbarkeit und Ressourcenbedarf einer möglichen Smartphone-Umsetzung
 - Portierung der am besten geeigneten Lösung zur Verkehrsmittelerkennung auf iOS in Form einer prototypischen Smartphone-App
 - Experimentelle Evaluation mit Untersuchung des Trade-offs zwischen Ressourcenbedarf und Ergebnisqualität
+
+# Quellcodeverzeichnis
+
+- `src/` Quellcode dieser Diplomarbeit
+  - `src/auxiliary/` Quellcode für Nebensächliches (z.B. Generierung von Beispielgrafiken)
+  - `src/models/` Trainierte Modelle, Vorverarbeitungskonfigurationen und experimentelle Ergebnisse
+  - `shl-deep-learning-on-device-evaluation/` Prototyp-App für die Evaluation der Modelle
+  - `shl-deep-learning-prototyping-architectures/` Evaluierte Architekturen bei der prototypischen Selektion einer Basisarchitektur
+  - `shl-data-analysis.ipynb` Durchgeführte Datenanalyse und deren Ergebnisse
+  - `shl-deep-learning-autoencoder.ipynb` Prototypischer Test und Ergebnisse eines 1D-Convolutional-Autoencoders
+  - `shl-deep-learning-prototyping-results.ipynb` Visuelle Aufbereitung der Trainingsergebnisse des Prototypings
+  - **`shl-deep-learning-timeseries.ipynb` Training der Deep-Learning-Modelle und Rastersuche**
+  - `shl-power-transformers.ipynb` Training und Export der Yeo-Johnson-Transformer für einzelne Attribute des SHL-Datensatzes
+  - `shl-stft-visualization.ipynb` Exemplarisches Modell zur Visualisierung einer integrierten STFT-Schicht
+  - `shl-traditional-models.ipynb` Prototypischer Test von traditionellen Modellen auf Shallow-Features
+- `.github/` GitHub Workflow für die automatisierte Erstellung von Releases
+- `.vscode/` Konfigurationen für VSCode, unter anderem empfohlene Plugins für die Bearbeitung von LaTeX (IDE)
