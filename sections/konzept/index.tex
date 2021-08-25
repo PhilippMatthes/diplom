@@ -207,19 +207,35 @@ Die ResNet-Architektur hat sich aus den vorigen Sektionen als Basisarchitektur m
 \subsection{Definition eines Hyperparameter-Metamodells}
 
 \begin{figure}[h]
-  \includegraphics[width=\linewidth, bb=0 0 482 190]{hypermodell.pdf}
+  \includegraphics[width=\linewidth, bb=0 0 475 145]{hypermodell.pdf}
   \caption{Hyperparameter-Metamodell der ResNet-Basisarchitektur.}\label{fig:hypermodell}
 \end{figure}
 
-Ziel der Definition eines Hyperparameter-Metamodells ist die parametrisierte Variation der initialen Basisarchitektur. Die Parameter sind hierbei ausgewählte Hyperparameter der Basisarchitektur. Dies können Hyperparameter im engeren Sinn wie die Learning Rate oder die Anzahl der tiefen Schichten sein, oder auch abstraktere Variationsmöglichkeiten wie die Art der Aktivierungsfunktion oder die Selektion einer vordefinierten Gesamtarchitektur auf Grundlage der Eigenschaften der Basisarchitektur. \Cref{fig:hypermodell} zeigt das für die ResNet-Basisarchitektur erstellte Hyperparameter-Metamodell. Das bei der Selektion der Basisarchitektur getestete Modell klassifiziert direkt auf den Zeitliniendaten, hierbei können verschiedene Regularisierungstechniken variiert werden (Dropout, Batch-Normalization, Kernel-Regularisierung durch L1/L2), die Aktivierungsfunktion (ReLU, Leaky ReLU und deren $\alpha$-Parameter) und die generelle Größe des Netzwerkes (Anzahl tiefer Schichten, Größe der Schichten).
+Ziel der Definition eines Hyperparameter-Metamodells ist die parametrisierte Variation der initialen Basisarchitektur. Die Parameter sind hierbei ausgewählte Hyperparameter der Basisarchitektur. Dies können Hyperparameter im engeren Sinn wie die Learning Rate oder die Anzahl der tiefen Schichten sein, oder auch abstraktere Variationsmöglichkeiten wie die Art der Aktivierungsfunktion oder die Strukturierung der Schichten (ResNetV1 nach \cite{he_deep_2015} und ResNetV2 nach \cite{he_identity_2016}). \Cref{fig:hypermodell} zeigt das für die ResNet-Basisarchitektur erstellte Hyperparameter-Metamodell.
 
 \begin{figure}[h]
   \includegraphics[width=\linewidth, bb=0 0 799 257]{shl/stft-layer-output.pdf}
   \caption{STFT-Repräsentation des Eingabefrequenzspektrums von $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$.}\label{fig:stft-layer-output}
 \end{figure}
 
-Gleichzeitig können auch Gesamtarchitekturen des ResNet variiert werden, welche eine möglicherweise geeignete Konfiguration der Hyperparameter bereits inkludieren, abhängig vom ursprünglichen Anwendungsfall. Hierbei eignen sich die Architekturen aus \cite{he_deep_2015} (ResNet50, ResNet101, ResNet152) und deren Weiterentwicklung aus \cite{he_identity_2016} (ResNet50V2, ResNet101V2, ResNet152V2), welche auf Bilddaten sehr gute Ergebnisse erzielen. Im Umkehrschluss bestehen diese Architekturen aus 2D-Convolution-Schichten für die Verarbeitung der dreidimensionalen RGB- bzw. BGR-Pixeldaten. Um diese Netzwerke trotzdem einbeziehen zu können, wird diesen eine portierbare STFT-Transformationsschicht (\textit{Short-Time-Fourier-Transform}) vorgeschaltet, deren Ausgabe analog zu \Cref{fig:stft-layer-output} als Eingabe für diese Architekturen dienen können. Im Zuge dessen können auch auf dem Imagenet-Datensatz aus \cite{deng_imagenet_2009} vortrainierte Modelle in die Rastersuche einbezogen werden, um Transfer Learning als konzeptuellen Bestandteil mit einzubeziehen und potenziell von den bereits erlernten visuellen Features zu profitieren.
+Darüber hinaus können auch die eindimensionalen Convolution-Schichten der Basisarchitektur auf zweidimensionale Convolution-Schichten übertragen werden. Dies wird in Betracht gezogen, da ResNets ursprünglich nicht für die Verarbeitung von 1D-Sequenzen entwickelt wurden, sondern zur Klassifikation von Bildern in Form von zweidimensionalen RGB- bzw. BGR-Pixeldaten. Hierfür wird eine portierbare STFT-Transformationsschicht (\textit{Short-Time-Fourier-Transform}) vorgeschaltet, deren Ausgabe analog zu \Cref{fig:stft-layer-output} als Eingabe für diese Architekturen dienen können. Im Zuge dessen könnten auch auf dem Imagenet-Datensatz aus \cite{deng_imagenet_2009} vortrainierte ResNet-Modelle (ResNet50, ResNet101, ResNet152) in die Rastersuche einbezogen werden, um Transfer Learning als konzeptuellen Bestandteil mit einzubeziehen und potenziell von den bereits erlernten visuellen Features zu profitieren.
 
-\subsection{Top-N-Selektion durch Metamodell-Optimierung}
+\subsection{Metamodell-Optimierung}
+
+Das deklarierte Metamodell ermöglicht die Erzeugung von ResNet-Modellen für den SHL-Datensatz, indem die Hyperparameter eines Modells als Parameter in das Metamodell eingegeben werden. Anschließend können die erzeugten Modelle trainiert und bezüglich deren Accuracy getestet werden.
+
+\subsubsection{Hyperband-Orakel}
+
+Die Erzeugung der Modelle kann zufallsbasiert erfolgen oder mithilfe eines Metamodell-Orakels. Aufgabe des Hyperband-Orakels ist die Bereitstellung neuer Hyperparameter zur Exploration des durch diese aufgespannten Hyperparameterraums, wobei gegenüber einer randomisierten Suche die Hyperparameter auf Grundlage der beobachteten Accuracy-Werte erraten werden und somit die Dauer der Suche nach einer bestmöglichen Konfiguration reduziert werden soll. Für diese Arbeit wird als Metamodell-Orakel der in \cite{li_hyperband_2018} vorgestellte \textit{Hyperband}-Algorithmus verwendet. Bei diesem Algorithmus werden die Modelle während der Hyperparameter-Exploration nicht zwangsweise bis zum Early Stopping trainiert, sondern zunächst wenige Epochen, um die gesamte Dauer der Suche weiter zu reduzieren. Das Hyperband-Orakel sucht also zunächst in der Breite mit limitierter Trainingsdauer, um anschließend die vielversprechendsten Ansätze auszuwählen und diese über mehr Epochen zu trainieren.
+
+\subsubsection{Top-$N$-Selektion}
+
+Ergebnis der so realisierten Metamodell-Optimierung ist eine Rangliste von Architekturen, welche nach der erzielten Accuracy geordnet sind. Die besten $N$ Modelle können nachfolgend ausgewählt werden für die weitere Analyse, während die in der Rangliste darunter liegenden Modelle eliminiert werden. Ziel ist auch hier wieder die empirische Beschränkung des für eine vollumfängliche Weiterverfolgung zu großen Suchraums. $N$ kann hierbei frei gewählt werden, beschränkt sich aber theoretisch durch die maximale Anzahl von Modellen und praktisch durch die verfügbare Zeit zur Durchführung der nachfolgenden Experimente, da die gewählten Modelle je nach Architektur teils auch für mehrere Stunden trainieren können. $N$ sollte jedoch groß genug gewählt werden, um eine sinnvolle Analyse des Tradeoffs zu gewährleisten. Möglich ist beispielsweise auch die Definition einer mindestens zu erreichenden Accuracy, welche sich unter anderem an der erreichten Accuracy der traditionellen Modelle als \textit{Baseline}-Accuracy orientieren kann.
+
+\subsubsection{Finalisierung}
+
+Die bei der Hypermodell-Optimierung gefundenen Accuracy-Werte zu den jeweiligen Modellkonfigurationen sind nicht als final zu betrachten, denn das Training der Modelle kann durch den Hyperband-Algorithmus vor Erreichen der bestmöglichen Ergebnisqualität terminiert werden. Die Accuracy-Werte eignen sich somit zwar, um eine relative Ordnung zwischen den Ergebnisqualitäten der Modelle herzustellen, aber nicht, um den Tradeoff zwischen einer \textit{bestmöglichen} Accuracy und Ressourcenverbrauch zu analysieren. Daher werden alle selektierten Modelle für die nachfolgende Tradeoff-Analyse durch Training bis zum Early Stopping finalisiert.
 
 \subsection{Analyse des Ressourcenverbrauchs durch Portierung}
+
+
