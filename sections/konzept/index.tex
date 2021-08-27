@@ -222,11 +222,72 @@ Darüber hinaus können auch die eindimensionalen Convolution-Schichten der Basi
 
 \subsection{Metamodell-Optimierung}
 
-Das deklarierte Metamodell ermöglicht die Erzeugung von ResNet-Modellen für den SHL-Datensatz, indem die Hyperparameter eines Modells als Parameter in das Metamodell eingegeben werden. Anschließend können die erzeugten Modelle trainiert und bezüglich deren Accuracy getestet werden.
+\begin{table}[h]
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{@{\extracolsep{\fill}}llp{8cm}@{}}
+  \toprule
+  Hyperparameter & Beschreibung & Suchraum \\
+  \midrule
+  \midrule
+  \multicolumn{3}{c}{Variable Hyperparameter} \\
+  \midrule
+  Modelltyp
+    & Input-Dimensionalität und Vorschaltung einer STFT-Schicht
+    & 1D, 2D mit STFT \\
+  Version
+    & Architektur-Version nach \cite{he_deep_2015} und \cite{he_identity_2016}
+    & ResNetV1, ResNetV2 \\
+  Stacks
+    & Anzahl der Convolution-Stacks nach dem Input-Stack
+    & 1, 2, 3, 4 \\
+  Tiefe
+    & Anzahl der Convolution-Schichten in Convolution-Stacks
+    & 4, 8 für Stack 3 (falls existent) und 6, 23, 36 für Stack 4 (falls existent) \\
+  Pooling
+    & Variante der Pooling-Schichten
+    & Average-Pooling, Max-Pooling \\
+  Optimizer
+    & Variante des Gradientenabstiegsverfahrens
+    & Adam, RMSprop, SGD \\
+  Learning Rate
+    & Schrittweite des Gradientenabstiegsverfahrens
+    & 0,1 über 0,01 bis 0,001 \\
+  \midrule
+  \multicolumn{3}{c}{Durch Architektur-Version definierte Hyperparameter} \\
+  \midrule
+  Aktivierungsfunktion
+    & Art der neuronalen Aktivierungsfunktion
+    & ReLU (Softmax für letzte Dense-Schicht) \\
+  Regularisierung
+    & Intermediäre Regularisierung zwischen Convolution-Schichten
+    & Kein Dropout, keine L2/L1-Kernel-Regularisierung, jedoch Batch-Normalization und Layer-Normalization nach STFT (falls existent) \\
+  \midrule
+  \multicolumn{3}{c}{Weitere, fest definierte Hyperparameter} \\
+  \midrule
+  Batch-Size
+    & Anzahl gleichzeitig verarbeiteter Trainingssamples
+    & 64 \\
+  Loss
+    & Art der Verlustfunktion
+    & Sparse Categorical Cross Entropy \\
+  Early Stopping
+    & Frühzeitiges Beenden des Trainings
+    & Nach 5 Epochen ohne Verbesserung \\
+  Learning Rate Decay
+    & Automatische Reduktion der Learning Rate
+    & Halbierung nach 2 Epochen ohne Verbesserung \\
+  \bottomrule
+  \end{tabular}%
+  }
+  \caption{Definierter Hyperparameter-Suchraum der Metamodell-Optimierung.}
+  \label{tab:hyperparameter-suchraum}
+\end{table}
+
+Das deklarierte Metamodell ermöglicht die Erzeugung von ResNet-Modellen für den SHL-Datensatz, indem die Hyperparameter eines Modells als Parameter in das Metamodell eingegeben werden. Die genauen Hyperparameter-Variationsmöglichkeiten sind in \Cref{tab:hyperparameter-suchraum} dargestellt. Zusätzlich wird die Batch-Size gegenüber dem Prototyping von 32 auf 64 angehoben, um eine optimale Auslastung der GPU zu ermöglichen und das Rauschen des Gradientenabstiegsverfahrens zu reduzieren\footnote{Durch die Inklusion wesentlich größerer Modelle bei der Rastersuche als bei der Selektion der Basisarchitektur ist es möglich, dass die GPU das Training auf einer Batch-Size von 128 durch Überlauf des VRAM nicht durchführen kann.}. Anschließend können die erzeugten Modelle trainiert und bezüglich deren Accuracy getestet werden.
 
 \subsubsection{Hyperband-Orakel}
 
-Die Erzeugung der Modelle kann zufallsbasiert erfolgen oder mithilfe eines Metamodell-Orakels. Aufgabe des Hyperband-Orakels ist die Bereitstellung neuer Hyperparameter zur Exploration des durch diese aufgespannten Hyperparameterraums, wobei gegenüber einer randomisierten Suche die Hyperparameter auf Grundlage der beobachteten Accuracy-Werte erraten werden und somit die Dauer der Suche nach einer bestmöglichen Konfiguration reduziert werden soll. Für diese Arbeit wird als Metamodell-Orakel der in \cite{li_hyperband_2018} vorgestellte \textit{Hyperband}-Algorithmus verwendet. Bei diesem Algorithmus werden die Modelle während der Hyperparameter-Exploration nicht zwangsweise bis zum Early Stopping trainiert, sondern zunächst wenige Epochen, um die gesamte Dauer der Suche weiter zu reduzieren. Das Hyperband-Orakel sucht also zunächst in der Breite mit limitierter Trainingsdauer, um anschließend die vielversprechendsten Ansätze auszuwählen und diese über mehr Epochen zu trainieren.
+Die Erzeugung der Modelle kann zufallsbasiert erfolgen oder alternativ mithilfe eines Metamodell-Orakels. Aufgabe des Hyperband-Orakels ist die Bereitstellung von Kombinationen der Hyperparameter zur Exploration des durch diese aufgespannten Hyperparameter-Suchraums, wobei gegenüber einer randomisierten Suche die Hyperparameter auf Grundlage der beobachteten Accuracy-Werte erraten werden und somit die Dauer der Suche nach einer bestmöglichen Konfiguration reduziert werden soll. Für diese Arbeit wird als Metamodell-Orakel der in \cite{li_hyperband_2018} vorgestellte \textit{Hyperband}-Algorithmus verwendet. Bei diesem Algorithmus werden die Modelle während der Hyperparameter-Exploration nicht zwangsweise über eine feste Anzahl von Epochen bis zum Early Stopping trainiert, sondern zunächst wenige Epochen, um die gesamte Dauer der Suche weiter zu reduzieren. Das Hyperband-Orakel sucht also zunächst in der Breite mit limitierter Trainingsdauer, um anschließend die vielversprechendsten Ansätze auszuwählen und diese über mehr Epochen zu trainieren.
 
 \subsubsection{Top-$N$-Selektion}
 
@@ -238,4 +299,21 @@ Die bei der Hypermodell-Optimierung gefundenen Accuracy-Werte zu den jeweiligen 
 
 \subsection{Analyse des Ressourcenverbrauchs durch Portierung}
 
+\begin{figure}[h]
+  \includegraphics[width=\linewidth, bb=0 0 671 171]{analyse-portierung.pdf}
+  \caption{Ermittlung der Resourcenfaktoren durch Portierung.}\label{fig:analyse-portierung}
+\end{figure}
+
+Für die aus der Rastersuche über die selektierte Basisarchitektur resultierenden Top-N-Modelle ist nach Finalisierung bereits bekannt, welche Accuracy-Werte diese erreichen können. Die durch Top-N-Selektion realisierte Elimination der schlechteren Modelle realisiert zusätzlich, dass eine zuvor wählbare Mindest-Accuracy von allen Modellen erreicht wird (\nameref{qa:q}). Für eine Tradeoff-Analyse sind jedoch noch weitere Ressourcenparameter relevant. Dies sind insbesondere der Energieverbrauch (\nameref{qa:e}), der Speicherverbrauch (\nameref{qa:s}) sowie die Inferenzzeit (\nameref{qa:inf}).
+
+Um diese zu ermitteln, werden die Modelle in eine auf Smartphones ausführbare Repräsentation überführt (siehe \Cref{fig:analyse-portierung}). Dies gelingt durch Konversion und verlustfreie Kompression. In welches Format konkret konvertiert wird, hängt von der gewählten High-Level-API zum Training und zur Portierung der Modelle ab und ist Teil der Implementation. Wichtig ist jedoch, dass die Wahl des oder der Frameworks zur Implementation von dessen Fähigkeit zur Portierung der trainierten Modelle abhängt. Anschließend werden die Modelle jeweils auf dem Zielsmartphone eingebettet, zusammen mit der Vorverarbeitungspipeline, welche mit Bezug auf die selektierte Basisarchitektur aus der Aufzeichnung der Sensorwerte und einer nachfolgenden Yeo-Johnson-Transformation besteht. Die Konfiguration der Yeo-Johnson-Transformation ($\lambda$-Werte) wird aus der explorativen Datenanalyse entnommen und auf das Smartphone übertragen.
+
+\begin{figure}[h]
+  \includegraphics[width=0.75\linewidth, bb=0 0 390 145]{stream.pdf}
+  \caption{Stream-Processing von Sensorwerten auf dem Smartphone zur Klassifikation des Verkehrsmittels.}\label{fig:stream}
+\end{figure}
+
+\paragraph{Interpolation und Synchronisation:} Die resultierende Stream-Processing-Pipeline ist in \Cref{fig:stream} gezeigt und orientiert sich an der Gleitfenstermethode, um kontinuierlich klassifizierbare Segmente zu erzeugen. Die Sensorwerte werden in zeitlich festen Abständen mit $100Hz$ abgetastet. Eine Interpolation der Daten ist somit nicht notwendig, da auf ein intensives Downsampling zum Alignment der Sensordaten mit den GNSS-Datenpunkten wie in \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} verzichtet wird. Außerdem muss entschieden werden, ob nach \cite{matusek_anwendung_2019} eine Synchronisation der Sensordaten notwendig ist. Dem steht grundsätzlich \cite{mairittha_improving_2020} im Widerspruch. Jedoch muss deren Argumentation, dass eine Synchronisation bei einer Aufzeichnung der Daten auf demselben Gerät nicht notwendig sei, näher diskutiert werden. Dies gilt nur dann, wenn die Datenpunkte synchron und nicht durch asynchrone Callbacks abgetastet werden, hierbei keine Verzögerungen auftreten und die Systemschnittstelle ebenfalls zum Bezug der Sensormesswerte keine internen Verzögerungen verzeichnet. Während die Synchronität der Sensorabfrage als Kriterium an die Implementation resultiert, kann von der Systemschnittstelle angenommen werden, dass diese keine signifikanten internen Verzögerungen verzeichnet. Diese Annahme resultiert aus den Akzeptanzanforderungen an die Systemschnittstelle, beispielsweise wären durch Verzögerungen auch Usability-Einschränkungen in Smartphone-Spielen gegeben, wenn diese durch Bewegung des Geräts mit dem Nutzer interagieren. Treten trotzdem minimale Verzögerungen auf, so ist anzunehmen, dass die Klassifikation keine signifikant anderen Vorhersagen trifft.
+
+\paragraph{Effizienzsteigerung durch Reduktion der Inferenzrate:} Theoretisch wäre es mit der gezeigten Stream-Processing-Pipeline möglich, pro Sekunde 100 Inferenzprozesse durchzuführen. Dies ist jedoch nicht zielführend. Um den Energieverbrauch zu reduzieren, genügt es, wenn pro Sekunde dem Anwendungsfall entsprechend deutlich weniger Inferenzprozesse durchgeführt werden.
 
