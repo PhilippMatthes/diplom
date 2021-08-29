@@ -1,1 +1,20 @@
 \chapter{Evaluation}\label{ch:evaluation}
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth, bb=0 0 855 278]{shl/gridsearch-results.pdf}
+  \caption{Ergebnisse der Hyperband-Rastersuche.}\label{fig:gridsearch-results}
+\end{figure}
+
+\begin{figure}[h]
+  \includegraphics[width=0.4\linewidth, bb=0 0 362 290]{shl/gridsearch-finalization-prediction.pdf}
+  \caption{Trainings- und Finalisierungszeiten der Modelle.}\label{fig:finalization-prediction}
+\end{figure}
+
+\begin{landscape}
+  \begin{table}[]
+    \resizebox{\textwidth}{!}{%
+      \input{sections/evaluation/gridsearch-results}
+      \caption{Ergebnisse der Hyperband-Rastersuche.}
+    }
+  \end{table}
+\end{landscape}
