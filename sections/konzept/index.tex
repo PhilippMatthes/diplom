@@ -91,9 +91,9 @@ Die Auswahl der Skalierungsmethode für die Eingaben ist für einige Modelle wic
   \caption{Anwendung der Yeo-Johnson-Transformation auf $\left| ACC \right|$, $\left| MAG \right|$ und $\left| GYR \right|$, Markierung bei $-1$ und $1$.}\label{fig:shl-yeo-johnson-histograms}
 \end{figure}
 
-\Cref{fig:shl-scaler-histograms} zeigt zunächst die bereits erläuterte Standardisierung. Die Standardisierung verändert die Verteilung der Daten nicht morphologisch, stattdessen werden die Daten mit Erhaltung von Ausreißern um den horizontalen Nullpunkt skaliert. In manchen Fällen ist es zur Vorverarbeitung sinnvoll, die Daten zusätzlich morphologisch um den horizontalen Nullpunkt symmetrisch anzugleichen, indem spezielle Power-Transformationen angewandt werden. \cite{werner_kontinuierliche_2020} nutzt die Yeo-Johnson-Transformation, welche in \Cref{fig:shl-scaler-histograms} und \Cref{fig:shl-yeo-johnson-histograms} gezeigt ist. Die Yeo-Johnson-Transformation ist auf einem Datenpunkt $x$ wie folgt definiert.
+\Cref{fig:shl-scaler-histograms} zeigt zunächst die bereits erläuterte Standardisierung. Die Standardisierung verändert die Verteilung der Daten nicht morphologisch, stattdessen werden die Daten mit Erhaltung von Ausreißern um den horizontalen Nullpunkt skaliert. In manchen Fällen ist es zur Vorverarbeitung sinnvoll, die Daten zusätzlich morphologisch um den horizontalen Nullpunkt symmetrisch anzugleichen, indem spezielle Power-Transformationen angewandt werden. \cite{werner_kontinuierliche_2020} nutzt die Yeo-Johnson-Transformation, welche in \Cref{fig:shl-scaler-histograms} und \Cref{fig:shl-yeo-johnson-histograms} gezeigt ist. Die Yeo-Johnson-Transformation ist auf einem Datenpunkt $x_i$ wie folgt definiert.
 
-\begin{equation}
+\begin{equation*}
   \begin{split}x_i^{(\lambda)} =
     \begin{cases}
      [(x_i + 1)^\lambda - 1] / \lambda & \text{if } \lambda \neq 0, x_i \geq 0, \\[8pt]
@@ -101,7 +101,7 @@ Die Auswahl der Skalierungsmethode für die Eingaben ist für einige Modelle wic
     -[(-x_i + 1)^{2 - \lambda} - 1] / (2 - \lambda) & \text{if } \lambda \neq 2, x_i < 0, \\[8pt]
      - \ln (- x_i + 1) & \text{if } \lambda = 2, x_i < 0
   \end{cases}\end{split}
-\end{equation}
+\end{equation*}
 
 Der Parameter $\lambda$ wird durch die Maximum-Likelihood-Methode\footnote{\url{https://de.wikipedia.org/wiki/Maximum-Likelihood-Methode} (Abgerufen am 5.8.2021)} geschätzt. Ziel der Anwendung einer solchen Power-Transformation ist, die Abschrägung (\textit{skew}) der Daten zu eliminieren, um den Bias des Modells zu verringern und den Lernerfolg zu steigern. Die Yeo-Johnson-Transformation ist eine Erweiterung der in \Cref{fig:shl-scaler-histograms} gezeigten Box-Cox-Transformation und dient als grundlegende Skalierungsmethode für die Machine-Learning-Modelle in dieser Arbeit.
 
