@@ -8,27 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		05DE12F54A6E51754B2E81AA /* Pods_SHLModelEvaluation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA629E094B446EE47E9D7FC2 /* Pods_SHLModelEvaluation.framework */; };
-		BE2BE5D026B80557002D9F48 /* mag-scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE2BE5CD26B80557002D9F48 /* mag-scaler.json */; };
-		BE2BE5D126B80557002D9F48 /* acc-scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE2BE5CE26B80557002D9F48 /* acc-scaler.json */; };
-		BE2BE5D226B80557002D9F48 /* gyr-scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE2BE5CF26B80557002D9F48 /* gyr-scaler.json */; };
+		BE098F0126DE52160076F6F2 /* acc_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE098F0026DE52160076F6F2 /* acc_mag.scaler.json */; };
+		BE098F0326DE521F0076F6F2 /* mag_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE098F0226DE521F0076F6F2 /* mag_mag.scaler.json */; };
+		BE098F0526DE522A0076F6F2 /* gyr_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE098F0426DE522A0076F6F2 /* gyr_mag.scaler.json */; };
+		BE098F0726DE73D40076F6F2 /* model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = BE098F0626DE73D40076F6F2 /* model.tflite */; };
 		BEDBE43E26B7DBC70091E5AE /* SHLModelEvaluationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDBE43D26B7DBC70091E5AE /* SHLModelEvaluationApp.swift */; };
 		BEDBE44226B7DBC80091E5AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEDBE44126B7DBC80091E5AE /* Assets.xcassets */; };
 		BEDBE44526B7DBC80091E5AE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEDBE44426B7DBC80091E5AE /* Preview Assets.xcassets */; };
-		BEDBE44D26B7DD0B0091E5AE /* shl-model.resnet.tflite in Resources */ = {isa = PBXBuildFile; fileRef = BEDBE44C26B7DD0B0091E5AE /* shl-model.resnet.tflite */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2E4A9A61E04934448D2961B6 /* Pods-SHLModelEvaluation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHLModelEvaluation.debug.xcconfig"; path = "Target Support Files/Pods-SHLModelEvaluation/Pods-SHLModelEvaluation.debug.xcconfig"; sourceTree = "<group>"; };
 		67AE18E9391D63D392A4B584 /* Pods-SHLModelEvaluation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SHLModelEvaluation.release.xcconfig"; path = "Target Support Files/Pods-SHLModelEvaluation/Pods-SHLModelEvaluation.release.xcconfig"; sourceTree = "<group>"; };
-		BE2BE5CD26B80557002D9F48 /* mag-scaler.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "mag-scaler.json"; path = "../../models/mag-scaler.json"; sourceTree = "<group>"; };
-		BE2BE5CE26B80557002D9F48 /* acc-scaler.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "acc-scaler.json"; path = "../../models/acc-scaler.json"; sourceTree = "<group>"; };
-		BE2BE5CF26B80557002D9F48 /* gyr-scaler.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "gyr-scaler.json"; path = "../../models/gyr-scaler.json"; sourceTree = "<group>"; };
+		BE098F0026DE52160076F6F2 /* acc_mag.scaler.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = acc_mag.scaler.json; path = "../../models/shl-scalers/acc_mag.scaler.json"; sourceTree = "<group>"; };
+		BE098F0226DE521F0076F6F2 /* mag_mag.scaler.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = mag_mag.scaler.json; path = "../../models/shl-scalers/mag_mag.scaler.json"; sourceTree = "<group>"; };
+		BE098F0426DE522A0076F6F2 /* gyr_mag.scaler.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = gyr_mag.scaler.json; path = "../../models/shl-scalers/gyr_mag.scaler.json"; sourceTree = "<group>"; };
+		BE098F0626DE73D40076F6F2 /* model.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model.tflite; sourceTree = "<group>"; };
 		BEDBE43A26B7DBC70091E5AE /* SHLModelEvaluation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHLModelEvaluation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEDBE43D26B7DBC70091E5AE /* SHLModelEvaluationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHLModelEvaluationApp.swift; sourceTree = "<group>"; };
 		BEDBE44126B7DBC80091E5AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BEDBE44426B7DBC80091E5AE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BEDBE44626B7DBC80091E5AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BEDBE44C26B7DD0B0091E5AE /* shl-model.resnet.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; name = "shl-model.resnet.tflite"; path = "../../models/shl-model.resnet.tflite"; sourceTree = "<group>"; };
 		DA629E094B446EE47E9D7FC2 /* Pods_SHLModelEvaluation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SHLModelEvaluation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -82,10 +82,10 @@
 		BEDBE43C26B7DBC70091E5AE /* SHLModelEvaluation */ = {
 			isa = PBXGroup;
 			children = (
-				BEDBE44C26B7DD0B0091E5AE /* shl-model.resnet.tflite */,
-				BE2BE5CE26B80557002D9F48 /* acc-scaler.json */,
-				BE2BE5CF26B80557002D9F48 /* gyr-scaler.json */,
-				BE2BE5CD26B80557002D9F48 /* mag-scaler.json */,
+				BE098F0626DE73D40076F6F2 /* model.tflite */,
+				BE098F0026DE52160076F6F2 /* acc_mag.scaler.json */,
+				BE098F0226DE521F0076F6F2 /* mag_mag.scaler.json */,
+				BE098F0426DE522A0076F6F2 /* gyr_mag.scaler.json */,
 				BEDBE43D26B7DBC70091E5AE /* SHLModelEvaluationApp.swift */,
 				BEDBE44126B7DBC80091E5AE /* Assets.xcassets */,
 				BEDBE44626B7DBC80091E5AE /* Info.plist */,
@@ -160,12 +160,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE2BE5D226B80557002D9F48 /* gyr-scaler.json in Resources */,
+				BE098F0326DE521F0076F6F2 /* mag_mag.scaler.json in Resources */,
+				BE098F0726DE73D40076F6F2 /* model.tflite in Resources */,
 				BEDBE44526B7DBC80091E5AE /* Preview Assets.xcassets in Resources */,
+				BE098F0526DE522A0076F6F2 /* gyr_mag.scaler.json in Resources */,
+				BE098F0126DE52160076F6F2 /* acc_mag.scaler.json in Resources */,
 				BEDBE44226B7DBC80091E5AE /* Assets.xcassets in Resources */,
-				BE2BE5D126B80557002D9F48 /* acc-scaler.json in Resources */,
-				BEDBE44D26B7DD0B0091E5AE /* shl-model.resnet.tflite in Resources */,
-				BE2BE5D026B80557002D9F48 /* mag-scaler.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
