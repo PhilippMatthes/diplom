@@ -11,7 +11,7 @@ final class Pipeline: ObservableObject {
     @Published var predictions: [Classifier.Prediction]?
 
     init(
-        inferenceInterval: TimeInterval = 0.5,
+        inferenceInterval: TimeInterval = 1,
         sampleInterval: TimeInterval = 0.01,
         windowLength: Int = 500,
         movingAveragePeriod: Int = 5,
@@ -27,7 +27,7 @@ final class Pipeline: ObservableObject {
         sensorPreprocessors = Dictionary(uniqueKeysWithValues: try Sensor.order.map { sensor in
             let preprocessors: [Preprocessor] = [
                 try PowerTransformer(sensor: sensor),
-                MovingAverage(period: movingAveragePeriod),
+                // MovingAverage(period: movingAveragePeriod),
             ]
             return (sensor, preprocessors)
         })
