@@ -1,10 +1,10 @@
 import Foundation
 
-protocol Scaler {
+protocol Preprocessor {
     func transform(_ input: [Parameter]) -> [Parameter]
 }
 
-final class PowerTransformer: Scaler {
+final class PowerTransformer: Preprocessor {
     enum TransformerError: Error {
         case configFileNotFound
     }
@@ -41,3 +41,23 @@ final class PowerTransformer: Scaler {
         }
     }
 }
+
+final class MovingAverage: Preprocessor {
+    let period: Int
+
+    init(period: Int) {
+        self.period = period
+    }
+
+    /// Compute the moving average.
+    func transform(_ input: [Parameter]) -> [Parameter] {
+        (0 ..< input.count).map { i in
+            guard i != 0 else { return input[i] }
+            let range = max(0, i - period) ..< i
+            let sum = input[range].reduce(0, +)
+            return sum / Parameter(period)
+        }
+    }
+}
+
+

@@ -11,14 +11,14 @@
 		BE098F0126DE52160076F6F2 /* acc_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE098F0026DE52160076F6F2 /* acc_mag.scaler.json */; };
 		BE098F0326DE521F0076F6F2 /* mag_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE098F0226DE521F0076F6F2 /* mag_mag.scaler.json */; };
 		BE098F0526DE522A0076F6F2 /* gyr_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE098F0426DE522A0076F6F2 /* gyr_mag.scaler.json */; };
-		BE098F0726DE73D40076F6F2 /* model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = BE098F0626DE73D40076F6F2 /* model.tflite */; };
-		BE098F0A26DF6A840076F6F2 /* Scalers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F0926DF6A840076F6F2 /* Scalers.swift */; };
 		BE098F0C26DF6A950076F6F2 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F0B26DF6A950076F6F2 /* Parameter.swift */; };
 		BE098F0E26DF730E0076F6F2 /* Triaxial.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F0D26DF730E0076F6F2 /* Triaxial.swift */; };
 		BE098F1026DF73490076F6F2 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F0F26DF73490076F6F2 /* Window.swift */; };
 		BE098F1326DF75B50076F6F2 /* Sensors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F1226DF75B50076F6F2 /* Sensors.swift */; };
 		BE098F1526DF78610076F6F2 /* Classifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F1426DF78610076F6F2 /* Classifier.swift */; };
 		BE098F1726DF7E070076F6F2 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F1626DF7E070076F6F2 /* Pipeline.swift */; };
+		BE098F1926DF92FD0076F6F2 /* model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = BE098F1826DF92FD0076F6F2 /* model.tflite */; };
+		BE098F1B26DFA0930076F6F2 /* Preprocessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F1A26DFA0930076F6F2 /* Preprocessing.swift */; };
 		BEDBE43E26B7DBC70091E5AE /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDBE43D26B7DBC70091E5AE /* App.swift */; };
 		BEDBE44226B7DBC80091E5AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEDBE44126B7DBC80091E5AE /* Assets.xcassets */; };
 		BEDBE44526B7DBC80091E5AE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEDBE44426B7DBC80091E5AE /* Preview Assets.xcassets */; };
@@ -30,14 +30,14 @@
 		BE098F0026DE52160076F6F2 /* acc_mag.scaler.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = acc_mag.scaler.json; sourceTree = "<group>"; };
 		BE098F0226DE521F0076F6F2 /* mag_mag.scaler.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mag_mag.scaler.json; sourceTree = "<group>"; };
 		BE098F0426DE522A0076F6F2 /* gyr_mag.scaler.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gyr_mag.scaler.json; sourceTree = "<group>"; };
-		BE098F0626DE73D40076F6F2 /* model.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model.tflite; sourceTree = "<group>"; };
-		BE098F0926DF6A840076F6F2 /* Scalers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scalers.swift; sourceTree = "<group>"; };
 		BE098F0B26DF6A950076F6F2 /* Parameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameter.swift; sourceTree = "<group>"; };
 		BE098F0D26DF730E0076F6F2 /* Triaxial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triaxial.swift; sourceTree = "<group>"; };
 		BE098F0F26DF73490076F6F2 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		BE098F1226DF75B50076F6F2 /* Sensors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensors.swift; sourceTree = "<group>"; };
 		BE098F1426DF78610076F6F2 /* Classifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classifier.swift; sourceTree = "<group>"; };
 		BE098F1626DF7E070076F6F2 /* Pipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
+		BE098F1826DF92FD0076F6F2 /* model.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model.tflite; sourceTree = "<group>"; };
+		BE098F1A26DFA0930076F6F2 /* Preprocessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preprocessing.swift; sourceTree = "<group>"; };
 		BEDBE43A26B7DBC70091E5AE /* SHLModelEvaluation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHLModelEvaluation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEDBE43D26B7DBC70091E5AE /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		BEDBE44126B7DBC80091E5AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -78,13 +78,13 @@
 		BE098F0826DF6A530076F6F2 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				BE098F0926DF6A840076F6F2 /* Scalers.swift */,
 				BE098F0B26DF6A950076F6F2 /* Parameter.swift */,
 				BE098F0D26DF730E0076F6F2 /* Triaxial.swift */,
 				BE098F0F26DF73490076F6F2 /* Window.swift */,
 				BE098F1226DF75B50076F6F2 /* Sensors.swift */,
 				BE098F1426DF78610076F6F2 /* Classifier.swift */,
 				BE098F1626DF7E070076F6F2 /* Pipeline.swift */,
+				BE098F1A26DFA0930076F6F2 /* Preprocessing.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -92,7 +92,7 @@
 		BE098F1126DF73AC0076F6F2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BE098F0626DE73D40076F6F2 /* model.tflite */,
+				BE098F1826DF92FD0076F6F2 /* model.tflite */,
 				BE098F0026DE52160076F6F2 /* acc_mag.scaler.json */,
 				BE098F0226DE521F0076F6F2 /* mag_mag.scaler.json */,
 				BE098F0426DE522A0076F6F2 /* gyr_mag.scaler.json */,
@@ -198,7 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE098F0326DE521F0076F6F2 /* mag_mag.scaler.json in Resources */,
-				BE098F0726DE73D40076F6F2 /* model.tflite in Resources */,
+				BE098F1926DF92FD0076F6F2 /* model.tflite in Resources */,
 				BEDBE44526B7DBC80091E5AE /* Preview Assets.xcassets in Resources */,
 				BE098F0526DE522A0076F6F2 /* gyr_mag.scaler.json in Resources */,
 				BE098F0126DE52160076F6F2 /* acc_mag.scaler.json in Resources */,
@@ -242,7 +242,7 @@
 				BE098F0C26DF6A950076F6F2 /* Parameter.swift in Sources */,
 				BE098F1026DF73490076F6F2 /* Window.swift in Sources */,
 				BEDBE43E26B7DBC70091E5AE /* App.swift in Sources */,
-				BE098F0A26DF6A840076F6F2 /* Scalers.swift in Sources */,
+				BE098F1B26DFA0930076F6F2 /* Preprocessing.swift in Sources */,
 				BE098F0E26DF730E0076F6F2 /* Triaxial.swift in Sources */,
 				BE098F1326DF75B50076F6F2 /* Sensors.swift in Sources */,
 				BE098F1726DF7E070076F6F2 /* Pipeline.swift in Sources */,

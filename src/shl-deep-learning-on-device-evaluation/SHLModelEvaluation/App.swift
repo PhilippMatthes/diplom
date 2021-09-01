@@ -6,7 +6,7 @@ import AVFoundation
 
 @main
 struct SHLModelEvaluationApp: App {
-    @StateObject private var pipeline = Pipeline()
+    @StateObject private var pipeline = try! Pipeline()
 
     private func fmt(_ parameter: Parameter) -> String {
         String(format: "%.2f", parameter)
@@ -14,12 +14,6 @@ struct SHLModelEvaluationApp: App {
 
     var content: some View {
         VStack {
-            if let sample = pipeline.currentSample {
-                Text("Acc. Mag.: \(fmt(sample.accMag))")
-                Text("Mag. Mag.: \(fmt(sample.magMag))")
-                Text("Gyr. Mag.: \(fmt(sample.gyrMag))")
-            }
-            Divider()
             if let predictions = pipeline.predictions {
                 ForEach(predictions, id: \.label.rawValue) { p -> Text in
                     Text("\(p.label.rawValue): \(fmt(p.confidence * 100))")
