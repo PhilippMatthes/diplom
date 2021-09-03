@@ -12,15 +12,15 @@ enum Sensor: String, Hashable {
     static let order: [Self] = [.accMag, .magMag, .gyrMag]
 }
 
-extension PowerTransformer {
-    convenience init(sensor: Sensor) throws {
-        switch sensor {
+extension Sensor {
+    var configFileName: String {
+        switch self {
         case .accMag:
-            try self.init(configFileName: "acc_mag.scaler")
+            return "acc_mag.scaler"
         case .magMag:
-            try self.init(configFileName: "mag_mag.scaler")
+            return "mag_mag.scaler"
         case .gyrMag:
-            try self.init(configFileName: "gyr_mag.scaler")
+            return "gyr_mag.scaler"
         }
     }
 }

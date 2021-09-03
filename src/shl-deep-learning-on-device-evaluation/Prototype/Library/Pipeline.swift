@@ -10,28 +10,23 @@ final class Pipeline: ObservableObject {
 
     @Published var predictions: [Classifier.Prediction]?
 
-    init(
-        inferenceInterval: TimeInterval = 1,
-        sampleInterval: TimeInterval = 0.01,
-        windowLength: Int = 500,
-        movingAveragePeriod: Int = 5,
-        modelFileName: String = "model"
-    ) throws {
+    init(inferenceInterval: TimeInterval = 1) throws {
         self.inferenceInterval = inferenceInterval
 
-        source = SensorSource(sampleInterval: sampleInterval)
+        source = SensorSource(sampleInterval: 0.01)
         sensorWindows = Dictionary(uniqueKeysWithValues: Sensor.order.map { sensor in
-            let window = Window(maxLength: windowLength)
+            let window = Window(maxLength: 500)
             return (sensor, window)
         })
         sensorPreprocessors = Dictionary(uniqueKeysWithValues: try Sensor.order.map { sensor in
             let preprocessors: [Preprocessor] = [
-                try PowerTransformer(sensor: sensor),
-                // MovingAverage(period: movingAveragePeriod),
+                try PowerTransformer(configFileName: sensor.configFileName),
+                try StandardScaler(configFileName: sensor.configFileName),
+                MovingAverage(period: 2), // Minimal noise reduction
             ]
             return (sensor, preprocessors)
         })
-        classifier = try Classifier(modelFileName: modelFileName)
+        classifier = try Classifier(modelFileName: "model")
     }
 
     private func infer(qos: DispatchQoS.QoSClass = .background) {
@@ -50,6 +45,8 @@ final class Pipeline: ObservableObject {
                     values = preprocessor.transform(values)
                 }
                 input.append(values)
+
+                print("New values for \(sensor.rawValue): \(values.max()!) - \(values.min()!)")
             }
 
             guard

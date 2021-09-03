@@ -20,12 +20,6 @@ Schwerpunkte:
   - `src/models/` Trainierte Modelle, Vorverarbeitungskonfigurationen und experimentelle Ergebnisse
   - `shl-deep-learning-on-device-evaluation/` Prototyp-App für die Evaluation der Modelle
   - `shl-deep-learning-prototyping-architectures/` Evaluierte Architekturen bei der prototypischen Selektion einer Basisarchitektur
-  - `shl-data-analysis.ipynb` Durchgeführte Datenanalyse und deren Ergebnisse
-  - `shl-deep-learning-autoencoder.ipynb` Prototypischer Test und Ergebnisse eines 1D-Convolutional-Autoencoders
-  - `shl-deep-learning-prototyping-results.ipynb` Visuelle Aufbereitung der Trainingsergebnisse des Prototypings
-  - **`shl-deep-learning-timeseries.ipynb` Training der Deep-Learning-Modelle und Rastersuche**
-  - `shl-power-transformers.ipynb` Training und Export der Yeo-Johnson-Transformer für einzelne Attribute des SHL-Datensatzes
-  - `shl-stft-visualization.ipynb` Exemplarisches Modell zur Visualisierung einer integrierten STFT-Schicht
-  - `shl-traditional-models.ipynb` Prototypischer Test von traditionellen Modellen auf Shallow-Features
+  - `*.ipynb` Jupyter-Notebooks für die prototypischen Versuche
 - `.github/` GitHub Workflow für die automatisierte Erstellung von Releases
 - `.vscode/` Konfigurationen für VSCode, unter anderem empfohlene Plugins für die Bearbeitung von LaTeX (IDE)

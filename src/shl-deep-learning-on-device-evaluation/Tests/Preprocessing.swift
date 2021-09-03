@@ -1,9 +1,8 @@
-import XCTest
+import Foundation
 
 @testable import SHLModelEvaluation
 
-class Tests: XCTestCase {
-    /// Test the inference time of the TFLite model.
+class ModelTests: XCTestCase {
     func testInferenceTime() throws {
         let classifier = try Classifier(modelFileName: "model")
         measure {
@@ -19,5 +18,4 @@ class Tests: XCTestCase {
             }
         }
     }
-
 }
