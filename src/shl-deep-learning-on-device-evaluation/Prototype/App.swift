@@ -3,29 +3,33 @@ import CoreMotion
 import TensorFlowLite
 import AVFoundation
 
-
 @main
 struct SHLModelEvaluationApp: App {
     @StateObject private var pipeline = try! Pipeline()
 
-    private func fmt(_ parameter: Parameter) -> String {
-        String(format: "%.2f", parameter)
-    }
-
     var content: some View {
-        VStack {
-            if let predictions = pipeline.predictions {
-                ForEach(predictions, id: \.label.rawValue) { p -> Text in
-                    Text("\(p.label.description): \(fmt(p.confidence * 100))")
+        ScrollView {
+            VStack {
+                if let predictions = pipeline.predictions {
+                    LabelsView(predictions: predictions)
+                        .frame(height: 512)
+                }
+                ForEach(Sensor.order, id: \.rawValue) { sensor in
+                    if let values = pipeline.sensorWindows[sensor]?.values {
+                        WindowView(sensor: sensor, window: values)
+                            .frame(height: 128)
+                    } else {
+                        EmptyView()
+                    }
                 }
             }
+            .padding()
         }
-        .padding()
     }
 
     var body: some Scene {
         WindowGroup {
-            Color.gray.overlay(content)
+            content
                 .onAppear(perform: {
                     pipeline.run()
 

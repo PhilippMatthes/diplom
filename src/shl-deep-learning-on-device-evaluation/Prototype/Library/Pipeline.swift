@@ -3,15 +3,15 @@ import Foundation
 final class Pipeline: ObservableObject {
     private let source: SensorSource
     private let windowLength: Int
-    private let sensorWindows: [Sensor: Window]
     private let sensorPreprocessors: [Sensor: [Preprocessor]]
     private let classifier: Classifier
     private let inferenceInterval: TimeInterval
     private var inferenceTimer: Timer?
 
+    @Published var sensorWindows: [Sensor: Window]
     @Published var predictions: [Classifier.Prediction]?
 
-    init(inferenceInterval: TimeInterval = 1, windowLength: Int = 500) throws {
+    init(inferenceInterval: TimeInterval = 0.5, windowLength: Int = 500) throws {
         self.inferenceInterval = inferenceInterval
         self.windowLength = windowLength
 
@@ -24,7 +24,6 @@ final class Pipeline: ObservableObject {
             let preprocessors: [Preprocessor] = [
                 try PowerTransformer(configFileName: sensor.configFileName),
                 try StandardScaler(configFileName: sensor.configFileName),
-                MovingAverage(period: 2), // Minimal noise reduction
             ]
             return (sensor, preprocessors)
         })
