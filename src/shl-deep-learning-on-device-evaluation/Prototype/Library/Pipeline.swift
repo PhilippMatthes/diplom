@@ -2,6 +2,7 @@ import Foundation
 
 final class Pipeline: ObservableObject {
     private let source: SensorSource
+    private let windowLength: Int
     private let sensorWindows: [Sensor: Window]
     private let sensorPreprocessors: [Sensor: [Preprocessor]]
     private let classifier: Classifier
@@ -10,12 +11,13 @@ final class Pipeline: ObservableObject {
 
     @Published var predictions: [Classifier.Prediction]?
 
-    init(inferenceInterval: TimeInterval = 1) throws {
+    init(inferenceInterval: TimeInterval = 1, windowLength: Int = 500) throws {
         self.inferenceInterval = inferenceInterval
+        self.windowLength = windowLength
 
         source = SensorSource(sampleInterval: 0.01)
         sensorWindows = Dictionary(uniqueKeysWithValues: Sensor.order.map { sensor in
-            let window = Window(maxLength: 500)
+            let window = Window(maxLength: windowLength)
             return (sensor, window)
         })
         sensorPreprocessors = Dictionary(uniqueKeysWithValues: try Sensor.order.map { sensor in
@@ -31,22 +33,22 @@ final class Pipeline: ObservableObject {
 
     private func infer(qos: DispatchQoS.QoSClass = .background) {
         DispatchQueue.global(qos: qos).async {
-            for window in self.sensorWindows.values {
-                guard window.isFull else { return }
-            }
-
-            var input = [[Parameter]]()
+            var preprocessedWindows = [[Parameter]]() // (n_features x n_timesteps)
             for sensor in Sensor.order {
                 guard
                     var values = self.sensorWindows[sensor]?.values,
+                    values.count == self.windowLength,
                     let preprocessors = self.sensorPreprocessors[sensor]
                 else { return }
                 for preprocessor in preprocessors {
                     values = preprocessor.transform(values)
                 }
-                input.append(values)
+                preprocessedWindows.append(values)
+            }
 
-                print("New values for \(sensor.rawValue): \(values.max()!) - \(values.min()!)")
+            var input = [[Parameter]]() // Reshape to (n_timesteps x n_features)
+            for i in 0 ..< self.windowLength {
+                input.append(preprocessedWindows.map { w in w[i] })
             }
 
             guard

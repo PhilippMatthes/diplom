@@ -46,6 +46,7 @@ final class Classifier {
 
     enum ClassifierError: Error {
         case modelNotFound
+        case erroneousInputShape
     }
 
     init(modelFileName: String) throws {
@@ -58,7 +59,16 @@ final class Classifier {
         output = try interpreter.output(at: 0)
     }
 
+    private func shape(input: Input) -> [Int]? {
+        guard let firstElement = input.first else { return nil }
+        return [input.count, firstElement.count]
+    }
+
     func classify(input: Input) throws -> [Prediction] {
+        guard
+            shape(input: input) == [500, 3]
+        else { throw ClassifierError.erroneousInputShape }
+
         let inputData = input
             .flatMap { arr in arr }
             .withUnsafeBufferPointer { ptr in Data(buffer: ptr) }

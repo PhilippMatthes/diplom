@@ -15,6 +15,8 @@
 		BE098F1526DF78610076F6F2 /* Classifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F1426DF78610076F6F2 /* Classifier.swift */; };
 		BE098F1726DF7E070076F6F2 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F1626DF7E070076F6F2 /* Pipeline.swift */; };
 		BE098F1B26DFA0930076F6F2 /* Preprocessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F1A26DFA0930076F6F2 /* Preprocessing.swift */; };
+		BE0D619826E249DC008B66F1 /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = BE0D619726E249DC008B66F1 /* testdata.json */; };
+		BE0D619926E249DC008B66F1 /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = BE0D619726E249DC008B66F1 /* testdata.json */; };
 		BE1D4D5626DFB5A100F9A0DD /* Inference.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1D4D5526DFB5A100F9A0DD /* Inference.swift */; };
 		BE1D4D6026DFB9DA00F9A0DD /* 6af8a156f95b675b9ae9689d66c25b64.json in Resources */ = {isa = PBXBuildFile; fileRef = BE1D4D5F26DFB9DA00F9A0DD /* 6af8a156f95b675b9ae9689d66c25b64.json */; };
 		BE1D4D6526DFBFAA00F9A0DD /* 7523152748da6ca5d4d59234b3732c89.json in Resources */ = {isa = PBXBuildFile; fileRef = BE1D4D6426DFBFAA00F9A0DD /* 7523152748da6ca5d4d59234b3732c89.json */; };
@@ -35,8 +37,8 @@
 		BE1D4D9126DFD0E600F9A0DD /* mag_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE1D4D8C26DFD0E600F9A0DD /* mag_mag.scaler.json */; };
 		BE1D4D9226DFD0E600F9A0DD /* mag_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE1D4D8C26DFD0E600F9A0DD /* mag_mag.scaler.json */; };
 		BEC81B0526E229810013D8AE /* Preprocessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC81B0326E229710013D8AE /* Preprocessing.swift */; };
-		BEC81B0D26E23ADB0013D8AE /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = BEC81B0C26E23ADB0013D8AE /* testdata.json */; };
-		BEC81B0E26E23ADB0013D8AE /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = BEC81B0C26E23ADB0013D8AE /* testdata.json */; };
+		BEC81B1126E243DA0013D8AE /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC81B0F26E243DA0013D8AE /* Common.swift */; };
+		BEC81B1426E2444E0013D8AE /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC81B1226E2444E0013D8AE /* Model.swift */; };
 		BEDB208126E21560003746DC /* ea70373fe386b068ffab6704b4ac25fc.json in Resources */ = {isa = PBXBuildFile; fileRef = BEDB208026E21560003746DC /* ea70373fe386b068ffab6704b4ac25fc.json */; };
 		BEDB208226E21560003746DC /* ea70373fe386b068ffab6704b4ac25fc.json in Resources */ = {isa = PBXBuildFile; fileRef = BEDB208026E21560003746DC /* ea70373fe386b068ffab6704b4ac25fc.json */; };
 		BEDB208726E217C8003746DC /* 9988226d7297eb039365ad50f7c5ea0b.json in Resources */ = {isa = PBXBuildFile; fileRef = BEDB208626E217C8003746DC /* 9988226d7297eb039365ad50f7c5ea0b.json */; };
@@ -72,6 +74,7 @@
 		BE098F1426DF78610076F6F2 /* Classifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classifier.swift; sourceTree = "<group>"; };
 		BE098F1626DF7E070076F6F2 /* Pipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
 		BE098F1A26DFA0930076F6F2 /* Preprocessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preprocessing.swift; sourceTree = "<group>"; };
+		BE0D619726E249DC008B66F1 /* testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testdata.json; sourceTree = "<group>"; };
 		BE1D4D5326DFB5A100F9A0DD /* SHLModelEvaluationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SHLModelEvaluationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE1D4D5526DFB5A100F9A0DD /* Inference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inference.swift; sourceTree = "<group>"; };
 		BE1D4D5726DFB5A100F9A0DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,7 +89,8 @@
 		BE1D4D8B26DFD0E600F9A0DD /* acc_mag.scaler.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = acc_mag.scaler.json; sourceTree = "<group>"; };
 		BE1D4D8C26DFD0E600F9A0DD /* mag_mag.scaler.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mag_mag.scaler.json; sourceTree = "<group>"; };
 		BEC81B0326E229710013D8AE /* Preprocessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preprocessing.swift; sourceTree = "<group>"; };
-		BEC81B0C26E23ADB0013D8AE /* testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testdata.json; sourceTree = "<group>"; };
+		BEC81B0F26E243DA0013D8AE /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		BEC81B1226E2444E0013D8AE /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		BEDB208026E21560003746DC /* ea70373fe386b068ffab6704b4ac25fc.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ea70373fe386b068ffab6704b4ac25fc.json; sourceTree = "<group>"; };
 		BEDB208626E217C8003746DC /* 9988226d7297eb039365ad50f7c5ea0b.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 9988226d7297eb039365ad50f7c5ea0b.json; sourceTree = "<group>"; };
 		BEDB208C26E2187E003746DC /* cb5048dd197b94c8b420dbcdb49f378f.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cb5048dd197b94c8b420dbcdb49f378f.json; sourceTree = "<group>"; };
@@ -165,9 +169,11 @@
 			isa = PBXGroup;
 			children = (
 				BEDB209526E21AC6003746DC /* Data */,
+				BEC81B0F26E243DA0013D8AE /* Common.swift */,
 				BE1D4D5526DFB5A100F9A0DD /* Inference.swift */,
-				BE1D4D5726DFB5A100F9A0DD /* Info.plist */,
 				BEC81B0326E229710013D8AE /* Preprocessing.swift */,
+				BEC81B1226E2444E0013D8AE /* Model.swift */,
+				BE1D4D5726DFB5A100F9A0DD /* Info.plist */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -192,7 +198,7 @@
 		BEDB209526E21AC6003746DC /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				BEC81B0C26E23ADB0013D8AE /* testdata.json */,
+				BE0D619726E249DC008B66F1 /* testdata.json */,
 				BEDB209626E2229A003746DC /* generate_data.ipynb */,
 			);
 			path = Data;
@@ -324,7 +330,7 @@
 				BE1D4D7A26DFC50700F9A0DD /* e6c36740f115fc7510ff472225bedeac.json in Resources */,
 				BE1D4D9226DFD0E600F9A0DD /* mag_mag.scaler.json in Resources */,
 				BEDB208826E217C8003746DC /* 9988226d7297eb039365ad50f7c5ea0b.json in Resources */,
-				BEC81B0E26E23ADB0013D8AE /* testdata.json in Resources */,
+				BE0D619926E249DC008B66F1 /* testdata.json in Resources */,
 				BE1D4D6B26DFC1F700F9A0DD /* 968ca3e771b5efa5855ba841f69c463a.json in Resources */,
 				BEDB208226E21560003746DC /* ea70373fe386b068ffab6704b4ac25fc.json in Resources */,
 				BE1D4D7426DFC3EB00F9A0DD /* 4ad2e771492aac5b42c89d9b5a835857.json in Resources */,
@@ -347,7 +353,7 @@
 				BEDB208726E217C8003746DC /* 9988226d7297eb039365ad50f7c5ea0b.json in Resources */,
 				BEDB209026E218AA003746DC /* model.tflite in Resources */,
 				BE1D4D8D26DFD0E600F9A0DD /* gyr_mag.scaler.json in Resources */,
-				BEC81B0D26E23ADB0013D8AE /* testdata.json in Resources */,
+				BE0D619826E249DC008B66F1 /* testdata.json in Resources */,
 				BE1D4D8526DFC7CD00F9A0DD /* 7cfd6602ff1ee897fd95deebf54ec24a.json in Resources */,
 				BEDBE44526B7DBC80091E5AE /* Preview Assets.xcassets in Resources */,
 				BE1D4D9126DFD0E600F9A0DD /* mag_mag.scaler.json in Resources */,
@@ -396,7 +402,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEC81B0526E229810013D8AE /* Preprocessing.swift in Sources */,
+				BEC81B1126E243DA0013D8AE /* Common.swift in Sources */,
 				BE1D4D5626DFB5A100F9A0DD /* Inference.swift in Sources */,
+				BEC81B1426E2444E0013D8AE /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

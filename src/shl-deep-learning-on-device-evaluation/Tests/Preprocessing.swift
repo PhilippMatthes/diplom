@@ -2,38 +2,7 @@ import XCTest
 
 @testable import SHLModelEvaluation
 
-private struct TestSample: Codable {
-    let xFeature: [[Parameter]]
-    let xRaw: [[Parameter]]
-    let y: Classifier.Class
-
-    private enum CodingKeys: String, CodingKey {
-        case xFeature = "X_feature"
-        case xRaw = "X_raw"
-        case y = "y"
-    }
-}
-
-class PreprocessingTests: XCTestCase {
-    private var datasets: [String: [TestSample]]?
-
-    override func setUp() {
-        super.setUp()
-        guard
-            let testSampleUrl = Bundle.main.url(
-                forResource: "testdata", withExtension: "json"
-            ),
-            let data = try? Data(
-                contentsOf: testSampleUrl, options: .mappedIfSafe
-            ),
-            let datasets = try? JSONDecoder().decode(
-                [String: [TestSample]].self, from: data
-            )
-        else { XCTFail(); return }
-        XCTAssert(!datasets.isEmpty)
-        self.datasets = datasets
-    }
-
+class PreprocessingTests: DataTest {
     /// Test that the preprocessors were ported correctly.
     func testPreprocessors() throws {
         guard let datasets = datasets else { XCTFail(); return }
@@ -47,7 +16,7 @@ class PreprocessingTests: XCTestCase {
         })
 
         for sensor in Sensor.order {
-            print("Testing preprocessors for sensor \(sensor.description)")
+            var maxDiff: Parameter = 0
             for sample in datasets.values.flatMap({ s in s }) {
                 guard
                     let preprocessors = sensorPreprocessors[sensor]
@@ -66,6 +35,7 @@ class PreprocessingTests: XCTestCase {
                     xFeatureSensor[i] - xPreprocessed[i]
                 }
                 for diff in xDiffs {
+                    maxDiff = max(diff, maxDiff)
                     XCTAssert(diff < 0.00001)
                 }
             }
