@@ -9,16 +9,30 @@ final class Classifier {
     private let input: Tensor
     private var output: Tensor
 
-    enum Class: String {
-        case null = "Null"
-        case still = "Still"
-        case walking = "Walking"
-        case run = "Run"
-        case bike = "Bike"
-        case car = "Car"
-        case bus = "Bus"
-        case train = "Train"
-        case subway = "Subway"
+    enum Class: Int, CustomStringConvertible, Codable {
+        case null = 0
+        case still = 1
+        case walking = 2
+        case run = 3
+        case bike = 4
+        case car = 5
+        case bus = 6
+        case train = 7
+        case subway = 8
+
+        var description: String {
+            switch self {
+            case .null: return "Null"
+            case .still: return "Still"
+            case .walking: return "Walking"
+            case .run: return "Run"
+            case .bike: return "Bike"
+            case .car: return "Car"
+            case .bus: return "Bus"
+            case .train: return "Train"
+            case .subway: return "Subway"
+            }
+        }
 
         static let order: [Self] = [
             .null, .still, .walking, .run, .bike, .car, .bus, .train, .subway

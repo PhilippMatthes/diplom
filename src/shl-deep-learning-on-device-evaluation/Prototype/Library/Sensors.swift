@@ -1,13 +1,24 @@
 import Foundation
 import CoreMotion
 
-enum Sensor: String, Hashable {
+enum Sensor: Int, CustomStringConvertible, Hashable {
     /// Magnitude of `TYPE_ACCELEROMETER` from Android (with included gravity component)
-    case accMag
+    case accMag = 0
     /// Magnitude of `TYPE_MAGNETIC_FIELD` from Android (calibrated magnetic field)
-    case magMag
+    case magMag = 1
     /// Magnitude of `TYPE_GYROSCOPE` from Android (in rad/s)
-    case gyrMag
+    case gyrMag = 2
+
+    /// The feature index in each sample.
+    var sampleIndex: Int { rawValue }
+
+    var description: String {
+        switch self {
+        case .accMag: return "Acceleration Magnitude"
+        case .magMag: return "Magnetometer Magnitude"
+        case .gyrMag: return "Gyrosensor Magnitude"
+        }
+    }
 
     static let order: [Self] = [.accMag, .magMag, .gyrMag]
 }
@@ -15,12 +26,9 @@ enum Sensor: String, Hashable {
 extension Sensor {
     var configFileName: String {
         switch self {
-        case .accMag:
-            return "acc_mag.scaler"
-        case .magMag:
-            return "mag_mag.scaler"
-        case .gyrMag:
-            return "gyr_mag.scaler"
+        case .accMag: return "acc_mag.scaler"
+        case .magMag: return "mag_mag.scaler"
+        case .gyrMag: return "gyr_mag.scaler"
         }
     }
 }

@@ -16,7 +16,7 @@ struct SHLModelEvaluationApp: App {
         VStack {
             if let predictions = pipeline.predictions {
                 ForEach(predictions, id: \.label.rawValue) { p -> Text in
-                    Text("\(p.label.rawValue): \(fmt(p.confidence * 100))")
+                    Text("\(p.label.description): \(fmt(p.confidence * 100))")
                 }
             }
         }
