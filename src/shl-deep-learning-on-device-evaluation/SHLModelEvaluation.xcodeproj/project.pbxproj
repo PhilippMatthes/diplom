@@ -44,6 +44,10 @@
 		BEDB209126E218AA003746DC /* model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = BEDB208F26E218AA003746DC /* model.tflite */; };
 		BEDB209326E21A93003746DC /* Preprocessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB209226E21A93003746DC /* Preprocessing.swift */; };
 		BEDB209426E21A93003746DC /* Preprocessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB209226E21A93003746DC /* Preprocessing.swift */; };
+		BEDB209726E2229B003746DC /* generate_data.ipynb in Resources */ = {isa = PBXBuildFile; fileRef = BEDB209626E2229A003746DC /* generate_data.ipynb */; };
+		BEDB209826E2229B003746DC /* generate_data.ipynb in Resources */ = {isa = PBXBuildFile; fileRef = BEDB209626E2229A003746DC /* generate_data.ipynb */; };
+		BEDB209A26E222A4003746DC /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = BEDB209926E222A4003746DC /* testdata.json */; };
+		BEDB209B26E222A4003746DC /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = BEDB209926E222A4003746DC /* testdata.json */; };
 		BEDBE43E26B7DBC70091E5AE /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDBE43D26B7DBC70091E5AE /* App.swift */; };
 		BEDBE44226B7DBC80091E5AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEDBE44126B7DBC80091E5AE /* Assets.xcassets */; };
 		BEDBE44526B7DBC80091E5AE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEDBE44426B7DBC80091E5AE /* Preview Assets.xcassets */; };
@@ -87,6 +91,8 @@
 		BEDB208C26E2187E003746DC /* cb5048dd197b94c8b420dbcdb49f378f.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cb5048dd197b94c8b420dbcdb49f378f.json; sourceTree = "<group>"; };
 		BEDB208F26E218AA003746DC /* model.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model.tflite; sourceTree = "<group>"; };
 		BEDB209226E21A93003746DC /* Preprocessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preprocessing.swift; sourceTree = "<group>"; };
+		BEDB209626E2229A003746DC /* generate_data.ipynb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = generate_data.ipynb; sourceTree = "<group>"; };
+		BEDB209926E222A4003746DC /* testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testdata.json; sourceTree = "<group>"; };
 		BEDBE43A26B7DBC70091E5AE /* SHLModelEvaluation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHLModelEvaluation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEDBE43D26B7DBC70091E5AE /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		BEDBE44126B7DBC80091E5AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -187,6 +193,8 @@
 		BEDB209526E21AC6003746DC /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				BEDB209926E222A4003746DC /* testdata.json */,
+				BEDB209626E2229A003746DC /* generate_data.ipynb */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -317,9 +325,11 @@
 				BE1D4D7A26DFC50700F9A0DD /* e6c36740f115fc7510ff472225bedeac.json in Resources */,
 				BE1D4D9226DFD0E600F9A0DD /* mag_mag.scaler.json in Resources */,
 				BEDB208826E217C8003746DC /* 9988226d7297eb039365ad50f7c5ea0b.json in Resources */,
+				BEDB209B26E222A4003746DC /* testdata.json in Resources */,
 				BE1D4D6B26DFC1F700F9A0DD /* 968ca3e771b5efa5855ba841f69c463a.json in Resources */,
 				BEDB208226E21560003746DC /* ea70373fe386b068ffab6704b4ac25fc.json in Resources */,
 				BE1D4D7426DFC3EB00F9A0DD /* 4ad2e771492aac5b42c89d9b5a835857.json in Resources */,
+				BEDB209826E2229B003746DC /* generate_data.ipynb in Resources */,
 				BE1D4D8E26DFD0E600F9A0DD /* gyr_mag.scaler.json in Resources */,
 				BEDB209126E218AA003746DC /* model.tflite in Resources */,
 				BEDB208E26E2187E003746DC /* cb5048dd197b94c8b420dbcdb49f378f.json in Resources */,
@@ -338,6 +348,7 @@
 				BEDB208726E217C8003746DC /* 9988226d7297eb039365ad50f7c5ea0b.json in Resources */,
 				BEDB209026E218AA003746DC /* model.tflite in Resources */,
 				BE1D4D8D26DFD0E600F9A0DD /* gyr_mag.scaler.json in Resources */,
+				BEDB209A26E222A4003746DC /* testdata.json in Resources */,
 				BE1D4D8526DFC7CD00F9A0DD /* 7cfd6602ff1ee897fd95deebf54ec24a.json in Resources */,
 				BEDBE44526B7DBC80091E5AE /* Preview Assets.xcassets in Resources */,
 				BE1D4D9126DFD0E600F9A0DD /* mag_mag.scaler.json in Resources */,
@@ -349,6 +360,7 @@
 				BEDB208126E21560003746DC /* ea70373fe386b068ffab6704b4ac25fc.json in Resources */,
 				BEDBE44226B7DBC80091E5AE /* Assets.xcassets in Resources */,
 				BE1D4D6526DFBFAA00F9A0DD /* 7523152748da6ca5d4d59234b3732c89.json in Resources */,
+				BEDB209726E2229B003746DC /* generate_data.ipynb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
