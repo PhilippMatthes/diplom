@@ -297,7 +297,7 @@ Ergebnis der so realisierten Metamodell-Optimierung ist eine Rangliste von Archi
 
 Die bei der Hypermodell-Optimierung gefundenen Accuracy-Werte zu den jeweiligen Modellkonfigurationen sind nicht als final zu betrachten, denn das Training der Modelle kann durch den Hyperband-Algorithmus vor Erreichen der bestmöglichen Ergebnisqualität terminiert werden. Die Accuracy-Werte eignen sich somit zwar, um eine relative Ordnung zwischen den Ergebnisqualitäten der Modelle herzustellen, aber nicht, um den Tradeoff zwischen einer \textit{bestmöglichen} Accuracy und Ressourcenverbrauch zu analysieren. Daher werden alle selektierten Modelle für die nachfolgende Tradeoff-Analyse durch Training bis zum Early Stopping finalisiert.
 
-\subsection{Analyse des Ressourcenverbrauchs durch Portierung}
+\section{Analyse des Ressourcenverbrauchs durch Portierung}
 
 \begin{figure}[h]
   \includegraphics[width=\linewidth, bb=0 0 671 171]{analyse-portierung.pdf}
@@ -308,12 +308,34 @@ Für die aus der Rastersuche über die selektierte Basisarchitektur resultierend
 
 Um diese zu ermitteln, werden die Modelle in eine auf Smartphones ausführbare Repräsentation überführt (siehe \Cref{fig:analyse-portierung}). Dies gelingt durch Konversion und verlustfreie Kompression. In welches Format konkret konvertiert wird, hängt von der gewählten High-Level-API zum Training und zur Portierung der Modelle ab und ist Teil der Implementation. Wichtig ist jedoch, dass die Wahl des oder der Frameworks zur Implementation von dessen Fähigkeit zur Portierung der trainierten Modelle abhängt. Anschließend werden die Modelle jeweils auf dem Zielsmartphone eingebettet, zusammen mit der Vorverarbeitungspipeline, welche mit Bezug auf die selektierte Basisarchitektur aus der Aufzeichnung der Sensorwerte und einer nachfolgenden Yeo-Johnson-Transformation besteht. Die Konfiguration der Yeo-Johnson-Transformation ($\lambda$-Werte) wird aus der explorativen Datenanalyse entnommen und auf das Smartphone übertragen.
 
+\subsection{Interpolation und Synchronisation}
+
 \begin{figure}[h]
   \includegraphics[width=0.75\linewidth, bb=0 0 390 145]{stream.pdf}
   \caption{Stream-Processing von Sensorwerten auf dem Smartphone zur Klassifikation des Verkehrsmittels.}\label{fig:stream}
 \end{figure}
 
-\paragraph{Interpolation und Synchronisation:} Die resultierende Stream-Processing-Pipeline ist in \Cref{fig:stream} gezeigt und orientiert sich an der Gleitfenstermethode, um kontinuierlich klassifizierbare Segmente zu erzeugen. Die Sensorwerte werden in zeitlich festen Abständen mit $100Hz$ abgetastet. Eine Interpolation der Daten ist somit nicht notwendig, da auf ein intensives Downsampling zum Alignment der Sensordaten mit den GNSS-Datenpunkten wie in \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} verzichtet wird. Außerdem muss entschieden werden, ob nach \cite{matusek_anwendung_2019} eine Synchronisation der Sensordaten notwendig ist. Dem steht grundsätzlich \cite{mairittha_improving_2020} im Widerspruch. Jedoch muss deren Argumentation, dass eine Synchronisation bei einer Aufzeichnung der Daten auf demselben Gerät nicht notwendig sei, näher diskutiert werden. Dies gilt nur dann, wenn die Datenpunkte synchron und nicht durch asynchrone Callbacks abgetastet werden, hierbei keine Verzögerungen auftreten und die Systemschnittstelle ebenfalls zum Bezug der Sensormesswerte keine internen Verzögerungen verzeichnet. Während die Synchronität der Sensorabfrage als Kriterium an die Implementation resultiert, kann von der Systemschnittstelle angenommen werden, dass diese keine signifikanten internen Verzögerungen verzeichnet. Diese Annahme resultiert aus den Akzeptanzanforderungen an die Systemschnittstelle, beispielsweise wären durch Verzögerungen auch Usability-Einschränkungen in Smartphone-Spielen gegeben, wenn diese durch Bewegung des Geräts mit dem Nutzer interagieren. Treten trotzdem minimale Verzögerungen auf, so ist anzunehmen, dass die Klassifikation keine signifikant anderen Vorhersagen trifft.
+Die resultierende Stream-Processing-Pipeline ist in \Cref{fig:stream} gezeigt und orientiert sich an der Gleitfenstermethode, um kontinuierlich klassifizierbare Segmente zu erzeugen. Die Sensorwerte werden in zeitlich festen Abständen mit $100Hz$ abgetastet. Eine Interpolation der Daten ist somit nicht notwendig, da auf ein intensives Downsampling zum Alignment der Sensordaten mit den GNSS-Datenpunkten wie in \cite{matusek_anwendung_2019,werner_kontinuierliche_2020,stojanov_continuous_2020} verzichtet wird. Außerdem muss entschieden werden, ob nach \cite{matusek_anwendung_2019} eine Synchronisation der Sensordaten notwendig ist. Dem steht grundsätzlich \cite{mairittha_improving_2020} im Widerspruch. Jedoch muss deren Argumentation, dass eine Synchronisation bei einer Aufzeichnung der Daten auf demselben Gerät nicht notwendig sei, näher diskutiert werden. Dies gilt nur dann, wenn die Datenpunkte synchron und nicht durch asynchrone Callbacks abgetastet werden, hierbei keine Verzögerungen auftreten und die Systemschnittstelle ebenfalls zum Bezug der Sensormesswerte keine internen Verzögerungen verzeichnet. Während die Synchronität der Sensorabfrage als Kriterium an die Implementation resultiert, kann von der Systemschnittstelle angenommen werden, dass diese keine signifikanten internen Verzögerungen verzeichnet. Diese Annahme resultiert aus den Akzeptanzanforderungen an die Systemschnittstelle, beispielsweise wären durch Verzögerungen auch Usability-Einschränkungen in Smartphone-Spielen gegeben, wenn diese durch Bewegung des Geräts mit dem Nutzer interagieren. Treten trotzdem minimale Verzögerungen auf, so ist anzunehmen, dass die Klassifikation keine signifikant anderen Vorhersagen trifft.
 
-\paragraph{Effizienzsteigerung durch Reduktion der Inferenzrate:} Theoretisch wäre es mit der gezeigten Stream-Processing-Pipeline möglich, pro Sekunde 100 Inferenzprozesse durchzuführen. Dies ist jedoch nicht zielführend. Um den Energieverbrauch zu reduzieren, genügt es, wenn pro Sekunde dem Anwendungsfall entsprechend deutlich weniger Inferenzprozesse durchgeführt werden.
+\subsection{Effizienzsteigerung durch Reduktion der Inferenzrate}
 
+Theoretisch wäre es mit der gezeigten Stream-Processing-Pipeline möglich, pro Sekunde 100 Inferenzprozesse durchzuführen. Um den Energieverbrauch zu reduzieren, genügt es jedoch auch, wenn pro Sekunde dem Anwendungsfall entsprechend deutlich weniger Inferenzprozesse durchgeführt werden. Im Rahmen dieser Arbeit und im Zuge der Evaluation der Ressourcenparameter wird eine Inferenzrate von 2Hz als eine vorstellbare Inferenzrate für Echtzeitanwendungen gewählt, welche den Wechsel von Verkehrsmitteln schnell erkennen müssen. Die Inferenzrate ist prinzipiell frei wählbar, sollte jedoch nicht so gering gewählt werden, dass Überschneidungen der Inferenzprozesse auftreten. Diesbezüglich bietet sich eine Messung der Inferenzzeit an, wie sie später im Konzept vorgestellt wird. Bei Bedarf kann die Pipeline durch ein nachträgliches Healing wie in \cite{werner_kontinuierliche_2020} oder in \cite{stojanov_continuous_2020} erweitert werden, um die Accuracy des Ansatzes weiter zu verbessern und Fluktuationen der Modelle zu reduzieren.
+
+\subsection{Verifikation der Portierung durch Integrationstests}
+
+\begin{figure}[h]
+  \includegraphics[width=0.5\linewidth, bb=0 0 376 73]{integrationstest.pdf}
+  \caption{Threshold-Integrationstest der Vorverarbeitung.}\label{fig:integrationstest}
+\end{figure}
+
+Insbesondere bei der Portierung der Datenvorverarbeitung können Implementationsfehler auftreten, welche eine fehlerhafte Funktion der Klassifikation zur Folge haben können. Um dies zu vermeiden, werden systemspezifische Integrationstests analog zu \Cref{fig:integrationstest} durchgeführt. Hierfür werden auf dem Trainingscomputer Datensätze generiert, welche jeweils die unvorverarbeiteten Sensorrohdaten enthalten, sowie die aus der Vorverarbeitung resultierenden Features und die dazugehörigen Labels. Anhand dessen wird getestet, dass die Datenvorverarbeitung korrekt implementiert wurde. Da es hierbei zu geringfügigen Abweichungen bei der Berechnung von Fließkommazahlen zwischen dem Trainingscomputer und dem Smartphone kommen kann, wird der Vergleich der Fließkommazahlen während des Tests unter Einbeziehung eines vernachlässigbarem Fehlerspektrums durchgeführt.
+
+\subsection{Gerätespezifisches Profiling}
+
+\subsubsection{Experimentelle Vorbedigungen}
+
+\subsubsection{Messung der Inferenzzeit durch Unit-Tests}
+
+\subsubsection{Messung des Energieverbrauchs}
+
+\subsubsection{Messung der verbleibenden Ressourcenparameter}
