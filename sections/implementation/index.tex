@@ -1,3 +1,19 @@
 \chapter{Implementation}\label{ch:implementation}
 
-% Systemspezifische Unterschiede bei den Sensoren
+% - Training und Rastersuche auf Google Colab Instanz mit NVIDIA Tesla P-100 GPU als Hardwarebeschleuniger
+% - Laden der Trainingsdaten durch Chunked CSV Reader von Pandas
+% - Transformation und Vorverarbeitung der Daten durch Scikit Learn (Powertransformer)
+% - Integriert Standardskalierung als Postprocessing-Schritt
+% - Konversion der Vorverarbeiteten Daten in TFRecord-Format, Nutzung der TFRecord-API für speichereffizientes Laden
+% - Implementation der Modelle über Keras-High-Level-API von TensorFlow 2.0
+% - Rastersuche über Hyperband-Implementation der Contrib-Bibliothek Kerastuner
+% - Wiederverwendung der EarlyStopping und ReduceLearningRate APIs von Keras
+% - Logging der Trainingsdaten zur späteren Auswertung
+% - Verwendung von Kapre für die Integration von STFT-Schichten
+% - Portierung der Modelle über TensorFlow Lite API und kompatible STFTLite-Schichten
+% - Automatisiertes Speichern der Modelle auf Google Drive
+% - Intgegration in prototypischer iOS App mithilfe von TensorFlow Lite
+% - Angleichung der Sensordaten auf Android-Äquivalent
+% - Portierung der Vorverarbeitung durch Parameter-Export
+% - Implementation von Integrationstests zum Profiling der Ressourcenparameter über Instruments
+% - Implementation von Unit-Tests zum Profiling der Inferenzzeit über XCode

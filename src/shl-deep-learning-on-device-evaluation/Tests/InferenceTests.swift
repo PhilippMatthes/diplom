@@ -9,8 +9,8 @@ class InferenceTests: XCTestCase {
         measure {
             let numberOfRuns = 100
             for r in (0..<numberOfRuns) {
-                let randomInputs = Array((0..<3)).map { i -> [Parameter] in
-                    Array((0..<500)).map { _ -> Parameter in
+                let randomInputs = Array((0..<500)).map { i -> [Parameter] in
+                    Array((0..<3)).map { _ -> Parameter in
                         Parameter.random(in: -1.0 ... 1.0)
                     }
                 }
