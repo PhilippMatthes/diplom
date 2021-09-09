@@ -8,8 +8,6 @@ final class Pipeline: ObservableObject {
     private let inferenceInterval: TimeInterval
     private var inferenceTimer: Timer?
 
-    private var queue = DispatchQueue.global(qos: .background)
-
     @Published var sensorWindows: [Sensor: Window]
     @Published var predictions: [Classifier.Prediction]?
 
@@ -33,7 +31,7 @@ final class Pipeline: ObservableObject {
     }
 
     private func infer() {
-        queue.async {
+        DispatchQueue.main.async {
             var preprocessedWindows = [[Parameter]]() // (n_features x n_timesteps)
             for sensor in Sensor.order {
                 guard

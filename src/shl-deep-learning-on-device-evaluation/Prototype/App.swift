@@ -6,8 +6,9 @@ import AVFoundation
 @main
 struct SHLModelEvaluationApp: App {
     @StateObject private var pipeline = try! Pipeline()
+    @State private var visualizationIsActive = false
 
-    var content: some View {
+    private var visualizationView: some View {
         ScrollView {
             VStack {
                 if let predictions = pipeline.predictions {
@@ -24,6 +25,36 @@ struct SHLModelEvaluationApp: App {
                 }
             }
             .padding()
+        }
+    }
+
+    private var profilingView: some View {
+        Color.gray.overlay(
+            VStack {
+                if let predictions = pipeline.predictions {
+                    ForEach(predictions, id: \.label.rawValue) { p -> Text in
+                        Text("\(p.label.description): \(p.confidence * 100)")
+                    }
+                }
+            }
+            .padding()
+        )
+        .onAppear(perform: {
+            pipeline.run()
+
+            UIScreen.main.brightness = CGFloat(1.0)
+        })
+        .onDisappear(perform: pipeline.stop)
+    }
+
+    var content: some View {
+        VStack {
+            Button("Switch Visualization", action: { visualizationIsActive.toggle() })
+            if visualizationIsActive {
+                visualizationView
+            } else {
+                profilingView
+            }
         }
     }
 

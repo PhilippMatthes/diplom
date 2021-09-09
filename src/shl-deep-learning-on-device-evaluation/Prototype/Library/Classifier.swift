@@ -5,9 +5,17 @@ final class Classifier {
     /// An input of shape `(n_timesteps, n_features)`.
     typealias Input = [[Parameter]]
 
+    private let delegate: Delegate?
     private let interpreter: Interpreter
     private let input: Tensor
     private var output: Tensor
+
+    enum Accelerator {
+        /// Use the GPU for inference tasks, if available.
+        case gpu
+        /// Use the Apple Neural Engine for inference tasks, if available.
+        case ane
+    }
 
     enum Class: Int, CustomStringConvertible, Codable {
         case null = 0
@@ -45,15 +53,36 @@ final class Classifier {
     }
 
     enum ClassifierError: Error {
+        case acceleratorUnvailable
         case modelNotFound
         case erroneousInputShape
     }
 
-    init(modelFileName: String) throws {
+    init(modelFileName: String, accelerator: Accelerator? = .gpu, threads: Int = 1) throws {
         guard let modelPath = Bundle.main.path(
             forResource: modelFileName, ofType: "tflite"
         ) else { throw ClassifierError.modelNotFound }
-        interpreter = try Interpreter(modelPath: modelPath)
+
+        switch accelerator {
+        case .none:
+            delegate = nil
+        case .gpu:
+            delegate = MetalDelegate()
+            guard delegate != nil else { throw ClassifierError.acceleratorUnvailable }
+        case .ane:
+            delegate = CoreMLDelegate()
+            guard delegate != nil else { throw ClassifierError.acceleratorUnvailable }
+        }
+        let delegates = delegate == nil ? nil : [delegate!]
+
+        var opts = Interpreter.Options()
+        opts.threadCount = threads
+
+        interpreter = try Interpreter(
+            modelPath: modelPath,
+            options: opts,
+            delegates: delegates
+        )
         try interpreter.allocateTensors()
         input = try interpreter.input(at: 0)
         output = try interpreter.output(at: 0)

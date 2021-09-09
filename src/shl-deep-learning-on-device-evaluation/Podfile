@@ -7,4 +7,7 @@ target 'SHLModelEvaluation' do
 
   # Pods for SHLModelEvaluation
   pod 'TensorFlowLiteSwift'
+  pod 'TensorFlowLiteSwift/Metal'
+  pod 'TensorFlowLiteSwift/CoreML'
+
 end
