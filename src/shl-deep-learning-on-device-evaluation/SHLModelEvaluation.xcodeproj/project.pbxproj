@@ -35,7 +35,7 @@
 		BEB85A1C26EA7A1B0043F109 /* RAM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB85A1B26EA7A1B0043F109 /* RAM.swift */; };
 		BEB85A1E26EA7E7C0043F109 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB85A1D26EA7E7C0043F109 /* StorageTests.swift */; };
 		BEC81B0526E229810013D8AE /* PreprocessingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC81B0326E229710013D8AE /* PreprocessingTests.swift */; };
-		BEC81B1126E243DA0013D8AE /* CommonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC81B0F26E243DA0013D8AE /* CommonTests.swift */; };
+		BEC81B1126E243DA0013D8AE /* DataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC81B0F26E243DA0013D8AE /* DataTest.swift */; };
 		BEC81B1426E2444E0013D8AE /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC81B1226E2444E0013D8AE /* ModelTests.swift */; };
 		BECBDC8826EA6B6500A39619 /* 35d1710beb7573fa3d55a684e5e5d9a5.tflite in Resources */ = {isa = PBXBuildFile; fileRef = BECBDC7D26EA67A500A39619 /* 35d1710beb7573fa3d55a684e5e5d9a5.tflite */; };
 		BECBDC8926EA6B6500A39619 /* e6c36740f115fc7510ff472225bedeac.tflite in Resources */ = {isa = PBXBuildFile; fileRef = BECBDC7726EA67A500A39619 /* e6c36740f115fc7510ff472225bedeac.tflite */; };
@@ -72,6 +72,8 @@
 		BEDBE44526B7DBC80091E5AE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEDBE44426B7DBC80091E5AE /* Preview Assets.xcassets */; };
 		BEDC7D9526EA473400699929 /* model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = BEDC7D9426EA473400699929 /* model.tflite */; };
 		BEDC7D9626EA473400699929 /* model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = BEDC7D9426EA473400699929 /* model.tflite */; };
+		BEE0E27526ECA51000117D59 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE0E27426ECA51000117D59 /* Models.swift */; };
+		BEE0E27626ECA51000117D59 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE0E27426ECA51000117D59 /* Models.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,7 +111,7 @@
 		BEB85A1B26EA7A1B0043F109 /* RAM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAM.swift; sourceTree = "<group>"; };
 		BEB85A1D26EA7E7C0043F109 /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 		BEC81B0326E229710013D8AE /* PreprocessingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreprocessingTests.swift; sourceTree = "<group>"; };
-		BEC81B0F26E243DA0013D8AE /* CommonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTests.swift; sourceTree = "<group>"; };
+		BEC81B0F26E243DA0013D8AE /* DataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTest.swift; sourceTree = "<group>"; };
 		BEC81B1226E2444E0013D8AE /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		BECBDC7426EA67A500A39619 /* cb5048dd197b94c8b420dbcdb49f378f.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = cb5048dd197b94c8b420dbcdb49f378f.tflite; sourceTree = "<group>"; };
 		BECBDC7526EA67A500A39619 /* 4ad2e771492aac5b42c89d9b5a835857.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = 4ad2e771492aac5b42c89d9b5a835857.tflite; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		BEDBE44426B7DBC80091E5AE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BEDBE44626B7DBC80091E5AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BEDC7D9426EA473400699929 /* model.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model.tflite; sourceTree = "<group>"; };
+		BEE0E27426ECA51000117D59 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		DA629E094B446EE47E9D7FC2 /* Pods_SHLModelEvaluation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SHLModelEvaluation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -187,10 +190,21 @@
 		BE098F1126DF73AC0076F6F2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BECBDC7426EA67A500A39619 /* cb5048dd197b94c8b420dbcdb49f378f.tflite */,
+				BECBDC7526EA67A500A39619 /* 4ad2e771492aac5b42c89d9b5a835857.tflite */,
+				BECBDC7626EA67A500A39619 /* 7cfd6602ff1ee897fd95deebf54ec24a.tflite */,
+				BECBDC7726EA67A500A39619 /* e6c36740f115fc7510ff472225bedeac.tflite */,
+				BECBDC7826EA67A500A39619 /* 7523152748da6ca5d4d59234b3732c89.tflite */,
+				BECBDC7926EA67A500A39619 /* ea70373fe386b068ffab6704b4ac25fc.tflite */,
+				BECBDC7A26EA67A500A39619 /* 968ca3e771b5efa5855ba841f69c463a.tflite */,
+				BECBDC7B26EA67A500A39619 /* 9988226d7297eb039365ad50f7c5ea0b.tflite */,
+				BECBDC7C26EA67A500A39619 /* 6af8a156f95b675b9ae9689d66c25b64.tflite */,
+				BECBDC7D26EA67A500A39619 /* 35d1710beb7573fa3d55a684e5e5d9a5.tflite */,
 				BEDC7D9426EA473400699929 /* model.tflite */,
 				BE1D4D8B26DFD0E600F9A0DD /* acc_mag.scaler.json */,
 				BE1D4D8A26DFD0E600F9A0DD /* gyr_mag.scaler.json */,
 				BE1D4D8C26DFD0E600F9A0DD /* mag_mag.scaler.json */,
+				BEE0E27426ECA51000117D59 /* Models.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -211,7 +225,6 @@
 				BEB85A1626EA75ED0043F109 /* Library */,
 				BEB85A1526EA75E30043F109 /* Integration */,
 				BEB85A1426EA75DC0043F109 /* Profiling */,
-				BECBDC7326EA67A500A39619 /* Models */,
 				BEDB209526E21AC6003746DC /* Data */,
 				BE1D4D5726DFB5A100F9A0DD /* Info.plist */,
 				BECBDC9C26EA6E0900A39619 /* SHLModelEvaluationTests-Bridging-Header.h */,
@@ -233,7 +246,7 @@
 		BEB85A1526EA75E30043F109 /* Integration */ = {
 			isa = PBXGroup;
 			children = (
-				BEC81B0F26E243DA0013D8AE /* CommonTests.swift */,
+				BEC81B0F26E243DA0013D8AE /* DataTest.swift */,
 				BEC81B0326E229710013D8AE /* PreprocessingTests.swift */,
 				BEC81B1226E2444E0013D8AE /* ModelTests.swift */,
 			);
@@ -248,23 +261,6 @@
 				BEB85A1B26EA7A1B0043F109 /* RAM.swift */,
 			);
 			path = Library;
-			sourceTree = "<group>";
-		};
-		BECBDC7326EA67A500A39619 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				BECBDC7426EA67A500A39619 /* cb5048dd197b94c8b420dbcdb49f378f.tflite */,
-				BECBDC7526EA67A500A39619 /* 4ad2e771492aac5b42c89d9b5a835857.tflite */,
-				BECBDC7626EA67A500A39619 /* 7cfd6602ff1ee897fd95deebf54ec24a.tflite */,
-				BECBDC7726EA67A500A39619 /* e6c36740f115fc7510ff472225bedeac.tflite */,
-				BECBDC7826EA67A500A39619 /* 7523152748da6ca5d4d59234b3732c89.tflite */,
-				BECBDC7926EA67A500A39619 /* ea70373fe386b068ffab6704b4ac25fc.tflite */,
-				BECBDC7A26EA67A500A39619 /* 968ca3e771b5efa5855ba841f69c463a.tflite */,
-				BECBDC7B26EA67A500A39619 /* 9988226d7297eb039365ad50f7c5ea0b.tflite */,
-				BECBDC7C26EA67A500A39619 /* 6af8a156f95b675b9ae9689d66c25b64.tflite */,
-				BECBDC7D26EA67A500A39619 /* 35d1710beb7573fa3d55a684e5e5d9a5.tflite */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		BEDB209526E21AC6003746DC /* Data */ = {
@@ -481,10 +477,11 @@
 				BEC81B0526E229810013D8AE /* PreprocessingTests.swift in Sources */,
 				BEB85A1A26EA79ED0043F109 /* RAMTests.swift in Sources */,
 				BED566E226E6577E0005A9D8 /* Classifier.swift in Sources */,
+				BEE0E27626ECA51000117D59 /* Models.swift in Sources */,
 				BEB85A1826EA76020043F109 /* CPUTests.swift in Sources */,
 				BEB85A1C26EA7A1B0043F109 /* RAM.swift in Sources */,
 				BED566DE26E6577E0005A9D8 /* Window.swift in Sources */,
-				BEC81B1126E243DA0013D8AE /* CommonTests.swift in Sources */,
+				BEC81B1126E243DA0013D8AE /* DataTest.swift in Sources */,
 				BED566E326E6577E0005A9D8 /* Preprocessing.swift in Sources */,
 				BED566E126E6577E0005A9D8 /* Sensors.swift in Sources */,
 				BE0D61A426E25E26008B66F1 /* LabelsView.swift in Sources */,
@@ -505,6 +502,7 @@
 				BE098F1526DF78610076F6F2 /* Classifier.swift in Sources */,
 				BE0D619D26E24F87008B66F1 /* CardView.swift in Sources */,
 				BE098F0C26DF6A950076F6F2 /* Parameter.swift in Sources */,
+				BEE0E27526ECA51000117D59 /* Models.swift in Sources */,
 				BE098F1026DF73490076F6F2 /* Window.swift in Sources */,
 				BEDBE43E26B7DBC70091E5AE /* App.swift in Sources */,
 				BE0D61A326E25E26008B66F1 /* LabelsView.swift in Sources */,

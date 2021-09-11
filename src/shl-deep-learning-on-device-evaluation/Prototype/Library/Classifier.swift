@@ -10,11 +10,23 @@ final class Classifier {
     private let input: Tensor
     private var output: Tensor
 
-    enum Accelerator {
+    enum Accelerator: String, CustomStringConvertible {
+        /// Use the CPU (no accelerator).
+        case cpu = "CPU"
         /// Use the GPU for inference tasks, if available.
-        case gpu
+        case gpu = "GPU"
         /// Use the Apple Neural Engine for inference tasks, if available.
-        case ane
+        case ane = "ANE"
+
+        static let all: [Self] = [ .cpu, .gpu, .ane ]
+
+        var description: String {
+            switch self {
+            case .cpu: return "CPU"
+            case .gpu: return "GPU"
+            case .ane: return "Apple Neural Engine"
+            }
+        }
     }
 
     enum Class: Int, CustomStringConvertible, Codable {
@@ -58,13 +70,13 @@ final class Classifier {
         case erroneousInputShape
     }
 
-    init(modelFileName: String, accelerator: Accelerator? = .gpu, threads: Int = 1) throws {
+    init(modelFileName: String, accelerator: Accelerator = .gpu, threads: Int = 1) throws {
         guard let modelPath = Bundle.main.path(
             forResource: modelFileName, ofType: "tflite"
         ) else { throw ClassifierError.modelNotFound }
 
         switch accelerator {
-        case .none:
+        case .cpu:
             delegate = nil
         case .gpu:
             delegate = MetalDelegate()

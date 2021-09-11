@@ -1,23 +1,30 @@
 import Foundation
 
 final class Pipeline: ObservableObject {
+    private let config: Config
     private let source: SensorSource
-    private let windowLength: Int
     private let sensorPreprocessors: [Sensor: [Preprocessor]]
-    private let classifier: Classifier
-    private let inferenceInterval: TimeInterval
+
+    private var classifier: Classifier?
     private var inferenceTimer: Timer?
 
     @Published var sensorWindows: [Sensor: Window]
     @Published var predictions: [Classifier.Prediction]?
 
-    init(inferenceInterval: TimeInterval = 0.5, windowLength: Int = 500) throws {
-        self.inferenceInterval = inferenceInterval
-        self.windowLength = windowLength
+    struct Config {
+        let inferenceInterval: TimeInterval = 0.5
+        let sampleInterval: TimeInterval = 0.01
+        let windowLength: Int = 500
 
-        source = SensorSource(sampleInterval: 0.01)
+        static let standard: Self = .init()
+    }
+
+    init(config: Config = .standard) throws {
+        self.config = config
+
+        source = SensorSource(sampleInterval: config.sampleInterval)
         sensorWindows = Dictionary(uniqueKeysWithValues: Sensor.order.map { sensor in
-            let window = Window(maxLength: windowLength)
+            let window = Window(maxLength: config.windowLength)
             return (sensor, window)
         })
         sensorPreprocessors = Dictionary(uniqueKeysWithValues: try Sensor.order.map { sensor in
@@ -27,16 +34,17 @@ final class Pipeline: ObservableObject {
             ]
             return (sensor, preprocessors)
         })
-        classifier = try Classifier(modelFileName: "model")
     }
 
     private func infer() {
         DispatchQueue.main.async {
+            guard let classifier = self.classifier else { return }
+
             var preprocessedWindows = [[Parameter]]() // (n_features x n_timesteps)
             for sensor in Sensor.order {
                 guard
                     var values = self.sensorWindows[sensor]?.values,
-                    values.count == self.windowLength,
+                    values.count == self.config.windowLength,
                     let preprocessors = self.sensorPreprocessors[sensor]
                 else { return }
                 for preprocessor in preprocessors {
@@ -46,15 +54,26 @@ final class Pipeline: ObservableObject {
             }
 
             var input = [[Parameter]]() // Reshape to (n_timesteps x n_features)
-            for i in 0 ..< self.windowLength {
+            for i in 0 ..< self.config.windowLength {
                 input.append(preprocessedWindows.map { w in w[i] })
             }
 
             guard
-                let predictions = try? self.classifier.classify(input: input)
+                let predictions = try? classifier.classify(input: input)
             else { return }
-            DispatchQueue.main.async { self.predictions = predictions }
+
+            self.predictions = predictions
         }
+    }
+
+    func load(
+        classifierWith modelFileName: String = "model",
+        andAccelerator accelerator: Classifier.Accelerator
+    ) throws {
+        classifier = try Classifier(
+            modelFileName: modelFileName,
+            accelerator: accelerator
+        )
     }
 
     func run() {
@@ -65,7 +84,7 @@ final class Pipeline: ObservableObject {
         }
 
         inferenceTimer = Timer(
-            fire: Date(), interval: inferenceInterval, repeats: true
+            fire: Date(), interval: config.inferenceInterval, repeats: true
         ) { _ in self.infer() }
 
         RunLoop.current.add(inferenceTimer!, forMode: .default)
