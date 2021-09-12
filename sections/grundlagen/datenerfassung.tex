@@ -117,7 +117,7 @@ Sofern eine Synchronisierung von Sensordaten notwendig ist, kann ein Up- oder Do
 \Cref{fig:desync-solution} zeigt das in \cite{matusek_anwendung_2019} beschriebene Verfahren schematisch. Die mit Zeitstempeln versehenen Datenpunkte werden in ein festes Abtastraster gebracht. Dies gelingt über zwei primäre Schritte. Am zeitlichen Rand der Messung werden zunächst Datenpunkte verworfen, zu denen kein Wertepaar aus allen drei Sensoren gebildet werden kann. Ein Wertepaar lässt sich erst dann bilden, wenn alle Sensoren mindestens einen Wert erfasst haben, am Ende der Messung genauso umgekehrt. Das so gefundene Fenster wird anschließend im zweiten Schritt anhand der vorliegenden Datenpunkte pro Sensormessung interpoliert, um den diskreten Punktdatensatz in eine kontinuierliche Näherungsfunktion zu überführen. Die Abtastzeitpunkte $t_s ... t_{s+n}$ (in \Cref{fig:desync-solution} als $\otimes$ gekennzeichnet) können anschließend für alle drei Messverläufe beliebig gewählt und errechnet werden.
 
 \begin{figure}[h]
-\includegraphics[width=\linewidth, bb=0 0 505 175]{interpolation.pdf}
+\includegraphics[width=0.75\linewidth, bb=0 0 505 175]{interpolation.pdf}
 \caption{Schematische Darstellung verschiedener Interpolationsverfahren.}\label{fig:interpolation}
 \end{figure}
 
