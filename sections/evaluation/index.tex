@@ -1,13 +1,15 @@
 \chapter{Evaluation}\label{ch:evaluation}
 
-\section{Erfüllung der Anforderungen}
-
 \section{Ergebnisse der Hyperband-Rastersuche}
 
+Als Teil des Konzeptes wurden bereits verschiedene traditionelle Modelle und Deep-Learning-Modelle untersucht, um zu einem Basismodell zu gelangen, welches durch Variation der Hyperparameter einer Rastersuche unterzogen werden kann, und um schließlich die Tradeoff-Parameter hierauf zu evaluieren. Als Basisarchitektur wurde das ResNet als Erweiterung des in \cite{stojanov_continuous_2020} vorgestellten \acrshort{cnn}s gewählt. Die in \Cref{sec:metamodell-optimierung} definierten Hyperparameterdimensionen wurden implementiert und anschließend einer Rastersuche unterzogen.
+
 \begin{figure}[h]
-  \includegraphics[width=\linewidth, bb=0 0 855 278]{shl/gridsearch-results.pdf}
-  \caption{Ergebnisse der Hyperband-Rastersuche.}\label{fig:gridsearch-results}
+  \includegraphics[width=\linewidth, bb=0 0 1143 351]{shl/gridsearch-results.pdf}
+  \caption{Trainingsverläufe der Hyperband-Rastersuche.}\label{fig:gridsearch-results}
 \end{figure}
+
+Die Trainingsverläufe der Hyperband-Rastersuche sind in \Cref{fig:gridsearch-results} gezeigt. Hierbei wird deutlich, dass die Modelle im Rahmen des Hyperband-Algorithmus nicht über die gleiche Anzahl von Epochen trainiert wurden. Die Anzahl von Epochen wurde vom Hyperband-Orakel schrittweise selektiv erhöht. Bereits beim Training der verschiedenen Modellvariationen auf dem \acrshort{shl}-Datensatz konnten einige der Modelle die zuvor erreichte Validation-Accuracy von $78,94\%$ um einige Prozentpunkte übertreffen. Durch die Hyperband-Rastersuche konnten somit mehrere Modellvariationen mit besseren Ergebnisqualitäten als die der Basisarchitektur gefunden werden. Die Train-Accuracy liegt häufig höher, das diesbezüglich beste Modell erreichte hierbei über 95\%. Außerdem lässt sich beobachten, dass die Kreuzentropie als Verlust auf den Validierungsdaten teils stark ansteigt, obwohl die Validation-Accuracy weiterhin ansteigt und nur selten zwischenzeitlich stärker abfällt. Diese Beobachtung lässt sich erklären durch eine stärkere Unsicherheit zwischen den Output-Neuronen in der letzten Dense Schicht mit Softmax-Aktivierungsfunktion. Während die relative Unsicherheit der Output-Neuronen in die Berechnung der kategorischen Kreuzentropie mit einfließt, zählt für die Berechnung der Accuracy nur das am stärksten aktivierte Neuron. Die Validation-Accuracy wird als besser vergleichbares Sortierungskriterium für die trainierten Ansätze selektiert. Zu vernachlässigen ist die teils hohe Unsicherheit der Output-Neuronen jedoch nicht, denn dies kann zu einer stärkeren Fluktuation der Klassen bei einer Echtzeitanwendung führen. Dieses Problem kann mitigiert werden, indem eine der Postprocessing-Techniken aus \cite{werner_kontinuierliche_2020} oder \cite{stojanov_continuous_2020} eingesetzt wird. Trotzdem sollte die Unsicherheit der Modelle mit in die weiteren Auswertungen mit einfließen, daher wurden die größten vier Kreuzentropien in \Cref{fig:gridsearch-results} mit deren Identifikationsnummer hervorgehoben.
 
 \begin{figure}[h]
   \includegraphics[width=0.4\linewidth, bb=0 0 362 290]{shl/gridsearch-finalization-prediction.pdf}
@@ -43,16 +45,14 @@
 \begin{table}[]
   \resizebox{\textwidth}{!}{%
     \input{sections/evaluation/tradeoff-results}
-    \caption{Ergebnisse der Tradeoff-Analyse.}
+    \caption[Ergebnisse der Tradeoff-Analyse.]{Ergebnisse der Tradeoff-Analyse. Unter Xcode 12 konnten im Unterschied zum iPhone SE trotz verschiedener Versuche zur Problembehandlung keine Energy Logs (in \acrshort{aeu}) des iPhone XS aufgezeichnet werden. Die Schnittstelle zeigte lediglich den Hinweis \enquote{No Data}, während alle anderen Hardwareparameter problemlos aufgezeichnet werden konnten. Die Instruments-Schnittstelle zur Aufzeichnung von Energy Logs wurde darüber hinaus in der aktuellsten Beta von Xcode komplett entfernt, sodass die genauen \acrshort{aeu}-Werte nur für das iPhone SE bekannt sind.}
   }
 \end{table}
 \end{landscape}
 
-Unter Xcode 12 konnten im Unterschied zum iPhone SE trotz verschiedener Versuche zur Problembehandlung keine Energy Logs (in AEU) des iPhone XS aufgezeichnet werden. Die Schnittstelle zeigte lediglich den Hinweis \enquote{No Data}, während alle anderen Hardwareparameter problemlos aufgezeichnet werden konnten. Die Instruments-Schnittstelle zur Aufzeichnung von Energy Logs wurde darüber hinaus in Xcode 13 komplett entfernt\footnote{Stand der aktuellsten Xcode 13.0 Beta 5 vom 12. September 2021.}, sodass lediglich eine qualitative Einordnung des Energieverbrauchs anhand der \enquote{Energy Gauge} in Xcode für das iPhone XS übrig bleibt.
-
 \section{Ergebnisse der Optimierung}
 
-\subsection{Limitierungen beim Pruning durch PQAT und XNNPACK}
+\subsection{Limitierungen beim Pruning durch \acrshort{pqat} und XNNPACK}
 
 \subsection{Beschränkung des Anwendungsfalls}
 
