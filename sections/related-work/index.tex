@@ -46,7 +46,7 @@ Eine initiale anforderungsbezogene Recherche ergab die in der nachfolgenden Tabe
     12 Aktivitäten &
     \acrshort{gyr}, \acrshort{acc} &
     Abs. Signalstärke, Segmentierung &
-    Vorverarbeitete Daten &
+    Zeitlinien &
     \acrshort{rnn}-\acrshort{lstm} &
     Keine Angabe &
     Supervised Learning, Transfer Learning, On-Device Fine-Tuning \\
@@ -55,7 +55,7 @@ Eine initiale anforderungsbezogene Recherche ergab die in der nachfolgenden Tabe
     6 Aktivitäten &
     \acrshort{gyr}, \acrshort{acc} &
     Abs. Signalstärke, Segmentierung &
-    Vorverarbeitete Daten &
+    Zeitlinien &
     \acrshort{cnn} &
     Dropout &
     Supervised Learning, On-Device Fine-Tuning \\
@@ -82,7 +82,7 @@ Eine initiale anforderungsbezogene Recherche ergab die in der nachfolgenden Tabe
     5 Aktivitäten &
     \acrshort{gyr}, \acrshort{acc} &
     Segmentierung, Windowing, Normalisierung &
-    Vorverarbeitete Daten &
+    Zeitlinien &
     \acrshort{cnn} &
     Dropout, Batch-Normalization &
     Supervised Learning \\
@@ -100,7 +100,7 @@ Eine initiale anforderungsbezogene Recherche ergab die in der nachfolgenden Tabe
     Bike, Car, Walk, Train, Metro, Bus, Stationary &
     \acrshort{acc} &
     Elimination der Gravitation, Gleitfenster, Abs. Signalstärke &
-    Vorverarbeitete Daten &
+    Zeitlinien &
     \acrshort{cnn} &
     L2-Regularisierung &
     Supervised Learning \\
@@ -109,7 +109,7 @@ Eine initiale anforderungsbezogene Recherche ergab die in der nachfolgenden Tabe
     Stationary, Walk, Run, Bike, Car, Bus, Train, Metro &
     \acrshort{acc}, \acrshort{gyr}, \acrshort{mag}, BAR &
     Datensatzgewichtung, Abs. Signalstärke, Normalisierung &
-    Vorverarbeitete Daten &
+    Zeitlinien &
     \acrshort{rnn}-\acrshort{lstm} &
     Dropout &
     Supervised Learning \\ \midrule
@@ -118,7 +118,7 @@ Eine initiale anforderungsbezogene Recherche ergab die in der nachfolgenden Tabe
     Walk, Bike, Car, Bus, Tram, Train &
     \acrshort{gnss}, \acrshort{acc}, ROT, \acrshort{mag} &
     Skalierung, Interpolation, \acrshort{ahrs}, Glättung &
-    Vorverarbeitete Daten &
+    Shallow Features &
     \acrshort{rnn}-\acrshort{lstm} und Postprocessing &
     Dropout, Early Stopping &
     Supervised Learning, Validierung mith. Semi-Supervised Learning \\
@@ -127,7 +127,7 @@ Eine initiale anforderungsbezogene Recherche ergab die in der nachfolgenden Tabe
     Walk, Bike, Car, Bus, Tram, Train, Boat &
     \acrshort{gnss}, \acrshort{acc}, ROT, \acrshort{mag} &
     \acrshort{ahrs}, Normalisierung, Alignment, Abs. Signalstärke, Downsampling, \acrshort{fft}, Gleitfenster, Segmentierung &
-    Shallow &
+    Shallow Features &
     \acrshort{cnn} und Postprocessing &
     Dropout, Early Stopping &
     Supervised Learning \\
@@ -136,7 +136,7 @@ Eine initiale anforderungsbezogene Recherche ergab die in der nachfolgenden Tabe
     Walk, Bike, Car, Bus, Tram, Train &
     \acrshort{gnss}, \acrshort{acc}, ROT, \acrshort{mag} &
     Interpolation und Alignment, GPS-Korrektur, Rauschfilterung über Moving Average, Zeitfenster &
-    Vorverarbeitete Daten &
+    Shallow Features &
     FFN (Kernkonzept) &
     Early Stopping &
     Supervised Learning \\ \bottomrule
@@ -173,7 +173,7 @@ Die letztendlich gewählten Features sind oft eng gekoppelt an die Konfiguration
   \caption[Die Performanz von Deep-Learning-Ansätzen im Vergleich zu traditionellen ML-Modellen.]{Die Performanz von Deep-Learning-Ansätzen im Vergleich zu traditionellen ML-Modellen nach \cite[S. 7]{alom_state---art_2019}. Skalierung nicht linear oder maßstabsgerecht, nur zur Illustration.}\label{fig:deep-learning-trad-vergleich}
 \end{figure}
 
-Seit deren Erfindung in 2015 \cite{lecun_deep_2015} werden Deep-Learning-Modelle in der KI-Forschung als vielversprechendere Ansätze im Vergleich zu traditionellen Verfahren betrachtet, da sich mit diesen komplexere Probleme lösen lassen, sofern ausreichend Trainingsdaten vorliegen \cite[S. 7]{alom_state---art_2019}. Die Movebis-Ansätze nutzen beispielsweise auch Deep-Learning-Modelle \cite{werner_kontinuierliche_2020,stojanov_continuous_2020}, wobei das von \cite{matusek_anwendung_2019} verwendete MLP taxonomisch auch als traditionelles Modell eingeordnet werden kann \cite{demrozi_human_2020} und \cite{matusek_anwendung_2019} zusätzlich auch traditionelle Ansätze betrachtet.
+Seit deren Erfindung in 2015 \cite{lecun_deep_2015} werden Deep-Learning-Modelle in der KI-Forschung als vielversprechendere Ansätze im Vergleich zu traditionellen Verfahren betrachtet, da sich mit diesen komplexere Probleme lösen lassen, sofern ausreichend Trainingsdaten vorliegen \cite[S. 7]{alom_state---art_2019}. Die Movebis-Ansätze nutzen beispielsweise auch Deep-Learning-Modelle \cite{werner_kontinuierliche_2020,stojanov_continuous_2020}, wobei das von \cite{matusek_anwendung_2019} verwendete MLP taxonomisch auch als traditionelles Modell eingeordnet werden kann \cite{demrozi_human_2020} und \cite{matusek_anwendung_2019} zusätzlich auch weitere traditionelle Ansätze betrachtet.
 
 Analog zu \Cref{fig:deep-learning-trad-vergleich} scheint \acrshort{har} als Anwendungsfall der ML-Klassifikation prinzipiell in einen Komplexitätsbereich zu fallen, der sowohl durch traditionelle, als auch durch Deep-Learning-Ansätze bedienbar ist. Sowohl Deep-Learning-Modelle, als auch traditionelle ML-Modelle finden sich verteilt über die zahlreichen Arbeiten der Forschungsdomäne \acrshort{har}. \cite[S. 14]{demrozi_human_2020} beobachten, dass die Entscheidung zwischen traditionellen Modellen und Deep-Learning-Ansätzen vor allem von der verfügbaren Rechenleistung abhängt, neben den verfügbaren Daten. Traditionelle Modelle seien typischerweise weniger rechenaufwändig und benötigten weniger Trainingsdaten, was diese Modelle wiederum attraktiver für durch Hardware limitierte Anwendungen wie die Ausführung auf Smartphones im Kontext dieser Arbeit wirken lässt.
 
@@ -211,7 +211,7 @@ Ein zentrales Ergebnis aus \cite{matusek_anwendung_2019} ist die resultierende D
   \caption{Erreichte Ergebnisqualitäten der Movebis-Ansätze.}
 \end{table}
 
-Auf dieser Grundlage entwickelten \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} ihre Konzepte mit größerem Fokus auf die Wahl der ML-Modelle. Sie übernehmen Teilschritte der Vorverarbeitung aus \cite{matusek_anwendung_2019}. \cite{werner_kontinuierliche_2020} nutzt ein mehrschichtiges \acrshort{rnn} mit \acrshort{lstm}-Neuronen, während \cite{stojanov_continuous_2020} ein \acrshort{cnn} zur Verkehrsmittelerkennung einsetzt. Analog zur Architektur der Modelle dienen in \cite{werner_kontinuierliche_2020} die vorverarbeiteten Datenpunkte als Zeitlinien-Eingabe des \acrshort{rnn}, gleichzeitig nutzt \cite{stojanov_continuous_2020} eine Auswahl von Shallow Features als Eingabe für das \acrshort{cnn}. Als zusätzlichen Schritt führen \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} eine Nachverarbeitung der Ausgaben durch Glättung anhand der Nachbarwerte ein, welche das Ergebnis der Ansätze weiter verbessern konnte. Bei der quantitativen Evaluation der Ansätze wurde insbesondere die Accuracy-Metrik der Netzwerke auf Testdaten durch Unterteilung des STADTRADELN-Datensatzes bestimmt. \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} konnten \cite{matusek_anwendung_2019} analog zu \Cref{tab:movebis-vergleich} deutlich übertreffen. Insbesondere das eingesetzte Postprocessing konnte die Accuracy des Gesamtsystems signifikant erhöhen.
+Auf dieser Grundlage entwickelten \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} ihre Konzepte mit größerem Fokus auf die Wahl der ML-Modelle. Sie übernehmen Teilschritte der Vorverarbeitung aus \cite{matusek_anwendung_2019}. \cite{werner_kontinuierliche_2020} nutzt ein mehrschichtiges \acrshort{rnn} mit \acrshort{lstm}-Neuronen, während \cite{stojanov_continuous_2020} ein \acrshort{cnn} zur Verkehrsmittelerkennung einsetzt. Beide Modelle klassifizieren auf Shallow-Features, die über den Zeitliniendaten erstellt werden. Als zusätzlichen Schritt führen \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} eine Nachverarbeitung der Ausgaben durch Glättung anhand der Nachbarwerte ein, welche das Ergebnis der Ansätze weiter verbessern konnte. Bei der quantitativen Evaluation der Ansätze wurde insbesondere die Accuracy-Metrik der Netzwerke auf Testdaten durch Unterteilung des STADTRADELN-Datensatzes bestimmt. \cite{werner_kontinuierliche_2020} und \cite{stojanov_continuous_2020} konnten \cite{matusek_anwendung_2019} analog zu \Cref{tab:movebis-vergleich} deutlich übertreffen. Insbesondere das eingesetzte Postprocessing konnte die Accuracy des Gesamtsystems signifikant erhöhen.
 
 \subsection{Limitationen in der Portierbarkeit nach \nameref{qa:p}}
 
