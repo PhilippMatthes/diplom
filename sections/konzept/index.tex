@@ -292,7 +292,7 @@ Ergebnis der so realisierten Metamodell-Optimierung ist eine Rangliste von Archi
 
 \subsubsection{Finalisierung}
 
-Die bei der Hypermodell-Optimierung gefundenen Accuracy-Werte zu den jeweiligen Modellkonfigurationen sind nicht als final zu betrachten, denn das Training der Modelle kann durch den Hyperband-Algorithmus vor Erreichen der bestmöglichen Ergebnisqualität terminiert werden. Die Accuracy-Werte eignen sich somit zwar, um eine relative Ordnung zwischen den Ergebnisqualitäten der Modelle herzustellen, aber nicht, um den Tradeoff zwischen einer \textit{bestmöglichen} Accuracy und Ressourcenverbrauch zu analysieren. Daher werden alle selektierten Modelle für die nachfolgende Tradeoff-Analyse durch Training bis zum Early Stopping finalisiert.
+Die bei der Hypermodell-Optimierung gefundenen Accuracy-Werte zu den jeweiligen Modellkonfigurationen sind nicht als final zu betrachten, denn das Training der Modelle kann durch den Hyperband-Algorithmus vor Erreichen der bestmöglichen Ergebnisqualität terminiert werden. Die Accuracy-Werte eignen sich somit zwar, um eine relative Ordnung zwischen den Ergebnisqualitäten der Modelle herzustellen, aber nicht, um den Tradeoff zwischen einer \textit{bestmöglichen} Accuracy und Ressourcenverbrauch zu analysieren. Daher werden alle selektierten Modelle für die nachfolgende Tradeoff-Analyse durch Training bis zur Stagnation des Lernfortschrittes finalisiert.
 
 \section{Analyse des Ressourcenverbrauchs durch Portierung}
 
