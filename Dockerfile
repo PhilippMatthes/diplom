@@ -43,12 +43,10 @@ ARG USER_HOME
 
 COPY --chown=$USER_NAME:$USER_NAME . $USER_HOME
 
+RUN latexmk task
 RUN latexmk thesis
-
 FROM scratch
-
 ARG USER_HOME
-
-# Copy the pdf into the image.
+# Copy the thesis pdf from the image.
 COPY --from=build $USER_HOME/thesis.pdf /
 COPY --from=build $USER_HOME/thesis.log /
