@@ -2,6 +2,18 @@ import XCTest
 
 @testable import SHLModelEvaluation
 
+fileprivate func ramUsage() -> Double {
+    var taskInfo = task_vm_info_data_t()
+    var count = mach_msg_type_number_t(MemoryLayout<task_vm_info>.size) / 4
+    let _: kern_return_t = withUnsafeMutablePointer(to: &taskInfo) {
+        $0.withMemoryRebound(to: integer_t.self, capacity: 1) {
+            task_info(mach_task_self_, task_flavor_t(TASK_VM_INFO), $0, &count)
+        }
+    }
+    let usedMb = Double(taskInfo.phys_footprint) / 1000000.0
+    return usedMb
+}
+
 class RAMTests: XCTest {
     private func run(classifier: Classifier, runs: Int) throws {
         for _ in (0..<runs) {
@@ -23,7 +35,7 @@ class RAMTests: XCTest {
             )
             // Run
             try run(classifier: classifier, runs: 3)
-            let mb = ram_usage()
+            let mb = ramUsage()
 
             print("CPU - RAM Usage for \(modelId): \(mb)")
         }
@@ -38,7 +50,7 @@ class RAMTests: XCTest {
             )
             // Run
             try run(classifier: classifier, runs: 3)
-            let mb = ram_usage()
+            let mb = ramUsage()
 
             print("GPU - RAM Usage for \(modelId): \(mb)")
         }
@@ -53,7 +65,7 @@ class RAMTests: XCTest {
             )
             // Run
             try run(classifier: classifier, runs: 3)
-            let mb = ram_usage()
+            let mb = ramUsage()
 
             print("ANE - RAM Usage for \(modelId): \(mb)")
         }

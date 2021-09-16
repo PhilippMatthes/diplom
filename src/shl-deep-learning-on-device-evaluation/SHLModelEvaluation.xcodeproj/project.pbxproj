@@ -23,16 +23,15 @@
 		BE0D61A126E2503D008B66F1 /* WindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0D619F26E2503D008B66F1 /* WindowView.swift */; };
 		BE0D61A326E25E26008B66F1 /* LabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0D61A226E25E26008B66F1 /* LabelsView.swift */; };
 		BE0D61A426E25E26008B66F1 /* LabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0D61A226E25E26008B66F1 /* LabelsView.swift */; };
-		BE1D4D5626DFB5A100F9A0DD /* InferenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1D4D5526DFB5A100F9A0DD /* InferenceTests.swift */; };
 		BE1D4D8D26DFD0E600F9A0DD /* gyr_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE1D4D8A26DFD0E600F9A0DD /* gyr_mag.scaler.json */; };
 		BE1D4D8E26DFD0E600F9A0DD /* gyr_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE1D4D8A26DFD0E600F9A0DD /* gyr_mag.scaler.json */; };
 		BE1D4D8F26DFD0E600F9A0DD /* acc_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE1D4D8B26DFD0E600F9A0DD /* acc_mag.scaler.json */; };
 		BE1D4D9026DFD0E600F9A0DD /* acc_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE1D4D8B26DFD0E600F9A0DD /* acc_mag.scaler.json */; };
 		BE1D4D9126DFD0E600F9A0DD /* mag_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE1D4D8C26DFD0E600F9A0DD /* mag_mag.scaler.json */; };
 		BE1D4D9226DFD0E600F9A0DD /* mag_mag.scaler.json in Resources */ = {isa = PBXBuildFile; fileRef = BE1D4D8C26DFD0E600F9A0DD /* mag_mag.scaler.json */; };
-		BEB85A1826EA76020043F109 /* CPUTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB85A1726EA76020043F109 /* CPUTests.swift */; };
+		BE66CD0A26F393B000B41B84 /* InferenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1D4D5526DFB5A100F9A0DD /* InferenceTests.swift */; };
+		BE66CD1426F393B800B41B84 /* CPUTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB85A1726EA76020043F109 /* CPUTests.swift */; };
 		BEB85A1A26EA79ED0043F109 /* RAMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB85A1926EA79ED0043F109 /* RAMTests.swift */; };
-		BEB85A1C26EA7A1B0043F109 /* RAM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB85A1B26EA7A1B0043F109 /* RAM.swift */; };
 		BEB85A1E26EA7E7C0043F109 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB85A1D26EA7E7C0043F109 /* StorageTests.swift */; };
 		BEC81B0526E229810013D8AE /* PreprocessingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC81B0326E229710013D8AE /* PreprocessingTests.swift */; };
 		BEC81B1126E243DA0013D8AE /* DataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC81B0F26E243DA0013D8AE /* DataTest.swift */; };
@@ -57,7 +56,6 @@
 		BECBDC9926EA6B6700A39619 /* ea70373fe386b068ffab6704b4ac25fc.tflite in Resources */ = {isa = PBXBuildFile; fileRef = BECBDC7926EA67A500A39619 /* ea70373fe386b068ffab6704b4ac25fc.tflite */; };
 		BECBDC9A26EA6B6700A39619 /* 9988226d7297eb039365ad50f7c5ea0b.tflite in Resources */ = {isa = PBXBuildFile; fileRef = BECBDC7B26EA67A500A39619 /* 9988226d7297eb039365ad50f7c5ea0b.tflite */; };
 		BECBDC9B26EA6B6700A39619 /* cb5048dd197b94c8b420dbcdb49f378f.tflite in Resources */ = {isa = PBXBuildFile; fileRef = BECBDC7426EA67A500A39619 /* cb5048dd197b94c8b420dbcdb49f378f.tflite */; };
-		BECBDCA226EA6EE000A39619 /* CPU.c in Sources */ = {isa = PBXBuildFile; fileRef = BECBDCA126EA6EE000A39619 /* CPU.c */; };
 		BED566DD26E6577E0005A9D8 /* Triaxial.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F0D26DF730E0076F6F2 /* Triaxial.swift */; };
 		BED566DE26E6577E0005A9D8 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F0F26DF73490076F6F2 /* Window.swift */; };
 		BED566DF26E6577E0005A9D8 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE098F0B26DF6A950076F6F2 /* Parameter.swift */; };
@@ -108,7 +106,6 @@
 		BE1D4D8C26DFD0E600F9A0DD /* mag_mag.scaler.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mag_mag.scaler.json; sourceTree = "<group>"; };
 		BEB85A1726EA76020043F109 /* CPUTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUTests.swift; sourceTree = "<group>"; };
 		BEB85A1926EA79ED0043F109 /* RAMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAMTests.swift; sourceTree = "<group>"; };
-		BEB85A1B26EA7A1B0043F109 /* RAM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAM.swift; sourceTree = "<group>"; };
 		BEB85A1D26EA7E7C0043F109 /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 		BEC81B0326E229710013D8AE /* PreprocessingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreprocessingTests.swift; sourceTree = "<group>"; };
 		BEC81B0F26E243DA0013D8AE /* DataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTest.swift; sourceTree = "<group>"; };
@@ -124,8 +121,6 @@
 		BECBDC7C26EA67A500A39619 /* 6af8a156f95b675b9ae9689d66c25b64.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = 6af8a156f95b675b9ae9689d66c25b64.tflite; sourceTree = "<group>"; };
 		BECBDC7D26EA67A500A39619 /* 35d1710beb7573fa3d55a684e5e5d9a5.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = 35d1710beb7573fa3d55a684e5e5d9a5.tflite; sourceTree = "<group>"; };
 		BECBDC9C26EA6E0900A39619 /* SHLModelEvaluationTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SHLModelEvaluationTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		BECBDCA026EA6EE000A39619 /* CPU.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPU.h; sourceTree = "<group>"; };
-		BECBDCA126EA6EE000A39619 /* CPU.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = CPU.c; sourceTree = "<group>"; };
 		BEDB209626E2229A003746DC /* generate_data.ipynb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = generate_data.ipynb; sourceTree = "<group>"; };
 		BEDBE43A26B7DBC70091E5AE /* SHLModelEvaluation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHLModelEvaluation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEDBE43D26B7DBC70091E5AE /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -222,7 +217,6 @@
 		BE1D4D5426DFB5A100F9A0DD /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				BEB85A1626EA75ED0043F109 /* Library */,
 				BEB85A1526EA75E30043F109 /* Integration */,
 				BEB85A1426EA75DC0043F109 /* Profiling */,
 				BEDB209526E21AC6003746DC /* Data */,
@@ -251,16 +245,6 @@
 				BEC81B1226E2444E0013D8AE /* ModelTests.swift */,
 			);
 			path = Integration;
-			sourceTree = "<group>";
-		};
-		BEB85A1626EA75ED0043F109 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				BECBDCA026EA6EE000A39619 /* CPU.h */,
-				BECBDCA126EA6EE000A39619 /* CPU.c */,
-				BEB85A1B26EA7A1B0043F109 /* RAM.swift */,
-			);
-			path = Library;
 			sourceTree = "<group>";
 		};
 		BEDB209526E21AC6003746DC /* Data */ = {
@@ -476,21 +460,19 @@
 				BED566DF26E6577E0005A9D8 /* Parameter.swift in Sources */,
 				BEC81B0526E229810013D8AE /* PreprocessingTests.swift in Sources */,
 				BEB85A1A26EA79ED0043F109 /* RAMTests.swift in Sources */,
+				BE66CD0A26F393B000B41B84 /* InferenceTests.swift in Sources */,
 				BED566E226E6577E0005A9D8 /* Classifier.swift in Sources */,
 				BEE0E27626ECA51000117D59 /* Models.swift in Sources */,
-				BEB85A1826EA76020043F109 /* CPUTests.swift in Sources */,
-				BEB85A1C26EA7A1B0043F109 /* RAM.swift in Sources */,
 				BED566DE26E6577E0005A9D8 /* Window.swift in Sources */,
 				BEC81B1126E243DA0013D8AE /* DataTest.swift in Sources */,
 				BED566E326E6577E0005A9D8 /* Preprocessing.swift in Sources */,
 				BED566E126E6577E0005A9D8 /* Sensors.swift in Sources */,
 				BE0D61A426E25E26008B66F1 /* LabelsView.swift in Sources */,
-				BE1D4D5626DFB5A100F9A0DD /* InferenceTests.swift in Sources */,
 				BEC81B1426E2444E0013D8AE /* ModelTests.swift in Sources */,
 				BE0D619E26E24F87008B66F1 /* CardView.swift in Sources */,
 				BEB85A1E26EA7E7C0043F109 /* StorageTests.swift in Sources */,
 				BED566DD26E6577E0005A9D8 /* Triaxial.swift in Sources */,
-				BECBDCA226EA6EE000A39619 /* CPU.c in Sources */,
+				BE66CD1426F393B800B41B84 /* CPUTests.swift in Sources */,
 				BED566E026E6577E0005A9D8 /* Pipeline.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
