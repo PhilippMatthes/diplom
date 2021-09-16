@@ -36,28 +36,43 @@ Die Tiefe der Modelle scheint analog zu den Betrachtungen aus \Cref{ch:verwandte
 
 \section{Ergebnisse der Top-10-Finalisierung}
 
-Die Resultate der Top-10-Finalisierung sind in \Cref{tab:finalization-results} aufgelistet. Die Ergebnisse sind mit der Rangfolge aus der Rastersuche versehen. Einige der selektierten Modelle konnten durch Finalisierung ein signifikant besseres Ergebnis erreichen, als es die initiale Rangfolge aus der Rastersuche zunächst vermuten lässt.
-
 \begin{table}[h]
   \input{sections/evaluation/finalization-results}
-  \caption{Ergebnisse der Top-10-Finalisierung.}\label{tab:finalization-results}
+  \caption{Quantitative Ergebnisse der Top-10-Finalisierung.}\label{tab:finalization-results}
 \end{table}
+
+Die Resultate der Top-10-Finalisierung sind in \Cref{tab:finalization-results} aufgelistet. Die Ergebnisse sind mit der Rangfolge aus der Rastersuche versehen. Einige der selektierten Modelle konnten durch Finalisierung ein signifikant besseres Ergebnis erreichen, als es die initiale Rangfolge aus der Rastersuche zunächst vermuten lässt. Das Modell \texttt{4ad2e7} auf Rang 4 der Rastersuche konnte das Modell \texttt{968ca3} auf Rang 1 in der Validation-Accuracy übertreffen. Gleichzeitig besitzt das Modell \texttt{4ad2e7} auch die kleinste Speichergröße im Festspeicher von 3,96 MB. Insgesamt lässt sich beobachten, dass die größeren Modelle nicht zwangsweise eine bessere Accuracy erreichen können, als die getesteten kleineren Modellvarianten. Die Rastersuche konnte somit mehrere Modellkonfigurationen identifizieren, welche vergleichsweise klein sind, gleichzeitig jedoch keinen signifikanten Tradeoff in der Validation-Accuracy aufweisen und somit bereits von diesem Standpunkt aus als besonders attraktiv für das Deployment auf Smartphones zu betrachten sind.
 
 \begin{figure}[h]
   \includegraphics[width=\linewidth, bb=0 0 1072 567]{shl/finalization-results-accuracy.pdf}
-  \caption{Accuracy-Ergebnisse der Top-10-Finalisierung.}\label{fig:finalization-results-accuracy}
+  \caption{Entwicklung der Accuracy bei der Top-10-Finalisierung.}\label{fig:finalization-results-accuracy}
 \end{figure}
 
+Ebenfalls in \Cref{tab:finalization-results} hervorgehoben und anhand der Finalisierungsverläufe in \Cref{fig:finalization-results-accuracy} sichtbar ist das Overfitting der Modelle. Während des Trainings erreichten alle Modelle ein Plateau in der Validation-Accuracy, ein starker, auf Overfitting hindeutender, Abfall der Verläufe konnte jedoch nicht beobachtet werden. Der Finalisierungsprozess wurde bei 3 von 10 Modellen durch Early Stopping terminiert. Dass die Kurven der Train-Accuracy im Vergleich mit der Validation-Accuracy voneinander abweichen ist ein erwartetes Verhalten, bei einigen Modellen jedoch weichen die beiden Kurven stärker ab als bei anderen. Im Vergleich zeigen die getesteten Modelle auf STFT-Eingaben hierbei eine stärkere Differenz als die Modelle auf reinen Eingabedaten. Es wurden jedoch nur wenige STFT-Modelle betrachtet.
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth, bb=0 0 1071 567]{shl/finalization-results-loss.pdf}
+  \caption{Entwicklung der Kreuzentropie bei der Top-10-Finalisierung.}\label{fig:finalization-results-loss}
+\end{figure}
+
+Neben STFT-Modellen zeigen auch die getesteten größeren Modellkonfigurationen eine erhöhte Abweichung zwischen der Train-Accuracy und der Validation-Accuracy. Dies deutet auf Overfitting hin, welches aus der Modellgröße resultiert. Die bei der Rastersuche beobachtete Entwicklung der Kreuzentropie bildet sich auch bei der Finalisierung erneut ab. Dies ist in \Cref{fig:finalization-results-loss} gezeigt. Auch hier zeigen die vergleichsweise großen Modelle eine stärkere Differenz zwischen Trainingsdaten und Validierungsdaten und somit eine erhöhte Unsicherheit beim Test der Generalisierungsfähigkeit. Die im Rahmen der Finalisierung einbezogenen größeren Modelle zeigen also nicht nur ein verstärktes Overfitting und eine stärkere Unsicherheit anhand der Kreuzentropie, sondern konnten auch in der Accuracy keine signifikant besseren Ergebnisse erzielen als vergleichsweise kleine Modellkonfigurationen. Ein Tradeoff allein anhand der Modellgröße konnte somit nicht beobachtet werden.
+
 \section{Ergebnisse der Tradeoff-Analyse}
+
+Die finalisierten Modelle wurden einem Profiling unterzogen, wie es in \Cref{ch:konzept} konzeptuell vorgestellt wurde. Die Ergebnisse sind in \Cref{tab:tradeoff-analyse-ergebnisse} aufgeschlüsselt. Die zwei Tradeoff-Parameter der Validation-Accuracy und der Modellgröße im Festspeicher wurden als Ergebnisse der Finalisierung übertragen. Mit einbezogen sind außerdem Analysewerte, die eine Auskunft über die auf den jeweiligen Hardwarebeschleuniger übertragenen Operationen geben. Dieser Wert ist mitunter sehr unterschiedlich und hängt davon ab, wieviele der verwendeten Operationen innerhalb des ResNet-Modells in Abhängigkeit von der Modellkonfiguration unterstützt werden. Einige Modelle konnten somit nur zu einem geringen Teil auf der GPU oder der \acrshort{ane} ausgeführt werden. Das bezüglich des relativen Anteils der ausgelagerten Operationen am besten auslagerbare Modell ist auch das größte getestete Modell mit 168.53 MB Speicherbedarf auf dem Festwertspeicher. Außerdem konnte beobachtet werden, dass mehr Operationen auf den \acrshort{ane}-Koprozessor ausgelagert werden können als auf die interne GPU.
+
+Der RAM-Speicherverbrauch zeigt, dass die Modelle, zumindest bei einer nicht assistierten Ausführung auf der CPU, keine signifikant unterschiedlichen Anforderungen hieran aufweisen. Die Modelle werden offenbar durch das verwendete Framework TensorFlow Lite speichereffizient geladen und erreichen somit nur marginale RAM-Verbräuche. Ein leicht erhöhter RAM-Verbrauch ist bei der Ausführung auf der \acrshort{ane} messbar, eine Korrelation mit der Anzahl ausgelagerter Operationen ist nicht erkennbar. Vielmehr scheint der RAM-Verbrauch anzusteigen, wenn eine insgesamt große Anzahl von Operationen im Modell vorhanden ist, diese jedoch nur zu einem untergeordneten Teil auf die \acrshort{ane} ausgelagert werden können. Dies lässt vermuten, dass der kausale Zusammenhang hinter der geringfügigen Erhöhung des RAM-Verbrauchs durch die Kommunikation zwischen den Operationen auf unterschiedlichen Hardwarekomponenten bedingt sein kann. Auch der RAM-Verbrauch auf der GPU zeigt einen betrachtenswerten Zusammenhang. Da bei der Messung des Speicherverbrauchs auch der VRAM der GPU mit gemessen wurde, zeigt sich bei dem Modell \texttt{752315} mit den meisten ausgelagerten Operationen ein systemübergreifender Speicherverbrauch von 347 MB und somit der einzige Speicherverbrauch, der bezüglich der Systemlimitationen als erhöht interpretiert werden kann. Plattformübergreifend zeigt sich, dass der beobachtete Speicherverbrauch nur marginal zwischen den getesteten Plattformen abweicht, sofern dies beurteilt werden kann. Unbekannt ist beispielsweise, ob neuere Versionen der \acrshort{ane} andere Messwerte bedingen, beispielsweise durch eine verbesserte Verfügbarkeit von auszulagernden Operationen. Selbst, wenn dies der Fall ist, können ältere Geräte jedoch nicht vernachlässigt werden, als Gegenstand der Betrachtung möglicher zu unterstützender Geräte, auf der eine App später ausgeführt wird.
 
 \begin{landscape}
 \begin{table}[]
   \resizebox{\textwidth}{!}{%
     \input{sections/evaluation/tradeoff-results}
-    \caption[Ergebnisse der Tradeoff-Analyse.]{Ergebnisse der Tradeoff-Analyse. Unter Xcode 12 konnten im Unterschied zum iPhone SE trotz verschiedener Versuche zur Problembehandlung keine Energy Logs (in \acrshort{aeu}) des iPhone XS aufgezeichnet werden. Die Schnittstelle zeigte lediglich den Hinweis \enquote{No Data}, während alle anderen Hardwareparameter problemlos aufgezeichnet werden konnten. Die Instruments-Schnittstelle zur Aufzeichnung von Energy Logs wurde darüber hinaus in der aktuellsten Beta von Xcode komplett entfernt, sodass die genauen \acrshort{aeu}-Werte nur für das iPhone SE bekannt sind.}
+    \caption{Ergebnisse der Tradeoff-Analyse.}\label{tab:tradeoff-analyse-ergebnisse}
   }
 \end{table}
 \end{landscape}
+
+% Unter Xcode 12 konnten im Unterschied zum iPhone SE trotz verschiedener Versuche zur Problembehandlung keine Energy Logs (in \acrshort{aeu}) des iPhone XS aufgezeichnet werden. Die Schnittstelle zeigte lediglich den Hinweis \enquote{No Data}, während alle anderen Hardwareparameter problemlos aufgezeichnet werden konnten. Die Instruments-Schnittstelle zur Aufzeichnung von Energy Logs wurde darüber hinaus in der aktuellsten Beta von Xcode komplett entfernt, sodass die genauen \acrshort{aeu}-Werte nur für das iPhone SE bekannt sind.
 
 \section{Ergebnisse der Optimierung}
 
