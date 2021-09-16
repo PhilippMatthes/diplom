@@ -59,7 +59,7 @@ class CPUTests: XCTest {
         for modelId in Models.all {
             let classifier = try Classifier(
                 modelFileName: modelId,
-                accelerator: .none,
+                accelerator: .ane,
                 threads: 1
             )
             // Cold run

@@ -103,6 +103,13 @@ struct SHLModelEvaluationApp: App {
 
     var body: some Scene {
         WindowGroup {
+            EmptyView()
+        }
+    }
+
+    /*
+    var body: some Scene {
+        WindowGroup {
             content
                 .onChange(of: gnssIsActive) { isActive in
                     if isActive {
@@ -126,4 +133,5 @@ struct SHLModelEvaluationApp: App {
                 .onDisappear(perform: pipeline.stop)
         }
     }
+    */
 }
