@@ -61,7 +61,9 @@ Neben STFT-Modellen zeigen auch die getesteten größeren Modellkonfigurationen 
 
 Die finalisierten Modelle wurden einem Profiling unterzogen, wie es in \Cref{ch:konzept} konzeptuell vorgestellt wurde. Die Ergebnisse sind in \Cref{tab:tradeoff-analyse-ergebnisse} aufgeschlüsselt. Die zwei Tradeoff-Parameter der Validation-Accuracy und der Modellgröße im Festspeicher wurden als Ergebnisse der Finalisierung übertragen. Mit einbezogen sind außerdem Analysewerte, die eine Auskunft über die auf den jeweiligen Hardwarebeschleuniger übertragenen Operationen geben. Dieser Wert ist mitunter sehr unterschiedlich und hängt davon ab, wieviele der verwendeten Operationen innerhalb des ResNet-Modells in Abhängigkeit von der Modellkonfiguration unterstützt werden. Einige Modelle konnten somit nur zu einem geringen Teil auf der GPU oder der \acrshort{ane} ausgeführt werden. Das bezüglich des relativen Anteils der ausgelagerten Operationen am besten auslagerbare Modell ist auch das größte getestete Modell mit 168.53 MB Speicherbedarf auf dem Festwertspeicher. Außerdem konnte beobachtet werden, dass mehr Operationen auf den \acrshort{ane}-Koprozessor ausgelagert werden können als auf die interne GPU.
 
-Der RAM-Speicherverbrauch zeigt, dass die Modelle, zumindest bei einer nicht assistierten Ausführung auf der CPU, keine signifikant unterschiedlichen Anforderungen hieran aufweisen. Die Modelle werden offenbar durch das verwendete Framework TensorFlow Lite speichereffizient geladen und erreichen somit nur marginale RAM-Verbräuche. Ein leicht erhöhter RAM-Verbrauch ist bei der Ausführung auf der \acrshort{ane} messbar, eine Korrelation mit der Anzahl ausgelagerter Operationen ist nicht erkennbar. Vielmehr scheint der RAM-Verbrauch anzusteigen, wenn eine insgesamt große Anzahl von Operationen im Modell vorhanden ist, diese jedoch nur zu einem untergeordneten Teil auf die \acrshort{ane} ausgelagert werden können. Dies lässt vermuten, dass der kausale Zusammenhang hinter der geringfügigen Erhöhung des RAM-Verbrauchs durch die Kommunikation zwischen den Operationen auf unterschiedlichen Hardwarekomponenten bedingt sein kann. Auch der RAM-Verbrauch auf der GPU zeigt einen betrachtenswerten Zusammenhang. Da bei der Messung des Speicherverbrauchs auch der VRAM der GPU mit gemessen wurde, zeigt sich bei dem Modell \texttt{752315} mit den meisten ausgelagerten Operationen ein systemübergreifender Speicherverbrauch von 347 MB und somit der einzige Speicherverbrauch, der bezüglich der Systemlimitationen als erhöht interpretiert werden kann. Plattformübergreifend zeigt sich, dass der beobachtete Speicherverbrauch nur marginal zwischen den getesteten Plattformen abweicht, sofern dies beurteilt werden kann. Unbekannt ist beispielsweise, ob neuere Versionen der \acrshort{ane} andere Messwerte bedingen, beispielsweise durch eine verbesserte Verfügbarkeit von auszulagernden Operationen. Selbst, wenn dies der Fall ist, können ältere Geräte jedoch nicht vernachlässigt werden, als Gegenstand der Betrachtung möglicher zu unterstützender Geräte, auf der eine App später ausgeführt wird.
+\subsection{Arbeitsspeicherverbrauch}
+
+Der Arbeitsspeicherverbrauch zeigt, dass die Modelle, zumindest bei einer nicht assistierten Ausführung auf der CPU, keine signifikant unterschiedlichen Anforderungen hieran aufweisen. Die Modelle werden offenbar durch das verwendete Framework TensorFlow Lite speichereffizient geladen und erreichen somit nur marginale RAM-Verbräuche. Ein leicht erhöhter Arbeitsspeicherverbrauch ist bei der Ausführung auf der \acrshort{ane} messbar, eine Korrelation mit der Anzahl ausgelagerter Operationen ist nicht erkennbar. Vielmehr scheint der Arbeitsspeicherverbrauch anzusteigen, wenn eine insgesamt große Anzahl von Operationen im Modell vorhanden ist, diese jedoch nur zu einem untergeordneten Teil auf die \acrshort{ane} ausgelagert werden können. Dies lässt vermuten, dass der kausale Zusammenhang hinter der geringfügigen Erhöhung des Arbeitsspeicherverbrauchs durch die Kommunikation zwischen den Operationen auf unterschiedlichen Hardwarekomponenten bedingt sein kann. Auch der Arbeitsspeicherverbrauch auf der GPU zeigt einen betrachtenswerten Zusammenhang. Da bei der Messung des Speicherverbrauchs auch der VRAM der GPU mit gemessen wurde, zeigt sich bei dem Modell \texttt{752315} mit den meisten ausgelagerten Operationen ein systemübergreifender Speicherverbrauch von 347 MB und somit der einzige Speicherverbrauch, der bezüglich der Systemlimitationen als erhöht interpretiert werden kann. Plattformübergreifend zeigt sich, dass der beobachtete Speicherverbrauch nur marginal zwischen den getesteten Plattformen abweicht, sofern dies beurteilt werden kann. Unbekannt ist beispielsweise, ob neuere Versionen der \acrshort{ane} andere Messwerte bedingen, beispielsweise durch eine verbesserte Verfügbarkeit von auszulagernden Operationen. Selbst, wenn dies der Fall ist, können ältere Geräte jedoch nicht vernachlässigt werden, als Gegenstand der Betrachtung möglicher zu unterstützender Geräte, auf der eine App später ausgeführt wird.
 
 \begin{landscape}
 \begin{table}[]
@@ -72,18 +74,30 @@ Der RAM-Speicherverbrauch zeigt, dass die Modelle, zumindest bei einer nicht ass
 \end{table}
 \end{landscape}
 
+\subsection{Inferenzzeit}
+
 Einen weiteren zentralen Analyseaspekt stellen die Verhältnisse zur Inferenzzeit dar. Durch die Berechnung des Korellationskoeffizienten $R$ zwischen den Ressourcenparametern lassen sich die Verhältnisse quantifizieren. Während die Modellgröße mit der Anzahl der Operationen positiv korreliert ($R\approx0.93$), korreliert auch die Inferenzzeit analog zur Intuition mit der Anzahl von Operationen, der Median der Korrelationen für alle Geräte und Hardwarebeschleuniger liegt bei $R\approx0.87$. Das iPhone XS inferiert im Schnitt 55\% schneller auf der CPU und 60\% schneller auf der GPU als das iPhone SE. Die \acrshort{ane} konnte nur bei zwei Modellen einen nennenswerten Speedup erreichen. Den besten Speedup erreichte die \acrshort{ane} auf dem Modell \texttt{752315}, welches fast alle Operationen auf der \acrshort{ane} ausführen kann. Auf anderen Modellen wiederum war die \acrshort{ane} bis zu 260\% langsamer als die Ausführung auf der CPU. Während die Inferenzzeiten bei der Nutzung der \acrshort{ane} stark von der CPU abweichen, ergeben sich bei der Nutzung der GPU keine signfikanten Änderungen in der Inferenzzeit. Lediglich eine Modellkonfiguration konnte von der Ausführung auf der GPU einen Speedup von 46\% erreichen, der hierbei gemessene Speedup besteht jedoch nur auf dem iPhone SE und nicht auf dem iPhone XS.
+
+\subsection{CPU-Auslastung}
 
 Ein eng mit der Inferenzzeit verknüpfter Ressourcenparameter bildet sich in der CPU-Auslastung. Wird das Modell ausschließlich auf der CPU ausgeführt, korreliert die CPU-Auslastung mit der Inferenzzeit sehr stark positiv mit $R_{iPhoneSE}\approx0.98$ und $R_{iPhoneXS}\approx0.995$. Bei der Auslagerung der Modelle auf Hardwarebeschleuniger verzerrt sich dieses Bild, je nachdem, in welchem Anteil die Modelle noch auf der CPU ausgeführt werden. Das bereits häufiger als Beispiel genannte Modell \texttt{752315} kann die CPU-Auslastung um bis zu 227\% reduzieren. Die Last wird in diesem Fall jedoch nur auf die GPU verlagert. Ob dies in einem Vorteil im Energieverbrauch resultiert, muss also separat geprüft werden.
 
 \todo{CPU-Auslastung weiter eruieren}
 \todo{Energy-Usage diskutieren}
 
+\subsection{Energieverbrauch}
+
 Unter Xcode 12 konnten im Unterschied zum iPhone SE trotz verschiedener Versuche zur Problembehandlung keine Energy Logs (in \acrshort{aeu}) des iPhone XS aufgezeichnet werden. Die Schnittstelle zeigte lediglich den Hinweis \enquote{No Data}, während alle anderen Hardwareparameter problemlos aufgezeichnet werden konnten. Die Instruments-Schnittstelle zur Aufzeichnung von Energy Logs wurde darüber hinaus in der aktuellsten Beta von Xcode komplett entfernt, sodass die genauen \acrshort{aeu}-Werte nur für das iPhone SE bekannt sind.
+
+\subsection{Tradeoff und Selektion des Pareto-optimalen Modells}
 
 \section{Ergebnisse der Optimierung}
 
-\subsection{Limitierungen beim Pruning durch \acrshort{pqat} und XNNPACK}
+\subsection{Architekturelle Restrukturierung}
+
+\subsection{Pruning}
+
+% PQAT, XNNPACK + Limitationen
 
 \subsection{Beschränkung des Anwendungsfalls}
 
