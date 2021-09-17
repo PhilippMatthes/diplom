@@ -17,7 +17,7 @@ fileprivate extension URL {
     }
 }
 
-class StorageTests: XCTest {
+class StorageTests: XCTestCase {
     func testModelSizes() throws {
         for modelId in Models.all {
             guard

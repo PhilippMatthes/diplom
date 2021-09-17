@@ -2,7 +2,7 @@ import XCTest
 
 @testable import SHLModelEvaluation
 
-class InferenceTests: XCTest {
+class InferenceTests: XCTestCase {
     /// Test the inference time of the TFLite model.
     private func runInference(classifier: Classifier, runs: Int = 100) throws {
         for _ in (0..<runs) {

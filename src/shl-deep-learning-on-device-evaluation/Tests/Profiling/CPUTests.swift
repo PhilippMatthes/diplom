@@ -69,7 +69,7 @@ fileprivate func convertThreadInfoToThreadBasicInfo(_ threadInfo: [integer_t]) -
     return result
 }
 
-class CPUTests: XCTest {
+class CPUTests: XCTestCase {
     @discardableResult private func run(classifier: Classifier, runs: Int) throws -> CPUUsage {
         var usages = [CPUUsage]()
         for _ in (0..<runs) {
@@ -120,6 +120,7 @@ class CPUTests: XCTest {
         }
     }
 
+    /// Test the ANE.
     func testANE() throws {
         for modelId in Models.all {
             let classifier = try Classifier(

@@ -15,5 +15,5 @@ final class Models {
         "cb5048dd197b94c8b420dbcdb49f378f",
     ]
 
-    static let standard = "model"
+    static let standard = "4ad2e771492aac5b42c89d9b5a835857"
 }

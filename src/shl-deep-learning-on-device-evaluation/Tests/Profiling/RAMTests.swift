@@ -14,7 +14,7 @@ fileprivate func ramUsage() -> Double {
     return usedMb
 }
 
-class RAMTests: XCTest {
+class RAMTests: XCTestCase {
     private func run(classifier: Classifier, runs: Int) throws {
         for _ in (0..<runs) {
             let randomInputs = Array((0..<500)).map { i -> [Parameter] in
