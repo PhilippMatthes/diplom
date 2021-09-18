@@ -1,9 +1,8 @@
-\begin{longtable}[h]{@{\extracolsep{\fill}}lrrrr}
+\begin{tabular}[h]{p{8cm}rrrr}
 \toprule
-{Optimierung} & {Keine} & {Pruning} & {Sep.} & {Sep. +} \\
-{} & {} & {} & {} & {Pruning} \\
+{Optimierung} & {Keine} & {Pruning\footnote{\label{fn:xnnpack}Ohne XNNPACK.}} & {Sep. CNN-} & {Sep. +} \\
+{} & {} & {} & {Schichten} & {Pruning\footnoteref{fn:xnnpack}} \\
 \midrule
-\endhead
 Max. Validation-Accuracy (in \%) & {\cellcolor[HTML]{343434}} \color[HTML]{F1F1F1} 84.34 & {\cellcolor[HTML]{303030}} \color[HTML]{F1F1F1} 84.38 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 82.14 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 84.91 \\
 \midrule
 Modellgröße (in MB) & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 3.96 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 1.39 & {\cellcolor[HTML]{3B3B3B}} \color[HTML]{F1F1F1} 3.36 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 1.39 \\
@@ -36,5 +35,4 @@ CPU-Usage iPhone XS ANE (in \%) & {\cellcolor[HTML]{989898}} \color[HTML]{F1F1F1
 Energy-Usage iPhone SE CPU (in AEU) & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 11.50 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 12.50 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 12.50 & {\cellcolor[HTML]{7F7F7F}} \color[HTML]{F1F1F1} 12.00 \\
 Energy-Usage iPhone SE GPU (in AEU) & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 11.00 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 12.50 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 12.50 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 12.50 \\
 \bottomrule
-\caption{Tradeoff-Parameter der Modelloptimierung.}\label{tab:optimization-tradeoff-results}
-\end{longtable}
+\end{tabular}
