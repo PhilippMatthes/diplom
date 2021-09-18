@@ -1,0 +1,40 @@
+\begin{longtable}[h]{@{\extracolsep{\fill}}lrrrr}
+\toprule
+{Optimierung} & {Keine} & {Pruning} & {Sep.} & {Sep. +} \\
+{} & {} & {} & {} & {Pruning} \\
+\midrule
+\endhead
+Max. Validation-Accuracy (in \%) & {\cellcolor[HTML]{343434}} \color[HTML]{F1F1F1} 84.34 & {\cellcolor[HTML]{303030}} \color[HTML]{F1F1F1} 84.38 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 82.14 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 84.91 \\
+\midrule
+Modellgröße (in MB) & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 3.96 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 1.39 & {\cellcolor[HTML]{3B3B3B}} \color[HTML]{F1F1F1} 3.36 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 1.39 \\
+\midrule
+Operationen & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 83.00 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 108.00 & {\cellcolor[HTML]{0A0A0A}} \color[HTML]{F1F1F1} 107.00 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 108.00 \\
+Operationen auf GPU & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 6.00 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 6.00 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 7.00 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 6.00 \\
+Operationen auf ANE & {\cellcolor[HTML]{A6A6A6}} \color[HTML]{F1F1F1} 20.00 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 0.00 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 57.00 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 0.00 \\
+\midrule
+RAM-Usage iPhone SE CPU (in MB) & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 19.31 & {\cellcolor[HTML]{414141}} \color[HTML]{F1F1F1} 17.55 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 12.40 & {\cellcolor[HTML]{444444}} \color[HTML]{F1F1F1} 17.45 \\
+RAM-Usage iPhone SE GPU (in MB) & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 26.34 & {\cellcolor[HTML]{919191}} \color[HTML]{F1F1F1} 20.05 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 15.30 & {\cellcolor[HTML]{7F7F7F}} \color[HTML]{F1F1F1} 20.82 \\
+\midrule
+RAM-Usage iPhone XS CPU (in MB) & {\cellcolor[HTML]{1E1E1E}} \color[HTML]{F1F1F1} 20.59 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 21.19 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 16.09 & {\cellcolor[HTML]{010101}} \color[HTML]{F1F1F1} 21.17 \\
+RAM-Usage iPhone XS GPU (in MB) & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 26.84 & {\cellcolor[HTML]{6A6A6A}} \color[HTML]{F1F1F1} 23.36 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 18.50 & {\cellcolor[HTML]{575757}} \color[HTML]{F1F1F1} 23.99 \\
+RAM-Usage iPhone XS ANE (in MB) & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 29.31 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 21.05 & {\cellcolor[HTML]{7B7B7B}} \color[HTML]{F1F1F1} 25.31 & {\cellcolor[HTML]{E5E5E5}} \color[HTML]{000000} 21.92 \\
+\midrule
+Inferenzzeit iPhone SE CPU (in ms) & {\cellcolor[HTML]{E1E1E1}} \color[HTML]{000000} 10.91 & {\cellcolor[HTML]{1E1E1E}} \color[HTML]{F1F1F1} 11.04 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 10.89 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 11.06 \\
+Inferenzzeit iPhone SE GPU (in ms) & {\cellcolor[HTML]{EAEAEA}} \color[HTML]{000000} 13.56 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 14.21 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 13.50 & {\cellcolor[HTML]{0A0A0A}} \color[HTML]{F1F1F1} 14.18 \\
+\midrule
+Inferenzzeit iPhone XS CPU (in ms) & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 7.15 & {\cellcolor[HTML]{D1D1D1}} \color[HTML]{000000} 5.60 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 5.26 & {\cellcolor[HTML]{DADADA}} \color[HTML]{000000} 5.54 \\
+Inferenzzeit iPhone XS GPU (in ms) & {\cellcolor[HTML]{9E9E9E}} \color[HTML]{F1F1F1} 6.53 & {\cellcolor[HTML]{070707}} \color[HTML]{F1F1F1} 6.73 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 6.40 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 6.74 \\
+Inferenzzeit iPhone XS ANE (in ms) & {\cellcolor[HTML]{979797}} \color[HTML]{F1F1F1} 22.58 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 5.52 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 47.16 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 5.51 \\
+\midrule
+CPU-Usage iPhone SE CPU (in \%) & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 5.63 & {\cellcolor[HTML]{969696}} \color[HTML]{F1F1F1} 5.33 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 5.12 & {\cellcolor[HTML]{B4B4B4}} \color[HTML]{000000} 5.27 \\
+CPU-Usage iPhone SE GPU (in \%) & {\cellcolor[HTML]{656565}} \color[HTML]{F1F1F1} 5.33 & {\cellcolor[HTML]{2F2F2F}} \color[HTML]{F1F1F1} 5.41 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 5.10 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 5.48 \\
+\midrule
+CPU-Usage iPhone XS CPU (in \%) & {\cellcolor[HTML]{565656}} \color[HTML]{F1F1F1} 5.86 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 6.08 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 5.43 & {\cellcolor[HTML]{5A5A5A}} \color[HTML]{F1F1F1} 5.85 \\
+CPU-Usage iPhone XS GPU (in \%) & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 6.11 & {\cellcolor[HTML]{D2D2D2}} \color[HTML]{000000} 5.42 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 5.27 & {\cellcolor[HTML]{9E9E9E}} \color[HTML]{F1F1F1} 5.59 \\
+CPU-Usage iPhone XS ANE (in \%) & {\cellcolor[HTML]{989898}} \color[HTML]{F1F1F1} 8.97 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 6.48 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 12.65 & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 6.49 \\
+\midrule
+Energy-Usage iPhone SE CPU (in AEU) & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 11.50 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 12.50 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 12.50 & {\cellcolor[HTML]{7F7F7F}} \color[HTML]{F1F1F1} 12.00 \\
+Energy-Usage iPhone SE GPU (in AEU) & {\cellcolor[HTML]{FFFFFF}} \color[HTML]{000000} 11.00 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 12.50 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 12.50 & {\cellcolor[HTML]{000000}} \color[HTML]{F1F1F1} 12.50 \\
+\bottomrule
+\caption{Tradeoff-Parameter der Modelloptimierung.}\label{tab:optimization-tradeoff-results}
+\end{longtable}

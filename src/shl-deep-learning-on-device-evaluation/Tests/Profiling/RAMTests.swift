@@ -58,11 +58,11 @@ class RAMTests: XCTestCase {
 
     func testANE() throws {
         for modelId in Models.all {
-            let classifier = try Classifier(
+            guard let classifier = try? Classifier(
                 modelFileName: modelId,
                 accelerator: .ane,
                 threads: 1
-            )
+            ) else { return }
             // Run
             try run(classifier: classifier, runs: 3)
             let mb = ramUsage()

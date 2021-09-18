@@ -39,7 +39,7 @@ class InferenceTests: XCTestCase {
                 try runInference(classifier: classifier, runs: 100)
             }
 
-            print("CPU Time for \(modelId): \(seconds / 100)")
+            print("CPU Time for \(modelId) in ms: \((seconds / 100) * 1000)")
         }
     }
 
@@ -58,17 +58,17 @@ class InferenceTests: XCTestCase {
                 try runInference(classifier: classifier, runs: 100)
             }
 
-            print("GPU Time for \(modelId): \(seconds / 100)")
+            print("GPU Time for \(modelId) in ms: \((seconds / 100) * 1000)")
         }
     }
 
     func testANE() throws {
         for modelId in Models.all {
-            let classifier = try Classifier(
+            guard let classifier = try? Classifier(
                 modelFileName: modelId,
                 accelerator: .ane,
                 threads: 1
-            )
+            ) else { return }
             // Cold run
             try runInference(classifier: classifier, runs: 10)
 
@@ -77,7 +77,7 @@ class InferenceTests: XCTestCase {
                 try runInference(classifier: classifier, runs: 100)
             }
 
-            print("ANE Time for \(modelId): \(seconds / 100)")
+            print("ANE Time for \(modelId) in ms: \((seconds / 100) * 1000)")
         }
     }
 }
