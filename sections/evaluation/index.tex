@@ -128,7 +128,33 @@ Dieses Ergebnis kann anschließend weiter durch Postprocessing wie in \cite{wern
 
 \section{Limitationen und Risiken für die Validität}
 
+In den vorigen Sektionen wurde evaluiert, inwiefern sich ein Tradeoff bei der Messung der Ressourcenparameter verschiedener Modelle zur Verkehrsmittelerkennung feststellen lässt. Außerdem wurde ein Modell gefunden, welche anhand der vorliegenden Daten als Pareto-optimal betrachtet werden kann.
+
+\subsection{Beschränkung des Suchraums}
+
+Eine wichtige Limitation dieser Betrachtung ist die Beschränkung des Suchraums. In dieser Arbeit wurde der Suchraum auf den Movebis-Modellen aufgebaut und durch weitere traditionelle sowie neuartige Modelle ergänzt. Hierzu gehören jeweils verschiedene Möglichkeiten des Feature-Engineerings. In Angesicht der großen Bandbreite der möglichen Ansätze konnten diese nur über einen begrenzten Zeitraum getestet werden. Bei der sich hieran anschließenden Selektion des Basismodells steht die Vergleichbarkeit der betrachteten Modelle und deren Portierbarkeit über eine einheitliche Datenverarbeitungspipeline im Vordergrund. Die Selektion eines Basismodells schließt jedoch ein, dass andere Basismodelle in der Tradeoff-Analyse nicht mit betrachtet werden konnten. Hierdurch und auch durch die weiteren Selektionsschritte im vorgestellten Vorgehensmodell ist es wahrscheinlich, dass eine oder mehrere andere Kombinationen von Vorverarbeitung und Klassifikation existieren, welche übergreifend einen noch besseren Tradeoff bieten. Die Schwierigkeit besteht hierbei jedoch eher darin, diese Kombinationen zu finden.
+
+Das gefundene Modell ist somit zwar anhand der Daten als Pareto-optimal zu betrachten, durch Ausdehnung des Suchraums ist es jedoch wahrscheinlich, dass ein noch besseres Modell gefunden werden kann. Wäre beispielsweise die Finalisierung nur über die Top 3 Modelle der Rastersuche durchgeführt worden, so hätte das schließlich in der Top-10-Finalisierung beste Modell nicht gefunden werden können. Dieselbe Beobachtung gilt vermutlich auch für die Top 10 Modelle. Auch die Rastersuche selbst unterliegt diesem Problem. Relevant ist hierbei, wie sich die Konfidenz über die Pareto-Optimalität des besten Modells durch Vergrößerung des Suchraums verändert. Da die Selektion der Basisarchitektur, die Rastersuche und auch die Finalisierung auf empirischen Annahmen beruhen, welche zwar falsch sein können, aber dennoch zielgerichtete Heuristiken beinhalten, nimmt die Wahrscheinlichkeit der Entdeckung besserer Konfigurationen vermutlich mit Vergrößerung des Suchraums ab. Die sich hierdurch konstituierende Konfidenz der statistischen Aussagen beschränkt sich außerdem vor allem im zeitlichen Rahmen, welcher über dieser Arbeit steht. Die Dimensionierung des Suchraums steht dadurch stets in einem Kosten-Nutzen-Verhältnis, wobei sich die Kosten vor allem durch die aufgewendete Trainingszeit und die dabei in Anspruch genommenen Ressourcen beziehen. Während die Kosten gut beispielsweise anhand der Trainingsdauer pro Epoche vorhergesagt werden können, unterliegt der zugewonnene Nutzen einem statistischen Rauschen der Tradeoff-Parameter, welches die Abschätzung der Dimensionierung erschwert.
+
+\subsection{Messungenauigkeiten}
+
+Neben dem statistischen Rauschen, welches insbesondere durch die hohe Variabilität der Modellkonfigurationen induziert wird, sind auch Messungenauigkeiten mit in die Betrachtung der Ergebnisse mit einzubeziehen.
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth, bb=0 0 910 262]{shl/measurement-skew.pdf}
+  \caption{Beobachtete Messungenauigkeiten bei der Messung der Tradeoff-Parameter.}\label{fig:measurement-skew}
+\end{figure}
+
+Die beobachteten Messungenauigkeiten sind in \Cref{fig:measurement-skew} gezeigt. Die Messung der RAM-Auslastung streut nicht, daher ist sie nicht gezeigt. Bei der Inferenzzeit hingegen ist eine Streuung feststellbar. Diese ist jedoch anhand der Betrachtungen normalverteilt um das arithmetische Mittel der Messungen und so geringfügig, dass sie im multilateralen Vergleich zwischen den Modellen an Bedeutung verliert. Die Messung der CPU-Auslastung rauscht in größerem Maße, in \Cref{fig:measurement-skew} ist das Rauschen im Histogramm anhand der jeweiligen Hardwarebeschleuniger beispielhaft dargestellt. Dieses Rauschen ist einseitig (erhöht die Last) und kommt daher mutmaßlich durch Hintergrundprozesse der App zustande, welche aufgrund der technischen Limitationen nicht weiter aufgeschlüsselt werden können. Das arithmetische Mittel verschiebt sich hierdurch vom Zentrum der im Histogramm dargestellten Verteilung. Diese Verschiebung ist jedoch in allen Messungen in annähernd gleicher Form enthalten, sodass die Messungen über die CPU-Auslastung dennoch vergleichbar bleiben.
+
 \subsection{Abhängigkeit von Threads}
+
+\begin{figure}[h]
+  \includegraphics[width=\linewidth, bb=0 0 726 258]{shl/threads.pdf}
+  \caption{Beobachtete Abhängigkeit der CPU-Last von den verwendeten Threads.}\label{fig:threads}
+\end{figure}
+
+Ein weiterer Faktor, der bei der Messung eine zentrale Rolle spielt, sind die zur Modellinferenz genutzten Threads. Prinzipiell können diese frei konfiguriert werden, in den Messungen wurden diese jedoch auf 1 Thread limitiert, um eine Vergleichbarkeit zu gewährleisten. Die Anzahl Threads wurde auf 1 limitiert, da bei den beobachteten Modellen analog zu \Cref{fig:threads} kein signifikanter Speedup festgestellt werden konnte, der die Erhöhung der CPU-Auslastung rechtfertigt. Dennoch fügt die Konfiguration der Threads eine weitere Dimension hinzu, welche insbesondere auf die Auslastung der berechnenden Ressourcen wirkt. Da nicht alle Modelle auf unterschiedlich vielen Threads getestet wurden, ist dies als weiterer limitierender Faktor zu werten, denn dies bietet theoretisch die Möglichkeit, dass eines der Modelle signifikant bessere Messwerte auf einer bestimmten Konfiguration von Threads erzeugt und somit einen besseren Tradeoff bietet. Die Wahrscheinlichkeit dieses Ereignisses ist jedoch fraglich, da die CPU-Auslastung mit der Anzahl von Threads bei den getesteten Modellen analog zu \Cref{fig:threads} positiv korreliert und somit auch vermutlich den Energieverbrauch als wichtigen Tradeoff-Parameter verschlechtert.
 
 \subsection{Abhängigkeit von der Inferenzrate}
 
