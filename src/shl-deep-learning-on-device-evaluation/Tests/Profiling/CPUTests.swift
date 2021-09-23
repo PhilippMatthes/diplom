@@ -22,13 +22,12 @@ class CPUTests: XCTestCase {
             }
             _ = try classifier.classify(input: randomInputs)
             usages.append(cpu_usage())
-            usleep(500_000)
+            let hz: UInt32 = 2
+            usleep(1_000_000 / hz)
         }
         let mean = usages.reduce(0, +) / Float(usages.count)
         let v = usages.reduce(0, { $0 + ($1-mean)*($1-mean) })
         let std = sqrt(v / (Float(usages.count) - 1))
-
-        print(usages)
 
         return .init(mean: mean, std: std)
     }
@@ -44,7 +43,7 @@ class CPUTests: XCTestCase {
             try run(classifier: classifier, runs: 3)
 
             // Warm run
-            let usage = try run(classifier: classifier, runs: 100)
+            let usage = try run(classifier: classifier, runs: 10)
 
             print("CPU - CPU Usage for \(modelId): \(usage)")
         }
@@ -61,7 +60,7 @@ class CPUTests: XCTestCase {
             try run(classifier: classifier, runs: 3)
 
             // Warm run
-            let usage = try run(classifier: classifier, runs: 100)
+            let usage = try run(classifier: classifier, runs: 10)
 
             print("GPU - CPU Usage for \(modelId): \(usage)")
         }
@@ -79,7 +78,7 @@ class CPUTests: XCTestCase {
             try run(classifier: classifier, runs: 3)
 
             // Warm run
-            let usage = try run(classifier: classifier, runs: 100)
+            let usage = try run(classifier: classifier, runs: 10)
 
             print("ANE - CPU Usage for \(modelId): \(usage)")
         }

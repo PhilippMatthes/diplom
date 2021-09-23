@@ -25,21 +25,7 @@ Die Finalisierung wurde mithilfe der Standardschnittstellen von Keras durchgefü
 Die komprimierten Modelle wurden in eine prototypische iOS-App eingefügt. Anschließend wurden die Vorverarbeitungsschritte portiert. Hierzu wurde die Implementation der Yeo-Johnson-Transformation aus dem Scikit-Learn-Framework studiert, nach Swift portiert und in eine Stream-Processing-Pipeline integriert. Hierbei wurden die zuvor als \texttt{json} exportierten Konfigurationdateien der Yeo-Johnson-Transformation importiert. Ausgangspunkt der Stream-Processing-Pipeline ist die Erfassung der Sensordaten, wobei die Konfiguration des auf Android\footnote{\url{https://github.com/STRCWearlab/DataLogger} (Abgerufen am 7.9.2021)} aufgezeichneten \acrshort{shl}-Datensatzes nachgeahmt werden musste. Die Abtastrate der Sensordaten wurde analog zum \acrshort{shl}-Datensatz auf 100Hz festgelegt. Als Akzelerometer-Input wurden die rohen Akzelerometerdaten verwendet, wobei diese mit dem Faktor 9.81 skaliert werden müssen, da iOS die Akzelerometerdaten in Vielfachen der Erdbeschleunigung angibt\footnote{\url{https://developer.apple.com/documentation/coremotion/cmmotionmanager} (Abgerufen am 7.9.2021)}. Die Gyrosensordaten werden in iOS in gleicher Form wie auf Android angeboten, daher können diese direkt übernommen werden. Als Magnetfelddaten wiederum wurden nicht die direkten Daten des Magnetometers, sondern die kalibrierten Daten der \textit{DeviceMotion}-Schnittstelle von iOS verwendet, wobei das eigene Magnetfeld des Smartphones bereits herausgerechnet wird.
 
 \begin{figure}[h]
-  \centering
-  \frame{
-    \begin{subfigure}[t]{.33\textwidth}
-      \centering
-      \includegraphics[width=\linewidth]{app-1.png}
-    \end{subfigure}
-    \begin{subfigure}[t]{.33\textwidth}
-      \centering
-      \includegraphics[width=\linewidth]{app-2.png}
-    \end{subfigure}
-    \begin{subfigure}[t]{.33\textwidth}
-      \centering
-      \includegraphics[width=\linewidth]{app-3.png}
-    \end{subfigure}
-  }
+  \includegraphics[width=\linewidth]{mockup.png}
   \caption{Screenshots der prototypischen App mit Modellselektion und aktivierbarer Visualisierung.}
   \label{fig:app}
 \end{figure}
